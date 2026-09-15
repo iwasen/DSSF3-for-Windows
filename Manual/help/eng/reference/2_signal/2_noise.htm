@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Noise</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Signal Generator</a></p>
+<hr />
+
+<h5>Noise</h5>
+In the noise generator, white noise, pink noise, and brown noise can be generated.	Stereo signal can be generated as monaural, dual, and inverse modes. Those differences can be seen by the phase meter. <br />
+<br />
+Time difference between channels can be set between -10 and +10 ms. Tone generator sets the phase difference between channels in "degree", but noise generator sets the time difference between channels in "ms".	This is because the absolute phase depends on the frequency and it cannot be set in the noise signal. In the example shown below, pink noise is generated with the time difference of 0.1 ms.<br />
+<img src="../img/signal_5.png" alt="" /><br />
+<b>Items in Noise generator</b><br />
+<table>
+	<tr>
+		<th>Field</th>
+		<th>Item</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td rowspan="3">Noise</td>
+		<td>White Noise</td>
+		<td>White noise contains equal energy for all frequency. Its power spectrum is flat.</td>
+	</tr>
+	<tr>
+		<td>Pink Noise</td>
+		<td>Pink noise contains equal energy for all octave frequency. Energy decreases for high frequency. Its octave band spectrum is flat.</td>
+	</tr>
+	<tr>
+		<td>Brown noise</td>
+		<td>Power spectrum of the brown noise decreases as the inverse square of its frequency (1 / f2).</td>
+	</tr>
+	<tr>
+		<td rowspan="3">Mode</td>
+		<td>Monaural</td>
+		<td>Outputs the same signal for left and right channels.</td>
+	</tr>
+	<tr>
+		<td>Dual</td>
+		<td>Outputs a different signal for each channel.</td>
+	</tr>
+	<tr>
+		<td class="nowrap">Inverse Phase</td>
+		<td>Outputs an inverse-phased signal for each channel.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Time difference</td>
+		<td>Specify the time difference between two channels in the range between -10 and +10 ms. </td>
+	</tr>
+</table>
+<br />
+<b><u>Note:</u></b><br />
+The above signal is displayed as below in the phase meter of the FFT analyzer. In the phase meter, the phase spectrum is displayed in real time.<br />
+<br />
+Sound waveform is not recovered by only the amplitude spectrum. Phase of each frequency component is important. If there is no phase delay, each sinusoidal wave is simply added, but if there is a phase delay, it becomes complicated. If the peaks of two waveforms are synchronized, they are added, but if the peak and the dip are synchronized, they are subtracted. Two sinusoidal waves with the same frequency increases the sound level 6 dB when they are added in-phase, but they become zero when added out-of-phase. The adjustment of time delay is as important as the adjustment of the frequency response (amplitude spectrum).<br />
+<img src="../img/signal_6.png" alt="" /><br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Signal Generator</a></p>
+<hr />
+</body>
+
+</html>

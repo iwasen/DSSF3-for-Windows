@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="マニュアルについて">
+		<param name="Local" value="default.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="目次">
+		<param name="Local" value="index.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="RA操作マニュアル ">
+		<param name="Local" value="operation\index.htm">
+		<param name="ImageNumber" value="1">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="基本的な測定方法 ">
+			<param name="Local" value="operation\1_basic\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="信号の入出力 ">
+				<param name="Local" value="operation\1_basic\1_signal.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="シグナルジェネレータとオシロスコープによる測定 ">
+				<param name="Local" value="operation\1_basic\2_oscilloscope.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="シグナルジェネレータとFFTアナライザによる測定 ">
+				<param name="Local" value="operation\1_basic\3_fft.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="測定前の調整 ">
+			<param name="Local" value="operation\2_adjustment\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="シグナルジェネレータの出力レベル調整 ">
+				<param name="Local" value="operation\2_adjustment\1_volume.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="D/Aコンバータの周波数特性を測定する ">
+				<param name="Local" value="operation\2_adjustment\2_soundcard.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="騒音計として使用するためのマイク校正方法">
+			<param name="Local" value="operation\3_microphone\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="マイクの感度校正 ">
+				<param name="Local" value="operation\3_microphone\1_caribration.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="マイクの周波数特性を補正する ">
+				<param name="Local" value="operation\3_microphone\2_compensation.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="騒音計との接続 ">
+			<param name="Local" value="operation\4_soundlevel\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="騒音計をパソコンに接続する ">
+				<param name="Local" value="operation\4_soundlevel\1_connection.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="入力レベルの校正 ">
+				<param name="Local" value="operation\4_soundlevel\2_SPL.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="RAの録音機能を利用する ">
+			<param name="Local" value="operation\6_recordingRA\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ACF測定、環境騒音測定を利用した音源の録音 ">
+				<param name="Local" value="operation\6_recordingRA\1_acf.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="サウンドレコーダー（録音再生機能） ">
+				<param name="Local" value="operation\6_recordingRA\2_recorder.htm">
+				</OBJECT>
+		</UL>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="インパルス応答測定 ">
+		<param name="Local" value="impulse\index.htm">
+		<param name="ImageNumber" value="1">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="はじめに ">
+			<param name="Local" value="impulse\1_introduction\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="インパルス応答測定の概要 ">
+			<param name="Local" value="impulse\2_features\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="測定ガイド ">
+			<param name="Local" value="impulse\3_measurement\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="機器の接続 ">
+				<param name="Local" value="impulse\3_measurement\1_connectingdevice.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="入力デバイスの設定、ボリュームコントロール ">
+				<param name="Local" value="impulse\3_measurement\2_inputdevice.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定条件の設定 ">
+				<param name="Local" value="impulse\3_measurement\3_configuration.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="調整機能の説明 ">
+				<param name="Local" value="impulse\3_measurement\4_adjustment.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="動作テスト例 ">
+				<param name="Local" value="impulse\3_measurement\5_opration.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データの読み込み、データベースのインポート ">
+				<param name="Local" value="impulse\3_measurement\6_load.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データの保存 ">
+				<param name="Local" value="impulse\3_measurement\7_save.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データの削除 ">
+				<param name="Local" value="impulse\3_measurement\8_delete.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データのバックアップ ">
+				<param name="Local" value="impulse\3_measurement\9_backup.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="高度な使用法のノウハウ ">
+			<param name="Local" value="impulse\4_advanced\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定支援機能 ">
+				<param name="Local" value="impulse\4_advanced\1_using.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="マイク校正、逆フィルタ補正 ">
+				<param name="Local" value="impulse\4_advanced\2_frequency.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="測定事例 ">
+			<param name="Local" value="impulse\5_examples\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ACF/ＣＣＦ測定 ">
+		<param name="Local" value="acf\index.htm">
+		<param name="ImageNumber" value="1">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="はじめに ">
+			<param name="Local" value="acf\1_introduction\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ランニングACF測定の概要 ">
+			<param name="Local" value="acf\2_features\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="測定ガイド ">
+			<param name="Local" value="acf\3_measurement\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="機器の接続 ">
+				<param name="Local" value="acf\3_measurement\1_connectingdevice.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="入力デバイスの設定、ボリュームコントロール ">
+				<param name="Local" value="acf\3_measurement\2_inputdevice.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定条件の設定 ">
+				<param name="Local" value="acf\3_measurement\3_configuration.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定開始 ">
+				<param name="Local" value="acf\3_measurement\4_performing.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データの読み込み、データベースのインポート ">
+				<param name="Local" value="acf\3_measurement\5_load.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データの保存 ">
+				<param name="Local" value="acf\3_measurement\6_save.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データの削除 ">
+				<param name="Local" value="acf\3_measurement\7_delete.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定データのバックアップ ">
+				<param name="Local" value="acf\3_measurement\8_backup.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="測定事例 ">
+			<param name="Local" value="acf\4_examples\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="RAリファレンスマニュアル ">
+		<param name="Local" value="reference\index.htm">
+		<param name="ImageNumber" value="1">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="メインウィンドウ ">
+			<param name="Local" value="reference\1_main\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="メニューバーの説明 ">
+				<param name="Local" value="reference\1_main\1-1_menubar.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="フォントサイズ、ウィンドウサイズの変更方法 ">
+				<param name="Local" value="reference\1_main\1-2_fontsize.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="入力装置(デバイス選択)、ピークレベルモニタの説明 ">
+				<param name="Local" value="reference\1_main\2_inputdevice.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ボタンの説明 ">
+				<param name="Local" value="reference\1_main\3_button.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="シグナルジェネレータ ">
+			<param name="Local" value="reference\2_signal\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="トーン ">
+				<param name="Local" value="reference\2_signal\1_tone.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ノイズ ">
+				<param name="Local" value="reference\2_signal\2_noise.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="スイープ ">
+				<param name="Local" value="reference\2_signal\3_sweep.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="パルス ">
+				<param name="Local" value="reference\2_signal\4_pulse.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="合成 ">
+				<param name="Local" value="reference\2_signal\5_composition.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="音階 ">
+				<param name="Local" value="reference\2_signal\6_scale.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="任意波形編集 ">
+				<param name="Local" value="reference\2_signal\7_waveform.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFTアナライザ ">
+			<param name="Local" value="reference\3_FFT\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="『FFTアナライザ』共通画面の説明 ">
+				<param name="Local" value="reference\3_FFT\1_common.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="測定ウインドウの説明 ">
+				<param name="Local" value="reference\3_FFT\2_window.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="マイク校正画面 ">
+				<param name="Local" value="reference\3_FFT\3_mike.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="データ記録画面 ">
+				<param name="Local" value="reference\3_FFT\4_data.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="オシロスコープ ">
+			<param name="Local" value="reference\4_oscilloscope\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="オシロスコープ機能の説明 ">
+				<param name="Local" value="reference\4_oscilloscope\1_function.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="周波数特性 ">
+			<param name="Local" value="reference\11_frequency\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="共通設定項目 ">
+				<param name="Local" value="reference\11_frequency\1_common.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="周波数スイープ ">
+				<param name="Local" value="reference\11_frequency\2_sweep.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="スポット周波数 ">
+				<param name="Local" value="reference\11_frequency\3_spot.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ピンクノイズ ">
+				<param name="Local" value="reference\11_frequency\4_pinknoise.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="歪率測定 ">
+			<param name="Local" value="reference\5_THD\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="共通設定項目 ">
+				<param name="Local" value="reference\5_THD\1_common.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="マニュアル測定 ">
+				<param name="Local" value="reference\5_THD\2_manual.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="周波数スイープ ">
+				<param name="Local" value="reference\5_THD\3_frequency.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="レベルスイープ ">
+				<param name="Local" value="reference\5_THD\4_level.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="インパルス応答 ">
+			<param name="Local" value="reference\6_impulse\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="インパルス応答測定画面の説明 ">
+				<param name="Local" value="reference\6_impulse\1_window.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="インパルス応答/[保存]機能 ">
+				<param name="Local" value="reference\6_impulse\2_save.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="インパルス応答/[読込]機能 ">
+				<param name="Local" value="reference\6_impulse\3_load.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="インパルス応答/測定調整機能 ">
+				<param name="Local" value="reference\6_impulse\4_auto.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="インパルス応答/逆フィルタ補正 ">
+				<param name="Local" value="reference\6_impulse\5_correction.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ACF/CCF測定 ">
+			<param name="Local" value="reference\7_running\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ACF測定画面の説明 ">
+				<param name="Local" value="reference\7_running\1_window.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ACF測定/[保存]機能 ">
+				<param name="Local" value="reference\7_running\2_save.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ACF測定/[読込]機能 ">
+				<param name="Local" value="reference\7_running\3_load.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="録音再生 ">
+			<param name="Local" value="reference\8_recorder\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="プリセット ">
+			<param name="Local" value="reference\9_preset\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="キーボードショートカットの使い方 ">
+			<param name="Local" value="reference\10_shortcut\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="補足 ">
+			<param name="Local" value="reference\appendix\index.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="入力装置の選択、入力ボリューム、ピークレベルモニタ ">
+				<param name="Local" value="reference\appendix\1_input.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="FFTアナライザの窓関数 ">
+				<param name="Local" value="reference\appendix\2_fft.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="ボリュームコントロールについて ">
+				<param name="Local" value="reference\appendix\3_volume.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="テスト信号CDの紹介 ">
+				<param name="Local" value="reference\appendix\4_level.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="時間分解能、周波数分解能について ">
+				<param name="Local" value="reference\appendix\5_time.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="相関関数について ">
+				<param name="Local" value="reference\appendix\6_function.htm">
+				</OBJECT>
+		</UL>
+	</UL>
+</UL>
+</BODY></HTML>

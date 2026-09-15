@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Frequency response compensation by the inverse filter</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Impulse response </a> &gt; <a href="index.htm">Tips for the advanced measurement</a></p>
+<hr />
+
+<h5>Frequency response compensation by the inverse filter</h5>
+It is ideal if a quality microphone and a loudspeaker are used. However, even if it is difficult to use such superior equipments, the measurement accuracy can be improved in RA by using the correcting function.<br />
+<br />
+<u>Correction of the measurement system by the Inverse filter</u><br />
+<br />
+The response of the measurement system itself (including microphone, amplifier, loudspeaker, and PC), can be compensated by creating the inverse filter. By removing the response of the measurement system, the correct response of the sound field can be measured. Procedures for creating the inverse filter is described below. <br />
+<br />
+To create an inverse filter, measure the impulse response close to the loudspeaker. This is to remove the effect of room. Impulse response just after the direct sound represents the response of the measurement system. <br />
+
+<ol>
+	<li>To create an inverse filter, place the microphone close to the loudspeaker and measure the impulse response. Then, click the "Save" button for "Correction". The "Save Filter" dialog opens.<br />
+		<img src="../img/tips_1.png" alt="" />
+	</li>
+	<li>In the "Save Filter" dialog, responses of the loudspeaker and the microphone are cut. Select only the direct sound from the impulse response. Input the Maximum Level which should be compensated. In this example, this value is set to 30 dB, but there is no limit. However, note that so large peaks or dips in the frequency response could not be compensated. After the adjustment, enter the title and comment, and click the Save button. <br />
+		<img src="../img/tips_2.png" alt="" />
+	</li>
+	<li>Click the "Setup" button for correction. "Setup Filter" dialog opens. Select the filter and click the OK button.<br />
+		<img src="../img/tips_3.png" alt="" />
+	</li>
+	<li>Then, start the measurement again. You will see the response of the measurement system is now removed. </li>
+</ol>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Impulse response </a> &gt; <a href="index.htm">Tips for the advanced measurement</a></p>
+<hr />
+</body>
+
+</html>

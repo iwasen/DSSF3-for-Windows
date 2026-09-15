@@ -1,0 +1,282 @@
+#include "ContextHelp.h"
+
+.topic IDH_CHANGE_NOISE_OK
+[騒音源リスト]で選択した騒音源に変更します。
+
+.topic IDH_CHANGE_NOISE_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_CHANGE_NOISE_ADD_NEW
+騒音源テンプレートを新規に追加します。
+
+.topic IDH_CHANGE_NOISE_SRC_LIST
+騒音源テンプレートの一覧が表示され、同定された騒音源が選択状態になっています。騒音源が正しく同定されなかった場合は、正しい騒音源に訂正してください。
+
+.topic IDH_GRAPH_FACTOR
+選択したグラフを表示します。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V
+グラフの縦方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_FACTOR_SCROLL_V
+グラフを縦方向にスクロールします。グラフの部分をクリックし、縦方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_FACTOR_ZOOM_H
+グラフの横方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_FACTOR_SCROLL_H
+グラフを横方向にスクロールします。グラフの部分をクリックし、横方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_FACTOR_H_FULL
+グラフウィンドウの横方向のズームを解除します。
+
+.topic IDH_GRAPH_FACTOR_H_IN
+グラフウィンドウを横方向にズームインします。
+
+.topic IDH_GRAPH_FACTOR_H_OUT
+グラフウィンドウを横方向にズームアウトします。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V_FULL
+グラフウィンドウの縦方向のズームを解除します。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V_IN
+グラフウィンドウを縦方向にズームインします。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V_OUT
+グラフウィンドウを縦方向にズームアウトします。
+
+.topic IDH_INPUT_DEVICE_READ
+設定した入力デバイスで測定を行います。
+
+.topic IDH_INPUT_DEVICE_RESET
+校正を行わずにデフォルトの状態で測定を行います。
+
+.topic IDH_INPUT_DEVICE_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_INPUT_DEVICE_REGIST
+校正データを新規に登録します。ダイアログの下部に校正データを設定してからクリックしてください。
+
+.topic IDH_INPUT_DEVICE_CHANGE
+校正データを上書き保存します。まず[校正データリスト]から変更したい校正データを選択し、表示された校正データの内容を変更後、クリックしてください。
+
+.topic IDH_INPUT_DEVICE_DELETE
+[校正データリスト]で選択している校正データを削除します。
+
+.topic IDH_INPUT_DEVICE_SETTING
+ダイアログの下部に校正データを表示し、編集できるようにします。
+
+.topic IDH_INPUT_DEVICE_INPUT_DEVICE
+測定に使用する入力デバイスを選択します。
+
+.topic IDH_INPUT_DEVICE_INPUT_SELECTOR
+測定に使用する入力デバイスの入力ソースを選択します。
+
+.topic IDH_INPUT_DEVICE_INPUT_VOLUME
+測定に使用する入力デバイスの入力ボリュームを設定します。
+
+.topic IDH_INPUT_DEVICE_MICCAL_LIST
+登録済みの校正データのリストを表示します。
+
+.topic IDH_INPUT_DEVICE_FREQ_RESPONSE
+マイクの周波数特性を表示します。右側の[設定]ボタンで周波数とレベルを何点か設定すると、その間をスプライン曲線でつないで表示します。測定時にはこの曲線と逆の特性を持ったフィルタにより、マイクの周波数特性をフラットに補正します。
+
+.topic IDH_INPUT_DEVICE_FREQ_LIST
+右側の[設定]ボタンで設定した周波数とレベルのリストが表示されます。
+
+.topic IDH_INPUT_DEVICE_FREQ
+マイクの周波数特性表などから周波数とレベルをの組み合わせを何点か選び、その周波数を入力します。特に周波数特性が変化する部分のデータを多く入力すると正確性が増します。
+
+.topic IDH_INPUT_DEVICE_LEVEL
+マイクの周波数特性表などから周波数とレベルをの組み合わせを何点か選び、そのレベルを入力します。特に周波数特性が変化する部分のデータを多く入力すると正確性が増します。
+
+.topic IDH_INPUT_DEVICE_FREQ_REGIST
+入力した周波数とレベルを周波数特性として設定します。何も設定しない場合は、フラットな周波数特性とみなします。
+
+.topic IDH_INPUT_DEVICE_FREQ_DELETE
+左のリストで選択した周波数とレベルの組み合わせを削除します。
+
+.topic IDH_INPUT_DEVICE_MICINFO
+使用するマイクについての情報を入力します。入力は必須ですが、内容は任意です。
+
+.topic IDH_INPUT_DEVICE_MICAMPINFO
+使用するマイクアンプについての情報を入力します。入力は任意です。
+
+.topic IDH_INPUT_DEVICE_COMMENT
+校正データについてのコメントを入力します。入力は任意です。
+
+.topic IDH_INPUT_DEVICE_INPUT_LEVEL
+現在の入力レベルを表示します。校正は使用するマイクと騒音計を同じ場所に置き、騒音計とこの数値が同じ値を示すように下のスクロールバーを調整して行います。
+
+.topic IDH_INPUT_DEVICE_FILTER
+校正に使用する騒音計と同じフィルタ特性を選択します。
+
+.topic IDH_INPUT_DEVICE_SIGNAL_OUT
+騒音計で校正する場合に1kHzのテスト信号を出力します。
+
+.topic IDH_INPUT_DEVICE_LEVEL_BAR
+校正は使用するマイクと騒音計を同じ場所に置き、騒音計と上の入力レベルが同じ数値を示すようにこのスクロールバーを調整して行います。
+
+.topic IDH_MANUAL_MODE_START_STOP
+マニュアル測定を開始します。クリックした時点から[最大測定時間]で設定した時間が経過するまで測定を行います。
+
+.topic IDH_MANUAL_MODE_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_MANUAL_MODE_SAMPLING_TIME
+一度の測定で取り込むデータ時間を入力します。
+
+.topic IDH_MANUAL_MODE_ELAPSE_TIME
+[開始]ボタンをクリックしてからの経過時間を表示します。
+
+.topic IDH_MEASURE_SET_OK
+設定した測定条件で測定を行います。
+
+.topic IDH_MEASURE_SET_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_MEASURE_SET_SAMPLING_RATE
+測定に使用するサンプリングレートを選択します。
+
+.topic IDH_MEASURE_SET_SAMPLING_LEVEL
+音圧レベルがここで設定した値を超えた場合に、自動計測（自動測定記録）を開始します。
+
+.topic IDH_MEASURE_SET_RELATIVE_LEVEL
+チェックを入れると、測定開始の最初の2秒間の平均を0dBとして、[抽出対象騒音レベル]で設定した値を超えた場合に測定を開始します。
+
+.topic IDH_MEASURE_SET_TIMECONSTANT
+音圧レベルを測定する時定数を設定します。デフォルトは0.15秒です。
+
+.topic IDH_MEASURE_SET_TIMING_PEAK
+音圧レベルが[抽出対象騒音レベル]を超えた後、音圧レベルがピークの時を基準時間に測定を行うように指定します。
+
+.topic IDH_MEASURE_SET_TIMING_LEVEL
+音圧レベルが[抽出対象騒音レベル]を超えた時点を基準時間に測定を行うように指定します。
+
+.topic IDH_MEASURE_SET_SAMPLING_TIME1
+基準時間より何秒前から測定記録するか指定します。
+
+.topic IDH_MEASURE_SET_SAMPLING_TIME2
+基準時間より何秒後ろまで測定記録するか指定します。
+
+.topic IDH_MEASURE_SET_INTEGRATION_TIME
+自己相関関数(ACF)の積分時間を入力します。
+
+.topic IDH_MEASURE_SET_RUNNING_STEP
+自己相関関数(ACF)の計算周期を入力します。
+
+.topic IDH_MEASURE_SET_FREQ_WEIGHTING
+聴感補正フィルタを選択します。
+
+.topic IDH_MEASURE_SET_MAX_DELAY_TIME
+自己相関関数(ACF)の最大遅れ時間を入力します。
+
+.topic IDH_MEASURE_SET_TAUE_INTERVAL
+τe（自己相関関数の有効継続時間）は自己相関関数(ACF)の絶対値を対数変換した後、 ここで設定した時間間隔でピークを検出し、 その回帰直線が-10dBになる遅れ時間として計算します。
+
+.topic IDH_MEASURE_SET_TAUE_ENDLEVEL
+τe（自己相関関数の有効継続時間）の回帰計算の終了レベルを入力します。ACF（自己相関関数）のピーク値がここで設定したレベルを下回るか、[回帰終了期間]で設定した時間が経過した場合、回帰計算を終了します。
+
+.topic IDH_MEASURE_SET_TAUE_ENDTIME
+τe（自己相関関数の有効継続時間）の回帰計算の終了時間を入力します。ここで設定した時間が経過するか、ACF（自己相関関数）のピーク値が[回帰終了レベル]で設定したレベルを下回った場合、回帰計算を終了します。
+
+.topic IDH_MEASURE_SET_TAUE_ORIGIN
+τe（自己相関関数の有効継続時間）の回帰計算に原点を含めるかどうかを設定します。
+
+.topic IDH_MEASURE_SET_IDENT_SPL
+SPL（音圧レベル）が最大となる時間のデータを騒音源の同定判定に使用します。
+
+.topic IDH_MEASURE_SET_IDENT_TAUE
+[最大音圧前]から[最大音圧後]までの間でτe（自己相関関数の有効継続時間）が最小となる時間のデータを騒音源の同定判定に使用します。
+
+.topic IDH_MEASURE_SET_IDENT_BEFORE_STEP
+最小τeの検索範囲を、SPL（音圧レベル）が最大となるデータから指定したステップ数前までに設定します。
+
+.topic IDH_MEASURE_SET_IDENT_AFTER_STEP
+最小τeの検索範囲を、SPL（音圧レベル）が最大となるデータから指定したステップ数後までに設定します。
+
+.topic IDH_MEASURE_SET_START_DATE_TIME
+チェックを入れると、測定を開始する時刻を指定できます。開始時刻を指定した場合は、その時刻になるまで測定を行いません。
+
+.topic IDH_MEASURE_SET_START_DATE
+測定を開始する年月日を指定します。
+
+.topic IDH_MEASURE_SET_START_TIME
+測定を開始する時刻を指定します。
+
+.topic IDH_MEASURE_SET_START_CURRENT_TIME
+開始年月日と時刻に現在の日時を設定します。
+
+.topic IDH_MEASURE_SET_END_DATE_TIME
+チェックを入れると、測定を終了する時刻を指定できます。終了時刻を指定した場合は、その時刻を過ぎると測定を行いません。
+
+.topic IDH_MEASURE_SET_END_DATE
+測定を終了する年月日を指定します。
+
+.topic IDH_MEASURE_SET_END_TIME
+測定を終了する時刻を指定します。
+
+.topic IDH_MEASURE_SET_END_CURRENT_TIME
+終了年月日と時刻に現在の日時を設定します。
+
+.topic IDH_NMS_FACTOR_GRAPH
+タブで選択したグラフを表示します。
+
+.topic IDH_NMS_FACTOR_LIST
+時系列でACFとIACFのファクタを表示します。
+
+.topic IDH_NMS_FACTOR_PLAY_BACK
+測定した音を再生します。
+
+.topic IDH_NMS_FACTOR_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_NOISE_SOURCE_OK
+入力した[騒音源名称]で騒音源テンプレートを新規に作成します。
+
+.topic IDH_NOISE_SOURCE_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_NOISE_SOURCE_NAME
+新たに作成する騒音源テンプレートの騒音源名称を入力します。
+
+.topic IDH_PEAK_LEVEL_CANCEL
+このウィンドウを閉じます。
+
+.topic IDH_PEAK_LEVEL_METER
+ピークレベルを表示します。このバーが右端に達している場合は入力レベルがオーバーしていますので、[入力デバイス設定]で入力ボリュームを絞ってください。
+
+.topic IDH_SAVE_OK
+測定したデータをデータベースに保存します。
+
+.topic IDH_SAVE_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_SAVE_FOLDER_LIST
+既に保存されている測定データの一覧が表示されます。
+
+.topic IDH_SAVE_TITLE
+保存する測定データに付けるタイトルを入力します。
+
+.topic IDH_SAVE_WAVE_NOSAVE
+チェックを入れると、データベースにWaveデータ（波形データ）を保存しません。保存しないとデータサイズは大幅に縮小されますが、音響分析システム(SA)で再計算が行えなくなります。
+
+.topic IDH_SAVE_NAME
+測定者の名前を入力します。（入力は任意です）
+
+.topic IDH_SAVE_PLACE
+測定場所を入力します。（入力は任意です）
+
+.topic IDH_SAVE_COMMENT
+コメントを入力します。（入力は任意です）
+
+.topic IDH_SAVE_DATE
+測定日付を入力します。
+
+.topic IDH_SPL_CANCEL
+このウィンドウを閉じます。
+
+.topic IDH_SPL
+現在の音圧レベルを表示します。
+
+#include "..\..\Common\Help\CommonHelp_J.txt"

@@ -1,0 +1,969 @@
+#include "ContextHelp.h"
+
+.topic IDH_CALC_IMP_OK
+設定した条件で計算処理を開始します。
+
+.topic IDH_CALC_IMP_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_CALC_IMP_CALC_NO
+未計算のデータだけを計算対象とします。
+
+.topic IDH_CALC_IMP_CALC_SELECT
+選択したデータだけを計算対象とします。
+
+.topic IDH_CALC_IMP_CALC_ALL
+全てのデータを計算対象とします。
+
+.topic IDH_CALC_IMP_1OCT
+周波数帯域別の計算を行う際に、１オクターブ毎に周波数を分割します。
+
+.topic IDH_CALC_IMP_3OCT
+周波数帯域別の計算を行う際に、１／３オクターブ毎に周波数を分割します。
+
+.topic IDH_CALC_IMP_START_FREQ
+分割する周波数の開始周波数を選択します。
+
+.topic IDH_CALC_IMP_END_FREQ
+分割する周波数の終了周波数を選択します。
+
+.topic IDH_CALC_IMP_AFILTER
+Ａ特性フィルタを適用します。
+
+.topic IDH_CALC_IMP_SPL_REFDATA
+SPL（音圧レベル）の基準となるデータを選択します。
+
+.topic IDH_CALC_IMP_SPL_REFLEVEL
+[基準データ]で選択したデータのレベルを入力します。それ以外のデータのSPL（音圧レベル）は基準レベルからの相対値となります。
+
+.topic IDH_CALC_IMP_TSUB_END
+Tsub（残響時間）の回帰計算の終了残響レベルを入力します。
+
+.topic IDH_CALC_IMP_TSUB_AUTO
+Tsub（残響時間）の回帰計算の終了残響レベルを自動的に最適なレベルに設定します。
+
+.topic IDH_CALC_IMP_TSUB_NOISE
+残響曲線の後半部分に存在するノイズ（暗騒音）の割合を入力します。指定した範囲の残響レベルをノイズとみなしてノイズ補正を行います。
+
+.topic IDH_CALC_IMP_G_REFLEVEL
+音圧レベル(G)の基準となるレベルを入力します。
+
+.topic IDH_CALC_IMP_DT1_MINTIME
+想定される最短の反射遅れ時間を入力します。Δt1（初期反射遅れ時間）は直接音から指定した時間以降に存在するとみなします。
+
+.topic IDH_CALC_IMP_IACC_WLEVEL
+IACC（両耳間相互相関度）を計算する際のWIACC（相互相関関数のピークの幅）の幅を入力します。
+
+.topic IDH_CALC_IMP_PREF_SPL
+プリファレンスを計算する際の最適音圧レベルを入力します。
+
+.topic IDH_CALC_IMP_PREF_TAUE
+プリファレンスの計算に必要なτe（自己相関関数の有効継続時間）の値を入力します。
+
+.topic IDH_CALC_IMP_T_CUSTOM1
+T_customの対象となる開始残響レベルを入力します。
+
+.topic IDH_CALC_IMP_T_CUSTOM2
+T_customの対象となる終了残響レベルを入力します。
+
+.topic IDH_CALC_IMP_C_CUSTOM
+C_customの対象となる残響時間を入力します。
+
+.topic IDH_CALC_ACF_IDOK
+設定した条件で計算処理を開始します。
+
+.topic IDH_CALC_ACF_IDCANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_CALC_ACF_CALC_NO
+未計算のデータだけを計算対象とします。
+
+.topic IDH_CALC_ACF_CALC_SELECT
+選択したデータだけを計算対象とします。
+
+.topic IDH_CALC_ACF_CALC_ALL
+全てのデータを計算対象とします。
+
+.topic IDH_CALC_ACF_INTEGRATION_TIME
+自己相関関数の積分時間を入力します。
+
+.topic IDH_CALC_ACF_RUNNING_STEP
+自己相関関数の計算周期を入力します。
+
+.topic IDH_CALC_ACF_FREQ_FILTER
+聴感補正フィルタを選択します。
+
+.topic IDH_CALC_ACF_MAX_DELAY_TIME
+自己相関関数の最大遅れ時間を入力します。
+
+.topic IDH_CALC_ACF_PHI0_REFDATA
+音響エネルギーΦ(0)の基準となるデータを選択します。
+
+.topic IDH_CALC_ACF_PHI0_REFLEVEL
+[基準データ]で選択したデータのレベルを入力します。それ以外のデータのΦ(0)（音響エネルギー）は基準レベルからの相対値となります。
+
+.topic IDH_CALC_ACF_TAUE_INTERVAL
+τe（自己相関関数の有効継続時間）は自己相関関数(ACF)の絶対値を対数変換した後、 ここで設定した時間間隔でピークを検出し、 その回帰直線が-10dBになる遅れ時間として計算します。
+
+.topic IDH_CALC_ACF_TAUE_ENDLEVEL
+τe（自己相関関数の有効継続時間）の回帰計算の終了レベルを入力します。ACF（自己相関関数）のピーク値がここで設定したレベルを下回るか、[回帰終了期間]で設定した時間が経過した場合、回帰計算を終了します。
+
+.topic IDH_CALC_ACF_TAUE_ENDTIME
+τe（自己相関関数の有効継続時間）の回帰計算の終了時間を入力します。ここで設定した時間が経過するか、ACF（自己相関関数）のピーク値が[回帰終了レベル]で設定したレベルを下回った場合、回帰計算を終了します。
+
+.topic IDH_CALC_ACF_TAUE_ORIGIN
+τe（自己相関関数の有効継続時間）の回帰計算に原点を含めるかどうかを設定します。
+
+.topic IDH_CALC_ACF_TAU1_A
+自己相関関数(ACF)のピークを検出する方法を選択します。通常はこちらを選択してください。
+
+.topic IDH_CALC_ACF_TAU1_B
+自己相関関数(ACF)のピークを検出する方法を選択します。高周波成分の検出精度をより高めたい場合に選択してください。
+
+.topic IDH_CALC_NMS_OK
+設定した条件で計算処理を開始します。
+
+.topic IDH_CALC_NMS_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_CALC_NMS_CALC_NO
+未計算のデータだけを計算対象とします。
+
+.topic IDH_CALC_NMS_CALC_SELECT
+選択したデータだけを計算対象とします。
+
+.topic IDH_CALC_NMS_CALC_ALL
+全てのデータを計算対象とします。
+
+.topic IDH_CALC_NMS_INTEGRATION_TIME
+自己相関関数(ACF)の積分時間を入力します。
+
+.topic IDH_CALC_NMS_RUNNING_STEP
+自己相関関数(ACF)の計算周期を入力します。
+
+.topic IDH_CALC_NMS_FREQ_FILTER
+聴感補正フィルタを選択します。
+
+.topic IDH_CALC_NMS_MAX_DELAY_TIME
+自己相関関数(ACF)の最大遅れ時間を入力します。
+
+.topic IDH_CALC_NMS_TAUE_INTERVAL
+τe（自己相関関数の有効継続時間）は自己相関関数(ACF)の絶対値を対数変換した後、 ここで設定した時間間隔でピークを検出し、 その回帰直線が-10dBになる遅れ時間として計算します。
+
+.topic IDH_CALC_NMS_TAUE_ENDLEVEL
+τe（自己相関関数の有効継続時間）の回帰計算の終了レベルを入力します。ACF（自己相関関数）のピーク値がここで設定したレベルを下回るか、[回帰終了期間]で設定した時間が経過した場合、回帰計算を終了します。
+
+.topic IDH_CALC_NMS_TAUE_ENDTIME
+τe（自己相関関数の有効継続時間）の回帰計算の終了時間を入力します。ここで設定した時間が経過するか、ACF（自己相関関数）のピーク値が[回帰終了レベル]で設定したレベルを下回った場合、回帰計算を終了します。
+
+.topic IDH_CALC_NMS_TAUE_ORIGIN
+τe（自己相関関数の有効継続時間）の回帰計算に原点を含めるかどうかを設定します。
+
+.topic IDH_CALC_NMS_IDENT_SPL
+SPL（音圧レベル）が最大となる時間のデータを騒音源の同定判定に使用します。
+
+.topic IDH_CALC_NMS_IDENT_TAUE
+[最大音圧前]から[最大音圧後]までの間でτe（自己相関関数の有効継続時間）が最小となる時間のデータを騒音源の同定判定に使用します。
+
+.topic IDH_CALC_NMS_IDENT_BEFORE_STEP
+最小τeの検索範囲を、SPL（音圧レベル）が最大となるデータから指定したステップ数前までに設定します。
+
+.topic IDH_CALC_NMS_IDENT_AFTER_STEP
+最小τeの検索範囲を、SPL（音圧レベル）が最大となるデータから指定したステップ数後までに設定します。
+
+.topic IDH_IMP_FACTOR_CANCEL
+このウィンドウを閉じます。
+
+.topic IDH_IMP_FACTOR_SELECT_DATA
+データ選択ウィンドウ（メインウィンドウ）から別のデータを選択して表示します。
+
+.topic IDH_IMP_FACTOR_PREV_DATA
+同一フォルダ内で現在表示されているデータの前のデータを表示します。
+
+.topic IDH_IMP_FACTOR_NEXT_DATA
+同一フォルダ内で現在表示されているデータの次のデータを表示します。
+
+.topic IDH_IMP_FACTOR_SCREEN_COPY
+このウィンドウを画像ファイル(.png)に保存します。右クリックしてドラッグすることで、ドロップしたところにファイルを作ることもできます。
+
+.topic IDH_IMP_FACTOR_CSV_OUTPUT
+計算結果の数値データをCSVファイルに出力します。
+
+.topic IDH_IMP_FACTOR_GRAPH
+タブで選択したグラフを表示します。
+
+.topic IDH_IMP_FACTOR_FOLDER_TITLE
+データフォルダのタイトルを表示します。
+
+.topic IDH_IMP_FACTOR_NAME
+データフォルダの名称を表示します。
+
+.topic IDH_IMP_FACTOR_PLACE
+データフォルダの場所を表示します。
+
+.topic IDH_IMP_FACTOR_FOLDER_COMMENT
+データフォルダのコメントを表示します。
+
+.topic IDH_IMP_FACTOR_DATE
+データフォルダの日付を表示します。
+
+.topic IDH_IMP_FACTOR_SCALE
+データフォルダのスケール値を表示します。
+
+.topic IDH_IMP_FACTOR_SAMPLING
+測定時のサンプリングレートを表示します。
+
+.topic IDH_IMP_FACTOR_MEASURE_TIME
+測定時の測定時間を表示します。
+
+.topic IDH_IMP_FACTOR_MEASURE_NUM
+測定時の同期加算回数を表示します。
+
+.topic IDH_IMP_FACTOR_CHANNEL
+測定時のチャネル数を表示します。
+
+.topic IDH_IMP_FACTOR_BIT
+測定時のビット数を表示します。
+
+.topic IDH_IMP_FACTOR_TITLE
+測定データの保存時に設定したタイトルを表示します。
+
+.topic IDH_IMP_FACTOR_COMMENT
+測定データの保存時に設定したコメントを表示します。
+
+.topic IDH_IMP_FACTOR_TIME
+測定データの保存時に設定した日時を表示します。
+
+.topic IDH_IMP_FACTOR_PLAYBACK
+測定したインパルス応答を再生します。
+
+.topic IDH_IMP_FACTOR_CALC_CONDITION
+計算条件を表示します。
+
+.topic IDH_IMP_FACTOR_PARAM_LIST
+周波数帯域別の計算結果を表示します。
+
+.topic IDH_IMP_FACTOR_1OCT
+計算実行時に設定した周波数分割条件を表示します。
+
+.topic IDH_IMP_FACTOR_3OCT
+計算実行時に設定した周波数分割条件を表示します。
+
+.topic IDH_IMP_FACTOR_START_FREQ
+計算実行時に設定した周波数分割の開始周波数を表示します。
+
+.topic IDH_IMP_FACTOR_END_FREQ
+計算実行時に設定した周波数分割の終了周波数を表示します。
+
+.topic IDH_IMP_FACTOR_AFILTER
+計算実行時に設定した聴感補正フィルタを表示します。
+
+.topic IDH_IMP_FACTOR_SPL_REFDATA
+計算実行時に設定したSPL（音圧レベル）の基準データを表示します。
+
+.topic IDH_IMP_FACTOR_SPL_REFLEVEL
+計算実行時に設定したSPL（音圧レベル）の基準レベルを表示します。
+
+.topic IDH_IMP_FACTOR_TSUB_END
+計算実行時に設定したTsub（残響時間）の回帰計算終了レベルを表示します。
+
+.topic IDH_IMP_FACTOR_TSUB_AUTO
+計算実行時に設定したTsub（残響時間）の回帰計算終了レベルの自動設定を表示します。
+
+.topic IDH_IMP_FACTOR_TSUB_NOISE
+計算実行時に設定したTsub（残響時間）のノイズ区間の割合を表示します。
+
+.topic IDH_IMP_FACTOR_DT1_MINTIME
+計算実行時に設定したΔt1（初期反射遅れ時間）の最短反射遅れ時間を表示します。
+
+.topic IDH_IMP_FACTOR_IACC_WLEVEL
+計算実行時に設定したIACC（両耳間相互相関度）のWIACC計算幅を表示します。
+
+.topic IDH_IMP_FACTOR_PREF_SPL
+計算実行時に設定したプリファレンスの最適音圧レベルを表示します。
+
+.topic IDH_IMP_FACTOR_PREF_TAUE
+計算実行時に設定したプリファレンスのτe（自己相関関数の有効継続時間）を表示します。
+
+.topic IDH_IMP_FACTOR_G_REFLEVEL
+計算実行時に設定した音圧レベル(G)の基準音圧を表示します。
+
+.topic IDH_IMP_FACTOR_T_CUSTOM1
+計算実行時に設定した残響時間のT_customの開始レベルを表示します。
+
+.topic IDH_IMP_FACTOR_T_CUSTOM2
+計算実行時に設定した残響時間のT_customの終了レベルを表示します。
+
+.topic IDH_IMP_FACTOR_C_CUSTOM
+計算実行時に設定した残響時間のC_customの時間を表示します。
+
+.topic IDH_ACF_FACTOR_CANCEL
+このウィンドウを閉じます。
+
+.topic IDH_ACF_FACTOR_SELECT_DATA
+データ選択ウィンドウ（メインウィンドウ）から別のデータを選択して表示します。
+
+.topic IDH_ACF_FACTOR_PREV_DATA
+同一フォルダ内で現在表示されているデータの前のデータを表示します。
+
+.topic IDH_ACF_FACTOR_NEXT_DATA
+同一フォルダ内で現在表示されているデータの次のデータを表示します。
+
+.topic IDH_ACF_FACTOR_SCREEN_COPY
+このウィンドウを画像ファイル(.png)に保存します。右クリックしてドラッグすることで、ドロップしたところにファイルを作ることもできます。
+
+.topic IDH_ACF_FACTOR_CSV_OUTPUT
+計算結果の数値データをCSVファイルに出力します。
+
+.topic IDH_ACF_FACTOR_GRAPH
+タブで選択したグラフを表示します。
+
+.topic IDH_ACF_FACTOR_FOLDER_TITLE
+データフォルダのタイトルを表示します。
+
+.topic IDH_ACF_FACTOR_NAME
+データフォルダの名称を表示します。
+
+.topic IDH_ACF_FACTOR_PLACE
+データフォルダの場所を表示します。
+
+.topic IDH_ACF_FACTOR_FOLDER_COMMENT
+データフォルダのコメントを表示します。
+
+.topic IDH_ACF_FACTOR_DATE
+データフォルダの日付を表示します。
+
+.topic IDH_ACF_FACTOR_SCALE
+データフォルダのスケール値を表示します。
+
+.topic IDH_ACF_FACTOR_SAMPLING
+測定時のサンプリングレートを表示します。
+
+.topic IDH_ACF_FACTOR_MEASURE_TIME
+測定時の測定時間を表示します。
+
+.topic IDH_ACF_FACTOR_CHANNEL
+測定時のチャネル数を表示します。
+
+.topic IDH_ACF_FACTOR_TITLE
+測定データの保存時に設定したタイトルを表示します。
+
+.topic IDH_ACF_FACTOR_COMMENT
+測定データの保存時に設定したコメントを表示します。
+
+.topic IDH_ACF_FACTOR_TIME
+測定データの保存時に設定した日時を表示します。
+
+.topic IDH_ACF_FACTOR_PLAYBACK
+測定した音を再生します。
+
+.topic IDH_ACF_FACTOR_INTEGRATION_TIME
+計算実行時に設定したランニングACFの積分区間を表示します。
+
+.topic IDH_ACF_FACTOR_CALC_CYCLE
+計算実行時に設定したランニングACFの計算周期を表示します。
+
+.topic IDH_ACF_FACTOR_FREQ_FILTER
+計算実行時に設定したランニングACFの聴感補正を表示します。
+
+.topic IDH_ACF_FACTOR_TAUE_INTERVAL
+計算実行時に設定したτe（自己相関関数の有効継続時間）のピーク検出時間間隔を表示します。
+
+.topic IDH_ACF_FACTOR_TAUE_ENDLEVEL
+計算実行時に設定したτe（自己相関関数の有効継続時間）の回帰終了レベルを表示します。
+
+.topic IDH_ACF_FACTOR_TAUE_ENDTIME
+計算実行時に設定したτe（自己相関関数の有効継続時間）の回帰終了時間を表示します。
+
+.topic IDH_ACF_FACTOR_PHI0_REFDATA
+計算実行時に設定したΦ(0)（音響エネルギー）の基準データを表示します。
+
+.topic IDH_ACF_FACTOR_PHI0_REFLEVEL
+計算実行時に設定したΦ(0)（音響エネルギー）の基準レベルを表示します。
+
+.topic IDH_ACF_FACTOR_FACTOR_LIST
+周波数帯域別の計算結果を表示します。
+
+.topic IDH_NMS_FACTOR_CANCEL
+このウィンドウを閉じます。
+
+.topic IDH_NMS_FACTOR_SELECT_DATA
+データ選択ウィンドウ（メインウィンドウ）から別のデータを選択して表示します。
+
+.topic IDH_NMS_FACTOR_PREV_DATA
+同一フォルダ内で現在表示されているデータの前のデータを表示します。
+
+.topic IDH_NMS_FACTOR_NEXT_DATA
+同一フォルダ内で現在表示されているデータの次のデータを表示します。
+
+.topic IDH_NMS_FACTOR_SCREEN_COPY
+このウィンドウを画像ファイル(.png)に保存します。右クリックしてドラッグすることで、ドロップしたところにファイルを作ることもできます。
+
+.topic IDH_NMS_FACTOR_CSV_OUTPUT
+計算結果の数値データをCSVファイルに出力します。
+
+.topic IDH_NMS_FACTOR_GRAPH
+タブで選択したグラフを表示します。
+
+.topic IDH_NMS_FACTOR_FOLDER_TITLE
+データフォルダのタイトルを表示します。
+
+.topic IDH_NMS_FACTOR_NAME
+データフォルダの名称を表示します。
+
+.topic IDH_NMS_FACTOR_PLACE
+データフォルダの場所を表示します。
+
+.topic IDH_NMS_FACTOR_FOLDER_COMMENT
+データフォルダのコメントを表示します。
+
+.topic IDH_NMS_FACTOR_DATE
+データフォルダの日付を表示します。
+
+.topic IDH_NMS_FACTOR_SCALE
+データフォルダのスケール値を表示します。
+
+.topic IDH_NMS_FACTOR_SAMPLING
+測定時のサンプリングレートを表示します。
+
+.topic IDH_NMS_FACTOR_MEASURE_TIME
+測定時の測定時間を表示します。
+
+.topic IDH_NMS_FACTOR_CHANNEL
+測定時のチャネル数を表示します。
+
+.topic IDH_NMS_FACTOR_BIT
+測定時のビット数を表示します。
+
+.topic IDH_NMS_FACTOR_TITLE
+測定データの保存時に設定したタイトルを表示します。
+
+.topic IDH_NMS_FACTOR_COMMENT
+測定データの保存時に設定したコメントを表示します。
+
+.topic IDH_NMS_FACTOR_TIME
+測定データの保存時に設定した日時を表示します。
+
+.topic IDH_NMS_FACTOR_PLAYBACK
+測定した音を再生します。
+
+.topic IDH_NMS_FACTOR_INTEGRATION_TIME
+計算実行時に設定したランニングACFの積分区間を表示します。
+
+.topic IDH_NMS_FACTOR_CALC_CYCLE
+計算実行時に設定したランニングACFの計算周期を表示します。
+
+.topic IDH_NMS_FACTOR_FREQ_FILTER
+計算実行時に設定したランニングACFの聴感補正を表示します。
+
+.topic IDH_NMS_FACTOR_TAUE_INTERVAL
+計算実行時に設定したτe（自己相関関数の有効継続時間）のピーク検出時間間隔を表示します。
+
+.topic IDH_NMS_FACTOR_TAUE_ENDLEVEL
+計算実行時に設定したτe（自己相関関数の有効継続時間）の回帰終了レベルを表示します。
+
+.topic IDH_NMS_FACTOR_TAUE_ENDTIME
+計算実行時に設定したτe（自己相関関数の有効継続時間）の回帰終了時間を表示します。
+
+.topic IDH_NMS_FACTOR_PHI0_REFDATA
+計算実行時に設定したΦ(0)（音響エネルギー）の基準データを表示します。
+
+.topic IDH_NMS_FACTOR_PHI0_REFLEVEL
+計算実行時に設定したΦ(0)（音響エネルギー）の基準レベルを表示します。
+
+.topic IDH_NMS_FACTOR_FACTOR_LIST
+周波数帯域別の計算結果を表示します。
+
+.topic IDH_IMP_SC_OK
+設定した内容で画像ファイル(.png)を出力します。
+
+.topic IDH_IMP_SC_MMLIB
+別売のソフトウエア"Multi Media Library(MMLIB)"に画像を転送します。MMLIBが起動していない場合は実行できません。
+
+.topic IDH_IMP_SC_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_IMP_SC_WINDOW
+選択するとウィンドウ全体を出力します。
+
+.topic IDH_IMP_SC_GRAPH
+選択するとグラフの部分のみを出力します。
+
+.topic IDH_IMP_SC_FRAME
+チェックを入れると、グラフの枠（タブコントロール全体）を含めて出力します。チェックを外すとグラフの部分だけを出力します。
+
+.topic IDH_IMP_SC_MULTI
+チェックを入れると、下にある[グラフ選択]で選択したグラフを１枚の画像にまとめて出力します。チェックを外すと現在表示されているグラフのみが出力されます。
+
+.topic IDH_IMP_SC_IMP
+[複数一括コピー]がチェックされている場合に、インパルス応答のグラフを出力します。
+
+.topic IDH_IMP_SC_ECHO
+[複数一括コピー]がチェックされている場合に、残響時間のグラフを出力します。
+
+.topic IDH_IMP_SC_IACC
+[複数一括コピー]がチェックされている場合に、相互相関のグラフを出力します。
+
+.topic IDH_IMP_SC_FREQ
+[複数一括コピー]がチェックされている場合に、周波数特性のグラフを出力します。
+
+.topic IDH_IMP_SC_PREF
+[複数一括コピー]がチェックされている場合に、プリファレンスのグラフを出力します。
+
+.topic IDH_IMP_SC_PARAM
+[複数一括コピー]がチェックされている場合に、計算結果のグラフを出力します。
+
+.topic IDH_IMP_SC_MTF
+[複数一括コピー]がチェックされている場合に、MTF/STIのグラフを出力します。
+
+.topic IDH_IMP_SC_COLUMNS
+[複数一括コピー]がチェックされている場合に、横方向のグラフの数を入力します。
+
+.topic IDH_IMP_SC_COLSPACE
+[複数一括コピー]がチェックされている場合に、横方向の余白を入力します。
+
+.topic IDH_IMP_SC_ROWSPACE
+縦方向の余白を入力します。
+
+.topic IDH_ACF_SC_OK
+設定した内容で画像ファイル(.png)を出力します。
+
+.topic IDH_ACF_SC_MMLIB
+別売のソフトウエア"Multi Media Library(MMLIB)"に画像を転送します。MMLIBが起動していない場合は実行できません。
+
+.topic IDH_ACF_SC_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_ACF_SC_WINDOW
+選択するとウィンドウ全体を出力します。
+
+.topic IDH_ACF_SC_GRAPH
+選択するとグラフの部分のみを出力します。
+
+.topic IDH_ACF_SC_FRAME
+チェックを入れると、グラフの枠（タブコントロール全体）を含めて出力します。チェックを外すとグラフの部分だけを出力します。
+
+.topic IDH_ACF_SC_MULTI
+チェックを入れると、下にある[グラフ選択]で選択したグラフを１枚の画像にまとめて出力します。チェックを外すと現在表示されているグラフのみが出力されます。
+
+.topic IDH_ACF_SC_PHI0
+[複数一括コピー]がチェックされている場合に、Φ(0)（音響エネルギー）のグラフを出力します。
+
+.topic IDH_ACF_SC_TAUE
+[複数一括コピー]がチェックされている場合に、τe（自己相関関数の有効継続時間）のグラフを出力します。
+
+.topic IDH_ACF_SC_TAU1
+[複数一括コピー]がチェックされている場合に、τ1（自己相関関数の初期ピークまでの遅れ時間）のグラフを出力します。
+
+.topic IDH_ACF_SC_PHI1
+[複数一括コピー]がチェックされている場合に、Φ1（自己相関関数の初期ピークの振幅）のグラフを出力します。
+
+.topic IDH_ACF_SC_IACC
+[複数一括コピー]がチェックされている場合に、IACC（両耳間相互相関度）のグラフを出力します。
+
+.topic IDH_ACF_SC_TAUIACC
+[複数一括コピー]がチェックされている場合に、τIACC（相互相関関数のピークの遅れ時間）のグラフを出力します。
+
+.topic IDH_ACF_SC_WIACC
+[複数一括コピー]がチェックされている場合に、WIACC（相互相関関数のピークの幅）のグラフを出力します。
+
+.topic IDH_ACF_SC_ACF
+[複数一括コピー]がチェックされている場合に、ACF（自己相関関数）のグラフを出力します。
+
+.topic IDH_ACF_SC_IACF
+[複数一括コピー]がチェックされている場合に、IACF（相互相関関数）のグラフを出力します。
+
+.topic IDH_ACF_SC_COLUMNS
+[複数一括コピー]がチェックされている場合に、横方向のグラフの数を入力します。
+
+.topic IDH_ACF_SC_COLSPACE
+[複数一括コピー]がチェックされている場合に、横方向の余白を入力します。
+
+.topic IDH_ACF_SC_ROWSPACE
+縦方向の余白を入力します。
+
+.topic IDH_NMS_SC_OK
+設定した内容で画像ファイル(.png)を出力します。
+
+.topic IDH_NMS_SC_MMLIB
+別売のソフトウエア"Multi Media Library(MMLIB)"に画像を転送します。MMLIBが起動していない場合は実行できません。
+
+.topic IDH_NMS_SC_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_NMS_SC_WINDOW
+選択するとウィンドウ全体を出力します。
+
+.topic IDH_NMS_SC_GRAPH
+選択するとグラフの部分のみを出力します。
+
+.topic IDH_NMS_SC_FRAME
+チェックを入れると、グラフの枠（タブコントロール全体）を含めて出力します。チェックを外すとグラフの部分だけを出力します。
+
+.topic IDH_NMS_SC_MULTI
+チェックを入れると、下にある[グラフ選択]で選択したグラフを１枚の画像にまとめて出力します。チェックを外すと現在表示されているグラフのみが出力されます。
+
+.topic IDH_NMS_SC_PHI0
+[複数一括コピー]がチェックされている場合に、Φ(0)（音響エネルギー）のグラフを出力します。
+
+.topic IDH_NMS_SC_TAUE
+[複数一括コピー]がチェックされている場合に、τe（自己相関関数の有効継続時間）のグラフを出力します。
+
+.topic IDH_NMS_SC_TAU1
+[複数一括コピー]がチェックされている場合に、τ1（自己相関関数の初期ピークまでの遅れ時間）のグラフを出力します。
+
+.topic IDH_NMS_SC_PHI1
+[複数一括コピー]がチェックされている場合に、Φ1（自己相関関数の初期ピークの振幅）のグラフを出力します。
+
+.topic IDH_NMS_SC_SPL
+[複数一括コピー]がチェックされている場合に、SPL（音圧レベル）のグラフを出力します。
+
+.topic IDH_NMS_SC_IACC
+[複数一括コピー]がチェックされている場合に、IACC（両耳間相互相関度）のグラフを出力します。
+
+.topic IDH_NMS_SC_TAUIACC
+[複数一括コピー]がチェックされている場合に、τIACC（相互相関関数のピークの遅れ時間）のグラフを出力します。
+
+.topic IDH_NMS_SC_WIACC
+[複数一括コピー]がチェックされている場合に、WIACC（相互相関関数のピークの幅）のグラフを出力します。
+
+.topic IDH_NMS_SC_ACF
+[複数一括コピー]がチェックされている場合に、ACF（自己相関関数）のグラフを出力します。
+
+.topic IDH_NMS_SC_IACF
+[複数一括コピー]がチェックされている場合に、IACF（相互相関関数）のグラフを出力します。
+
+.topic IDH_NMS_SC_COLUMNS
+[複数一括コピー]がチェックされている場合に、横方向のグラフの数を入力します。
+
+.topic IDH_NMS_SC_COLSPACE
+[複数一括コピー]がチェックされている場合に、横方向の余白を入力します。
+
+.topic IDH_NMS_SC_ROWSPACE
+縦方向の余白を入力します。
+
+.topic IDH_GRAPH_IR_LEFT
+左チャネルのインパルス応答波形を表示します。
+
+.topic IDH_GRAPH_IR_ZOOM_H
+グラフの横方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_IR_SCROLL_H
+グラフを横方向にスクロールします。グラフの部分をクリックし、横方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_IR_RIGHT
+右チャネルのインパルス応答波形を表示します。
+
+.topic IDH_GRAPH_IR_LEFT_T0
+左チャネルの直接音の位置を表示します。値を変更して再計算を行うこともできます。変更は、グラフ内の緑色の破線をクリックして左右にドラッグすることでも行えます。
+
+.topic IDH_GRAPH_IR_RIGHT_T0
+右チャネルの直接音の位置を表示します。値を変更して再計算を行うこともできます。変更は、グラフ内の緑色の破線をクリックして左右にドラッグすることでも行えます。
+
+.topic IDH_GRAPH_IR_LEFT_T1
+左チャネルの初期反射音の位置を表示します。値を変更して再計算を行うこともできます。変更は、グラフ内の赤色の破線をクリックして左右にドラッグすることでも行えます。
+
+.topic IDH_GRAPH_IR_RIGHT_T1
+右チャネルの初期反射音の位置を表示します。値を変更して再計算を行うこともできます。変更は、グラフ内の赤色の破線をクリックして左右にドラッグすることでも行えます。
+
+.topic IDH_GRAPH_IR_CHANGE
+変更した直接音および初期反射音の位置を使用して、再計算を行います。
+
+.topic IDH_GRAPH_IR_H_FULL
+グラフウィンドウの横方向のズームを解除します。
+
+.topic IDH_GRAPH_IR_H_IN
+グラフウィンドウを横方向にズームインします。
+
+.topic IDH_GRAPH_IR_H_OUT
+グラフウィンドウを横方向にズームアウトします。
+
+.topic IDH_GRAPH_ECHO_GRAPH_IR
+インパルス応答波形を表示します。
+
+.topic IDH_GRAPH_ECHO_GRAPH_EE
+残響エネルギー曲線（インパルス応答のエネルギー曲線）を表示します。
+
+.topic IDH_GRAPH_ECHO_ZOOM_H
+グラフの横方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_ECHO_SCROLL_H
+グラフを横方向にスクロールします。グラフの部分をクリックし、横方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_ECHO_GRAPH_ECHO
+シュレーダー積分残響曲線を表示します。
+
+.topic IDH_GRAPH_ECHO_LEFT_RIGHT
+上部のグラフに左右のチャネルの平均値を表示します。
+
+.topic IDH_GRAPH_ECHO_LEFT
+上部のグラフに左のチャネルのデータを表示します。
+
+.topic IDH_GRAPH_ECHO_RIGHT
+上部のグラフに右のチャネルのデータを表示します。
+
+.topic IDH_GRAPH_ECHO_REGRESS
+クリックするとTsub（残響時間）再計算のダイアログが表示され、回帰計算終了レベルやノイズ区間の割合を変更して、再計算することができます。
+
+.topic IDH_GRAPH_ECHO_H_FULL
+グラフウィンドウの横方向のズームを解除します。
+
+.topic IDH_GRAPH_ECHO_H_IN
+グラフウィンドウを横方向にズームインします。
+
+.topic IDH_GRAPH_ECHO_H_OUT
+グラフウィンドウを横方向にズームアウトします。
+
+.topic IDH_GRAPH_IACC
+IACC（両耳間相互相関度）のグラフを表示します。
+
+.topic IDH_GRAPH_IACC_CHANGE_WIACC
+クリックするとWIACC計算幅の変更ダイアログが表示され、そこでWIACC計算幅を変更して再計算することができます。
+
+.topic IDH_GRAPH_FREQ_LEFT
+左チャネルの周波数特性グラフを表示します。
+
+.topic IDH_GRAPH_FREQ_RIGHT
+右チャネルの周波数特性グラフを表示します。
+
+.topic IDH_GRAPH_FREQ_MEAN
+平均化処理を行ってグラフを表示します。
+
+.topic IDH_GRAPH_PREF
+プリファレンスグラフを表示します。
+
+.topic IDH_GRAPH_PREF_BESTSPL
+最適音圧レベルを表示します。変更してプリファレンスを再計算することもできます。
+
+.topic IDH_GRAPH_PREF_TAUE
+τe（自己相関関数の有効継続時間）を表示します。変更してプリファレンスを再計算することもできます。
+
+.topic IDH_GRAPH_PREF_BEST_TAUE
+最適τeを表示します。
+
+.topic IDH_GRAPH_PREF_S1
+プリファレンス値S1の計算値を表示します。
+
+.topic IDH_GRAPH_PREF_S2
+プリファレンス値S2の計算値を表示します。
+
+.topic IDH_GRAPH_PREF_S3
+プリファレンス値S3の計算値を表示します。
+
+.topic IDH_GRAPH_PREF_S4
+プリファレンス値S4の計算値を表示します。
+
+.topic IDH_GRAPH_PREF_S
+プリファレンス値S1～S4の合計値を表示します。
+
+.topic IDH_GRAPH_PREF_CALC
+[最適音圧レベル]または[τe]を変更した後クリックすると、プリファレンスを再計算を行います。
+
+.topic IDH_GRAPH_PARAM
+下のラジオボタンで選択したパラメータのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_SPL
+SPL（音圧レベル）のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_A
+A値のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_TSUB
+Tsub（残響時間）のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_IACC
+IACC（両耳間相互相関度）のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_TIACC
+τIACC（相互相関関数のピークの遅れ時間）のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_WIACC
+WIACC（相互相関関数のピークの幅）のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_G
+Gのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_T20
+T20のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_T30
+T30のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_T_CUSTOM
+T_customのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_EDT
+EDTのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_C50
+C50のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_C80
+C80のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_C_CUSTOM
+C_customのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_D50
+D50のグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_TS
+Tsのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_IACCE
+IACCEのグラフを表示します。
+
+.topic IDH_GRAPH_PARAM_IACCL
+IACCLのグラフを表示します。
+
+.topic IDH_GRAPH_MTF_LEFT
+左チャネルのMTFグラフを表示します。
+
+.topic IDH_GRAPH_MTF_RIGHT
+右チャネルのMTFグラフを表示します。
+
+.topic IDH_GRAPH_MTF_STI_L
+左チャネルのSTI値を表示します。
+
+.topic IDH_GRAPH_MTF_STI_R
+右チャネルのSTI値を表示します。
+
+.topic IDH_GRAPH_MTF_STI_M_L
+左チャネルのSTI(male)値を表示します。
+
+.topic IDH_GRAPH_MTF_STI_M_R
+右チャネルのSTI(male)値を表示します。
+
+.topic IDH_GRAPH_MTF_STI_F_L
+左チャネルのSTI(female)値を表示します。
+
+.topic IDH_GRAPH_MTF_STI_F_R
+右チャネルのSTI(female)値を表示します。
+
+.topic IDH_GRAPH_MTF_RASTI_L
+左チャネルのRASTI値を表示します。
+
+.topic IDH_GRAPH_MTF_RASTI_R
+右チャネルのRASTI値を表示します。
+
+.topic IDH_GRAPH_FACTOR
+選択したグラフを表示します。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V
+グラフの縦方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_FACTOR_SCROLL_V
+グラフを縦方向にスクロールします。グラフの部分をクリックし、縦方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_FACTOR_ZOOM_H
+グラフの横方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_FACTOR_SCROLL_H
+グラフを横方向にスクロールします。グラフの部分をクリックし、横方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_FACTOR_H_FULL
+グラフウィンドウの横方向のズームを解除します。
+
+.topic IDH_GRAPH_FACTOR_H_IN
+グラフウィンドウを横方向にズームインします。
+
+.topic IDH_GRAPH_FACTOR_H_OUT
+グラフウィンドウを横方向にズームアウトします。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V_FULL
+グラフウィンドウの縦方向のズームを解除します。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V_IN
+グラフウィンドウを縦方向にズームインします。
+
+.topic IDH_GRAPH_FACTOR_ZOOM_V_OUT
+グラフウィンドウを縦方向にズームアウトします。
+
+.topic IDH_GRAPH_ACF
+ACF（自己相関関数）のグラフを表示します。
+
+.topic IDH_GRAPH_ACF_ZOOM_H
+グラフの横方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_ACF_SCROLL_H
+グラフを横方向にスクロールします。グラフの部分をクリックし、横方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_ACF_LOG
+縦軸を対数目盛りで表示します。
+
+.topic IDH_GRAPH_ACF_H_FULL
+グラフウィンドウの横方向のズームを解除します。
+
+.topic IDH_GRAPH_ACF_H_IN
+グラフウィンドウを横方向にズームインします。
+
+.topic IDH_GRAPH_ACF_H_OUT
+グラフウィンドウを横方向にズームアウトします。
+
+.topic IDH_GRAPH_WAVE_LEFT
+左チャネルの波形を表示します。
+
+.topic IDH_GRAPH_WAVE_RIGHT
+右チャネルの波形を表示します。
+
+.topic IDH_GRAPH_WAVE_ZOOM_V
+グラフの縦方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_WAVE_SCROLL_V
+グラフを縦方向にスクロールします。グラフの部分をクリックし、縦方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_WAVE_ZOOM_H
+グラフの横方向のズーム倍率を表示します。
+
+.topic IDH_GRAPH_WAVE_SCROLL_H
+グラフを横方向にスクロールします。グラフの部分をクリックし、横方向にドラッグすることでもスクロールできます。（ズーム倍率が１の場合はスクロールできません）
+
+.topic IDH_GRAPH_WAV_H_FULL
+グラフウィンドウの横方向のズームを解除します。
+
+.topic IDH_GRAPH_WAV_H_IN
+グラフウィンドウを横方向にズームインします。
+
+.topic IDH_GRAPH_WAV_H_OUT
+グラフウィンドウを横方向にズームアウトします。
+
+.topic IDH_GRAPH_WAV_ZOOM_V_FULL
+グラフウィンドウの縦方向のズームを解除します。
+
+.topic IDH_GRAPH_WAV_ZOOM_V_IN
+グラフウィンドウを縦方向にズームインします。
+
+.topic IDH_GRAPH_WAV_ZOOM_V_OUT
+グラフウィンドウを縦方向にズームアウトします。
+
+.topic IDH_GRAPH_SPEC_LEFT
+左チャネルの周波数特性グラフを表示します。
+
+.topic IDH_GRAPH_SPEC_RIGHT
+右チャネルの周波数特性グラフを表示します。
+
+.topic IDH_CHANGE_TSUB_OK
+設定した条件で再計算を行います。
+
+.topic IDH_CHANGE_TSUB_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_CHANGE_TSUB_END
+Tsub（残響時間）の回帰計算の終了残響レベルを入力します。
+
+.topic IDH_CHANGE_TSUB_AUTO
+Tsub（残響時間）の回帰計算の終了残響レベルを自動的に最適なレベルに設定します。
+
+.topic IDH_CHANGE_TSUB_NOISE
+残響曲線の後半部分に存在するノイズ（暗騒音）の割合を入力します。指定した範囲の残響レベルをノイズとみなしてノイズ補正を行います。
+
+.topic IDH_CHANGE_WIACC_OK
+入力した[WIACC計算幅]により再計算を行います。
+
+.topic IDH_CHANGE_WIACC_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_CHANGE_WIACC_WLEVEL
+WIACC計算幅を入力します。デフォルトは0.1です。
+
+#include "..\..\Common\Help\CommonHelp_J.txt"

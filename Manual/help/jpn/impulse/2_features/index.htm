@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>インパルス応答測定の概要 </title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">インパルス応答測定</a></p>
+<hr />
+
+<h5>インパルス応答測定の概要 </h5>
+リアルタイムアナライザ（以下、RAと表記）に付属するインパルス応答測定機能は、一方でパソコンから信号をスピーカーを経由して出力し、もう一方でそのスピーカー信号をマイクで測定し、その出力信号と入力信号から計算して、その信号成分に与えれた影響を関数として算出します。
+<ul>
+	<li class="mb10">
+		<div class="bold">MLS法、TSP法による自動測定</div>
+		<div>RAでは、現在主流であるM系列法（Maximum Length Sequence: MLS）もしくはTSP法（Time Stretched Pulse）を用いた自動測定が一台のパソコンで可能です。どちらの方法を使うかはチェックボックスで簡単に選択でき、測定時間を指定するだけで、初めての方でも簡単に測定することができます。</div>
+	</li>
+	<li class="mb10">
+		<div class="bold">測定支援機能</div>
+		<div>RAには、インパルス応答を正しく測定するための支援機能が備わっています。自動レベル設定を使用すると、測定結果のS/N比を向上させるために信号の出力レベルが自動的に調整されます。自動再試行を使用すると、同じ測定が2回繰り返されます。それらを比較することによって測定の正確性をチェックし、何らかの問題が発生した場合は、正確な結果が得られるまで自動的に測定を繰り返します。また、測定システム自身の影響を補正する逆フィルタ作成機能が利用できます。</div>
+	</li>
+	<li class="mb10">
+		<div class="bold">96kHzサンプリング対応</div>
+		<div>最新のサウンドカードを利用すれば、192kHz以上のサウンドカードの性能次第のサンプリングが可能です。これにより、従来よりも高精度の測定が可能になります。これはお使いのパソコンによりますが、THD（Total Harmonics Distortion）アナライザなどで、実用可能かどうか、歪率でチェックすることが可能です。</div>
+	</li>
+	<li class="mb10">
+		<div class="bold">32bit WAVEファイルに対応</div>
+		<div>他のシステムで測定された任意の長さのWAVEファイルを読み込んで、音響分析システム（SA）で解析可能です。精度は32bitまで対応しています。</div>
+	</li>
+</ul>
+
+<div class="cap">詳しい説明</div>
+信号は、プログラムで作られ、デジタル・アナログ変換して、その後、アナログアンプで、増幅され、さらにミキサー、パソコンの出力ボリュームを経て、ラインアウト、もしくはヘッドフォーン端子から、接続ケーブルで、ステレオアンプ、それからスピーカーに伝わります。そして空中や、壁に反射して、あるいは２回以上反射して、マイクに入力されます。それが音響信号が伝わる経路です。その経路全体の影響が算出されます。この場合、影響としてはやはりスピーカーから出力された後の、部屋の影響が一番大きいですが、厳密には音響信号の経路すべての影響を受けます。
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">インパルス応答測定</a></p>
+<hr />
+</body>
+
+</html>

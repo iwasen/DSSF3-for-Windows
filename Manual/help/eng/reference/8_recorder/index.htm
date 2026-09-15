@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sound recorder</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a></p>
+<hr />
+
+<h5>Sound recorder</h5>
+Sound recorder window has been newly added to RA. Recording of sound up to about 10 minutes is possible. Playback of the recorded sound can be measured by the FFT analyzer (e.g. Spectrum, octave analysis, oscilloscope, ACF/CCF measurement) at the same time.<br />
+<img src="../img/recording_1.png" alt="" /><br />
+<table>
+	<tr>
+		<th>Item</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Mode</td>
+		<td>Select the operation mode of the recorder.<br />
+				&nbsp;Recording: Check this box and start the analyzer to start recording.<br />
+				&nbsp;Playback: Check this box and start the analyzer to start playback.
+		</td>
+	</tr>
+	<tr>
+		<td>Rec. Priority</td>	
+		<td>When the signal input and output are performed at the same time (e.g. at the time of measuring the speaker response by using the pink noise), selected source is recorded.<br />
+			&nbsp;Input: Input signal is recorded.<br />
+			&nbsp;Output: Signal generator's output is recorded.
+		</td>
+	</tr>
+	<tr>
+		<td>Wave File</td>	
+		<td>Save: Click this button to save the recorded signal as a .wav format.<br />
+				Load: Click this button to load the already saved .wav files.
+		</td>
+	</tr>
+	<tr>
+		<td><img src="../img/recording_2.png" alt="" /></td>	
+		<td>These buttons adjust the display range of the recorded signal.</td>
+	</tr>
+	<tr>
+		<td>Normalization</td>	
+		<td>The recorded signal is normalized between -1 and 1. Note that the normalization is done only for the display. Actual signal amplitude is not changed when the signal is analyzed or saved in a file. </td>	
+	</tr>
+	<tr>
+		<td>Rec. Time</td>	
+		<td>Elapsed recording time is displayed.</td>
+	</tr>
+	<tr>
+		<td>Cut</td>	
+		<td>Cut the selected waveform area. Unselected area is abandoned. </td>
+	</tr>
+	<tr>
+		<td>All Select</td>
+		<td>Select the full time range of the waveform.</td>	
+	</tr>
+	<tr>
+		<td>Sel. Area</td>	
+		<td>Selected area of the waveform is indicated. </td>
+	</tr>
+	<tr>
+		<td>Exit</td>
+		<td>Quit the Sound Recorder.</td>
+	</tr>
+</table>
+<br />
+<b>How to use sound recorder</b><br />
+<br />
+To start recording, check the Recording box on the Recorder window. Then, start one of the Signal Generator, the FFT Analyzer, or the Oscilloscope. When the FFT Analyzer or the Oscilloscope is started, the input signal is recorded. When the Signal Generator is started, the generated signal is recorded. To stop recording, click the Stop button of the window that was started.<br />
+<br />
+Right click on the recorded waveform and drug the mouse to change the selection. Selected region is displayed in blue. Click the Cut button to cut out the selected range. Click the Save button to Save the recorded signal as the wave file (.wav format).<br />
+<br />
+Click the Load button to Load the wave file. Loaded wave file can be played and analyzed as the recorded sound. Sampling rate of the analyzer is automatically set to that of the wave file.<br />
+
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a></p>
+<hr />
+</body>
+
+</html>

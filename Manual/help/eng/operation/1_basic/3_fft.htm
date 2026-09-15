@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Measurement by the FFT analyzer</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Basic measurement procedure</a></p>
+<hr />
+
+<h5>Measurement by the FFT analyzer</h5>
+FFT analyzer is a powerful tool for measuring sound in real time. Spectrum, Octave band, Waterfall, and Correlation meter can be used with the signal generator as follows.<br />
+<hr />
+Sinusoidal (sine) tone is the most basic test signal. By feeding a sine tone to an audio equipment and measuring its output by the power spectrum, you can see whether the signal frequency is correctly transmitted. Extra components would appear if there is some problem. <br />
+<br />
+This is a very important test for checking if the audio system is working correctly. It is also very effective for the diagnosis and maintenance of the system. Abnormalities such as distortion, oscillation, noise, are easily detected. <br />
+<br />
+Figures below show the power spectrum of a 1kHz sine tone. Both channels measure the same signal, but the spectra are different. It is because the output level of the right channel signal is too high. If the signal is clipped (distorted) like this, the resultant spectrum will include many harmonic components in addition to the fundamental component. It is important to know the appropriate volume settings before the measurement. <a href="../2_adjustment/index.htm">Adjustment before a measurement</a><br />
+<img src="../img/basic_8.png" alt="" width="650" /><br />
+<br />
+By using the noise generator and the power spectrum, frequency response of audio equipments is measured. The figure below is a result of the measurement for the signal generator's output itself. This is done by selecting the "wave" as an input device, starting the output of white noise in the signal generator, and starting the spectrum analyzer. If you connect the PC's output to the external device and measure its output, the frequency response of the device is easily measured.<br />
+<img src="../img/basic_9.png" alt="" width="650" /><br />
+<br />
+Next example is a combination of pink noise and the octave band analyzer. Pink noise is similar to white noise, but the energy decreases in relation to its frequency. In audio measurement, pink noise is more popular than white noise, because white noise is sometimes dangerous for loudspeakers due to its high energy in the high frequency ranges. To measure the frequency response by use of the pink noise, the octave band analysis is used. As shown in the figure below, the octave band spectrum of pink noise becomes flat.<br /><img src="../img/basic_10.png" alt="" width="650" /><br />
+Octave band analyzer can also be used for measuring environmental noise. Limited function of the standard sound level meter can be greatly extended.<br />
+<br />
+Next, sweep signal is measured by the waterfall display. Waterfall is the three dimensional expression of a time series of the power spectrum (time-frequency-energy).<br />
+<img src="../img/basic_11.png" alt="" width="650" /><br />
+The combination of the sweep signal and the waterfall measurement is a useful tool for checking the dynamic characteristic of loudspeakers. It is quite effective for measuring the dynamic characteristics of the loudspeaker with the crossover network. Frequency response curve can be drawn by the sweep signal too. See the following application note.<br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Basic measurement procedure</a></p>
+<hr />
+</body>
+
+</html>

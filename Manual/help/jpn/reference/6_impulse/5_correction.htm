@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>インパルス応答/逆フィルタ補正</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">インパルス応答</a></p>
+<hr />
+
+<h5>インパルス応答/逆フィルタ補正</h5>
+<img src="../img/impulse_13.png" />
+<div class="para">
+インパルス応答測定画面で[保存]ボタンをクリックすると、次のダイアログが表示されます。
+<img src="../img/impulse_9.png" />
+</div>
+<table>
+	<tr>
+		<th>項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td>インパルス応答</td>
+		<td>測定されたインパルス応答を表示します。測定系のインパルス応答と思われる部分を黄色の範囲に入るように黄色の左右の境界を調整してください。</td>
+	</tr>
+	<tr>
+		<td>逆フィルタ特性</td>
+		<td>切り出されたインパルス応答に対応する逆フィルタの特性（レベル：<font color="#FF0000">赤</font>、位相：<font color="#00FF00">緑</font>）が表示されます。</td>
+	</tr>
+	<tr>
+		<td>タイトル</td>
+		<td>この逆フィルタのタイトルを入力します。</td>
+	</tr>
+	<tr>
+		<td>コメント</td>
+		<td>この逆フィルタにつけるコメントを入力します。</td>
+	</tr>
+	<tr>
+		<td>最大補正レベル</td>
+		<td>逆フィルタの補正のレベルを制限します。</td>
+	</tr>
+	<tr>
+		<td>位相補正</td>
+		<td>ONにするとレベルと位相の両方が補正され、 OFFにするとレベルのみが補正されます。通常はONにしてください。</td>
+	</tr>
+	<tr>
+		<td>保存</td>
+		<td>逆フィルタを保存します。</td>
+	</tr>
+	<tr>
+		<td>終了</td>
+		<td>このダイアログを閉じます。</td>
+	</tr>
+</table>
+
+<div class="cap">逆フィルタ保存画面</div>
+<div class="para">
+スピーカーなど出力系全般の周波数特性や、動特性などを補正するために、インパルス応答を使用して、逆フイルター（インバースフイルター）が作成、登録管理できます。それは測定時に選択して使用することができます。また、マイクなどの入力系全般に対して周波数補正可能な、マイク補正も使用できます。
+</div>
+<div class="para">
+この画面では測定されたインパルス応答からマイクやスピーカーによるものを切り出し、逆フィルタとして保存します。
+<p align="right">※詳しい設定方法は、<a href="../../impulse/4_advanced/2_frequency.htm">インパルス応答測定ガイド（マイク校正、逆フィルタ補正）</a>をご覧下さい。</p>
+</div>
+
+<div class="cap">[設定]機能</div>
+<div class="para">
+すでに保存された逆フィルタを呼びだして設定します。また、逆フィルタの削除や変更を行うこともできます。ここで設定された逆フィルタが測定時に出力されるM系列音に適用されます。この逆フイルタをインパルス応答測定時にあらかじめセットしておけば、応答関数全体からシステムの応答関数を差し引いた残りのインパルス応答が測定できます。
+</div>
+<table>
+	<tr>
+		<th>項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td>タイトル</td>
+		<td>保存された逆フィルタのタイトルが表示されます。</td>
+	</tr>
+	<tr>
+		<td>インパルス応答</td>
+		<td>測定されたインパルス応答が表示されます。変更する場合は、測定系のインパルス応答と思われる部分を黄色の範囲に入るように黄色の左右の境界を調整します。</td>
+	</tr>
+	<tr>
+		<td>逆フィルタ特性</td>
+		<td>切り出されたインパルス応答に対応する逆フィルタの特性（レベル、位相）が表示されます。</td>
+	</tr>
+	<tr>
+		<td>タイトル</td>
+		<td>この逆フィルタのタイトルを入力します。</td>
+	</tr>
+	<tr>
+		<td>コメント</td>
+		<td>この逆フィルタにつけるコメントを入力します。</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap">最大補正レベル</td>
+		<td>逆フィルタの補正のレベルを制限します。</td>
+	</tr>
+	<tr>
+		<td>位相補正</td>
+		<td>ONにするとレベルと位相の両方が補正され、OFFにするとレベルのみが補正されます。通常はONにしてください。</td>
+	</tr>
+	<tr>
+		<td>OK</td>
+		<td>選択した逆フィルタを使用するように設定します。</td>
+	</tr>
+	<tr>
+		<td>キャンセル</td>
+		<td>何もせずにこのダイアログを閉じます。</td>
+	</tr>
+	<tr>
+		<td>上書き保存</td>
+		<td>変更した逆フィルタを保存します。</td>
+	</tr>
+	<tr>
+		<td>削除</td>
+		<td>選択した逆フィルタを削除します。</td>
+	</tr>
+</table>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">インパルス応答</a></p>
+<hr />
+</body>
+
+</html>

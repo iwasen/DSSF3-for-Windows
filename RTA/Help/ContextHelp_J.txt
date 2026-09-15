@@ -1,0 +1,1696 @@
+#include "ContextHelp.h"
+
+.topic IDH_RTA_SG
+シグナルジェネレータウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_FFT
+FFTアナライザウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_OS
+オシロスコープウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_FRE
+周波数特性測定ウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_DST
+歪率測定ウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_IMP
+インパルス応答測定ウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_ACF
+ランニングACF測定ウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_REC
+録音・再生ウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_PRESET
+プリセット設定ウィンドウを開きます。既に開いている場合はそのウィンドウを閉じます。
+
+.topic IDH_RTA_EXIT
+リアルタイムアナライザを終了します。
+
+.topic IDH_RTA_INPUT_DEVICE
+入力サウンドデバイスを選択します。ASIOドライバの場合は先頭に"[ASIO]"が付加されて表示されます。
+
+.topic IDH_RTA_OUTPUT_DEVICE
+出力サウンドデバイスを選択します。ASIOドライバの場合は先頭に"[ASIO]"が付加されて表示されます。
+
+.topic IDH_RTA_INPUT_SELECT
+入力サウンドデバイスの入力ソースを選択します。ASIOドライバの場合は選択できません。
+
+.topic IDH_RTA_INPUT_VOLUME
+入力サウンドデバイスの入力レベルを設定します。ASIOドライバの場合は設定できません。
+
+.topic IDH_RTA_INPUT_LEVEL
+入力レベルのピーク値を表示します。0dBに達している場合は入力レベルがオーバーしていますので、[入力装置]の[音量]を下げてください。
+
+.topic IDH_RTA_OUTPUT_LEVEL
+出力レベルのピーク値を表示します。
+
+.topic IDH_RTA_AUTOREC
+指定されたフォルダに入出力データを自動的に保存します。
+
+.topic IDH_SG_START
+シグナルジェネレータの動作を開始します。動作中にクリックすると停止します。
+
+.topic IDH_SG_TIME
+シグナルジェネレータの動作経過時間を表示します。
+
+.topic IDH_SG_SAMPLING_RATE
+シグナルジェネレータのサンプリングレートを選択します。出力可能な周波数はサンプリングレートの1/2以下となります。
+
+.topic IDH_SG_DSLIDER
+出力の振幅をデジタル数値で設定します。
+
+.topic IDH_SG_DLEVEL
+出力の振幅をデジタル数値で入力します。入力可能な範囲は、0～100です。
+
+.topic IDH_SG_CLOSE
+シグナルジェネレータウィンドウを閉じます。
+
+.topic IDH_SG_LSLIDER
+サウンドデバイスの左チャネルの出力ボリュームを設定します。
+
+.topic IDH_SG_RSLIDER
+サウンドデバイスの右チャネルの出力ボリュームを設定します。
+
+.topic IDH_SG_LLEVEL
+サウンドデバイスの左チャネルの出力ボリュームを入力します。入力可能な範囲は、0～100です。
+
+.topic IDH_SG_RLEVEL
+サウンドデバイスの右チャネルの出力ボリュームを入力します。入力可能な範囲は、0～100です。
+
+.topic IDH_SG_RENDOU
+チェックを入れると、左右の出力レベルのどちらかを変えると、もう一方のレベルも連動して変わるようになります。
+
+.topic IDH_SG_TONE_SFREQ_L
+左チャネルの周波数を設定します。
+
+.topic IDH_SG_TONE_EFREQ_L
+左チャネルの周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_SG_TONE_SFREQ_R
+右チャネルの周波数を設定します。
+
+.topic IDH_SG_TONE_EFREQ_R
+右チャネルの周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_SG_TONE_PRESET1_4
+プリセットされた周波数に設定します。[Set]ボタンをクリックした後にこのボタンをクリックした場合は、その時点の周波数をこのボタンに登録します。
+
+.topic IDH_SG_TONE_PRESET
+プリセットボタンに周波数を登録します。このボタンをクリックした後に左側のプリセットボタンをクリックすると、その時点の周波数がそのボタンに登録されます。
+
+.topic IDH_SG_TONE_FREQ_RANGE
+周波数設定スライダで設定できる周波数の範囲を選択します。
+
+.topic IDH_SG_TONE_RENDOU_F
+チェックを入れると、左右どちらかの周波数を変えると、もう一方の周波数も連動して変わるようになります。
+
+.topic IDH_SG_TONE_PHASE_SLIDER
+左右のチャネルの位相差を設定します。プラスの値を設定すると左チャネルの位相が進み、マイナスの値を設定すると右チャネルの位相が進みます。
+
+.topic IDH_SG_TONE_PHASE_VALUE
+左右のチャネルの位相差を入力します。入力可能な範囲は、-180～180です。
+
+.topic IDH_SG_TONE_PHASE0
+左右のチャネルの位相差を0に設定します。
+
+.topic IDH_SG_TONE_WAVE_FORM
+出力する波形を選択します。
+
+.topic IDH_SG_NOISE_WHITE_NOISE
+ホワイトノイズを出力します。ホワイトノイズは、全周波数帯域において一様のエネルギー分布を持っています。
+
+.topic IDH_SG_NOISE_PINK_NOISE
+ピンクノイズを出力します。ピンクノイズは、高域に向かって-3dB/octで低下するエネルギー分布を持っています。
+
+.topic IDH_SG_NOISE_BROWN_NOISE
+ブラウンノイズを出力します。ブラウンノイズは、高域に向かって-6dB/octで低下するエネルギー分布を持っています。
+
+.topic IDH_SG_NOISE_MONO
+左右のチャネルから同相のノイズを出力します。
+
+.topic IDH_SG_NOISE_STREO
+左右のチャネルから別々に無相関のノイズを出力します。
+
+.topic IDH_SG_NOISE_INVERSE
+左右のチャネルから逆相のノイズを出力します。
+
+.topic IDH_SG_NOISE_TIME_RANGE
+左右の時間差を設定できる範囲を設定します。[モード]で[左右独立]を選択した場合は設定できません。
+
+.topic IDH_SG_NOISE_TIME_SLIDER
+左右の時間差を設定を設定します。プラスの値を設定した場合は左チャネルの音が遅れ、マイナスの値を設定した場合は右チャネルの音が遅れます。[モード]で[左右独立]を選択した場合は設定できません。
+
+.topic IDH_SG_NOISE_TIME_VALUE
+左右の時間差をms単位で入力します。プラスの値を設定した場合は左チャネルの音が遅れ、マイナスの値を設定した場合は右チャネルの音が遅れます。[モード]で[左右独立]を選択した場合は設定できません。
+
+.topic IDH_SG_NOISE_TIME0
+左右の時間差を0に設定します。[モード]で[左右独立]を選択した場合は設定できません。
+
+.topic IDH_SG_SWEEP_START_FREQ
+スイープ開始時の周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_SG_SWEEP_END_FREQ
+スイープ終了時の周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。開始周波数より大きい場合は周波数を上げる方向に、小さい場合は周波数を下げる方向にスイープします。
+
+.topic IDH_SG_SWEEP_START_LEVEL
+スイープ開始時のレベルを入力します。入力可能な範囲は、0～999までです。0が最大レベルで値を大きくするほど出力レベルは下がります。
+
+.topic IDH_SG_SWEEP_END_LEVEL
+スイープ終了時のレベルを入力します。入力可能な範囲は、0～999までです。0が最大レベルで値を大きくするほど出力レベルは下がります。
+
+.topic IDH_SG_SWEEP_SWEEP_SPEED
+スイープを行う時間を入力します。入力可能な範囲は、1～999までです。
+
+.topic IDH_SG_SWEEP_LOOP
+チェックを入れると、スイープを連続的に繰り返します。チェックを入れないと、スイープが終了すると自動的に停止します。
+
+.topic IDH_SG_SWEEP_WAVE_FORM
+出力する波形を選択します。
+
+.topic IDH_SG_PULSE_WIDTH
+パルス幅の時間を選択します。サンプリング周期の整数倍となるため、サンプリング周波数により選択できる値は異なります。
+
+.topic IDH_SG_PULSE_NUM
+出力するパルスの個数を入力します。入力可能な範囲は1以上です。入力したパルス数を出力すると自動的に停止します。
+
+.topic IDH_SG_PULSE_CONTINUE
+[停止]ボタンをクリックするまでパルスを連続的に出力します。
+
+.topic IDH_SG_PULSE_CYCLE
+パルスの周期（パルスの間隔）をms単位で入力します。
+
+.topic IDH_SG_PULSE_POSITIVE
+プラス方向のパルスのみを出力します。ただし、サウンドデバイスによってはマイナス方向に出力される場合があります。
+
+.topic IDH_SG_PULSE_NEGATIVE
+マイナス方向のパルスのみを出力します。ただし、サウンドデバイスによってはプラス方向に出力される場合があります。
+
+.topic IDH_SG_PULSE_BOTH
+プラス方向とマイナス方向に交互にパルスを出力します。
+
+.topic IDH_SG_SYNTH_COMP_FREQ_1_8
+基本周波数に対する倍率を入力します。例えば基本周波数が1kHzの時に2を入力すると、2kHzを出力します。
+
+.topic IDH_SG_SYNTH_LEVEL_SLIDER_1_8
+周波数成分ごとのレベルを設定します。
+
+.topic IDH_SG_SYNTH_COMP_LEVEL_1_8
+周波数成分ごとのレベルを入力します。入力可能な範囲は、0～100です。
+
+.topic IDH_SG_SYNTH_FREQ_SLIDER
+基本周波数を設定します。
+
+.topic IDH_SG_SYNTH_SYNTH_FREQ
+基本周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_SG_SYNTH_WAVE_FORM
+出力する波形を選択します。
+
+.topic IDH_SG_SCALE_KEYBOARD
+クリックした鍵盤の音階を出力します。出力中の音階の位置には、緑のドットが表示されます。
+
+.topic IDH_SG_SCALE_REFERENCE_PITCH
+基準音程(A4)の周波数を入力します。440Hzが標準的です。
+
+.topic IDH_SG_SCALE_WAVE_FORM
+出力する波形を選択します。
+
+.topic IDH_SG_SCALE_PLAY_MODE
+チェックを入れると、[開始]ボタンをクリックしなくても、鍵盤をクリックしている間、その音を出力します。
+
+.topic IDH_SG_SCALE_SCALE_C
+Cの音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_CS
+C#（D♭）の音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_D
+Dの音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_DS
+D#（E♭）の音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_E
+Eの音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_F
+Fの音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_FS
+F#（G♭）の音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_G
+Gの音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_GS
+G#（A♭）の音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_A
+Aの音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_AS
+A#（B♭）の音階を出力します。
+
+.topic IDH_SG_SCALE_SCALE_B
+Bの音階を出力します。
+
+.topic IDH_SG_SCALE_FREQ
+出力中の音階の周波数を表示します。
+
+.topic IDH_SG_SCALE_OCTAVE0_8
+オクターブを選択します。
+
+.topic IDH_SG_WAVE_WND
+現在選択されている任意波形を表示します。
+
+.topic IDH_SG_WAVE_WAVEFORM1_5
+編集する任意波形を選択します。
+
+.topic IDH_SG_WAVE_EDIT
+選択した任意波形を編集します。
+
+.topic IDH_SG_WAVE_SFREQ
+出力する周波数を設定します。
+
+.topic IDH_SG_WAVE_EFREQ
+出力する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_SG_EDIT_WAVE_WND
+このウィンドウ内の波形の頂点（青い丸印）をクリックして選択し、波形を編集します。選択された頂点は赤い丸印に変わります。
+
+.topic IDH_SG_EDIT_ZOOM_V
+波形編集ウィンドウの縦方向のズーム倍率を表示します。
+
+.topic IDH_SG_EDIT_SCROLL_V
+波形編集ウィンドウを縦方向にスクロールします。
+
+.topic IDH_SG_EDIT_ZOOM_H
+波形編集ウィンドウの横方向のズーム倍率を表示します。
+
+.topic IDH_SG_EDIT_SCROLL_H
+波形編集ウィンドウを横方向にスクロールします。
+
+.topic IDH_SG_EDIT_POS_X
+選択中の頂点（赤い丸印）のX座標を表示します。また、任意の座標位置を入力することもできます。
+
+.topic IDH_SG_EDIT_POS_Y
+選択中の頂点（赤い丸印）のY座標を表示します。また、任意の座標位置を入力することもできます。
+
+.topic IDH_SG_EDIT_VERTEX_ADD
+このラジオボタンを選択して波形編集ウィンドウをクリックすると、その位置に新たに頂点（赤い丸印）を追加します。
+
+.topic IDH_SG_EDIT_VERTEX_SEL
+このラジオボタンを選択して波形編集ウィンドウの頂点（青い丸印）をクリックすると、その頂点を選択します。選択した頂点は赤い丸印で表示され、移動／削除を行うことができます。
+
+.topic IDH_SG_EDIT_VERTEX_DELETE
+選択中の頂点（赤い丸印）を削除します。
+
+.topic IDH_SG_EDIT_ALL_CLEAR
+全ての頂点を削除し、初期状態に戻します。
+
+.topic IDH_SG_EDIT_TEST
+編集中の波形の音を出力します。
+
+.topic IDH_SG_EDIT_SMOOTHING
+チェックを入れると、頂点の間をスプライン曲線でつなぎます。
+
+.topic IDH_SG_EDIT_OK
+編集した波形を保存して、このダイアログを閉じます。
+
+.topic IDH_SG_EDIT_CANCEL
+編集した波形を保存せずに、このダイアログを閉じます。
+
+.topic IDH_SG_EDIT_ZOOM_H_FULL
+波形編集ウィンドウの横方向のズームを解除します。
+
+.topic IDH_SG_EDIT_ZOOM_H_IN
+波形編集ウィンドウを横方向にズームインします。
+
+.topic IDH_SG_EDIT_ZOOM_H_OUT
+波形編集ウィンドウを横方向にズームアウトします。
+
+.topic IDH_SG_EDIT_ZOOM_V_FULL
+波形編集ウィンドウの縦方向のズームを解除します。
+
+.topic IDH_SG_EDIT_ZOOM_V_IN
+波形編集ウィンドウを縦方向にズームインします。
+
+.topic IDH_SG_EDIT_ZOOM_V_OUT
+波形編集ウィンドウを縦方向にズームアウトします。
+
+.topic IDH_SG_EDIT_WAVE_WND_FM
+編集中の波形を表示します。
+
+.topic IDH_SG_EDIT_MOD_AMP
+モジュレータの振幅を設定します。
+
+.topic IDH_SG_EDIT_MOD_FREQ
+モジュレータの周波数を設定します。
+
+.topic IDH_FFT_TAB
+タブで選択したグラフを表示します。
+
+.topic IDH_FFT_START
+FFTアナライザを開始します。動作中にクリックすると停止します。
+
+.topic IDH_FFT_TIME
+FFTアナライザを開始した後の経過時間を表示します。
+
+.topic IDH_FFT_MESSAGE
+校正を行っている場合、その名称を表示します。校正を行っていない場合は何も表示しません。
+
+.topic IDH_FFT_CALIBRATION
+校正設定ウィンドウを開きます。
+
+.topic IDH_FFT_PEAK_LEVEL_LEFT
+左チャネルの縦軸のデータを表示します。
+
+.topic IDH_FFT_PEAK_LEVEL_RIGHT
+右チャネルの縦軸のデータを表示します。
+
+.topic IDH_FFT_PEAK_FREQ_LEFT
+左チャネルの横軸のデータを表示します。
+
+.topic IDH_FFT_PEAK_FREQ_RIGHT
+右チャネルの横軸のデータを表示します。
+
+.topic IDH_FFT_RES_FREQ
+左チャネルの周波数分解能を表示します。
+
+.topic IDH_FFT_RES_TIME
+右チャネルの周波数分解能を表示します。
+
+.topic IDH_FFT_SCREEN_SHOT
+クリックした時点のグラフを別ウィンドウで開きます。同時にいくつでも表示可能です。
+
+.topic IDH_FFT_RL_SPLIT
+チェックを入れると、左チャネルと右チャネルのグラフを別々に表示します。チェックを入れないと、ひとつのグラフの中に両チャネルを同時に表示します。
+
+.topic IDH_FFT_DATA_RECORD
+オクターブバンドを表示しているときにクリックすると、データ記録ウィンドウを開きます。オクターブバンド以外を表示している場合はクリックできません。
+
+.topic IDH_FFT_CSV_OUTPUT
+データをCSV形式のファイルに出力します。
+
+.topic IDH_FFT_CSV_INPUT
+出力したCSVファイルを読み込んで表示します。
+
+.topic IDH_FFT_CLOSE
+FFTアナライザウィンドウを閉じます。
+
+.topic IDH_FFT_AUTO_LEVEL
+チェックを入れると、レベルのスケール（縦軸）を最適な範囲に自動的に調整します。
+
+.topic IDH_FFT_MAX_LEVEL
+レベルのスケール（縦軸）の最大値を入力します。
+
+.topic IDH_FFT_MIN_LEVEL
+レベルのスケール（縦軸）の最小値を入力します。
+
+.topic IDH_FFT_AUTO_FREQ
+チェックを入れると、周波数のスケール（横軸）を最適な範囲に自動的に調整します。
+
+.topic IDH_FFT_MAX_FREQ
+周波数のスケール（横軸）の最大値を入力します。
+
+.topic IDH_FFT_MIN_FREQ
+周波数のスケール（横軸）の最小値を入力します。
+
+.topic IDH_FFT_SAMPLING_RATE
+FFTアナライザのサンプリングレートを選択します。グラフで表示できる周波数は、サンプリングレートの1/2までとなります。
+
+.topic IDH_FFT_FFT_SIZE
+FFTを計算する際のデータサイズを選択します。サイズを大きくするほど周波数の分解能が高くなりますが、時間の分解能（更新レート）は低下します。
+
+.topic IDH_FFT_WINFUNC
+窓関数を選択します。窓関数の種類によって周波数分解能やサイドローブの振幅が異なりますので、測定の目的に合わせて選択してください。
+
+.topic IDH_FFT_CHANNEL
+測定するチャネルの種類を選択します。
+
+.topic IDH_FFT_FILTER
+フィルタ特性を選択します。フィルタを使用しない場合はFlatを選択してください。
+
+.topic IDH_FFT_SMOOTHING
+選択した時定数により平滑化を行います。ノイズが多くてグラフが安定しない場合に、大きな数値を選択することで安定化することができます。
+
+.topic IDH_FFT_AVERAGE
+選択した秒数で移動平均を行います。平滑化と同様にノイズが多い場合に有効です。
+
+.topic IDH_FFT_LOG_SCALE
+周波数軸を対数スケールで表示します。
+
+.topic IDH_FFT_LINEAR_SCALE
+周波数軸をリニアスケールで表示します。
+
+.topic IDH_FFT_TIME_RES
+時間分解能（更新レート）を選択した倍率で高めます。ただし、CPUの負荷もそれに応じて高くなりますので、CPU使用率を下げたい場合は小さな数値を選択してください。
+
+.topic IDH_FFT_PEAK_DISP
+チェックを入れると、ピークのデータを強調表示します。
+
+.topic IDH_FFT_PEAK_HOLD
+チェックを入れると、ピークのデータを一定時間保持して表示します。
+
+.topic IDH_FFT_PEAK_AUTO
+ピークのデータを、設定した秒数経過するごとに自動的にリセットします。
+
+.topic IDH_FFT_PEAK_TIME
+ピークのデータを自動的にリセットする秒数を入力します。
+
+.topic IDH_FFT_PEAK_MANUAL
+ピークのデータを[リセット]ボタンをクリックすることでリセットできるようにします。
+
+.topic IDH_FFT_PEAK_RESET
+ピークのデータをリセットします。
+
+.topic IDH_FFT_TIME_RANGE
+[声紋]表示の横軸の秒数を選択します。[声紋]表示以外では選択できません。
+
+.topic IDH_FFT_TIME_DATA_NUM
+[３次元表示]の時間軸のデータ数を選択します。[３次元表示]以外では選択できません。
+
+.topic IDH_FFT_TIME_FWD
+[声紋]表示と[３次元表示]の時間軸を前方に向かって表示します。
+
+.topic IDH_FFT_TIME_BWD
+[声紋]表示と[３次元表示]の時間軸を後方に向かって表示します。
+
+.topic IDH_FFT_CF_ZOOM
+[相関関数]表示の場合に時間軸を拡大します。
+
+.topic IDH_FFT_OCT_BAND
+[オクターブバンド]表示の場合に、オクターブ当りの分割数を選択します。
+
+.topic IDH_FFT_COLOR
+[声紋]表示の場合に、レベルを表すスケールをカラーで表示します。
+
+.topic IDH_FFT_GRAY
+[声紋]表示の場合に、レベルを表すスケールをモノクロの濃淡で表示します。
+
+.topic IDH_FFT_CF_AUTO
+[相関関数]表示の場合に、自己相関関数を表示します。
+
+.topic IDH_FFT_CF_LATERAL
+[相関関数]表示の場合に、相互相関関数を表示します。
+
+.topic IDH_FFT_AUTO_STOP
+[開始]ボタンをクリックした後、ここに入力した秒数が経過すると自動的に測定を停止します。0を入力した場合は[停止]ボタンをクリックするまで停止しません。
+
+.topic IDH_FFT_REC_DATA_LIST
+記録されたオクターブバンドのデータが表示されます。
+
+.topic IDH_FFT_REC_TIMING_CYCLE
+一定の周期で自動的にデータを記録します。周期は[間隔]ボックスで設定してください。
+
+.topic IDH_FFT_REC_TIMING_INTERVAL
+[定周期]が選択されている場合に、記録するときの時間間隔を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_FFT_REC_TIMING_MANUAL
+データの記録を、[記録]ボタンをクリックしたタイミングで行います。
+
+.topic IDH_FFT_REC_TIMING_RECORD
+[手動]が選択されている場合にクリックすると、その時点のデータを記録します。
+
+.topic IDH_FFT_REC_DELETE_DATA
+現在表示されているデータを消去します。
+
+.topic IDH_FFT_REC_DELETE_AT_START
+チェックを入れると、測定を開始した時にそれ以前に記録されているデータがあった場合、それを消去します。チェックを外した場合は、追加して記録します。
+
+.topic IDH_FFT_REC_ALWAYS_NEW_DATA
+チェックを入れると、常に最新のデータが表示されるように自動的にリストをスクロールします。
+
+.topic IDH_FFT_REC_FILE_SAVE
+記録されたデータをCSV形式でファイルに保存します。
+
+.topic IDH_FFT_REC_CLOSE
+このウィンドウを閉じます。
+
+.topic IDH_MICCAL_LIST
+登録済みの校正データのリストを表示します。
+
+.topic IDH_MICCAL_READ
+選択した校正データを適用して、このダイアログを閉じます。
+
+.topic IDH_MICCAL_RESET
+マイク校正を解除します。解除した場合は、入力データの最大レベルを0dBとした相対値でグラフを表示します。
+
+.topic IDH_MICCAL_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_MICCAL_REGIST
+校正データを新規に登録します。ダイアログの下部に校正データを設定してからクリックしてください。
+
+.topic IDH_MICCAL_CHANGE
+校正データを上書き保存します。まず[校正データリスト]から変更したい校正データを選択し、表示された校正データの内容を変更後、クリックしてください。
+
+.topic IDH_MICCAL_SETTING
+ダイアログの下部に校正データを表示し、編集できるようにします。
+
+.topic IDH_MICCAL_DELETE
+[校正データリスト]で選択している校正データを削除します。
+
+.topic IDH_MICCAL_COMMON_RL
+左右のチャネルに同一の校正データを設定したい場合に選択します。
+
+.topic IDH_MICCAL_SEPARATE_RL
+左右のチャネルに別々の校正データを設定したい場合に選択します。
+
+.topic IDH_MICCAL_SIGNAL_OUT
+騒音計で校正する場合に1kHzのテスト信号を出力します。
+
+.topic IDH_MICCAL_MICINFO
+使用するマイクについての情報を入力します。入力は必須ですが、内容は任意です。
+
+.topic IDH_MICCAL_MICAMPINFO
+使用するマイクアンプについての情報を入力します。入力は任意です。
+
+.topic IDH_MICCAL_COMMENT
+校正データについてのコメントを入力します。入力は任意です。
+
+.topic IDH_MICCAL_INPUT_LEVEL
+現在の入力レベルを表示します。校正は使用するマイクと騒音計を同じ場所に置き、騒音計とこの数値が同じ値を示すように下のスクロールバーを調整して行います。
+
+.topic IDH_MICCAL_FILTER
+校正に使用する騒音計と同じフィルタ特性を選択します。
+
+.topic IDH_MICCAL_LEVEL_BAR
+校正は使用するマイクと騒音計を同じ場所に置き、騒音計と上の入力レベルが同じ数値を示すようにこのスクロールバーを調整して行います。
+
+.topic IDH_MICCAL_FREQ_RESPONSE
+マイクの周波数特性を表示します。右側の[設定]ボタンで周波数とレベルを何点か設定すると、その間をスプライン曲線でつないで表示します。測定時にはこの曲線と逆の特性を持ったフィルタにより、マイクの周波数特性をフラットに補正します。
+
+.topic IDH_MICCAL_FREQ_LIST
+右側の[設定]ボタンで設定した周波数とレベルのリストが表示されます。
+
+.topic IDH_MICCAL_FREQ
+マイクの周波数特性表などから周波数とレベルをの組み合わせを何点か選び、その周波数を入力します。特に周波数特性が変化する部分のデータを多く入力すると正確性が増します。
+
+.topic IDH_MICCAL_LEVEL
+マイクの周波数特性表などから周波数とレベルをの組み合わせを何点か選び、そのレベルを入力します。特に周波数特性が変化する部分のデータを多く入力すると正確性が増します。
+
+.topic IDH_MICCAL_FREQ_REGIST
+入力した周波数とレベルを周波数特性として設定します。何も設定しない場合は、フラットな周波数特性とみなします。
+
+.topic IDH_MICCAL_FREQ_DELETE
+左のリストで選択した周波数とレベルの組み合わせを削除します。
+
+.topic IDH_OS_SCREEN
+入力された波形を表示します。上部には設定情報が表示されます。
+
+.topic IDH_OS_START
+オシロスコープの動作を開始します。動作中にクリックすると停止します。
+
+.topic IDH_OS_TIME
+オシロスコープの動作を開始してからの経過時間を表示します。
+
+.topic IDH_OS_CLOSE
+オシロスコープウィンドウを閉じます。
+
+.topic IDH_OS_SCREEN_SHOT
+クリックした時点の波形を別ウィンドウで開きます。同時にいくつでも表示可能です。
+
+.topic IDH_OS_LEVEL_L
+左チャネルのレベル感度を調整します。
+
+.topic IDH_OS_LEVEL_L2
+左チャネルのレベル感度を１目盛り当りのA/D変換値で表示します。
+
+.topic IDH_OS_LEVEL_R
+右チャネルのレベル感度を調整します。
+
+.topic IDH_OS_LEVEL_R2
+右チャネルのレベル感度を１目盛り当りのA/D変換値で表示します。
+
+.topic IDH_OS_LEVEL_AUTO
+チェックを入れると、入力レベルに合わせてレベル感度を自動的に調整します。
+
+.topic IDH_OS_RENDOU
+チェックを入れると、左右どちらかのレベルを変えるともう一方も連動して変わります。
+
+.topic IDH_OS_POS_L
+左チャネルの縦方向の表示位置を調整します。
+
+.topic IDH_OS_POS_L2
+左チャネルの縦方向の表示位置を-50（下端）～50（上端）の範囲で表示します。
+
+.topic IDH_OS_POS_R
+右チャネルの縦方向の表示位置を調整します。
+
+.topic IDH_OS_POS_R2
+右チャネルの縦方向の表示位置を-50（下端）～50（上端）の範囲で表示します。
+
+.topic IDH_OS_POS_CENTER
+左右のチャネルの縦方向の位置を、両方とも中央に設定します。
+
+.topic IDH_OS_POS_ALT
+左チャネルを上側に、右チャネルを下側に表示します。
+
+.topic IDH_OS_TRIG_LEVEL
+トリガーレベルを調整します。右にある表示チェックボックスをONにすると、トリガー位置が緑の三角マークで表示されます。
+
+.topic IDH_OS_TRIG_LEVEL2
+トリガーレベルを-50（下端）～50（上端）の範囲で表示します。
+
+.topic IDH_OS_TRIG_AUTO
+トリガーレベルを、自動的に入力波形の振幅の中央に設定します。
+
+.topic IDH_OS_TRIG_CH1
+左チャネルの入力波形でトリガーを掛けます。
+
+.topic IDH_OS_TRIG_CH2
+右チャネルの入力波形でトリガーを掛けます。
+
+.topic IDH_OS_TRIG_PLUS
+入力波形がトリガーレベルを下から上へ横切った時にトリガーを掛けます。
+
+.topic IDH_OS_TRIG_MINUS
+入力波形がトリガーレベルを上から下へ横切った時にトリガーを掛けます。
+
+.topic IDH_OS_TRIG_HIGHCUT
+チェックを入れると、入力波形にハイカットフィルタ（ローパスフィルタ）を通してトリガーを掛けます。入力波形に高域ノイズが乗っていてトリガーが安定しないときにONにします。
+
+.topic IDH_OS_TRIG_LOWCUT
+チェックを入れると、入力波形にローカットフィルタ（ハイパスフィルタ）を通してトリガーを掛けます。入力波形に低域ノイズが乗っていてトリガーが安定しないときにONにします。
+
+.topic IDH_OS_TRIG_POS
+チェックを入れると、トリガーレベルを表示位置を基準に相対的に設定します。チェックを入れないと、表示位置に関係なく画面上の絶対位置で設定します。
+
+.topic IDH_OS_TRIG_DISP
+チェックを入れると、トリガーレベルを緑色の三角マークで表示します。
+
+.topic IDH_OS_TRIG_FREE
+チェックを入れると、一定時間トリガーが掛からない場合でもスイープを行います。
+
+.topic IDH_OS_TRIG_SINGLE
+チェックを入れると、一度だけトリガーが掛かった時にスイープを行います。右の[リセット]ボタンをクリックすると、トリガーがリセットされます。
+
+.topic IDH_OS_TRIG_RESET
+シングルトリガーモード（[シングル]チェックボックスがON）の時にクリックすると、トリガーをリセットし、再度トリガーが掛かるようにします。
+
+.topic IDH_OS_OVERLAY
+入力波形を選択した回数分、重ね合わせて表示します。
+
+.topic IDH_OS_SWEEP
+スイープ時間を設定します。スライダを右に移動するほどスイープ速度が速くなります。
+
+.topic IDH_OS_SWEEP2
+スイープ時間を１目盛り当りの時間(ms単位）で表示します。
+
+.topic IDH_OS_DELAY_RANGE
+トリガーが掛かってからスイープを開始するまでのディレイ時間の最大値を選択します。
+
+.topic IDH_OS_DELAY
+トリガーが掛かってからスイープを開始するまでのディレイ時間を設定します。
+
+.topic IDH_OS_DELAY2
+トリガーが掛かってからスイープを開始するまでのディレイ時間を表示します。
+
+.topic IDH_OS_REVERSE_L
+チェックを入れると、左チャネルの波形を上下に反転します。
+
+.topic IDH_OS_REVERSE_R
+チェックを入れると、右チャネルの波形を上下に反転します。
+
+.topic IDH_OS_XY
+チェックを入れると、左チャネルの波形を横軸、右チャネルの波形を縦軸に入力し、リサージュ波形を表示します。
+
+.topic IDH_OS_ZERO_LEVEL
+チェックを入れると、ゼロレベルの位置に左チャネルは青、右チャネルは赤のラインを表示します。
+
+.topic IDH_OS_SAMPLING_RATE
+FFTアナライザのサンプリングレートを選択します。入力できる周波数の上限は、サンプリングレートの1/2までとなります。
+
+.topic IDH_OS_CHANNEL
+オシロスコープに表示するチャネルの種類を選択します。
+
+.topic IDH_OS_CALIBRATION
+校正設定ウィンドウを開きます。
+
+.topic IDH_OS_CAL_VALUE
+既知の入力を左チャネルに加えて、その値を入力します。
+
+.topic IDH_OS_CAL_UNIT
+単位（電圧であればVなど）を入力します。不要であれば入力しなくても構いません。
+
+.topic IDH_OS_CAL_EFECTIVE
+入力値が実効値である場合に選択します。
+
+.topic IDH_OS_CAL_PEAKTOPEAK
+入力値がピークtoピーク値である場合に選択します。
+
+.topic IDH_OS_CAL_OK
+校正を有効にします。
+
+.topic IDH_OS_CAL_DISABLE
+校正を無効にします。その場合、A/D変換値をそのまま表示します。
+
+.topic IDH_OS_CAL_CANCEL
+何もせずにこのウィンドウを閉じます。
+
+.topic IDH_FRE_START
+周波数特性の測定を開始します。測定中にクリックすると停止します。
+
+.topic IDH_FRE_ELP_TIME
+周波数特性の測定を開始してからの経過時間を表示します。
+
+.topic IDH_FRE_SAMPLING_RATE
+周波数特性測定のサンプリングレートを選択します。測定できる最大の周波数は、サンプリングレートの1/2までとなります。
+
+.topic IDH_FRE_CHANNEL_MONO
+左チャネルのみで測定を行います。
+
+.topic IDH_FRE_CHANNEL_STEREO
+左右両方のチャネルで測定を行います。
+
+.topic IDH_FRE_MAX_LEVEL
+グラフの縦軸の最大レベルを入力します。
+
+.topic IDH_FRE_MIN_LEVEL
+グラフの縦軸の最小レベルを入力します。
+
+.topic IDH_FRE_SCREEN_SHOT
+クリックした時点のグラフを別ウィンドウで開きます。同時にいくつでも表示可能です。
+
+.topic IDH_FRE_CSV_OUTPUT
+測定した周波数特性のデータをCSVファイルに出力します。
+
+.topic IDH_FRE_CSV_INPUT
+測定した周波数特性CSVファイル読み込んで表示します。
+
+.topic IDH_FRE_EXIT
+周波数特性測定ウィンドウを閉じます。
+
+.topic IDH_FRE_ADD_DATA_HOLD
+現在の測定データの表示を保持します。
+
+.topic IDH_FRE_DEL_DATA_HOLD
+保持した測定データを削除します。
+
+.topic IDH_FRE_SWEEP_GRAPH
+測定した周波数特性グラフを表示します。周波数スイープによる測定は、周波数を連続的に変化させながら行うため、滑らかな曲線が得られる特徴があります。
+
+.topic IDH_FRE_SWEEP_FREQ_START
+測定を開始する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_FRE_SWEEP_FREQ_END
+測定を終了する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_FRE_SWEEP_TIME
+開始周波数から終了周波数までスイープする時間を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_FRE_SWEEP_FREQ_CURRENT
+測定中の周波数を表示します。
+
+.topic IDH_FRE_SWEEP_LEVEL_SLIDER
+測定するレベルを設定します。
+
+.topic IDH_FRE_SWEEP_LEVEL_EDIT
+測定するレベルを入力します。入力可能な範囲は、0（最大）～-60（最小）です。
+
+.topic IDH_FRE_SPOT_GRAPH
+測定した周波数特性グラフを表示します。スポット周波数による測定は、周波数を段階的に変化させながら行うもので、測定中の周波数のみを通過するフィルタを通すためノイズの影響が少なく、最も正確な結果が得られる特徴があります。
+
+.topic IDH_FRE_SPOT_FREQ_START
+測定を開始する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_FRE_SPOT_FREQ_END
+測定を終了する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_FRE_SPOT_FREQ_POINT
+開始周波数から終了周波数の間の測定点数を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_FRE_SPOT_FREQ_CURRENT
+測定中の周波数を表示します。
+
+.topic IDH_FRE_SPOT_LEVEL_SLIDER
+測定するレベルを設定します。
+
+.topic IDH_FRE_SPOT_LEVEL_EDIT
+測定するレベルを入力します。入力可能な範囲は、0（最大）～-60（最小）です。
+
+.topic IDH_FRE_NOISE_GRAPH
+測定した周波数特性グラフを表示します。ピンクノイズによる測定は、ピンクノイズを出力し入力データをFFT分析するもので、同時に全周波数の特性が得られる特徴があります。
+
+.topic IDH_FRE_NOISE_FREQ_START
+表示する最小の周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_FRE_NOISE_FREQ_END
+表示する最大の周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_FRE_NOISE_RESOLUTION
+周波数の分解能を選択します。分解能を大きくするほど高精度で測定できますが、表示の更新レートが遅くなります。
+
+.topic IDH_FRE_NOISE_AVERAGING
+移動平均によりグラフの不規則な変動を抑え、滑らかに表示します。
+
+.topic IDH_FRE_NOISE_LEVEL_SLIDER
+測定するレベルを設定します。
+
+.topic IDH_FRE_NOISE_LEVEL_EDIT
+測定するレベルを入力します。入力可能な範囲は、0（最大）～-60（最小）です。
+
+.topic IDH_FRE_SET_CALIBRATION
+校正設定ウィンドウを開きます。
+
+.topic IDH_FRE_CAL_MESSAGE
+校正を行っている場合、その名称を表示します。校正を行っていない場合は何も表示しません。
+
+.topic IDH_DST_START
+歪率の測定を開始します。測定中にクリックすると停止します。
+
+.topic IDH_DST_ELP_TIME
+歪率の測定を開始してからの経過時間を表示します。
+
+.topic IDH_DST_SAMPLING_RATE
+歪率測定のサンプリングレートを選択します。測定できる最大の高調波は、サンプリングレートの1/2までの周波数となります。
+
+.topic IDH_DST_CHANNEL_MONO
+左チャネルのみで測定を行います。
+
+.topic IDH_DST_CHANNEL_STEREO
+左右両方のチャネルで測定を行います。
+
+.topic IDH_DST_MAX_HARMONICS
+歪率の計算に使用される最大の高調波の次数を選択します。ただし、選択した次数以内でもサンプリングレートの1/2を超える周波数の高調波は測定できません。
+
+.topic IDH_DST_GUARD_TIME
+周波数スイープまたはレベルスイープの測定では、周波数・レベルを変化させたことによる過渡的な変化が落ち着いて、入力データが安定するまで一定時間待ってから測定を行います。ここではその待ち時間を選択します。
+
+.topic IDH_DST_SCALE_PERCENT
+歪率のスケールをパーセントで表示します。
+
+.topic IDH_DST_SCALE_DB
+歪率のスケールをdBで表示します。
+
+.topic IDH_DST_SCALE_MAX
+歪率のスケールの最大値を選択します。
+
+.topic IDH_DST_SCALE_MIN
+歪率のスケールの最小値を選択します。
+
+.topic IDH_DST_SCREEN_SHOT
+クリックした時点のグラフを別ウィンドウで開きます。同時にいくつでも表示可能です。
+
+.topic IDH_DST_CSV_OUTPUT
+測定した歪率のデータをCSVファイルに出力します。
+
+.topic IDH_DST_CLOSE
+歪率測定ウィンドウを閉じます。
+
+.topic IDH_DST_ADD_DATA_HOLD
+現在の測定データの表示を保持します。
+
+.topic IDH_DST_DEL_DATA_HOLD
+保持した測定データを削除します。
+
+.topic IDH_DST_MANUAL_HARM_GRAPH
+マニュアル測定グラフを表示します。マニュアル測定は、予め設定した周波数とレベルで測定を行い、歪率(THD)と高調波の次数ごとのレベルを棒グラフで表示します。
+
+.topic IDH_DST_MANUAL_FREQ_SLIDER
+測定する周波数を設定します。
+
+.topic IDH_DST_MANUAL_FREQ_EDIT
+測定する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_DST_MANUAL_LEVEL_SLIDER
+測定するレベルを設定します。
+
+.topic IDH_DST_MANUAL_LEVEL_EDIT
+測定するレベルを入力します。入力可能な範囲は、0（最大）～-60（最小）です。
+
+.topic IDH_DST_MANUAL_AVERAGE
+測定値を時間で平均化して表示します。
+
+.topic IDH_DST_MANUAL_LEFT_THD
+測定中の左チャネルの歪率(THD)を表示します。
+
+.topic IDH_DST_MANUAL_RIGHT_THD
+測定中の右チャネルの歪率(THD)を表示します。
+
+.topic IDH_DST_FREQ_HARM_GRAPH
+周波数スイープ測定グラフを表示します。周波数スイープ測定は、周波数を段階的に変えながら測定を行い、周波数に対する歪率を折れ線グラフで表示します。
+
+.topic IDH_DST_FREQ_START
+測定を開始する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_DST_FREQ_END
+測定を終了する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_DST_FREQ_POINT
+開始周波数から終了周波数までの測定点の数を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_DST_FREQ_CURRENT
+測定中の周波数を表示します。
+
+.topic IDH_DST_FREQ_LEVEL_SLIDER
+測定するレベルを設定します。
+
+.topic IDH_DST_FREQ_LEVEL_EDIT
+測定するレベルを入力します。入力可能な範囲は、0（最大）～-60（最小）です。
+
+.topic IDH_DST_FREQ_SPLINE
+チェックを入れると、測定点の間をスプライン曲線で表示します。
+
+.topic IDH_DST_FREQ_MARKER
+チェックを入れると、測定点にマーカーを表示します。
+
+.topic IDH_DST_FREQ_LEFT_THD
+測定中の左チャネルの歪率(THD)を表示します。
+
+.topic IDH_DST_FREQ_RIGHT_THD
+測定中の右チャネルの歪率(THD)を表示します。
+
+.topic IDH_DST_FREQ_HD
+THDは全高調波歪率、2ndHDは第２次高調波歪率、3rdHDは第３次高調波歪率を表示します。
+
+.topic IDH_DST_LEVEL_HARM_GRAPH
+レベルスイープ測定グラフを表示します。レベルスイープ測定は、レベルを段階的に変えながら測定を行い、レベルに対する歪率を折れ線グラフで表示します。
+
+.topic IDH_DST_LEVEL_FREQ_SLIDER
+測定する周波数を設定します。
+
+.topic IDH_DST_LEVEL_FREQ_EDIT
+測定する周波数を入力します。入力可能な範囲は、1～サンプリング周波数の1/2までです。
+
+.topic IDH_DST_LEVEL_START
+測定を開始するレベルを入力します。入力可能な範囲は、0以上です。
+
+.topic IDH_DST_LEVEL_END
+測定を終了するレベルを入力します。入力可能な範囲は、0以上です。
+
+.topic IDH_DST_LEVEL_POINT
+開始レベルから終了レベルまでの測定点の数を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_DST_LEVEL_CURRENT
+測定中のレベルを表示します。
+
+.topic IDH_DST_LEVEL_SPLINE
+チェックを入れると、測定点の間をスプライン曲線で表示します。
+
+.topic IDH_DST_LEVEL_MARKER
+チェックを入れると、測定点にマーカーを表示します。
+
+.topic IDH_DST_LEVEL_LEFT_THD
+測定中の左チャネルの歪率(THD)を表示します。
+
+.topic IDH_DST_LEVEL_RIGHT_THD
+測定中の右チャネルの歪率(THD)を表示します。
+
+.topic IDH_DST_LEVEL_HD
+THDは全高調波歪率、2ndHDは第２次高調波歪率、3rdHDは第３次高調波歪率を表示します。
+
+.topic IDH_IMP_IMPALSE_L
+左チャネルのインパルス応答を表示します。ズームしている場合は、クリックして左右にドラッグすることでスクロールできます。
+
+.topic IDH_IMP_IMPALSE_R
+右チャネルのインパルス応答を表示します。ズームしている場合は、クリックして左右にドラッグすることでスクロールできます。
+
+.topic IDH_IMP_ZOOM_H
+インパルス応答ウィンドウの横方向のズーム倍率を表示します。
+
+.topic IDH_IMP_SCROLL_H
+インパルス応答ウィンドウを横方向にスクロールします。
+
+.topic IDH_IMP_MR_TIME
+測定時刻を表示します。
+
+.topic IDH_IMP_MR_SAMPLING
+測定時のサンプリングレートを表示します。
+
+.topic IDH_IMP_MR_MTIME
+測定時の測定時間を表示します。
+
+.topic IDH_IMP_MR_MNUM
+測定時の同期加算回数を表示します。
+
+.topic IDH_IMP_MR_BIT
+測定時のビット数を表示します。
+
+.topic IDH_IMP_MR_CHANNEL
+測定時のチャネルを表示します。
+
+.topic IDH_IMP_START
+インパルス応答の測定を開始します。
+
+.topic IDH_IMP_STOP
+インパルス応答を途中で中止したい場合にクリックします。測定が終了すると自動的に停止するため、通常はクリックする必要はありません。
+
+.topic IDH_IMP_FILE_SAVE
+測定したインパルス応答をファイルに保存します。
+
+.topic IDH_IMP_FILE_LOAD
+保存されたインパルス応答データを読み込んで表示します。
+
+.topic IDH_IMP_SAMPLING_RATE
+インパルス応答測定のサンプリングレートを選択します。
+
+.topic IDH_IMP_ASSIST
+測定条件を最適なものに調整するための、アシスト機能を実行します。
+
+.topic IDH_IMP_MEASURE_TIME
+インパルス応答の測定時間を選択します。必要とするインパルス応答時間の２倍以上を選択してください。
+
+.topic IDH_IMP_MEASURE_NUM
+インパルス応答の同期加算回数を選択します。測定を指定した回数繰り返し同期加算を行うことで、S/N比を向上させることができます。
+
+.topic IDH_IMP_CHANNEL_MONO
+左チャネルのみで測定を行います。
+
+.topic IDH_IMP_CHANNEL_STEREO
+左右のチャネルで測定を行います。
+
+.topic IDH_IMP_MSEQ_METHOD
+M系列（最長符号系列）法を用いてインパルス応答を測定します。
+
+.topic IDH_IMP_TSP_METHOD
+TSP(Time-Stretched Pulse)法を用いてインパルス応答を測定します。
+
+.topic IDH_IMP_AUTO_LEVEL
+チェックを入れると、出力レベルが不適切な場合に、自動的にレベルを調整して測定を行います。
+
+.topic IDH_IMP_AUTO_RETRY
+チェックを入れると、測定を２度行って結果が一致しているか判断し、違いが大きい場合には一致するまで測定を自動的に再試行します。
+
+.topic IDH_IMP_IFA_SET
+インパルス応答を測定した結果には、測定対象のホールや室内のインパルス応答以外に、スピーカやマイクのインパルス応答も含まれています。逆フィルタ補正は、それらスピーカやマイクなどの不要なインパルス応答を逆フィルタで相殺し、本来のインパルス応答を得るための機能です。
+
+.topic IDH_IMP_IFA_CANCEL
+設定されている逆フィルタを解除します。
+
+.topic IDH_IMP_IFA_SAVE
+測定したインパルス応答から逆フィルタを作成し、それを保存します。
+
+.topic IDH_IMP_IFA_MESSAGE
+逆フィルタが設定されている場合、その逆フィルタの名称を表示します。
+
+.topic IDH_IMP_WAVE_IR
+インパルス応答波形をファイル出力の対象とします。
+
+.topic IDH_IMP_WAVE_OUT_MSRQ
+出力波形（スピーカに出力した波形）をファイル出力の対象とします。
+
+.topic IDH_IMP_WAVE_IN_MSEQ
+入力波形（マイクから入力した波形）をファイル出力の対象とします。
+
+.topic IDH_IMP_FILE_WAVE
+WAVEファイル形式でファイルに出力します。
+
+.topic IDH_IMP_FILE_TEXT
+テキストファイル形式でファイルに出力します。
+
+.topic IDH_IMP_WAVE_OUT
+選択した種類のデータを、選択した形式でファイルに出力します。
+
+.topic IDH_IMP_MESSAGE
+測定中の状態を表示します。
+
+.topic IDH_IMP_PLAYBACK
+測定したインパルス応答波形を、サウンドデバイスに出力します。
+
+.topic IDH_IMP_CLOSE
+インパルス応答測定ウィンドウを閉じます。
+
+.topic IDH_IMP_ZOOM_H_FULL
+インパルス応答ウィンドウの横方向のズームを解除します。
+
+.topic IDH_IMP_ZOOM_H_IN
+インパルス応答ウィンドウを横方向にズームインします。
+
+.topic IDH_IMP_ZOOM_H_OUT
+インパルス応答ウィンドウを横方向にズームアウトします。
+
+.topic IDH_IMP_SAVE_FOLDER_LIST
+登録済みのフォルダの一覧を表示します。クリックして測定データを保存するフォルダを選択してください。新規にフォルダを作成したい場合は、[フォルダ管理]ボタンをクリックしてください。
+
+.topic IDH_IMP_SAVE_DATA_LIST
+選択したフォルダの中に保存されているデータの一覧を表示します。
+
+.topic IDH_IMP_SAVE_SAVE
+選択しているフォルダ内に測定データを保存します。保存したデータは、音響分析システム(SA)で残響時間などの解析を行うことができます。
+
+.topic IDH_IMP_SAVE_FOLDER
+フォルダの作成／削除／変更を行います。
+
+.topic IDH_IMP_SAVE_CANCEL
+測定データを保存せずに、このダイアログを閉じます。
+
+.topic IDH_IMP_SAVE_SAMPLING
+測定データのサンプリングレートを表示します。
+
+.topic IDH_IMP_SAVE_MEASURE_TIME
+測定データの測定時間を表示します。
+
+.topic IDH_IMP_SAVE_MEASURE_NUM
+測定データの同期加算回数を表示します。
+
+.topic IDH_IMP_SAVE_CHANNEL
+測定データのチャネルを表示します。
+
+.topic IDH_IMP_SAVE_BIT
+測定データのサンプリングビット数を表示します。
+
+.topic IDH_IMP_SAVE_TITLE
+測定データのタイトルを入力します。[保存]ボタンをクリックする前に必ず入力してください。
+
+.topic IDH_IMP_SAVE_COMMENT
+測定データのコメントを入力します。入力は任意です。
+
+.topic IDH_IMP_SAVE_TIME
+測定データの測定日時を表示します。
+
+.topic IDH_IMP_LOAD_FOLDER_LIST
+登録済みのフォルダの一覧を表示します。クリックして読み込みたいフォルダを選択してください。
+
+.topic IDH_IMP_LOAD_FOLER_TITLE
+選択したフォルダのタイトルを表示します。
+
+.topic IDH_IMP_LOAD_FOLDER_NAME
+選択したフォルダの測定者名を表示します。
+
+.topic IDH_IMP_LOAD_FOLDER_PLACE
+選択したフォルダの測定場所を表示します。
+
+.topic IDH_IMP_LOAD_FOLDER_COMMENT
+選択したフォルダのコメントを表示します。
+
+.topic IDH_IMP_LOAD_FOLDER_DATE
+選択したフォルダの測定日付を表示します。
+
+.topic IDH_IMP_LOAD_DATA_LIST
+選択したフォルダに含まれる測定データの一覧を表示します。
+
+.topic IDH_IMP_LOAD_DATA_TITLE
+選択した測定データのタイトルを表示します。
+
+.topic IDH_IMP_LOAD_DATA_COMMENT
+選択した測定データのコメントを表示します。
+
+.topic IDH_IMP_LOAD_DATA_TIME
+選択した測定データの測定時間を表示します。
+
+.topic IDH_IMP_LOAD_READ
+選択した測定データを読み込み、このダイアログを閉じます。
+
+.topic IDH_IMP_LOAD_DELETE
+選択した測定データを削除します。
+
+.topic IDH_IMP_LOAD_FOLDER
+フォルダの作成／削除／変更を行います。
+
+.topic IDH_IMP_LOAD_WAVE_FILE
+WAVEファイルから波形データを読み込みます。
+
+.topic IDH_IMP_LOAD_IMPORT_DATA
+他のディレクトリにある測定データをインポートします。
+
+.topic IDH_IMP_LOAD_CANCEL
+何もせずに、このダイアログを閉じます。
+
+.topic IDH_IMP_FOLDER_FOLDER_LIST
+作成済みのフォルダを表示します。
+
+.topic IDH_IMP_FOLDER_REGIST
+フォルダを新規に作成します。[タイトル]などのデータを入力してからクリックしてください。
+
+.topic IDH_IMP_FOLDER_CHANGE
+作成済みのフォルダの情報を変更します。変更したいフォルダを選択して、表示されたデータを変更後、クリックしてください。
+
+.topic IDH_IMP_FOLDER_DELETE
+作成済みのフォルダを削除します。削除したいフォルダを選択してクリックしてください。そのフォルダに含まれるデータも全て削除され、復元することはできませんので、ご注意ください。
+
+.topic IDH_IMP_FOLDER_CLOSE
+このダイアログを閉じます。
+
+.topic IDH_IMP_FOLDER_TITLE
+フォルダのタイトルを入力します。[新規登録]ボタンをクリックする前に必ず入力してください。
+
+.topic IDH_IMP_FOLDER_NAME
+測定者の名前を入力します。入力は任意です。
+
+.topic IDH_IMP_FOLDER_PLACE
+測定場所を入力します。入力は任意です。
+
+.topic IDH_IMP_FOLDER_COMMENT
+測定データのコメントを入力します。入力は任意です。
+
+.topic IDH_IMP_FOLDER_DATE
+測定日を入力します。
+
+.topic IDH_IMP_FOLDER_SCALE
+模型を使って測定した場合は、そのスケールを入力します。音響分析システム(SA)では、スケールに基づいて実際の大きさに変換して計算を行います。
+
+.topic IDH_IMP_ASSIST_SWITCH1
+入出力レベルの調整を行います。入力レベルが低すぎるとS/N比が悪くなり、逆に高すぎると波形が歪んで正しい結果が得られなくなるため、測定は適正なレベルで行う必要があります。
+
+.topic IDH_IMP_ASSIST_RESULT1
+入力レベルが適正であるかを判定し、適正ならば「ＯＫ］、入力レベルが高すぎるか低すぎる場合は「ＮＧ］と表示されます。
+
+.topic IDH_IMP_ASSIST_LEVEL_WND
+入力レベルの大きさをバーで表示します。バーの色が青い範囲ではレベルが低すぎ、緑の範囲なら適正、赤の範囲では高すぎます。レベルが適正でない場合は、メインウィンドウの[入力装置]の[音量]を自動的に調整します。
+
+.topic IDH_IMP_ASSIST_DEVIATION
+適正なレベルからの偏差を表示します。
+
+.topic IDH_IMP_ASSIST_SWITCH2
+左右のマイクが音源に対して同じ距離にあるかどうかをチェックします。
+
+.topic IDH_IMP_ASSIST_RESULT2
+左右のマイクが音源に対して同じ距離にある場合は「ＯＫ」、異なる距離にある場合は「ＮＧ］と表示されます。
+
+.topic IDH_IMP_ASSIST_POSITION_LEFT
+左チャネルのマイクの位置を青い三角マークで表示します。マークが中央の0の位置に来るように、左右のマイクの位置を調整してください。
+
+.topic IDH_IMP_ASSIST_POSITION_RIGHT
+右チャネルのマイクの位置を赤い三角マークで表示します。マークが中央の0の位置に来るように、左右のマイクの位置を調整してください。
+
+.topic IDH_IMP_ASSIST_DISTANCE
+左右のマイクの音源からの距離差を表示します。
+
+.topic IDH_IMP_ASSIST_SWITCH3
+インパルス応答の測定時間の調整を行います。測定時間は残響時間の２倍以上必要なため、十分な測定時間であるかチェックします。
+
+.topic IDH_IMP_ASSIST_RESULT3
+測定時間が適切であれば「ＯＫ」、不適切な場合は「ＮＧ］と表示されます。
+
+.topic IDH_IMP_ASSIST_MEASURING_TIME
+現在の測定時間を表示します。測定時間が不適切な場合は自動的に測定時間を調整します。
+
+.topic IDH_IMP_ASSIST_SN_RATIO
+現在のS/N比を表示します。S/N比が低い場合は測定時間が足りていない可能性があります。
+
+.topic IDH_IMP_ASSIST_CLOSE
+このウィンドウを閉じます。
+
+.topic IDH_IMP_IFSAVE_IMPALSE
+インパルス応答を表示します。黄色いエリアの両端をマウスでクリックして左右に移動し、マイク・スピーカ等のインパルス応答成分を選択してください。
+
+.topic IDH_IMP_IFSAVE_FREQ
+逆フィルタの周波数特性と位相特性と表示します。
+
+.topic IDH_IMP_IFSAVE_TITLE
+逆フィルタのタイトルを入力します。[保存]ボタンをクリックする前に入力してください。
+
+.topic IDH_IMP_IFSAVE_COMMENT
+逆フィルタのコメントを入力します。入力は任意です。
+
+.topic IDH_IMP_IFSAVE_MAX_ADJ_LEVEL
+逆フィルタの最大補正量を入力します。入力可能な範囲は0以上です。
+
+.topic IDH_IMP_IFSAVE_PHASE_ADJ
+チェックを入れると、レベルと位相の補正を行います。チェックを入れないと、レベルのみの補正を行います。
+
+.topic IDH_IMP_IFSAVE_START_POS
+選択されたインパルス応答の開始位置を表示します。
+
+.topic IDH_IMP_IFSAVE_END_POS
+選択されたインパルス応答の終了位置を表示します。
+
+.topic IDH_IMP_IFSAVE_SAVE
+逆フィルタを保存します。
+
+.topic IDH_IMP_IFSAVE_CLOSE
+このダイアログを閉じます。
+
+.topic IDH_IMP_IFSET_LIST
+登録されている逆フィルタの一覧を表示します。
+
+.topic IDH_IMP_IFSET_IMPALSE
+インパルス応答を表示します。変更する場合は、黄色いエリアの両端をマウスでクリックして左右に移動し、マイク・スピーカ等のインパルス応答成分を選択してください。
+
+.topic IDH_IMP_IFSET_FREQ
+逆フィルタの周波数特性と位相特性と表示します。
+
+.topic IDH_IMP_IFSET_TITLE
+逆フィルタのタイトルを表示します。変更する場合は入力後、[上書き保存]ボタンをクリックしてください。
+
+.topic IDH_IMP_IFSET_COMMENT
+逆フィルタのコメントを表示します。変更する場合は入力後、[上書き保存]ボタンをクリックしてください。
+
+.topic IDH_IMP_IFSET_MAX_ADJ_LEVEL
+逆フィルタの最大補正量を表示します。変更する場合は入力後、[上書き保存]ボタンをクリックしてください。
+
+.topic IDH_IMP_IFSET_PHASE_ADJ
+チェックを入れると、レベルと位相の補正を行います。チェックを入れないと、レベルのみの補正を行います。
+
+.topic IDH_IMP_IFSET_START_POS
+選択されたインパルス応答の開始位置を表示します。
+
+.topic IDH_IMP_IFSET_END_POS
+選択されたインパルス応答の終了位置を表示します。
+
+.topic IDH_IMP_IFSET_SET
+選択した逆フィルタを測定で使用するように設定します。
+
+.topic IDH_IMP_IFSET_CANCEL
+何もせずにこのダイアログを閉じます。
+
+.topic IDH_IMP_IFSET_CHANGE
+選択した逆フィルタを変更後、上書き保存します。
+
+.topic IDH_IMP_IFSET_DELETE
+選択した逆フィルタを削除します。
+
+.topic IDH_IMP_LAUNCH_SA
+測定データを直接SA(Sound Analyzer)で表示します。
+
+.topic IDH_ACF_GRAPH
+ランニングACFの測定値を三次元表示します。
+
+.topic IDH_ACF_GRAPH_WAVE
+入力波形を表示します。水色のエリアの両端をマウスでクリックして選択範囲を変更し、必要な部分だけを切り取ることができます。
+
+.topic IDH_ACF_ZOOM_H
+入力波形のズーム倍率を表示します。
+
+.topic IDH_ACF_SCROLL_H
+入力波形を横方向にスクロールします。
+
+.topic IDH_ACF_GRAPH_NORM
+入力波形の振幅の最大値を１に正規化します。
+
+.topic IDH_ACF_MR_TIME
+測定日時を表示します。
+
+.topic IDH_ACF_MR_SAMPLING
+測定時のサンプリングレートを表示します。
+
+.topic IDH_ACF_MR_MTIME
+測定時の測定時間を表示します。
+
+.topic IDH_ACF_SELECT_START
+入力波形の選択範囲の開始位置を表示します。
+
+.topic IDH_ACF_SELECT_END
+入力波形の選択範囲の終了位置を表示します。
+
+.topic IDH_ACF_SELECT_TIME
+入力波形の選択範囲の時間を表示します。
+
+.topic IDH_ACF_CUT
+入力波形の選択範囲を切り取ります。
+
+.topic IDH_ACF_SELECT_ALL
+入力波形の全ての範囲を選択します。
+
+.topic IDH_ACF_REPLAY
+入力データをサウンドデバイスから再生します。
+
+.topic IDH_ACF_START
+ランニングACFの測定を開始します。
+
+.topic IDH_ACF_STOP
+ランニングACFの測定を中止します。指定した測定時間が経過すると自動的に停止しますので、通常はクリックする必要はありません。
+
+.topic IDH_ACF_FILE_SAVE
+測定したデータをファイルに保存します。保存したデータは音響分析システム(SA)で解析を行うことができます。
+
+.topic IDH_ACF_FILE_LOAD
+保存されているデータを読み込んで表示します。
+
+.topic IDH_ACF_SAMPLING_RATE
+測定時のサンプリングレートを選択します。
+
+.topic IDH_ACF_MEASURE_TIME
+測定時間を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_ACF_CHANNEL_MONO
+左チャネルのみで測定を行います。
+
+.topic IDH_ACF_CHANNEL_STEREO
+左右両チャネルで測定を行います。
+
+.topic IDH_ACF_INTEGRATION_TIME
+ACFの積分時間を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_ACF_CALC_CYCLE
+ACFの計算周期を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_ACF_MAX_TAU
+横軸の最大遅れ時間（τ）を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_ACF_FREQ_FILTER
+聴感補正フィルタを選択します。フィルタを使用しない場合はFlatを選択してください。
+
+.topic IDH_ACF_TIME_DATA_NUM
+時間軸のデータを数を入力します。入力可能な範囲は1以上です。
+
+.topic IDH_ACF_TIME_FWD
+時間軸の方向を後方から前方へ向かうように設定します。
+
+.topic IDH_ACF_TIME_BWD
+時間軸の方向を前方から後方へ向かうように設定します。
+
+.topic IDH_ACF_SCALE_LINER
+縦軸の自己相関値をリニアスケールで表示します。
+
+.topic IDH_ACF_SCALE_ABS
+チェックを入れると、縦軸の自己相関値を絶対値(0～1）で表示します。チェックを入れないと、自己相関値をそのまま(-1～1）表示します。
+
+.topic IDH_ACF_SCALE_LOG
+縦軸の自己相関値を対数スケールで表示します。
+
+.topic IDH_ACF_SCALE_LEVEL
+縦軸の自己相関値を対数スケールで表示した場合の最小値を入力します。（最大値は常に0dBです）
+
+.topic IDH_ACF_CHANNEL_LCH
+左チャネルの測定データを表示します。
+
+.topic IDH_ACF_CHANNEL_RCH
+右チャネルの測定データを表示します。
+
+.topic IDH_ACF_REDRAW
+測定したデータを[表示設定]を変えて再表示します。
+
+.topic IDH_ACF_CLOSE
+このウィンドウを閉じます。
+
+.topic IDH_ACF_ZOOM_H_FULL
+入力波形ウィンドウの横方向のズームを解除します。
+
+.topic IDH_ACF_ZOOM_H_IN
+入力波形ウィンドウを横方向にズームインします。
+
+.topic IDH_ACF_ZOOM_H_OUT
+入力波形ウィンドウを横方向にズームアウトします。
+
+.topic IDH_ACF_LAUNCH_SA
+測定データを直接SA(Sound Analyzer)で表示します。
+
+.topic IDH_ACF_REALTIME_GRAPH
+リアルタイムグラフを表示します。
+
+.topic IDH_ACF_SAVE_FOLDER_LIST
+登録済みのフォルダの一覧を表示します。クリックして測定データを保存するフォルダを選択してください。新規にフォルダを作成したい場合は、[フォルダ管理]ボタンをクリックしてください。
+
+.topic IDH_ACF_SAVE_DATA_LIST
+選択したフォルダの中に保存されているデータの一覧を表示します。
+
+.topic IDH_ACF_SAVE_OK
+選択しているフォルダ内に測定データを保存します。保存したデータは、音響分析システム(SA)で解析を行うことができます。
+
+.topic IDH_ACF_SAVE_FOLDER
+フォルダの作成／削除／変更を行います。
+
+.topic IDH_ACF_SAVE_WAVE_FILE
+測定データをWAVEファイルに保存します。
+
+.topic IDH_ACF_SAVE_CANCEL
+測定データを保存せずに、このダイアログを閉じます。
+
+.topic IDH_ACF_SAVE_SAMPLING
+測定データのサンプリングレートを表示します。
+
+.topic IDH_ACF_SAVE_CHANNEL
+測定データのチャネルを表示します。
+
+.topic IDH_ACF_SAVE_DATA_TIME
+測定データの測定時間を表示します。
+
+.topic IDH_ACF_SAVE_TITLE
+測定データのタイトルを入力します。[保存]ボタンをクリックする前に必ず入力してください。
+
+.topic IDH_ACF_SAVE_COMMENT
+測定データのコメントを入力します。入力は任意です。
+
+.topic IDH_ACF_SAVE_TIME
+測定データの測定日時を表示します。
+
+.topic IDH_ACF_REALTIME_GRAPH_PHI0
+Φ(0)のリアルタイムグラフを表示します。
+
+.topic IDH_ACF_REALTIME_GRAPH_PHI1
+Φ1のリアルタイムグラフを表示します。
+
+.topic IDH_ACF_REALTIME_GRAPH_TAU_E
+τeのリアルタイムグラフを表示します。
+
+.topic IDH_ACF_REALTIME_GRAPH_TAU_1
+τ1のリアルタイムグラフを表示します。
+
+.topic IDH_ACF_REALTIME_GRAPH_SPECTROGRAM
+スペクトログラムのリアルタイムグラフを表示します。
+
+.topic IDH_ACF_REALTIME_FACTOR_LIST
+計算結果を表示します。
+
+.topic IDH_REC_GRAPH_WAVE
+録音したデータの波形を表示します。波形の一部を切り出したい場合は、水色のエリアの両端をマウスでクリックし、切り取りたい範囲を選択して、[切り取り]ボタンをクリックしてください。
+
+.topic IDH_REC_ZOOM_H
+録音波形ウィンドウのズーム倍率を表示します。
+
+.topic IDH_REC_SCROLL_H
+録音波形ウィンドウを左右にスクロールします。
+
+.topic IDH_REC_GRAPH_NORM
+最も大きい振幅を１に正規化します。
+
+.topic IDH_REC_RECORD_TIME
+録音されている時間を表示します。
+
+.topic IDH_REC_SELECT_ALL
+波形の全体を選択状態にします。
+
+.topic IDH_REC_CUT
+録音波形ウィンドウの選択されている範囲を切り取ります。
+
+.topic IDH_REC_SELECT_START
+録音波形ウィンドウで選択されている範囲の開始時間を表示します。
+
+.topic IDH_REC_SELECT_END
+録音波形ウィンドウで選択されている範囲の終了時間を表示します。
+
+.topic IDH_REC_SELECT_TIME
+録音波形ウィンドウで選択されている範囲の時間を表示します。
+
+.topic IDH_REC_RECORD
+チェックを入れた状態でシグナルジェネレータ・FFTアナライザ等を実行すると、入力または出力している音を録音します。
+
+.topic IDH_REC_PLAY
+チェックを入れた状態でFFTアナライザ・オシロスコープ等を実行すると、録音した音を再生します。
+
+.topic IDH_REC_PRIORITY_INPUT
+入力と出力を同時に行った場合、入力データを優先的に録音します。どちらか一方だけの場合は、この選択に関わらず実行されている方を録音します。
+
+.topic IDH_REC_PRIORITY_OUTPUT
+入力と出力を同時に行った場合、出力データを優先的に録音します。どちらか一方だけの場合は、この選択に関わらず実行されている方を録音します。
+
+.topic IDH_REC_FILE_SAVE
+録音したデータをWAVEファイルに保存します。
+
+.topic IDH_REC_FILE_LOAD
+WAVEファイルから波形データを取り込みます。
+
+.topic IDH_REC_CLOSE
+このウィンドウを閉じます。
+
+.topic IDH_REC_ZOOM_H_FULL
+録音波形ウィンドウの横方向のズームを解除します。
+
+.topic IDH_REC_ZOOM_H_IN
+録音波形ウィンドウを横方向にズームインします。
+
+.topic IDH_REC_ZOOM_H_OUT
+録音波形ウィンドウを横方向にズームアウトします。
+
+.topic IDH_PRESET_LIST
+登録済みのプリセットの一覧を表示します。
+
+.topic IDH_PRESET_SET
+選択したプリセットを適用します。全てのウィンドウの位置と設定内容は、プリセットを登録した時点の状態に設定されます。
+
+.topic IDH_PRESET_CLOSE
+このダイアログを閉じます。
+
+.topic IDH_PRESET_SAVE
+現在の全てのウィンドウの位置と状態をプリセットに新規に保存します。
+
+.topic IDH_PRESET_OVERWRITE
+選択したプリセットに、現在の全てのウィンドウの位置と状態を上書き保存します。
+
+.topic IDH_PRESET_DELETE
+選択したプリセットを削除します。
+
+.topic IDH_PRESET_MAKE_SHORTCUT
+選択したプリセットのショートカットをデスクトップに作成します。そのショートカットをクリックするだけで、プリセットしたウィンドウが開きます。
+
+.topic IDH_PRESET_SAVE_TITLE
+保存するプリセットに付けるタイトルを入力します。
+
+.topic IDH_PRESET_SAVE_SET
+プリセットを保存してダイアログを閉じます。
+
+.topic IDH_PRESET_SAVE_CANCEL
+プリセットを保存せずにダイアログを閉じます。
+
+.topic IDH_SETTING_OK
+設定を保存してダイアログを閉じます。
+
+.topic IDH_SETTING_CANCEL
+設定を保存せずにダイアログを閉じます。
+
+.topic IDH_SETTING_FONT_SIZE_SG
+[シグナルジェネレータ]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_FFT
+[FFTアナライザ]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_OS
+[オシロスコープ]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_FRE
+[周波数特性]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_DST
+[歪率測定]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_IMP
+[インパルス応答]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_ACF
+[ACF測定]ウィンドウのフォントサイズを選択します。
+
+.topic IDH_SETTING_FONT_SIZE_DEFAULT
+全てのウィンドウのフォントサイズをデフォルト値に設定します。
+
+.topic IDH_SETTING_INPUT_24BIT
+入力デバイスを24ビットで使用します。入力デバイスが24ビットをサポートしていない場合は16ビットを使用します。
+
+.topic IDH_SETTING_INPUT_16BIT
+入力デバイスを16ビットで使用します。
+
+.topic IDH_SETTING_OUTPUT_24BIT
+出力デバイスを24ビットで使用します。出力デバイスが24ビットをサポートしていない場合は16ビットを使用します。
+
+.topic IDH_SETTING_OUTPUT_16BIT
+出力デバイスを16ビットで使用します。
+
+.topic IDH_BACKUP_EDIT_COMMENT
+バックアップに付けるコメントを入力します。
+
+.topic IDH_BACKUP_LIST_BACKUP
+既存のバックアップ済みデータの一覧です。
+
+.topic IDH_BACKUP_EXEC
+バックアップを実行します。
+
+.topic IDH_BACKUP_CLOSE
+このダイアログを閉じます。
+
+.topic IDH_BACKUP_DELETE_BACKUP
+選択したバックアップ済みデータを削除します。
+
+.topic IDH_RESTORE_LIST_BACKUP
+既存のバックアップ済みデータの一覧です。
+
+.topic IDH_RESTORE_EXEC
+リストアを実行します。
+
+.topic IDH_RESTORE_CLOSE
+このダイアログを閉じます。

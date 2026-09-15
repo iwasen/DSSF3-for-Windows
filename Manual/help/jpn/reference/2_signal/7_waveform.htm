@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>任意波形編集</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">シグナルジェネレータ</a></p>
+<hr />
+
+<h5>任意波形編集</h5>
+波形を編集し、最大５個まで任意の波形を登録することができます。波形を編集しながらリアルタイムにその音を任意の周波数で出力して、オシロスコープやスペクトルで確認することが可能です。登録した波形は、トーンやスイープなどの波形選択プルダウンからも選択できるようになっています。
+
+<div class="cap">『波形』設定画面</div>
+<div class="para">
+<img src="../img/signal_19.png" />
+<div class="cap">『波形』設定項目の説明</div>
+<table>
+	<tr>
+		<th>項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td>任意波形選択</td>
+		<td>保存した波形を選択します。最大5個まで保存可能です。</td>
+	</tr>
+	<tr>
+		<td>編集</td>
+		<td>波形を選択して[編集]ボタンをクリックすると、「任意波形編集」ウィンドウが開きます。</td>
+	</tr>
+	<tr>
+		<td>周波数</td>
+		<td>編集した波形を出力する周波数をスライダーまたは数値入力により設定します。</td>
+	</tr>
+</table>
+</div>
+<div class="cap">「任意波形編集」画面</div>
+<img src="../img/signal_20.png" />
+<div class="para">
+<div class="cap">『任意波形編集』設定項目の説明</div>
+<table>
+	<tr>
+		<th>項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td>波形表示</td>
+		<td>
+			編集する波形の一周期分を表示します。波形を代表させるための頂点の座標を設定し、それらの点を直線又は曲線で結ぶことで、任意の波形を編集します。
+			Ｘ軸は一周期分の相対時間、Ｙ軸は振幅を表します。それぞれ最大512倍まで拡大表示可能です。
+		</td>
+	</tr>
+	<tr>
+		<td>位置</td>
+		<td>選択されている頂点のＸ座標、Ｙ座標を数値で表示します。</td>
+	</tr>
+	<tr>
+		<td>編集モード</td>
+		<td><strong>頂点追加</strong>：新しく頂点を追加する場合、このモードを選んで波形グラフ上をクリックします。<strong>頂点選択</strong>：既存の頂点を選択する場合、このモードを選んで波形グラフ上の頂点（青い点）をクリックします。選択された頂点は赤い点で表示され、そのままマウスを移動させるか、Ｘ・Ｙ座標を数値入力すると、頂点の位置を変更できます。</td>
+	</tr>
+	<tr>
+		<td>頂点削除</td>
+		<td>選択中の頂点を削除します。</td>
+	</tr>
+	<tr>
+		<td>全クリア</td>
+		<td>全ての頂点を削除します。</td>
+	</tr>
+	<tr>
+		<td>開始</td>
+		<td>編集中の波形を信号として出力します。オシロスコープやFFTアナライザで波形を確認しながら編集する事が可能です。</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap">曲線でつなぐ</td>
+		<td>設定した頂点座標をスプライン曲線で補間して滑らかな曲線にします。</td>
+	</tr>
+	<tr>
+		<td>OK</td>
+		<td>編集した波形を保存します。</td>
+	</tr>
+	<tr>
+		<td>キャンセル</td>
+		<td>波形を保存せずに、このウィンドウを閉じます。</td>
+	</tr>
+</table>
+</div>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">シグナルジェネレータ</a></p>
+<hr />
+</body>
+
+</html>

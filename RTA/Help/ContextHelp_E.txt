@@ -1,0 +1,1675 @@
+#include "ContextHelp.h"
+
+.topic IDH_RTA_SG
+Open the Signal Generator window.  Close the window if it is already open.
+
+.topic IDH_RTA_FFT
+Open the FFT Analyzer window.  Close the window if it is already open.
+
+.topic IDH_RTA_OS
+Open the Oscilloscope window.  Close the window if it is already open.
+
+.topic IDH_RTA_FRE
+Open the Frequency Response window.  Close the window if it is already open.
+
+.topic IDH_RTA_DST
+Open the THD Analyzer window.  Close the window if it is already open.
+
+.topic IDH_RTA_IMP
+Open the Impulse Response window.  Close the window if it is already open.
+
+.topic IDH_RTA_ACF
+Open the Running ACF window.  Close the window if it is already open.
+
+.topic IDH_RTA_REC
+Open the Recorder window.  Close the window if it is already open.
+
+.topic IDH_RTA_PRESET
+Open the Preset window.  Close the window if it is already open.
+
+.topic IDH_RTA_EXIT
+Exit from the RealTime Analyzer.
+
+.topic IDH_RTA_INPUT_DEVICE
+Choose an input sound device.  ASIO drivers are preceded with "[ASIO]" in the display.
+
+.topic IDH_RTA_OUTPUT_DEVICE
+Choose an output device.  ASIO drivers are preceded with "[ASIO]" in the display.
+
+.topic IDH_RTA_INPUT_SELECT
+Choose the input source of the input sound device.  In case of ASIO drivers, you cannot choose.
+
+.topic IDH_RTA_INPUT_VOLUME
+Set the input level of the input sound device.  In case of ASIO drivers, you cannot set.
+
+.topic IDH_RTA_INPUT_LEVEL
+Display the peak value of the input level.  If it reaches 0dB, the input level is too high so you need to decrease [Volume] of the [Input Device].
+
+.topic IDH_RTA_OUTPUT_LEVEL
+Display the peak value of the output level.
+
+.topic IDH_RTA_AUTOREC
+Input and output data will be automatically saved in the specified folder.
+
+.topic IDH_SG_START
+Start the Signal Generator.  Clicking while it is in function will stop it.
+
+.topic IDH_SG_TIME
+Display the duration of the Signal Generator.
+
+.topic IDH_SG_SAMPLING_RATE
+Choose a sampling rate for the Signal Generator.  The possible frequency to output is less than 1/2 of the sampling rate.
+
+.topic IDH_SG_DSLIDER
+Set the amplitude of the output by digital value.
+
+.topic IDH_SG_DLEVEL
+Input the amplitude of the output by digital value.  The value should be in the range of 0 to 100.
+
+.topic IDH_SG_CLOSE
+Close the Signal Generator window.
+
+.topic IDH_SG_LSLIDER
+Adjust the output volume of the Left channel of the sound device.
+
+.topic IDH_SG_RSLIDER
+Adjust the output volume of the Right channel of the sound device.
+
+.topic IDH_SG_LLEVEL
+Input the output volume of the Left channel of the sound device.  The volume should be in the range of 0 to 100.
+
+.topic IDH_SG_RLEVEL
+Input the output volume of the Right channel of the sound device.  The volume should be in the range of 0 to 100.
+
+.topic IDH_SG_RENDOU
+If the checkbox is marked, changing either Left or Right output level makes the other level change correspondingly.
+
+.topic IDH_SG_TONE_SFREQ_L
+Set the frequency of the Left channel.
+
+.topic IDH_SG_TONE_EFREQ_L
+Input the frequency of the Left channel.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_SG_TONE_SFREQ_R
+Set the frequency of the Right channel.
+
+.topic IDH_SG_TONE_EFREQ_R
+Input the frequency of the Right channel.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_SG_TONE_PRESET1_4
+Select the preset frequency.  If you click this button after clicking on [Set] button, the frequency at that moment will be preset to this button.
+
+.topic IDH_SG_TONE_PRESET
+Set a frequency to a preset button.  If a preset button on the left is clicked after you click this button, the frequency at that moment will be preset to the button.
+
+.topic IDH_SG_TONE_FREQ_RANGE
+Select the range of the frequency that can be set by the Frequency Setting Slider.
+
+.topic IDH_SG_TONE_RENDOU_F
+If the checkbox is marked, changing either Left or Right frequency makes the other frequency change correspondingly.
+
+.topic IDH_SG_TONE_PHASE_SLIDER
+It sets a phase difference between Left and Right channels.  Positive values shift the phase of the Left channel and the negative values shift the phase of the Right channel.
+
+.topic IDH_SG_TONE_PHASE_VALUE
+Input the phase difference between Left and Right channels.  It should be in the range of -180 to 180.
+
+.topic IDH_SG_TONE_PHASE0
+The phase difference between Left and Right channels is set to 0.
+
+.topic IDH_SG_TONE_WAVE_FORM
+Select a waveform to output.
+
+.topic IDH_SG_NOISE_WHITE_NOISE
+Output the White noise.  The White noise contains equal energy distribution for all spectrums.
+
+.topic IDH_SG_NOISE_PINK_NOISE
+Output the pink noise.  The Pink noise contains energy distribution which decreases by -3dB/oct toward high frequency.
+
+.topic IDH_SG_NOISE_BROWN_NOISE
+Output the Brown noise.  The Brown noise contains energy distribution which decreases by -6dB/oct toward high frequency.
+
+.topic IDH_SG_NOISE_MONO
+Output the same phased noises from Left and Right channels.
+
+.topic IDH_SG_NOISE_STREO
+Output unrelated noises independently from Left and Right channels.
+
+.topic IDH_SG_NOISE_INVERSE
+Output the inverse-phased noises from Left and Right channels.
+
+.topic IDH_SG_NOISE_TIME_RANGE
+Set the range of time difference between Left and Right.  It cannot be set if [Dual] is selected in [Mode].
+
+.topic IDH_SG_NOISE_TIME_SLIDER
+Set the time difference between Left and Right.  Positive values delay the sound of the Left channel and negative values delay the sound of the Right channel.  It cannot be set if [Dual] is selected in [Mode].
+
+.topic IDH_SG_NOISE_TIME_VALUE
+Set the time difference between Left and Right by the unit of ms.  Positive values delay the sound of the Left channel and negative values delay the sound of the Right channel.  It cannot be set if [Dual] is selected in [Mode].
+
+.topic IDH_SG_NOISE_TIME0
+Set the time difference between Left and Right to 0.  It cannot be set if [Dual] is selected in [Mode].
+
+.topic IDH_SG_SWEEP_START_FREQ
+Input the frequency at the start of Sweep.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_SG_SWEEP_END_FREQ
+Input the frequency at the end of Sweep.  The range of the input starts from 1 up to 1/2 of the sampling rate.  If it is bigger than the start frequency, the frequency sweeps to higher.  If it is smaller, the frequency sweeps lower.
+
+.topic IDH_SG_SWEEP_START_LEVEL
+Input the level at the start of Sweep.  It should be in the range of 1 to 999.  Output level is maximum at 0, and the bigger the value, the lower the output level.
+
+.topic IDH_SG_SWEEP_END_LEVEL
+Input the level at the end of Sweep.  It should be in the range of 1 to 999.  Output level is maximum at 0 and the bigger the value, the lower the output level.
+
+.topic IDH_SG_SWEEP_SWEEP_SPEED
+Input the time for Sweep.  It should be in the range of 1 to 999.
+
+.topic IDH_SG_SWEEP_LOOP
+If the checkbox is marked, Sweep will be repeated continuously.  If it is not marked, it automatically stops when the sweep is done.
+
+.topic IDH_SG_SWEEP_WAVE_FORM
+Select the waveform to output.
+
+.topic IDH_SG_PULSE_WIDTH
+Select the time of pulse width.  The value range differs according to the sampling frequency because it is calculated by multiplying the sampling rate and integers.
+
+.topic IDH_SG_PULSE_NUM
+Input the number of pulses to output.  The input value should be more than 1.  It automatically stops after pulses are outputted for the number of times.
+
+.topic IDH_SG_PULSE_CONTINUE
+Output pulses continuously until the [Stop] button is clicked.
+
+.topic IDH_SG_PULSE_CYCLE
+Input the pulse cycle (pulse period) by the unit of ms.
+
+.topic IDH_SG_PULSE_POSITIVE
+Output the pulses in the positive direction.  Note that some sound device output to the negative direction.
+
+.topic IDH_SG_PULSE_NEGATIVE
+Output the pulses in the negative direction.  Note that some sound device output to the positive direction.
+
+.topic IDH_SG_PULSE_BOTH
+Output pulses to positive and negative directions reciprocally.
+
+.topic IDH_SG_SYNTH_COMP_FREQ_1_8
+Input the number to multiply the basic frequency.  For example, when the basic frequency is 1kHz and the input value is 2, the output is 2kHz.
+
+.topic IDH_SG_SYNTH_LEVEL_SLIDER_1_8
+Set the level for each spectrum.
+
+.topic IDH_SG_SYNTH_COMP_LEVEL_1_8
+Input the level for each spectrum.  It should be in the range of 0 to 100.
+
+.topic IDH_SG_SYNTH_FREQ_SLIDER
+Set the basic frequency.
+
+.topic IDH_SG_SYNTH_SYNTH_FREQ
+Input the basic frequency.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_SG_SYNTH_WAVE_FORM
+Select the waveform to output.
+
+.topic IDH_SG_SCALE_KEYBOARD
+Output the musical scale of the clicked keyboard.  A green dot will be displayed at the position of the scale which is being outputted.
+
+.topic IDH_SG_SCALE_REFERENCE_PITCH
+Input the frequency of the reference scale (A4).  Normally, 440Hz is used.
+
+.topic IDH_SG_SCALE_WAVE_FORM
+Select the waveform to output.
+
+.topic IDH_SG_SCALE_PLAY_MODE
+If the checkbox is marked, without clicking [Start] button, the sound is outputted during a keyboard is clicked.
+
+.topic IDH_SG_SCALE_SCALE_C
+Output Musical Scale C.
+
+.topic IDH_SG_SCALE_SCALE_CS
+Output musical scale C#(D-flat).
+
+.topic IDH_SG_SCALE_SCALE_D
+Output Musical Scale D.
+
+.topic IDH_SG_SCALE_SCALE_DS
+Output Musical Scale D#(E-flat).
+
+.topic IDH_SG_SCALE_SCALE_E
+Output Musical Scale E.
+
+.topic IDH_SG_SCALE_SCALE_F
+Output Musical Scale F.
+
+.topic IDH_SG_SCALE_SCALE_FS
+Output Musical Scale F#(G-flat).
+
+.topic IDH_SG_SCALE_SCALE_G
+Output Musical Scale G.
+
+.topic IDH_SG_SCALE_SCALE_GS
+Output Musical Scale G#(A-flat).
+
+.topic IDH_SG_SCALE_SCALE_A
+Output Musical Scale A.
+
+.topic IDH_SG_SCALE_SCALE_AS
+Output Musical Scale A#(B-flat).
+
+.topic IDH_SG_SCALE_SCALE_B
+Output Musical Scale B.
+
+.topic IDH_SG_SCALE_FREQ
+Display the frequency of the scale which is being outputted.
+
+.topic IDH_SG_SCALE_OCTAVE0_8
+Select an octave.
+
+.topic IDH_SG_WAVE_WND
+Display the waveform which is currently selected.
+
+.topic IDH_SG_WAVE_WAVEFORM1_5
+Select a waveform to edit.
+
+.topic IDH_SG_WAVE_EDIT
+Edit the selected waveform.
+
+.topic IDH_SG_WAVE_SFREQ
+Set the frequency to output.
+
+.topic IDH_SG_WAVE_EFREQ
+Input the frequency to output.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_SG_EDIT_WAVE_WND
+Click on a vertex (blue point) of the waveform in this window and edit the waveform.  The selected vertex turns red point.
+
+.topic IDH_SG_EDIT_ZOOM_V
+Display the zoom magnification of vertical direction of the waveform editing window.
+
+.topic IDH_SG_EDIT_SCROLL_V
+Scroll the waveform editing window vertically.
+
+.topic IDH_SG_EDIT_ZOOM_H
+Display the zoom magnification of horizontal direction of the waveform editing window.
+
+.topic IDH_SG_EDIT_SCROLL_H
+Scroll the waveform editing window horizontally.
+
+.topic IDH_SG_EDIT_POS_X
+Display the position of the selected vertex (red point) on the axis-X.  Also, you can input any position of the abscissa.
+
+.topic IDH_SG_EDIT_POS_Y
+Display the position of the selected vertex (red point) on the axis-Y.  Also, you can input any position of the ordinate.
+
+.topic IDH_SG_EDIT_VERTEX_ADD
+Clicking on the waveform editing window while this radio button is selected will add a new vertex (red point) at that position.
+
+.topic IDH_SG_EDIT_VERTEX_SEL
+Clicking on the vertex (blue point) in the waveform editing window while this radio button is selected will let you select the vertex.  The selected vertex turns to red point and it can be moved or deleted.
+
+.topic IDH_SG_EDIT_VERTEX_DELETE
+Delete the selected vertex (red point).
+
+.topic IDH_SG_EDIT_ALL_CLEAR
+Delete all vertices and initializes.
+
+.topic IDH_SG_EDIT_TEST
+Output the sound of the waveform which is being edited.
+
+.topic IDH_SG_EDIT_SMOOTHING
+If the checkbox is marked, the vertices are connected by a spline curve.
+
+.topic IDH_SG_EDIT_OK
+Save the edited waveform and close this dialog box.
+
+.topic IDH_SG_EDIT_CANCEL
+Close this dialog box without saving the edited waveform.
+
+.topic IDH_SG_EDIT_ZOOM_H_FULL
+Cancel the horizontal zoom of the waveform editing window.
+
+.topic IDH_SG_EDIT_ZOOM_H_IN
+The waveform editing window is zoomed in horizontally.
+
+.topic IDH_SG_EDIT_ZOOM_H_OUT
+The waveform editing window is zoomed out horizontally.
+
+.topic IDH_SG_EDIT_ZOOM_V_FULL
+Cancel the vertical zoom of the waveform editing window.
+
+.topic IDH_SG_EDIT_ZOOM_V_IN
+The waveform editing window is zoomed in vertically.
+
+.topic IDH_SG_EDIT_ZOOM_V_OUT
+The waveform editing window is zoomed out vertically.
+
+.topic IDH_SG_EDIT_WAVE_WND_FM
+Display the waveform.
+
+.topic IDH_SG_EDIT_MOD_AMP
+Set the amplitude of the modulator;
+
+.topic IDH_SG_EDIT_MOD_FREQ
+Set the frequency of the modulator;
+
+.topic IDH_FFT_TAB
+Display the graph which is selected by a tab.
+
+.topic IDH_FFT_START
+Start FFT Analyzer.  Clicking while itÅfs in function stops it.
+
+.topic IDH_FFT_TIME
+Display the duration after FFT Analyzer started.
+
+.topic IDH_FFT_MESSAGE
+Display the name of the calibration.  No name is shown if no calibration is performed.
+
+.topic IDH_FFT_CALIBRATION
+Open the calibration setting window.
+
+.topic IDH_FFT_PEAK_LEVEL_LEFT
+Display the vertical data of the Left channel.
+
+.topic IDH_FFT_PEAK_LEVEL_RIGHT
+Display the vertical data of the Right channel.
+
+.topic IDH_FFT_PEAK_FREQ_LEFT
+Display the horizontal data of the Left channel.
+
+.topic IDH_FFT_PEAK_FREQ_RIGHT
+Display the horizontal data of the Right channel.
+
+.topic IDH_FFT_RES_FREQ
+Display the frequency resolution of the Left channel.
+
+.topic IDH_FFT_RES_TIME
+Display the frequency resolution of the Right channel.
+
+.topic IDH_FFT_SCREEN_SHOT
+Open a new window to show the graph of the time of clicking.  It is possible to open multiple windows simultaneously.
+
+.topic IDH_FFT_RL_SPLIT
+If the checkbox is marked, the graphs of the Left and the Right channels are displayed separately.  If this is not marked, both channels are displayed simultaneously in one graph.
+
+.topic IDH_FFT_DATA_RECORD
+Clicking while the octave band is displayed will open the Data Recording window.  It cannot be clicked if the octave band is not displayed.
+
+.topic IDH_FFT_CSV_OUTPUT
+Output the data to a CSV Format file.
+
+.topic IDH_FFT_CSV_INPUT
+Load and display the output CSV file.
+
+.topic IDH_FFT_CLOSE
+Close the FFT Analyzer window.
+
+.topic IDH_FFT_AUTO_LEVEL
+If the checkbox is marked, it automatically adjusts the scale of the level (the vertical axis) to the best suited range.
+
+.topic IDH_FFT_MAX_LEVEL
+Input the maximum scale of the level (the vertical axis).
+
+.topic IDH_FFT_MIN_LEVEL
+Input the minimum scale of the level (the vertical axis).
+
+.topic IDH_FFT_AUTO_FREQ
+If the checkbox is marked, it automatically adjusts the scale of the frequency (the horizontal axis) to the best suited range.
+
+.topic IDH_FFT_MAX_FREQ
+Input the maximum scale of the frequency (the vertical axis).
+
+.topic IDH_FFT_MIN_FREQ
+Input the minimum scale of the frequency (the vertical axis).
+
+.topic IDH_FFT_SAMPLING_RATE
+Select the sampling rate of FFT Analyzer.  The frequency which can be displayed in the graph is 1/2 of the sampling rate.
+
+.topic IDH_FFT_FFT_SIZE
+Select the data size for FFT calculation.  The bigger the size, the higher the resolution of the frequency.  But the resolution of time (update rate) declines.
+
+.topic IDH_FFT_WINFUNC
+Select the Window Function.  The frequency resolution and the amplitude of the side-lobe differ according to the type of Window Function and it should be selected for your purpose of the measurement.
+
+.topic IDH_FFT_CHANNEL
+Select the type of the channel to measure.
+
+.topic IDH_FFT_FILTER
+Select the filter property.  If you donÅft use any filters, select Flat.
+
+.topic IDH_FFT_SMOOTHING
+Performs smoothing by the selected time constant.  If the graph is unstable with a lot of noise, it can be stabilized by selecting bigger values.
+
+.topic IDH_FFT_AVERAGE
+Performs Moving-Average by the selected number of the second.  Like smoothing, this is effective when a lot of noise is contained.
+
+.topic IDH_FFT_LOG_SCALE
+Display the frequency axis by the logarithmic scale.
+
+.topic IDH_FFT_LINEAR_SCALE
+Display the frequency axis by the linear scale.
+
+.topic IDH_FFT_TIME_RES
+Increases the time resolution (update rate) by the selected magnification rate.  Note that this increases the CPU load so you should select small values if you want to decline the CPU usage.
+
+.topic IDH_FFT_PEAK_DISP
+If the checkbox is marked, the peak data is displayed with emphasis.
+
+.topic IDH_FFT_PEAK_HOLD
+If the checkbox is marked, the peak data is stored temporarily and displayed.
+
+.topic IDH_FFT_PEAK_AUTO
+Reset the peak data automatically with the specified interval of the second.
+
+.topic IDH_FFT_PEAK_TIME
+Input the number of the second to reset the peak data automatically.
+
+.topic IDH_FFT_PEAK_MANUAL
+Allows you to reset the peak data by clicking on [Reset] button.
+
+.topic IDH_FFT_PEAK_RESET
+Reset the peak data.
+
+.topic IDH_FFT_TIME_RANGE
+Select the number of the second on the horizontal axis of the [Spectrogram] display.  This cannot be selected if it is not the [Spectrogram] display.
+
+.topic IDH_FFT_TIME_DATA_NUM
+Select the number of the data on the time axis of the [Waterfall] display.  This cannot be selected if it is not the [Waterfall] display.
+
+.topic IDH_FFT_TIME_FWD
+Display the time axis of [Waterfall] and the [Spectrogram] display forward.
+
+.topic IDH_FFT_TIME_BWD
+Display the time axis of [Waterfall] and the [Spectrogram] display backward.
+
+.topic IDH_FFT_CF_ZOOM
+Magnifies the time axis when [Correlation] is displayed.
+
+.topic IDH_FFT_OCT_BAND
+Select the number of division per octave when [Octave band] is displayed.
+
+.topic IDH_FFT_COLOR
+Display the scale to show the level in color when [Spectrogram] is displayed.
+
+.topic IDH_FFT_GRAY
+Display the scale to show the level by light and shade of monochrome when [Spectrogram] is displayed.
+
+.topic IDH_FFT_CF_AUTO
+Display Auto-Correlation function when [Correlation] is displayed.
+
+.topic IDH_FFT_CF_LATERAL
+Display the Cross-Correlation function when [Correlation] is displayed.
+
+.topic IDH_FFT_AUTO_STOP
+Stop automatically after the number of the second specified here after [Start] button is clicked.  If 0 is input, it does not stop until [Stop] button is clicked.
+
+.topic IDH_FFT_REC_DATA_LIST
+Display the data of the recorded octave band.
+
+.topic IDH_FFT_REC_TIMING_CYCLE
+Record the data automatically with a certain interval.  Set the cycle at [Interval] box.
+
+.topic IDH_FFT_REC_TIMING_INTERVAL
+Input the time interval for recording when [Automatic] is selected.  The input value should be more than 1.
+
+.topic IDH_FFT_REC_TIMING_MANUAL
+Record the data when [Record] button is clicked.
+
+.topic IDH_FFT_REC_TIMING_RECORD
+Record the data at the time of clicking when [Manual] is selected.
+
+.topic IDH_FFT_REC_DELETE_DATA
+Erase the data which is displayed.
+
+.topic IDH_FFT_REC_DELETE_AT_START
+If the checkbox is marked, it erases the previously recorded data at the start of the measurement.  If this is not marked, it adds to the previous record.
+
+.topic IDH_FFT_REC_ALWAYS_NEW_DATA
+If the checkbox is marked, the list is scrolled automatically so that the latest data is always displayed.
+
+.topic IDH_FFT_REC_FILE_SAVE
+Save the recorded data to a CSV Format file.
+
+.topic IDH_FFT_REC_CLOSE
+Close this window.
+
+.topic IDH_MICCAL_LIST
+Display the list of stored calibration data.
+
+.topic IDH_MICCAL_READ
+Apply the selected calibration data and close this dialog box.
+
+.topic IDH_MICCAL_RESET
+Cancel the calibration of the microphone.  When it is cancelled, the graph is displayed by the relative values, in which the maximum level of the input data is 0dB.
+
+.topic IDH_MICCAL_CANCEL
+Close this dialog box without any actions.
+
+.topic IDH_MICCAL_REGIST
+Record new calibration data.  Set the Calibration data at the bottom of the dialog box before clicking.
+
+.topic IDH_MICCAL_CHANGE
+Save the Calibration data by overwriting.  First, select the Calibration data in the Calibration Data list that you want to change.  Then, modify the Calibration data which is displayed before clicking.
+
+.topic IDH_MICCAL_SETTING
+Display the Calibration data at the bottom of the dialog box fro editing.
+
+.topic IDH_MICCAL_DELETE
+Delete the selected Calibration data in the [Calibration Data list].
+
+.topic IDH_MICCAL_COMMON_RL
+Select if you want to set the same Calibration data to Left and Right channels.
+
+.topic IDH_MICCAL_SEPARATE_RL
+Select if you want to set the different Calibration data to Left and Right channels.
+
+.topic IDH_MICCAL_SIGNAL_OUT
+Output 1kHz test signal for the Calibration by the sound level meter.
+
+.topic IDH_MICCAL_MICINFO
+Input information about the microphone to be used.  Input is mandatory but any information will do.
+
+.topic IDH_MICCAL_MICAMPINFO
+Input information about the microphone amplifier to be used.  Input is voluntary.
+
+.topic IDH_MICCAL_COMMENT
+Input comments about the Calibration data.  Input is voluntary.
+
+.topic IDH_MICCAL_INPUT_LEVEL
+Display the input level at present.  At Calibration, place the microphone and the sound level meter to be used at the same place and adjust the scroll bar so that this value should be the same as that of the sound level meter.
+
+.topic IDH_MICCAL_FILTER
+Select the same filter property as the sound level meter which is used for Calibration.
+
+.topic IDH_MICCAL_LEVEL_BAR
+
+At Calibration, place the microphone and the sound level meter to be used at the same place and adjust the scroll bar so that the above input level should be the same as that of the sound level meter.
+
+.topic IDH_MICCAL_FREQ_RESPONSE
+Display the frequency response of the microphone.  If you set frequencies and levels of some spots by the [Set] button on the right side, a spline curve is displayed to connect them.  At measurement, by using the filter which has the opposite characteristics of the curve, the characteristics of the microphone will be adjusted to be flat.
+
+.topic IDH_MICCAL_FREQ_LIST
+Display the list of the frequencies and the levels which you set by [Set] button on the right.
+
+.topic IDH_MICCAL_FREQ
+Select some combinations of frequencies and levels from the frequency response table of the microphone, and input the frequencies.  Especially, if you input more data around the part where the frequency response changes, the accuracy will be improved.
+
+.topic IDH_MICCAL_LEVEL
+Select some combinations of frequencies and levels from the frequency response table of the microphone, and input the levels.  Especially, if you input more data around the part where the frequency response changes, the accuracy will be improved.
+
+.topic IDH_MICCAL_FREQ_REGIST
+Set the inputted frequency and the level as the frequency response.  If this is not set, the frequency response is assumed to be flat.
+
+.topic IDH_MICCAL_FREQ_DELETE
+Delete the selected combination of a frequency and a level in the left list.
+
+.topic IDH_OS_SCREEN
+Display the inputted waveform.  The setting information is displayed above.
+
+.topic IDH_OS_START
+Start the Oscilloscope.  Clicking while it is in function stops it.
+
+.topic IDH_OS_TIME
+Display the duration after the Oscilloscope is started to function.
+
+.topic IDH_OS_CLOSE
+Close the Oscilloscope window.
+
+.topic IDH_OS_SCREEN_SHOT
+Open a new window to show the waveform of the time of clicking.  It is possible to open multiple windows simultaneously.
+
+.topic IDH_OS_LEVEL_L
+Adjust the level sensitivity of the Left channel.
+
+.topic IDH_OS_LEVEL_L2
+Display the level sensitivity of the Left channel by A/D conversion value per scale unit.
+
+.topic IDH_OS_LEVEL_R
+Adjust the level sensitivity of the Right channel.
+
+.topic IDH_OS_LEVEL_R2
+Display the level sensitivity of the Right channel by A/D conversion value per scale unit.
+
+.topic IDH_OS_LEVEL_AUTO
+If checkbox is marked, it automatically adjusts the level sensitivity according to the input level.
+
+.topic IDH_OS_RENDOU
+If checkbox is marked, changing either Left or Right level makes the other level change correspondingly.
+
+.topic IDH_OS_POS_L
+Adjust the vertical display position of the Left channel.
+
+.topic IDH_OS_POS_L2
+Display the vertical display position of the Left channel by the range of -50 (bottom) to 50 (top).
+
+.topic IDH_OS_POS_R
+Adjust the vertical display position of the Right channel.
+
+.topic IDH_OS_POS_R2
+Display the vertical display position of the Right channel by the range of -50 (bottom) to 50 (top).
+
+.topic IDH_OS_POS_CENTER
+Set the vertical positions of both Left and Right channels to be the center.
+
+.topic IDH_OS_POS_ALT
+Display the Left channel in the above and the Right channel in the below.
+
+.topic IDH_OS_TRIG_LEVEL
+Adjust the trigger level.  If the display checkbox is marked on the right, the trigger position is displayed by a green triangle.
+
+.topic IDH_OS_TRIG_LEVEL2
+Display the trigger level by the range of -50 (bottom) to 50 (top).
+
+.topic IDH_OS_TRIG_AUTO
+Set the trigger level automatically to the center of the amplitude of the inputted waveform.
+
+.topic IDH_OS_TRIG_CH1
+Trigger by the inputted waveform of the Left channel.
+
+.topic IDH_OS_TRIG_CH2
+Trigger by the inputted waveform of the Right channel.
+
+.topic IDH_OS_TRIG_PLUS
+Trigger when the inputted waveform crosses over the trigger level from below to above.
+
+.topic IDH_OS_TRIG_MINUS
+Trigger when the inputted waveform crosses over the trigger level from above to below.
+
+.topic IDH_OS_TRIG_HIGHCUT
+If the checkbox is marked, the inputted waveform goes through the high cut filter (low-pass filter) to be triggered.  Turns this ON when the inputted waveform is unstable due to the high frequency noise.
+
+.topic IDH_OS_TRIG_LOWCUT
+If the checkbox is marked, the inputted waveform goes through the low cut filter (high-pass filter) to be triggered.  Turns this ON when the inputted waveform is unstable due to the low frequency noise.
+
+.topic IDH_OS_TRIG_POS
+If the checkbox is marked, sets the trigger level relatively based on the display position.  If it is not marked, sets by the absolute position regardless of the display position.
+
+.topic IDH_OS_TRIG_DISP
+If the checkbox is marked, the trigger level is displayed by a green triangle.
+
+.topic IDH_OS_TRIG_FREE
+If the checkbox is marked, Sweep is performed even if thereÅfs no trigger for a certain period of time.
+
+.topic IDH_OS_TRIG_SINGLE
+If the checkbox is marked, Sweep is performed when itÅfs triggered for once.  [Reset] button on the right will reset the trigger.
+
+.topic IDH_OS_TRIG_RESET
+Clicking this in the Single Trigger Mode ([Single] checkbox is on) resets the trigger and let the trigger perform again.
+
+.topic IDH_OS_OVERLAY
+Display the overlaid inputted waveforms for the number of selection.
+
+.topic IDH_OS_SWEEP
+Set the time for Sweep.  Moving the slider to the right makes the sweep faster.
+
+.topic IDH_OS_SWEEP2
+Display the sweep time per the scale unit of time (unit ms).
+
+.topic IDH_OS_DELAY_RANGE
+Select the maximum delay time to start the sweep after the trigger.
+
+.topic IDH_OS_DELAY
+Set the delay time to start the sweep after the trigger.
+
+.topic IDH_OS_DELAY2
+Display the delay time to start the sweep after the trigger.
+
+.topic IDH_OS_REVERSE_L
+If the checkbox is marked, the waveform of the Left channel is up-down reversed.
+
+.topic IDH_OS_REVERSE_R
+If the checkbox is marked, the waveform of the Right channel is up-down reversed.
+
+.topic IDH_OS_XY
+If the checkbox is marked, input the waveform of the Left channel to the horizontal axis and the waveform of the Right channel to the vertical axis and display the Lissajous pattern.
+
+.topic IDH_OS_ZERO_LEVEL
+If the checkbox is marked, a blue line for the Left channel and a red line for the Right channel are displayed at the zero level position.
+
+.topic IDH_OS_SAMPLING_RATE
+Select the sampling rate of FFT analyzer.  The maximum frequency to input is 1/2 of the sampling rate.
+
+.topic IDH_OS_CHANNEL
+Select the type of the channel to display on the Oscilloscope.
+
+.topic IDH_OS_CALIBRATION
+Open the calibration setting window.
+
+.topic IDH_FRE_START
+Start to measure the frequency response.  It stops if you click during the measurement.
+
+.topic IDH_FRE_ELP_TIME
+Display the duration after the measurement of the frequency response is started.
+
+.topic IDH_FRE_SAMPLING_RATE
+Select the sampling rate for the measurement of the frequency response.  The maximum frequency that can be measured is 1/2 of the sampling rate.
+
+.topic IDH_FRE_CHANNEL_MONO
+Measurement is performed by the Left channel only.
+
+.topic IDH_FRE_CHANNEL_STEREO
+Measurement is performed by both Left and Right channels.
+
+.topic IDH_FRE_MAX_LEVEL
+Input the maximum level of the vertical axis of the graph.
+
+.topic IDH_FRE_MIN_LEVEL
+Input the minimum level of the vertical axis of the graph.
+
+.topic IDH_FRE_SCREEN_SHOT
+Open a new window to show the graph of the time of clicking.  It is possible to open multiple windows simultaneously.
+
+.topic IDH_FRE_CSV_OUTPUT
+Output the measured data of the frequency response to a CSV file.
+
+.topic IDH_FRE_CSV_INPUT
+Load and display the measured frequency response CSV file.
+
+.topic IDH_FRE_EXIT
+Close the measurement window of the frequency response.
+
+.topic IDH_FRE_ADD_DATA_HOLD
+Holds the current display of measurement data.
+
+.topic IDH_FRE_DEL_DATA_HOLD
+Remove the measurement data they hold.
+
+.topic IDH_FRE_SWEEP_GRAPH
+Display the graph of the measured frequency response.  The measurement of the frequency Sweep is performed by changing the frequency continuously and it is characterized that a smooth curve can be obtained.
+
+.topic IDH_FRE_SWEEP_FREQ_START
+Input the frequency to start the measurement.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_FRE_SWEEP_FREQ_END
+Input the frequency to end the measurement.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_FRE_SWEEP_TIME
+Input the time to sweep from the start frequency to the end frequency.  The input value should be more than 1.
+
+.topic IDH_FRE_SWEEP_FREQ_CURRENT
+Display the frequency that is being measured.
+
+.topic IDH_FRE_SWEEP_LEVEL_SLIDER
+Set the level of the measurement.
+
+.topic IDH_FRE_SWEEP_LEVEL_EDIT
+Set the level of the measurement.  The range of the input is between 0 (maximum) and 60 (minimum).
+
+.topic IDH_FRE_SPOT_GRAPH
+Display the graph of the measured frequency response.  In the spot frequency measurement, the frequency to be measured is changed by steps and the filters that can pass only the frequency to be measured are used so that the influence of the noise is little and it is characterized that the most precise result can be obtained.
+
+.topic IDH_FRE_SPOT_FREQ_START
+Input the frequency to start the measurement.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_FRE_SPOT_FREQ_END
+Input the frequency to end the measurement.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_FRE_SPOT_FREQ_POINT
+Input the number of measurement positions between the start frequency and the end frequency.  The input value should be more than 1.
+
+.topic IDH_FRE_SPOT_FREQ_CURRENT
+Display the frequency that is being measured.
+
+.topic IDH_FRE_SPOT_LEVEL_SLIDER
+Set the level of measurement.
+
+.topic IDH_FRE_SPOT_LEVEL_EDIT
+Set the level of the measurement.  The range of the input is between 0 (maximum) and 60 (minimum).
+
+.topic IDH_FRE_NOISE_GRAPH
+Display the graph of the measured frequency response.  In the Pink Noise measurement, pink noise is outputted and the input data is analyzed by FFT so that it is characterized that the responses of all frequencies can be obtained simultaneously.
+
+.topic IDH_FRE_NOISE_FREQ_START
+Input the minimum frequency to display.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_FRE_NOISE_FREQ_END
+Input the maximum frequency to display.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_FRE_NOISE_RESOLUTION
+Select the resolution of the frequency.  The higher the resolution, the more precise the measurement but the update rate for display delays.
+
+.topic IDH_FRE_NOISE_AVERAGING
+Moving average suppresses irregular changes and the smooth graph is displayed.
+
+.topic IDH_FRE_NOISE_LEVEL_SLIDER
+Set the level of the measurement.
+
+.topic IDH_FRE_NOISE_LEVEL_EDIT
+Input the level of the measurement.  The range of the input is between 0 (maximum) and 60 (minimum).
+
+.topic IDH_DST_START
+Start the measurement of the harmonic distortion.  If you click during the measurement, it stops.
+
+.topic IDH_DST_ELP_TIME
+Display the duration after the measurement of the harmonic distortion is started.
+
+.topic IDH_DST_SAMPLING_RATE
+Select the sampling rate of the measurement of the harmonic distortion.  The maximum high frequency that can be measured is the frequency which is 1/2 of the sampling rate.
+
+.topic IDH_DST_CHANNEL_MONO
+Measure with the Left channel only.
+
+.topic IDH_DST_CHANNEL_STEREO
+Measure with both Left and Right channels.
+
+.topic IDH_DST_MAX_HARMONICS
+Select the degree of the maximum high frequency to be used in calculating the harmonic distortion.  Note that the high frequency which exceeds the frequency of 1/2 of the sampling rate cannot be measured even if it is within the selected degree.
+
+.topic IDH_DST_GUARD_TIME
+In the measurement of the frequency sweep or the level sweep, the measurement is performed after a certain period of time when the transitional change, which is caused by the change of the frequency and the level, is collected and the input data is stabilized.  Select the waiting time for it.
+
+.topic IDH_DST_SCALE_PERCENT
+Display the scale of the harmonic distortion by percentage.
+
+.topic IDH_DST_SCALE_DB
+Display the scale of the harmonic distortion by dB.
+
+.topic IDH_DST_SCALE_MAX
+Select the maximum value of the scale of the harmonic distortion.
+
+.topic IDH_DST_SCALE_MIN
+Select the minimum value of the scale of the harmonic distortion.
+
+.topic IDH_DST_SCREEN_SHOT
+Open a new window to show the graph of the time of clicking.  It is possible to open multiple windows simultaneously.
+
+.topic IDH_DST_CSV_OUTPUT
+Output the measured data of the harmonic distortion to a CSV Format file.
+
+.topic IDH_DST_CLOSE
+Close the THD Analyzer window.
+
+.topic IDH_DST_ADD_DATA_HOLD
+Holds the current display of measurement data.
+
+.topic IDH_DST_DEL_DATA_HOLD
+Remove the measurement data they hold.
+
+.topic IDH_DST_MANUAL_HARM_GRAPH
+Display the graph of the manual measurement.  In the manual measurement, the measurement is performed with the frequency and the level which are previously set, and the harmonic distortion (THD) and the level of each degree of high frequency are displayed by bar graphs.
+
+.topic IDH_DST_MANUAL_FREQ_SLIDER
+Set the frequency to measure.
+
+.topic IDH_DST_MANUAL_FREQ_EDIT
+Input the frequency to measure.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_DST_MANUAL_LEVEL_SLIDER
+Set the level of the measurement.
+
+.topic IDH_DST_MANUAL_LEVEL_EDIT
+Input the level of the measurement.  The range of the input is between 0 (maximum) and 60 (minimum).
+
+.topic IDH_DST_MANUAL_AVERAGE
+Display the measured value which is averaged by time.
+
+.topic IDH_DST_MANUAL_LEFT_THD
+Display the harmonic distortion (THD) of the Left channel which is being measured.
+
+.topic IDH_DST_MANUAL_RIGHT_THD
+Display the harmonic distortion (THD) of the Right channel which is being measured.
+
+.topic IDH_DST_FREQ_HARM_GRAPH
+Display the graph of frequency sweep measurement.  In the frequency sweep measurement, the frequency to be measured is changed by steps, and the harmonic distortions to the frequencies are displayed by line graphs.
+
+.topic IDH_DST_FREQ_START
+Input the frequency to start the measurement.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_DST_FREQ_END
+Input the frequency to end the measurement.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_DST_FREQ_POINT
+Input the number of measurement positions between the start frequency and the end frequency.  The input value should be more than 1.
+
+.topic IDH_DST_FREQ_CURRENT
+Display the frequency which is being measured.
+
+.topic IDH_DST_FREQ_LEVEL_SLIDER
+Set the level of the measurement.
+
+.topic IDH_DST_FREQ_LEVEL_EDIT
+Input the level of the measurement.  The range of the input is between 0 (maximum) and 60 (minimum).
+
+.topic IDH_DST_FREQ_SPLINE
+If the checkbox is marked, the spline curve is displayed to connect the measurement points.
+
+.topic IDH_DST_FREQ_MARKER
+If the checkbox is marked, the marker is displayed in the measurement point.
+
+.topic IDH_DST_FREQ_LEFT_THD
+Display the harmonic distortion (THD) of the Left channel which is being measured.
+
+.topic IDH_DST_FREQ_RIGHT_THD
+Display the harmonic distortion (THD) of the Right channel which is being measured.
+
+.topic IDH_DST_FREQ_HD
+THD is total harmonic distortion, 2ndHD is the second harmonic distortion, 3rdHD will display the third harmonic distortion.
+
+.topic IDH_DST_LEVEL_HARM_GRAPH
+Display the graph of the level sweep measurement.  In the level sweep measurement, the measurement is performed by changing the level by steps and the harmonic distortions for the levels are displayed by line graphs.
+
+.topic IDH_DST_LEVEL_FREQ_SLIDER
+Set the frequency to measure.
+
+.topic IDH_DST_LEVEL_FREQ_EDIT
+Input the frequency to measure.  The range of the input starts from 1 up to 1/2 of the sampling rate.
+
+.topic IDH_DST_LEVEL_START
+Input the level to start the measurement.  The value of the input should be more than 0.
+
+.topic IDH_DST_LEVEL_END
+Input the level to end the measurement.  The value of the input should be more than 0.
+
+.topic IDH_DST_LEVEL_POINT
+Input the number of measurement points from the start level to the end level.  The value of the input should be more than 1.
+
+.topic IDH_DST_LEVEL_CURRENT
+Display the level which is being measured.
+
+.topic IDH_DST_LEVEL_SPLINE
+If the checkbox is marked, the spline curve is displayed to connect the measurement points.
+
+.topic IDH_DST_LEVEL_MARKER
+If the checkbox is marked, the marker is displayed in the measurement point.
+
+.topic IDH_DST_LEVEL_LEFT_THD
+Display the harmonic distortion (THD) of the Left channel which is being measured.
+
+.topic IDH_DST_LEVEL_RIGHT_THD
+Display the harmonic distortion (THD) of the Right channel which is being measured.
+
+.topic IDH_DST_LEVEL_HD
+THD is total harmonic distortion, 2ndHD is the second harmonic distortion, 3rdHD will display the third harmonic distortion.
+
+.topic IDH_IMP_IMPALSE_L
+Display the Impulse Response of the Left channel.  When it is zoomed, you can scroll by click and drag horizontally.
+
+.topic IDH_IMP_IMPALSE_R
+Display the Impulse Response of the Right channel.  When it is zoomed, you can scroll by click and drag horizontally.
+
+.topic IDH_IMP_ZOOM_H
+Display the zoom magnification of horizontal direction of the Impulse Response window.
+
+.topic IDH_IMP_SCROLL_H
+Let the Impulse Response window to scroll horizontally.
+
+.topic IDH_IMP_MR_TIME
+Display the time of the measurement.
+
+.topic IDH_IMP_MR_SAMPLING
+Display the sampling rate at the time of measurement.
+
+.topic IDH_IMP_MR_MTIME
+Display the measuring time at the time of measurement.
+
+.topic IDH_IMP_MR_MNUM
+Display the number of synchronous summation at the time of measurement.
+
+.topic IDH_IMP_MR_BIT
+Display the number of bits at the time of measurement.
+
+.topic IDH_IMP_MR_CHANNEL
+Display the channel at the time of measurement.
+
+.topic IDH_IMP_START
+Start the measurement of the Impulse Response.
+
+.topic IDH_IMP_STOP
+Click if you want to cancel the Impulse Response.  Usually, you donÅft have to click because it automatically stops after the measurement.
+
+.topic IDH_IMP_FILE_SAVE
+Save the measured impulse response as a file.
+
+.topic IDH_IMP_FILE_LOAD
+Read the stored data of impulse response and display.
+
+.topic IDH_IMP_SAMPLING_RATE
+Select the sampling rate of the impulse response measurement.
+
+.topic IDH_IMP_ASSIST
+Perform the assistance function to adjust the measurement conditions to be the best suited.
+
+.topic IDH_IMP_MEASURE_TIME
+Select the measuring time of the impulse response.  Select the time which is more than 2 times of the necessary impulse response time.
+
+.topic IDH_IMP_MEASURE_NUM
+Select the synchronous summation of the impulse response.  The synchronous summation is repeated for the set number of times to improve the S/N ratio.
+
+.topic IDH_IMP_CHANNEL_MONO
+Measurement is performed by the Left channel only.
+
+.topic IDH_IMP_CHANNEL_STEREO
+Measurement is performed by both Left and Right channels.
+
+.topic IDH_IMP_MSEQ_METHOD
+Measure the impulse response by M-Sequence (Maximal-length sequence) method.
+
+.topic IDH_IMP_TSP_METHOD
+Measure the impulse response by TSP (Time-Stretched Pulse) method.
+
+.topic IDH_IMP_AUTO_LEVEL
+If the checkbox is marked, in case of the output level is not pertinent, it is automatically adjusted before the measurement.
+
+.topic IDH_IMP_AUTO_RETRY
+If the checkbox is marked, 2 measurements are performed to compare the results. It automatically retries the measurements if there is a considerable difference between them.
+
+.topic IDH_IMP_IFA_SET
+The results of the impulse response measurement contain include impulse responses of speakers and microphones besides those of concert halls and rooms which are the target of the measurement.  Compensation by the inverse filter sets off the unnecessary impulse responses of speakers and microphones by the inverse filter to obtain the real impulse response.
+
+.topic IDH_IMP_IFA_CANCEL
+Cancel the inverse filter which is set.
+
+.topic IDH_IMP_IFA_SAVE
+Creates the inverse filter from the measured impulse response and saves it.
+
+.topic IDH_IMP_IFA_MESSAGE
+Display the name of the inverse filter if the inverse filter is set.
+
+.topic IDH_IMP_WAVE_IR
+The waveform of the impulse response is outputted as a file.
+
+.topic IDH_IMP_WAVE_OUT_MSRQ
+The output waveform (the waveform which is outputted to the speaker) is outputted as a file.
+
+.topic IDH_IMP_WAVE_IN_MSEQ
+The input waveform (the waveform which is inputted from the microphone) is outputted as a file.
+
+.topic IDH_IMP_FILE_WAVE
+Save as a WAVE Format file.
+
+.topic IDH_IMP_FILE_TEXT
+Save as a text Format file.
+
+.topic IDH_IMP_WAVE_OUT
+The selected type of data is outputted as the selected format file.
+
+.topic IDH_IMP_MESSAGE
+Display the condition of the time of measurement.
+
+.topic IDH_IMP_PLAYBACK
+Output the waveform of the measured impulse response to the sound device.
+
+.topic IDH_IMP_CLOSE
+Close the Impulse Response window.
+
+.topic IDH_IMP_ZOOM_H_FULL
+Cancel the horizontal zoom of the impulse response window.
+
+.topic IDH_IMP_ZOOM_H_IN
+The impulse response window is zoomed in horizontally.
+
+.topic IDH_IMP_ZOOM_H_OUT
+The impulse response window is zoomed out horizontally.
+
+.topic IDH_IMP_SAVE_FOLDER_LIST
+Display the list of registered folders.  Click to select a folder to save the measured data.  If you want to create a new folder, click [Folder] button.
+
+.topic IDH_IMP_SAVE_DATA_LIST
+Display the list of the data which are stored in the selected folder.
+
+.topic IDH_IMP_SAVE_SAVE
+Save the measured data to the selected folder.  Saved data can be analyzed for reverberation time, etc. by Sound Analyzing system (SA).
+
+.topic IDH_IMP_SAVE_FOLDER
+Create / Delete / Modify folders.
+
+.topic IDH_IMP_SAVE_CANCEL
+Close this dialog box without saving the measured data.
+
+.topic IDH_IMP_SAVE_SAMPLING
+Display the sampling rate of the time of measurement.
+
+.topic IDH_IMP_SAVE_MEASURE_TIME
+Display the measuring time of the measured data.
+
+.topic IDH_IMP_SAVE_MEASURE_NUM
+Display the number of synchronous summation at the time of measurement.
+
+.topic IDH_IMP_SAVE_CHANNEL
+Display the channel of the measured data.
+
+.topic IDH_IMP_SAVE_BIT
+Display the number of bits at the time of measurement.
+
+.topic IDH_IMP_SAVE_TITLE
+Input the title of the measured data.  Be sure to input before clicking [Save] button.
+
+.topic IDH_IMP_SAVE_COMMENT
+Input comments about the measured data.  Input is voluntary.
+
+.topic IDH_IMP_SAVE_TIME
+Display the date and time of the measurement of the measured data.
+
+.topic IDH_IMP_LOAD_FOLDER_LIST
+Display the list of the registered folders.  Click to select the folder to read in.
+
+.topic IDH_IMP_LOAD_FOLER_TITLE
+Display the title of the selected folder.
+
+.topic IDH_IMP_LOAD_FOLDER_NAME
+Display the name of the measurer for the selected folder.
+
+.topic IDH_IMP_LOAD_FOLDER_PLACE
+Display the place of the measurement for the selected folder.
+
+.topic IDH_IMP_LOAD_FOLDER_COMMENT
+Display the comments for the selected folder.
+
+.topic IDH_IMP_LOAD_FOLDER_DATE
+Display the date of the measurement for the selected folder.
+
+.topic IDH_IMP_LOAD_DATA_LIST
+Display the list of the measured data in the selected folder.
+
+.topic IDH_IMP_LOAD_DATA_TITLE
+Display the title of the selected measured data.
+
+.topic IDH_IMP_LOAD_DATA_COMMENT
+Display the comment of the selected measured data.
+
+.topic IDH_IMP_LOAD_DATA_TIME
+Display the measuring time of the selected measured data.
+
+.topic IDH_IMP_LOAD_READ
+Reads the selected measured data and close this dialog box.
+
+.topic IDH_IMP_LOAD_DELETE
+Delete the selected measured data.
+
+.topic IDH_IMP_LOAD_FOLDER
+Create / Delete / Modify folders.
+
+.topic IDH_IMP_LOAD_WAVE_FILE
+Reads waveform data from WAVE files.
+
+.topic IDH_IMP_LOAD_IMPORT_DATA
+Imports the measured data from other directories.
+
+.topic IDH_IMP_LOAD_CANCEL
+Close this dialog box without any actions.
+
+.topic IDH_IMP_FOLDER_FOLDER_LIST
+Display the created folders.
+
+.topic IDH_IMP_FOLDER_REGIST
+Creates a new folder.  Input [Title], etc. before clicking.
+
+.topic IDH_IMP_FOLDER_CHANGE
+Modify the information of the created folder.  Select the folder to modify and make changes to the displayed data, and click.
+
+.topic IDH_IMP_FOLDER_DELETE
+Delete created folders.  Click to select a folder to delete.  Be warned that all data in the folder are also deleted and cannot be restored.
+
+.topic IDH_IMP_FOLDER_CLOSE
+Close this dialog box.
+
+.topic IDH_IMP_FOLDER_TITLE
+Input the title of the folder.  Be sure to input it before you click [New] button.
+
+.topic IDH_IMP_FOLDER_NAME
+Input the name of the measurer.  Input is voluntary.
+
+.topic IDH_IMP_FOLDER_PLACE
+Input the place of the measurement.  Input is voluntary.
+
+.topic IDH_IMP_FOLDER_COMMENT
+Input comments for the measurement.  Input is voluntary.
+
+.topic IDH_IMP_FOLDER_DATE
+Input the date of the measurement.
+
+.topic IDH_IMP_FOLDER_SCALE
+Input the scale if you measured with a dummy.  In Sound analyzing system (SA), the actual size is calculated based on the scale.
+
+.topic IDH_IMP_ASSIST_SWITCH1
+Adjust the input and output levels.  Low input level causes bad S/N ratio but high input level makes the waveform skewed and cannot obtain the right result.  Thus, it is necessary to perform measurement with an appropriate level.
+
+.topic IDH_IMP_ASSIST_RESULT1
+The appropriateness of the input level is judged and [OK] is displayed if it is appropriate and [NG] if the input level is too high or too low.
+
+.topic IDH_IMP_ASSIST_LEVEL_WND
+Display the input level by bar.  If the bar is in the blue range, the level is too low; if it is in the green range, it is appropriate; and if it is in the red range, it is too high.  If the level is not appropriate, [Volume] of [Input Device] in the main window will be adjusted automatically.
+
+.topic IDH_IMP_ASSIST_DEVIATION
+Display the deflection from the appropriate level.
+
+.topic IDH_IMP_ASSIST_SWITCH2
+Whether the Left and Right microphones are positioned at the same distance from the sound source is checked.
+
+.topic IDH_IMP_ASSIST_RESULT2
+ÅgOKÅh is displayed if the Left and Right microphones are at the same distance from the sound source and ÅgNGÅh is displayed if the distances are not same.
+
+.topic IDH_IMP_ASSIST_POSITION_LEFT
+Display the position of the Left channel microphone with a blue triangle.  Adjust the positions of the Left and Right microphones so that the mark comes to the center 0.
+
+.topic IDH_IMP_ASSIST_POSITION_RIGHT
+Display the position of the Right channel microphone with a red triangle.  Adjust the positions of the Left and Right microphones so that the mark comes to the center 0.
+
+.topic IDH_IMP_ASSIST_DISTANCE
+Display the difference of the distances of the Left and Right microphones from the sound source.
+
+.topic IDH_IMP_ASSIST_SWITCH3
+Adjust the measuring time of the impulse response.  Whether the measuring time is enough will be checked because the measuring time needs to be more then 2 times of reverberation time.
+
+.topic IDH_IMP_ASSIST_RESULT3
+ÅgOKÅh is displayed if the measuring time is appropriate and ÅgNGÅh is displayed if it is not appropriate.
+
+.topic IDH_IMP_ASSIST_MEASURING_TIME
+Display the measuring time at present.  The measuring time will be adjusted automatically if it is inappropriate.
+
+.topic IDH_IMP_ASSIST_SN_RATIO
+Display the S/N ratio at present.  If S/N ratio is low, the measuring time may not be enough.
+
+.topic IDH_IMP_ASSIST_CLOSE
+Close this window.
+
+.topic IDH_IMP_IFSAVE_IMPALSE
+Display the impulse response.  Both sides of the yellow area can be clicked and move by mouse and select the components of the impulse response of microphones, speakers, etc.
+
+.topic IDH_IMP_IFSAVE_FREQ
+Display the frequency response and the phase characteristic of the inverse filter.
+
+.topic IDH_IMP_IFSAVE_TITLE
+Input the title of the inverse filter.  Be sure to input before click [Save] button.
+
+.topic IDH_IMP_IFSAVE_COMMENT
+Input comments about the inverse filter.  Input is voluntary.
+
+.topic IDH_IMP_IFSAVE_MAX_ADJ_LEVEL
+Input the maximum compensation value of the inverse filter.  The value should be more than 0.
+
+.topic IDH_IMP_IFSAVE_PHASE_ADJ
+If the checkbox is marked, the level and the phase are compensated.  If it is not marked, only the level is compensated.
+
+.topic IDH_IMP_IFSAVE_START_POS
+Display the start position of the selected impulse response.
+
+.topic IDH_IMP_IFSAVE_END_POS
+Display the end position of the selected impulse response.
+
+.topic IDH_IMP_IFSAVE_SAVE
+Save the inverse filter.
+
+.topic IDH_IMP_IFSAVE_CLOSE
+Close this dialog box.
+
+.topic IDH_IMP_IFSET_LIST
+Display the list of the registered inverse filter.
+
+.topic IDH_IMP_IFSET_IMPALSE
+Display the impulse response.  To make changes, both sides of the yellow area can be clicked and move by mouse and select the components of the impulse response of microphones, speakers, etc.
+
+.topic IDH_IMP_IFSET_FREQ
+Display the frequency response and the phase characteristic of the inverse filter.
+
+.topic IDH_IMP_IFSET_TITLE
+Display the title of the inverse filter.  To make changes, click [Overwrite] button after input it.
+
+.topic IDH_IMP_IFSET_COMMENT
+Display the comment of the inverse filter.  To make changes, click [Overwrite] button after input it.
+
+.topic IDH_IMP_IFSET_MAX_ADJ_LEVEL
+Input the maximum compensation value of the inverse filter.  To make changes, click [Overwrite] button after input it.
+
+.topic IDH_IMP_IFSET_PHASE_ADJ
+If the checkbox is marked, the level and the phase are compensated.  If it is not marked, only the level is compensated.
+
+.topic IDH_IMP_IFSET_START_POS
+Display the start position of the selected impulse response.
+
+.topic IDH_IMP_IFSET_END_POS
+Display the end position of the selected impulse response.
+
+.topic IDH_IMP_IFSET_SET
+Set the selected inverse filter to be used at measurement.
+
+.topic IDH_IMP_IFSET_CANCEL
+Close the dialog box without any actions.
+
+.topic IDH_IMP_IFSET_CHANGE
+Overwrites after the selected inverse filter is changed.
+
+.topic IDH_IMP_IFSET_DELETE
+Delete the selected inverse filter.
+
+.topic IDH_IMP_LAUNCH_SA
+Displays SA directly measured data.
+
+.topic IDH_ACF_GRAPH
+The measured value of the running ACF is displayed in 3D graph.
+
+.topic IDH_ACF_GRAPH_WAVE
+Display the input waveform.
+
+To make changes, both sides of the sky blue area can be clicked to change the selected area and only the necessary parts can be cut.
+
+and move by mouse and select the components of the impulse response of microphones, speakers, etc.
+
+.topic IDH_ACF_ZOOM_H
+Display the zoom magnification of the input waveform.
+
+.topic IDH_ACF_SCROLL_H
+Scroll the input waveform horizontally.
+
+.topic IDH_ACF_GRAPH_NORM
+Normalizes the maximum value of the amplitude of the input waveform to 1.
+
+.topic IDH_ACF_MR_TIME
+Display the date and time of the measurement.
+
+.topic IDH_ACF_MR_SAMPLING
+Display the sampling rate at the time of measurement.
+
+.topic IDH_ACF_MR_MTIME
+Display the measuring time at the time of measurement.
+
+.topic IDH_ACF_SELECT_START
+Display the start position for the selected area of the input waveform.
+
+.topic IDH_ACF_SELECT_END
+Display the end position for the selected area of the input waveform.
+
+.topic IDH_ACF_SELECT_TIME
+Display the time for the selected area of the input waveform.
+
+.topic IDH_ACF_CUT
+Cuts the selected area of the input waveform.
+
+.topic IDH_ACF_SELECT_ALL
+Select the all area of the input waveform.
+
+.topic IDH_ACF_REPLAY
+Plays the input data from the sound device.
+
+.topic IDH_ACF_START
+Start the measurement of the running ACF.
+
+.topic IDH_ACF_STOP
+Cancel the measurement of the running ACF.  Usually, you donÅft have to click it because the measurement will be stop automatically after a specified measuring time has passed.
+
+.topic IDH_ACF_FILE_SAVE
+Save the measured data as a file.  The saved data can be analyzed by Sound Analyzing system (SA).
+
+.topic IDH_ACF_FILE_LOAD
+Reads saved data and display.
+
+.topic IDH_ACF_SAMPLING_RATE
+Select the sampling rate at the time of measurement.
+
+.topic IDH_ACF_MEASURE_TIME
+Input the measuring time.  The input value is more than 1.
+
+.topic IDH_ACF_CHANNEL_MONO
+Measurement is performed by the Left channel only.
+
+.topic IDH_ACF_CHANNEL_STEREO
+Measurement is performed by both Left and Right channels.
+
+.topic IDH_ACF_INTEGRATION_TIME
+Input the integration time of ACF.  The input value is more than 1.
+
+.topic IDH_ACF_CALC_CYCLE
+Input the calculation cycle of ACF.  The input value is more than 1.
+
+.topic IDH_ACF_MAX_TAU
+Input the maximum delay time(Tau) of the horizontal axis.  The input value is more than 1.
+
+.topic IDH_ACF_FREQ_FILTER
+Select the hearing impression filter.  Select Flat if you donÅft use the filter.
+
+.topic IDH_ACF_TIME_DATA_NUM
+Input the data of the time axis.  The input value is more than 1.
+
+.topic IDH_ACF_TIME_FWD
+Set the direction of time axis to go from the back toward the front.
+
+.topic IDH_ACF_TIME_BWD
+Set the direction of time axis to go from the front toward the back.
+
+.topic IDH_ACF_SCALE_LINER
+Display the self correlation value of the vertical axis by linear scale.
+
+.topic IDH_ACF_SCALE_ABS
+If the checkbox is marked, display the self correlation value of the vertical axis by absolute values (0 to 1).  If it is not marked, the self correlation value is displayed as is (-1 to 1).
+
+.topic IDH_ACF_SCALE_LOG
+Display the self correlation value of the vertical axis by logarithmic scale.
+
+.topic IDH_ACF_SCALE_LEVEL
+Input the minimum value for the self correlation value of the vertical axis by logarithmic scale.  (The Maximum value is always 0dB.)
+
+.topic IDH_ACF_CHANNEL_LCH
+Display the measured data of the Left channel.
+
+.topic IDH_ACF_CHANNEL_RCH
+Display the measured data of the Right channel.
+
+.topic IDH_ACF_REDRAW
+Change [Display Settings] and display the measured data again.
+
+.topic IDH_ACF_CLOSE
+Close this window.
+
+.topic IDH_ACF_ZOOM_H_FULL
+Cancel the horizontal zoom of the input waveform window.
+
+.topic IDH_ACF_ZOOM_H_IN
+The input waveform window is zoomed in horizontally.
+
+.topic IDH_ACF_ZOOM_H_OUT
+The input waveform window is zoomed out horizontally.
+
+.topic IDH_ACF_LAUNCH_SA
+Displays SA directly measured data.
+
+.topic IDH_ACF_REALTIME_GRAPH
+Display the realtime graph window.
+
+.topic IDH_ACF_SAVE_FOLDER_LIST
+Display the list of the registered folders.  Click to select a folder to save the measured data.  To create a new folder, click [Folder] button.
+
+.topic IDH_ACF_SAVE_DATA_LIST
+Display the list of the data which is stored in the selected folder.
+
+.topic IDH_ACF_SAVE_OK
+Save the measured data in the selected folder.  The saved data can be analyzed by Sound Analyzing system (SA).
+
+.topic IDH_ACF_SAVE_FOLDER
+Create / Delete / Modify folders.
+
+.topic IDH_ACF_SAVE_WAVE_FILE
+Save the measured data as a WAVE Format file.
+
+.topic IDH_ACF_SAVE_CANCEL
+Close this dialog box without saving the measured data.
+
+.topic IDH_ACF_SAVE_SAMPLING
+Display the sampling rate of the measured data.
+
+.topic IDH_ACF_SAVE_CHANNEL
+Display the channel of the measured data.
+
+.topic IDH_ACF_SAVE_DATA_TIME
+Display the measuring time of the measured data.
+
+.topic IDH_ACF_SAVE_TITLE
+Input the title of the measured data.  Be sure to input it before you click [Save] button.
+
+.topic IDH_ACF_SAVE_COMMENT
+Input comments for the measured data.  Input is voluntary.
+
+.topic IDH_ACF_SAVE_TIME
+Display the date of the measurement for the measured data.
+
+.topic IDH_ACF_REALTIME_GRAPH_PHI0
+Display the Phi(0) realtime graph.
+
+.topic IDH_ACF_REALTIME_GRAPH_PHI1
+Display the Phi1 realtime graph.
+
+.topic IDH_ACF_REALTIME_GRAPH_TAU_E
+Display the TauE realtime graph.
+
+.topic IDH_ACF_REALTIME_GRAPH_TAU_1
+Display the Tau1 realtime graph.
+
+.topic IDH_ACF_REALTIME_GRAPH_SPECTROGRAM
+Display the spectrogram realtime graph.
+
+.topic IDH_ACF_REALTIME_FACTOR_LIST
+Display the calculated data.
+
+.topic IDH_REC_GRAPH_WAVE
+Display the waveform of the recorded data.  To cut out a part of the waveform, click on the both sides of the sky blue area to select the range to cut, and click [Cut] button.
+
+.topic IDH_REC_ZOOM_H
+Display the zoom magnification of the recording waveform window.
+
+.topic IDH_REC_SCROLL_H
+Scroll the recording waveform window horizontally.
+
+.topic IDH_REC_GRAPH_NORM
+Normalize the biggest amplitude to 1.
+
+.topic IDH_REC_RECORD_TIME
+Display the recording time.
+
+.topic IDH_REC_SELECT_ALL
+Select the entire waveform.
+
+.topic IDH_REC_CUT
+Cut the selected range of the recording waveform window.
+
+.topic IDH_REC_SELECT_START
+Display the start time of the selected range in the recording waveform window.
+
+.topic IDH_REC_SELECT_END
+Display the end time of the selected range in the recording waveform window.
+
+.topic IDH_REC_SELECT_TIME
+Display the time of the selected range in the recording waveform window.
+
+.topic IDH_REC_RECORD
+The input or output sound is recorded if Signal Generator, FFT Analyzer, or others is performed while the checkbox is marked.
+
+.topic IDH_REC_PLAY
+
+The recorded sound will be played if FFT Analyzer, Oscilloscope, or others is performed while the checkbox is marked.
+
+.topic IDH_REC_PRIORITY_INPUT
+When input and output are performed simultaneously, the input data has priority to be recorded.  Regardless of this selection, the performed one will be recorded if only one of them is performed.
+
+.topic IDH_REC_PRIORITY_OUTPUT
+When input and output are performed simultaneously, the output data has priority to be recorded.  Regardless of this selection, the performed one will be recorded if only one of them is performed.
+
+.topic IDH_REC_FILE_SAVE
+Save the recorded data as a WAVE format file.
+
+.topic IDH_REC_FILE_LOAD
+Reads in the waveform data from a WAVE file.
+
+.topic IDH_REC_CLOSE
+Close this window.
+
+.topic IDH_REC_ZOOM_H_FULL
+Cancel the horizontal zoom of the recording waveform window.
+
+.topic IDH_REC_ZOOM_H_IN
+The recording waveform window is zoomed in horizontally.
+
+.topic IDH_REC_ZOOM_H_OUT
+The recording waveform window is zoomed out horizontally.
+
+.topic IDH_PRESET_LIST
+Display the list of the registered presets.
+
+.topic IDH_PRESET_SET
+Apply the selected preset.  All the positions of the windows and the settings are set as the condition when the preset is registered.
+
+.topic IDH_PRESET_CLOSE
+Close this dialog box.
+
+.topic IDH_PRESET_SAVE
+Save all the positions of the windows and the condition at present as a new preset.
+
+.topic IDH_PRESET_OVERWRITE
+Save all the positions of the windows and the condition at present to the selected preset which will be overwritten.
+
+.topic IDH_PRESET_DELETE
+Delete the selected preset.
+
+.topic IDH_PRESET_MAKE_SHORTCUT
+Creates a shortcut to the selected preset on the desktop.  By simply clicking the shortcut,  the window of the preset will be opened.
+
+.topic IDH_PRESET_SAVE_TITLE
+Input the title for the preset to be saved.
+
+.topic IDH_PRESET_SAVE_SET
+Save the preset and close the dialog box.
+
+.topic IDH_PRESET_SAVE_CANCEL
+Close the dialog box without saving the preset.
+
+.topic IDH_SETTING_OK
+Save the setting and close the dialog box.
+
+.topic IDH_SETTING_CANCEL
+Close the dialog box without saving the settings.
+
+.topic IDH_SETTING_FONT_SIZE_SG
+Select the font size of the [Signal Generator] window.
+
+.topic IDH_SETTING_FONT_SIZE_FFT
+Select the font size of the [FFT Analyzer] window.
+
+.topic IDH_SETTING_FONT_SIZE_OS
+Select the font size of the [Oscilloscope] window.
+
+.topic IDH_SETTING_FONT_SIZE_FRE
+Select the font size of the [Frequency Response] window.
+
+.topic IDH_SETTING_FONT_SIZE_DST
+Select the font size of the [THD Analyzer] window.
+
+.topic IDH_SETTING_FONT_SIZE_IMP
+Select the font size of the [Impulse Response] window.
+
+.topic IDH_SETTING_FONT_SIZE_ACF
+Select the font size of the [Running ACF] window.
+
+.topic IDH_SETTING_FONT_SIZE_DEFAULT
+Set font sizes of all the windows as default values.
+
+.topic IDH_SETTING_INPUT_24BIT
+The input devices used in 24-bit. If the input device does not support 24-bit uses 16-bit.
+
+.topic IDH_SETTING_INPUT_16BIT
+The input devices used in 16-bit.
+
+.topic IDH_SETTING_OUTPUT_24BIT
+The output devices used in 24-bit. If the output device does not support 24-bit uses 16-bit.
+
+.topic IDH_SETTING_OUTPUT_16BIT
+The output devices used in 16-bit.
+
+.topic IDH_BACKUP_EDIT_COMMENT
+Input comment to add to backup.
+
+.topic IDH_BACKUP_LIST_BACKUP
+It is a list of the existing backed up data.
+
+.topic IDH_BACKUP_EXEC
+Perform backup.
+
+.topic IDH_BACKUP_CLOSE
+Close the dialog box.
+
+.topic IDH_BACKUP_DELETE_BACKUP
+Delete backup data.
+
+.topic IDH_RESTORE_LIST_BACKUP
+List of backup data.
+
+.topic IDH_RESTORE_EXEC
+Perform restore.
+
+.topic IDH_RESTORE_CLOSE
+Close the dialog box.

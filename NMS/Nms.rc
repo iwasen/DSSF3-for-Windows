@@ -1,0 +1,1417 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// ニュートラル resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(932)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\Nms.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+IDB_STATEICONS          BITMAP                  "res\\stateico.bmp"
+
+IDR_ZOOM_H              BITMAP                  "res\\zoom_h.bmp"
+
+IDR_ZOOM_V              BITMAP                  "res\\zoom_v.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      IDM_MEASURE_START
+    BUTTON      IDM_MEASURE_STOP
+    SEPARATOR
+    BUTTON      IDM_MEASURE_MANUAL
+    SEPARATOR
+    BUTTON      IDM_INPUT_LEVEL
+    BUTTON      IDM_PEAK_LEVEL
+    BUTTON      IDM_VIEW_FACTOR
+    SEPARATOR
+    BUTTON      IDM_MEASURE_SET
+    BUTTON      IDM_INPUT_DEVICE
+    SEPARATOR
+    BUTTON      IDM_TEMPLATE
+    BUTTON      IDM_MANUAL_LEARNING
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_ZOOM_H TOOLBAR 16, 16
+BEGIN
+    BUTTON      IDM_ZOOM_FULL_H
+    BUTTON      IDM_ZOOM_IN_H
+    BUTTON      IDM_ZOOM_OUT_H
+END
+
+IDR_ZOOM_V TOOLBAR 16, 16
+BEGIN
+    BUTTON      IDM_ZOOM_FULL_V
+    BUTTON      IDM_ZOOM_IN_V
+    BUTTON      IDM_ZOOM_OUT_V
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 5,2,0,9
+ PRODUCTVERSION 5,2,0,9
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041104b0"
+        BEGIN
+            VALUE "Comments", "Written by Shinichi Aizawa"
+            VALUE "CompanyName", "Yoshimasa Electronic Inc."
+            VALUE "FileDescription", "Diagnostic System for Sound Fields Version 5"
+            VALUE "FileVersion", "5.2.0.9"
+            VALUE "InternalName", "EA"
+            VALUE "LegalCopyright", "Copyright (C) 2000-2026 Yoshimasa Electronic Inc."
+            VALUE "LegalTrademarks", "YMEC"
+            VALUE "OriginalFilename", "NMS.EXE"
+            VALUE "ProductName", "Environmantal Noise Analyzer [EA]"
+            VALUE "ProductVersion", "5.2.0.9"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 1200
+    END
+END
+
+#endif    // ニュートラル resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 (日本) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#pragma code_page(932)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Nms.rc2""  // Microsoft Visual C++ 以外のツールで編集されたリソース\r\n"
+    "#include ""l.jpn\\afxres.rc""          // 標準のコンポーネント\r\n"
+    "#include ""l.jpn\\afxprint.rc""        // 印刷/印刷プレビュー リソース\r\n"
+    "#endif\r\n"
+    "#define USE_IDD_TEMPLATE\r\n"
+    "#include ""..\\Common\\Common.rc""\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "ファイル(&F)"
+    BEGIN
+        MENUITEM "保存(&S)\tCtrl+S",              ID_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "waveファイル読込(&R)...",           IDM_READ_WAVE
+        MENUITEM SEPARATOR
+        MENUITEM "アプリケーションの終了(&X)",             ID_APP_EXIT
+    END
+    POPUP "表示(&V)"
+    BEGIN
+        MENUITEM "ツール バー(&T)",                  ID_VIEW_TOOLBAR
+        MENUITEM "ステータス バー(&S)",                ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "音圧レベル(&L)...",                IDM_INPUT_LEVEL
+        MENUITEM "ピークレベル(&P)...",               IDM_PEAK_LEVEL
+        MENUITEM "ACF/IACFファクタ(&F)...",         IDM_VIEW_FACTOR
+    END
+    POPUP "測定(&M)"
+    BEGIN
+        MENUITEM "自動測定開始(&S)",                  IDM_MEASURE_START
+        MENUITEM "自動測定終了(&T)",                  IDM_MEASURE_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "マニュアル測定(&M)",                 IDM_MEASURE_MANUAL
+        MENUITEM SEPARATOR
+        MENUITEM "測定条件設定(&E)...",               IDM_MEASURE_SET
+        MENUITEM "入力デバイス設定(&I)...",             IDM_INPUT_DEVICE
+        MENUITEM SEPARATOR
+        MENUITEM "自動計算(&A)",                    IDM_AUTO_CALC
+        MENUITEM "再計算(&R)",                     IDM_RECALC
+        MENUITEM SEPARATOR
+        MENUITEM "測定済みデータ消去(&C)",               IDM_CLEAR_DATA
+    END
+    POPUP "同定(&D)"
+    BEGIN
+        MENUITEM "騒音源ﾃﾝﾌﾟﾚｰﾄ設定(&N)...",         IDM_TEMPLATE
+        MENUITEM "騒音源訂正(&C)...",                IDM_CHANGE_NOISE_SRC
+        MENUITEM SEPARATOR
+        MENUITEM "手動学習(&M)",                    IDM_MANUAL_LEARNING
+        MENUITEM "自動学習(&A)",                    IDM_AUTO_LEARNING
+    END
+    POPUP "ヘルプ(&H)"
+    BEGIN
+        MENUITEM "バージョン情報(&V)...",              ID_APP_ABOUT
+        MENUITEM "お読みください(&R)...",              IDM_README
+        MENUITEM "ライセンス登録(&L)...",              IDM_LICENSE_REGIST
+        MENUITEM "YmecStoreで購入(&Y)...",         IDM_YMEC_STORE
+        MENUITEM SEPARATOR
+        MENUITEM "オンラインプログラムマニュアル(&A)",         IDM_ONLINE_MANUAL
+        MENUITEM "技術サポート(&S)...",               IDM_TECHNICAL_SUPPORT
+        MENUITEM "ドキュメント Q&&A(&Q)",             IDM_DOCUMENT_QA
+        MENUITEM SEPARATOR
+        MENUITEM "オンラインアップデート(&U)...",          IDM_ONLINE_UPDATE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MEASURE_SET DIALOGEX 0, 0, 295, 325
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "測定条件設定"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "A/D 変換",IDC_STATIC,7,7,136,34
+    LTEXT           "サンプリングレート",IDC_STATIC,18,23,56,8
+    COMBOBOX        IDC_SAMPLING_RATE,85,21,50,98,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "計測対象データ抽出条件",IDC_STATIC,7,49,136,123
+    LTEXT           "抽出対象騒音レベル",IDC_STATIC,18,66,63,8
+    EDITTEXT        IDC_SAMPLING_LEVEL,85,64,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,122,68,9,8
+    CONTROL         "相対レベル",IDC_RELATIVE_LEVEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,85,79,49,10
+    LTEXT           "時定数",IDC_STATIC,18,95,24,8
+    EDITTEXT        IDC_TIMECONSTANT,85,93,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,122,97,12,8
+    LTEXT           "抽出タイミング",IDC_STATIC,18,112,44,8
+    CONTROL         "最大ピーク時",IDC_TIMING_PEAK,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,71,111,55,10
+    CONTROL         "抽出レベル超過時",IDC_TIMING_LEVEL,"Button",BS_AUTORADIOBUTTON,71,123,69,10
+    LTEXT           "データ抽出時間",IDC_STATIC,18,140,49,8
+    LTEXT           "前",IDC_STATIC,75,140,8,8
+    EDITTEXT        IDC_SAMPLING_TIME1,85,138,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,122,142,11,8
+    LTEXT           "後",IDC_STATIC,75,156,8,8
+    EDITTEXT        IDC_SAMPLING_TIME2,85,154,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,122,157,11,8
+    GROUPBOX        "ランニングＡＣＦ計算条件",IDC_STATIC,151,49,136,124,WS_GROUP
+    LTEXT           "積分区間",IDC_STATIC,162,66,30,8
+    EDITTEXT        IDC_INTEGRATION_TIME,211,64,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,248,68,11,8
+    LTEXT           "計算周期",IDC_STATIC,162,82,30,8
+    EDITTEXT        IDC_RUNNING_STEP,211,80,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,248,82,11,10
+    LTEXT           "聴感補正",IDC_STATIC,162,98,30,8
+    COMBOBOX        IDC_FREQ_WEIGHTING,211,96,49,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "最大遅れ時間",IDC_STATIC,162,115,44,8
+    EDITTEXT        IDC_MAX_DELAY_TIME,211,113,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,248,115,11,10
+    GROUPBOX        "τe 計算条件",IDC_STATIC,7,179,136,80,WS_GROUP
+    LTEXT           "ピーク検出時間間隔",IDC_STATIC,18,197,62,8
+    EDITTEXT        IDC_TAUE_INTERVAL,85,195,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,122,199,10,8
+    LTEXT           "回帰終了レベル",IDC_STATIC,18,212,49,8
+    EDITTEXT        IDC_TAUE_ENDLEVEL,85,210,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,122,214,9,8
+    LTEXT           "回帰終了時間",IDC_STATIC,18,227,44,8
+    EDITTEXT        IDC_TAUE_ENDTIME,85,225,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,122,229,10,8
+    CONTROL         "原点を含める",IDC_TAUE_ORIGIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,85,242,55,10
+    GROUPBOX        "同定条件",IDC_STATIC,151,179,136,80,WS_GROUP
+    CONTROL         "最大SPL",IDC_IDENT_SPL,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,163,196,41,10
+    CONTROL         "最小τe",IDC_IDENT_TAUE,"Button",BS_AUTORADIOBUTTON,162,211,40,10
+    LTEXT           "最大音圧前",IDC_STATIC,172,227,37,8
+    EDITTEXT        IDC_IDENT_BEFORE_STEP,211,225,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "step",IDC_STATIC,248,229,14,8
+    LTEXT           "最大音圧後",IDC_STATIC,172,243,37,8
+    EDITTEXT        IDC_IDENT_AFTER_STEP,211,241,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "step",IDC_STATIC,248,245,14,8
+    GROUPBOX        "測定時刻",IDC_STATIC,7,265,197,54
+    CONTROL         "開始時刻",IDC_START_DATE_TIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,281,43,10
+    CONTROL         "DateTimePicker1",IDC_START_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,62,279,50,13
+    CONTROL         "DateTimePicker2",IDC_START_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,117,279,38,13
+    PUSHBUTTON      "現時刻",IDC_START_CURRENT_TIME,163,279,31,14
+    CONTROL         "終了時刻",IDC_END_DATE_TIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,299,43,10
+    CONTROL         "DateTimePicker1",IDC_END_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,62,297,50,13
+    CONTROL         "DateTimePicker2",IDC_END_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,117,297,38,13
+    PUSHBUTTON      "現時刻",IDC_END_CURRENT_TIME,163,297,31,14
+    DEFPUSHBUTTON   "OK",IDOK,237,7,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,237,24,50,14
+END
+
+IDD_SPL DIALOGEX 0, 0, 133, 35
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "音圧レベル"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "閉じる(&C)",IDCANCEL,77,7,50,14
+    LTEXT           "dB",IDC_DB,58,20,19,8
+    EDITTEXT        IDC_SPL,7,7,47,21,ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+END
+
+IDD_INPUT_DEVICE DIALOGEX 0, 0, 347, 385
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "入力デバイス設定"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "入力デバイス設定",IDC_STATIC,6,5,277,56
+    LTEXT           "入力デバイス",IDC_STATIC,17,22,42,8
+    COMBOBOX        IDC_INPUT_DEVICE,63,20,104,76,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "入力選択",IDC_STATIC,17,40,30,8
+    COMBOBOX        IDC_INPUT_SELECTOR,63,38,104,120,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "入力ボリューム",IDC_STATIC,204,22,48,8
+    CONTROL         "Slider1",IDC_INPUT_VOLUME,"msctls_trackbar32",TBS_AUTOTICKS | TBS_TOP | WS_TABSTOP,178,34,97,20
+    CONTROL         "List1",IDC_MICCAL_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,12,84,265,89
+    GROUPBOX        "校正データリスト",IDC_STATIC,6,69,277,111
+    CONTROL         "",IDC_FREQ_RESPONSE,"Static",SS_WHITERECT | SS_NOTIFY | WS_DISABLED,12,207,163,87,WS_EX_CLIENTEDGE
+    CONTROL         "List2",IDC_FREQ_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,181,207,75,87
+    LTEXT           "周波数",IDC_STATIC,262,221,24,8
+    EDITTEXT        IDC_FREQ,290,219,33,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "Hz",IDC_STATIC,326,223,8,8
+    LTEXT           "レベル",IDC_STATIC,262,236,22,8
+    EDITTEXT        IDC_LEVEL,290,234,33,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,326,238,9,8
+    PUSHBUTTON      "設定",IDC_FREQ_REGIST,290,255,38,14
+    PUSHBUTTON      "削除",IDC_FREQ_DELETE,290,273,38,14
+    GROUPBOX        "周波数特性",IDC_STATIC,6,195,334,108
+    GROUPBOX        "設定情報",IDC_STATIC,6,308,182,70
+    LTEXT           "マイク情報",IDC_STATIC,14,326,34,8
+    EDITTEXT        IDC_MICINFO,68,324,113,12,ES_AUTOHSCROLL
+    LTEXT           "マイクアンプ情報",IDC_STATIC,14,341,53,8
+    EDITTEXT        IDC_MICAMPINFO,68,339,113,12,ES_AUTOHSCROLL
+    LTEXT           "コメント",IDC_STATIC,14,356,24,8
+    EDITTEXT        IDC_COMMENT,68,354,113,12,ES_AUTOHSCROLL
+    GROUPBOX        "感度調整",IDC_STATIC,195,308,146,70
+    EDITTEXT        IDC_INPUT_LEVEL,232,326,33,20,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,268,338,9,8
+    COMBOBOX        IDC_FILTER,283,322,51,81,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "テスト信号出力",IDC_SIGNAL_OUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,283,341,54,10
+    SCROLLBAR       IDC_LEVEL_BAR,201,357,133,11
+    PUSHBUTTON      "OK",IDC_READ,291,9,50,14
+    PUSHBUTTON      "解除(&R)",IDC_RESET,291,27,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,291,45,50,14
+    PUSHBUTTON      "新規保存(&N)",IDC_REGIST,291,75,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "上書き保存(&W)",IDC_CHANGE,291,93,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "削除(&D)",IDC_DELETE,291,111,50,14,NOT WS_VISIBLE
+    LTEXT           "入力ﾚﾍﾞﾙ",IDC_STATIC,201,332,30,8
+    CONTROL         "",IDC_SEPARATOR,"Static",SS_ETCHEDHORZ,5,189,335,1
+    PUSHBUTTON      "編集(&E)",IDC_SETTING,291,166,50,14
+END
+
+IDD_SAVE DIALOGEX 0, 0, 335, 221
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "保存"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    CONTROL         "List1",IDC_FOLDER_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,7,7,265,123
+    LTEXT           "タイトル",IDC_STATIC,15,140,25,8
+    EDITTEXT        IDC_TITLE,44,138,108,12,ES_AUTOHSCROLL
+    LTEXT           "名前",IDC_STATIC,15,155,25,8
+    EDITTEXT        IDC_NAME,44,153,75,12,ES_AUTOHSCROLL
+    LTEXT           "場所",IDC_STATIC,15,170,25,8
+    EDITTEXT        IDC_PLACE,44,168,75,12,ES_AUTOHSCROLL
+    LTEXT           "コメント",IDC_STATIC,15,185,25,8
+    EDITTEXT        IDC_COMMENT,44,183,108,12,ES_AUTOHSCROLL
+    LTEXT           "日付",IDC_STATIC,15,200,25,8
+    EDITTEXT        IDC_DATE,44,198,39,12,ES_AUTOHSCROLL
+    CONTROL         "Wave データは保存しない",IDC_WAVE_NOSAVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,171,139,91,10
+    DEFPUSHBUTTON   "OK",IDOK,278,7,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,278,24,50,14
+END
+
+IDD_NMS_FACTOR DIALOGEX 0, 0, 310, 375
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "騒音計測ファクタ"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    CONTROL         "Tab1",IDC_GRAPH,"SysTabControl32",WS_TABSTOP,6,6,297,208
+    CONTROL         "List1",IDC_FACTOR_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,12,232,285,108
+    GROUPBOX        "ACF/IACF ファクタ",IDC_STATIC,6,219,297,128
+    CONTROL         "再生(&P)",IDC_PLAY_BACK,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_TABSTOP,190,353,50,14
+    PUSHBUTTON      "閉じる(&X)",IDCANCEL,253,353,50,14
+END
+
+IDD_GRAPH_FACTOR DIALOGEX 0, 0, 281, 177
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_GRAPH_FACTOR,"Static",SS_WHITERECT | SS_NOTIFY | WS_CLIPCHILDREN,0,0,266,159,WS_EX_CLIENTEDGE
+    EDITTEXT        IDC_ZOOM_H,44,163,13,12,ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    SCROLLBAR       IDC_SCROLL_H,60,163,206,12
+    EDITTEXT        IDC_ZOOM_V,268,52,13,12,ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    SCROLLBAR       IDC_SCROLL_V,269,68,10,90,SBS_VERT
+END
+
+IDD_PEAK_LEVEL DIALOGEX 0, 0, 206, 37
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "ピークレベルモニタ"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_PEAK_METER,"Static",SS_GRAYRECT | SS_SUNKEN,11,7,128,14
+    PUSHBUTTON      "閉じる(&C)",IDCANCEL,149,7,50,14
+    LTEXT           "dB",IDC_STATIC,142,23,9,8
+END
+
+IDD_CHANGE_NOISE_SRC DIALOGEX 0, 0, 222, 163
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "騒音源変更"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,165,7,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,165,24,50,14
+    PUSHBUTTON      "新規追加(&N)",IDC_ADD_NEW,165,53,50,14
+    LTEXT           "騒音源リスト",IDC_STATIC,7,7,40,8
+    LISTBOX         IDC_NOISE_SRC_LIST,7,19,148,137,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_NOISE_SOURCE DIALOGEX 0, 0, 259, 45
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "騒音源追加"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    LTEXT           "騒音源名称",IDC_STATIC,7,17,37,8
+    EDITTEXT        IDC_NOISE_SOURCE_NAME,45,15,148,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,202,7,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,202,24,50,14
+END
+
+IDD_MANUAL_MODE DIALOGEX 0, 0, 177, 51
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "マニュアル測定"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x1
+BEGIN
+    CHECKBOX        "開始(&S)",IDC_START_STOP,118,6,50,14,BS_PUSHLIKE
+    LTEXT           "最大測定時間",IDC_STATIC,8,10,44,8
+    EDITTEXT        IDC_SAMPLING_TIME,56,8,36,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,96,12,11,8
+    LTEXT           "経過時間",IDC_STATIC,22,30,30,8
+    EDITTEXT        IDC_ELAPSE_TIME,56,28,36,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,96,32,11,8
+    PUSHBUTTON      "閉じる(&C)",IDCANCEL,118,26,50,14
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 270, 117
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "バージョン情報"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,15,18,21
+    LTEXT           "Product Name & Version",IDC_PRODUCT,40,10,181,8,SS_NOPREFIX
+    LTEXT           "Copyright.",IDC_COPYRIGHT,40,25,165,8
+    DEFPUSHBUTTON   "OK",IDOK,222,7,41,14,WS_GROUP
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,13,47,250,1
+    LTEXT           "製品説明",IDC_STATIC,15,57,56,8,0,WS_EX_RIGHT
+    LTEXT           "http://www.ymec.com/products/dssf3/",IDC_PRODUCT_URL,76,57,115,8,SS_NOTIFY
+    LTEXT           "Ymec-Store",IDC_STATIC,15,71,56,8,0,WS_EX_RIGHT
+    LTEXT           "http://www.ymec.com/store/jp/",IDC_YMEC_STORE,76,71,94,8,SS_NOTIFY
+    LTEXT           "吉正電子株式会社",IDC_STATIC,15,85,56,8,0,WS_EX_RIGHT
+    LTEXT           "http://www.ymec.com/jp.htm",IDC_COMPANY_URL,76,85,84,8,SS_NOTIFY
+    LTEXT           "お問い合わせ",IDC_STATIC,15,99,56,8,0,WS_EX_RIGHT
+    LTEXT           "ymec@ymec.com",IDC_EMAIL_ADDR,76,99,50,8,SS_NOTIFY
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MEASURE_SET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 288
+        TOPMARGIN, 7
+    END
+
+    IDD_SPL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 126
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 28
+    END
+
+    IDD_SAVE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 328
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 214
+    END
+
+    IDD_NMS_FACTOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 304
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 368
+    END
+
+    IDD_PEAK_LEVEL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 199
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 30
+    END
+
+    IDD_CHANGE_NOISE_SRC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 156
+    END
+
+    IDD_NOISE_SOURCE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 252
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_MANUAL_MODE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 44
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 263
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 110
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "環境騒音計測システム [EA]\n\nNMS\n\n\nNMS.Document\nNMS Document"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "環境騒音計測システム"
+    AFX_IDS_IDLEMESSAGE     "レディ"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "上書"
+    ID_INDICATOR_REC        "記録"
+    ID_INDICATOR_KANA       "カナ"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "新規にファイルを作成\n新規ファイル"
+    ID_FILE_OPEN            "既存のファイルを開く\n開く"
+    ID_FILE_CLOSE           "作業中のファイルを閉じる\n閉じる"
+    ID_FILE_SAVE            "測定データを保存\n保存"
+    ID_FILE_SAVE_AS         "作業中のファイルを新しい名前で保存\n名前をつけて保存"
+    ID_FILE_PAGE_SETUP      "印刷オプションの変更\nページレイアウトの設定"
+    ID_FILE_PRINT_SETUP     "プリンタ/印刷オプションの変更\n印刷設定"
+    ID_FILE_PRINT           "作業中のファイルを印刷\n印刷"
+    ID_FILE_PRINT_PREVIEW   "印刷イメージを表示\n印刷プレビュー"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "プログラムの情報、バージョンそして著作権を表示\nバージョン情報"
+    ID_APP_EXIT             "アプリケーションを終了する\n終了"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "指定のファイルを開く"
+    ID_FILE_MRU_FILE2       "指定のファイルを開く"
+    ID_FILE_MRU_FILE3       "指定のファイルを開く"
+    ID_FILE_MRU_FILE4       "指定のファイルを開く"
+    ID_FILE_MRU_FILE5       "指定のファイルを開く"
+    ID_FILE_MRU_FILE6       "指定のファイルを開く"
+    ID_FILE_MRU_FILE7       "指定のファイルを開く"
+    ID_FILE_MRU_FILE8       "指定のファイルを開く"
+    ID_FILE_MRU_FILE9       "指定のファイルを開く"
+    ID_FILE_MRU_FILE10      "指定のファイルを開く"
+    ID_FILE_MRU_FILE11      "指定のファイルを開く"
+    ID_FILE_MRU_FILE12      "指定のファイルを開く"
+    ID_FILE_MRU_FILE13      "指定のファイルを開く"
+    ID_FILE_MRU_FILE14      "指定のファイルを開く"
+    ID_FILE_MRU_FILE15      "指定のファイルを開く"
+    ID_FILE_MRU_FILE16      "指定のファイルを開く"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "次のウィンドウに切り替える\n次のペイン"
+    ID_PREV_PANE            "前のウィンドウに切り替える\n前のペイン"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_SPLIT         "作業中のウィンドウを分割\n分割"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "選択範囲を消去\n消去"
+    ID_EDIT_CLEAR_ALL       "すべて消去\nすべて消去"
+    ID_EDIT_COPY            "選択範囲をコピーしてクリップボードに保存\nコピー"
+    ID_EDIT_CUT             "選択範囲を切り取ってクリップボードに保存\n切り取り"
+    ID_EDIT_FIND            "指定した文字列の検索\n検索"
+    ID_EDIT_PASTE           "クリップボードの内容を貼り付け\n貼り付け"
+    ID_EDIT_REPEAT          "直前に行った動作を繰り返す\n繰り返し"
+    ID_EDIT_REPLACE         "指定した文字列を他の文字列で置換\n置換"
+    ID_EDIT_SELECT_ALL      "ファイル内のすべてを選択\nすべて選択"
+    ID_EDIT_UNDO            "直前に行った動作を元に戻す\n元に戻す"
+    ID_EDIT_REDO            "直前に行った動作を繰り返す\n繰り返す"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "ツール バーの 表示/非表示\nツール バーの表示切り替え"
+    ID_VIEW_STATUS_BAR      "ステータス バーの 表示/非表示\nステータス バーの表示切り替え"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "ウィンドウのサイズを変更"
+    AFX_IDS_SCMOVE          "ウィンドウの位置を変更"
+    AFX_IDS_SCMINIMIZE      "ウィンドウを最小化する"
+    AFX_IDS_SCMAXIMIZE      "ウィンドウを最大化する"
+    AFX_IDS_SCNEXTWINDOW    "次のウィンドウに切り替える"
+    AFX_IDS_SCPREVWINDOW    "前のウィンドウに切り替える"
+    AFX_IDS_SCCLOSE         "作業中のウィンドウを閉じ、変更したファイルの保存を指示"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "ウィンドウを通常のサイズに戻す"
+    AFX_IDS_SCTASKLIST      "アプリケーションの切り替え"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_UNTITLED        "Untitled"
+    AFX_IDS_PREVIEW_CLOSE   "印刷プレビューモードの終わり\nプレビューのキャンセル"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_MEASURE_START       "自動測定を開始する\n測定の開始"
+    IDM_MEASURE_STOP        "自動測定を終了する\n測定の終了"
+    IDM_MEASURE_SET         "測定条件を設定する\n測定条件の設定"
+    IDM_INPUT_DEVICE        "入力デバイスを設定する\n入力デバイスの設定"
+    IDM_INPUT_LEVEL         "音圧レベルの表示/非表示\n音圧レベルの表示切り替え"
+    IDM_ONLINE_UPDATE       "ネットワーク経由でアプリケーションをアップデート"
+    IDM_ONLINE_MANUAL       "オンラインプログラムマニュアルを表示"
+    IDM_TECHNICAL_SUPPORT   "技術サポートページを表示"
+    IDM_DOCUMENT_QA         "Q&Aを表示"
+    IDM_VIEW_FACTOR         "ACF/IACFファクタの表示/非表示\nACF/IACFファクタの表示切り替え"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS              "状態"
+    IDS_MAX_SPL             "最大SPL"
+    IDS_DATE                "日付"
+    IDS_NAME                "名前"
+    IDS_PLACE               "場所"
+    IDS_TITLE               "タイトル"
+    IDS_COMMENT             "コメント"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_MICINFO             "マイク情報"
+    IDS_MICAMPINFO          "マイクアンプ情報"
+    IDS_AUTO_MEASURING      "自動測定中"
+    IDS_STOPPED             "停止中"
+    IDS_NOT_CALC            "未計算"
+    IDS_IN_CALC             "計算中"
+    IDS_FINISHED            "計算終了"
+    IDS_MANUAL_MEASURING    "マニュアル測定中"
+    IDS_START               "開始(&S)"
+    IDS_STOP                "停止(&S)"
+    IDS_ONLINE_MANUAL_CMD   "http://www.ymec.com/manual/ea/"
+    IDS_TECHNICAL_SUPPORT_CMD "http://www.ymec.com/store/jp/manuals.htm"
+    IDS_DOCUMENT_QA_CMD     "http://www.ymec.com/products/qa/index.htm"
+    IDS_MSG_SOUNDINOUT      "サウンドの入力と出力が同時に使用できる機種以外では実行できません。"
+    IDS_ERR_TITLE           "タイトルを入力してください。"
+    IDS_MSG_CHANGEDATA      "データが変更されています。保存しますか？"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERR_WRITEDATA       "データの書き込みに失敗しました。"
+    IDS_MSG_DELTEMICCAL     "マイク較正情報を削除します。よろしいですか？"
+    IDS_MSG_SAVEMICCAL      "マイク較正情報を新規に保存します。よろしいですか？"
+    IDS_MSG_SELECTMICCAL    "マイク較正情報を選択してください。"
+    IDS_MSG_CHANGEMICCAL    "マイク較正情報を変更します。よろしいですか？"
+    IDS_MSG_INPUTMICINFO    "マイク情報を入力してください。"
+    IDS_MSG_UNDER0FREQ      "周波数が０以下のデータは入力できません。"
+    IDS_MSG_SAVEDATA        "測定データを保存します。よろしいですか？"
+    IDS_MSG_INPUTNDATA      "追加できるデータは %d 個までです。"
+    IDS_MSG_MEAS_EXIT       "測定中です。終了しますか？"
+    IDS_MSG_CALC_EXIT       "計算中です。終了しますか？"
+    IDS_MSG_NOSAVE_EXIT     "保存されていないデータがあります。終了しますか？"
+    IDS_MSG_CLEAR_DATA      "測定済みのデータを消去します。よろしいですか？"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_PEAK_LEVEL          "ピークレベルの表示/非表示\nピークレベルの表示切り替え"
+    IDM_CLEAR_DATA          "測定済みのデータを消去する"
+    IDM_TEMPLATE            "騒音源テンプレートの設定を行う\n騒音源テンプレートの設定"
+    IDM_RECALC              "再計算を行う"
+    IDM_AUTO_LEARNING       "騒音源自動学習機能をON/OFFする\n自動学習"
+    IDM_MANUAL_LEARNING     "手動で騒音源の学習をする\n手動学習"
+    IDM_CHANGE_NOISE_SRC    "騒音源を変更する"
+    IDM_MEASURE_MANUAL      "マニュアル測定を行う\nマニュアル測定"
+    IDM_README              "ReadMeファイルを表示"
+    IDM_YMEC_STORE          "YmecStoreで購入"
+    IDM_LICENSE_REGIST      "ライセンス登録"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_HELP_FILE           "NMS_J.chm"
+END
+
+#endif    // 日本語 (日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英語 (米国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Save...\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Read Wave File...",          IDM_READ_WAVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Tool Bar",                   ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "Sound Pressure &Level...",    IDM_INPUT_LEVEL
+        MENUITEM "&Peak Level...",              IDM_PEAK_LEVEL
+        MENUITEM "ACF/IACF &Factor...",         IDM_VIEW_FACTOR
+    END
+    POPUP "&Measurement"
+    BEGIN
+        MENUITEM "&Start Auto Measurement",     IDM_MEASURE_START
+        MENUITEM "S&top Auto Measurement",      IDM_MEASURE_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "&Manual Measurement",         IDM_MEASURE_MANUAL
+        MENUITEM SEPARATOR
+        MENUITEM "M&easurement Condition...",   IDM_MEASURE_SET
+        MENUITEM "&Input Device Settings...",   IDM_INPUT_DEVICE
+        MENUITEM SEPARATOR
+        MENUITEM "&Automatic Calculation",      IDM_AUTO_CALC
+        MENUITEM "&Recalclation",               IDM_RECALC
+        MENUITEM SEPARATOR
+        MENUITEM "&Clear Measured Data",        IDM_CLEAR_DATA
+    END
+    POPUP "&Identification"
+    BEGIN
+        MENUITEM "&Noise Source Template...",   IDM_TEMPLATE
+        MENUITEM "&Change Noise Source...",     IDM_CHANGE_NOISE_SRC
+        MENUITEM SEPARATOR
+        MENUITEM "&Manual Learning",            IDM_MANUAL_LEARNING
+        MENUITEM "&Auto Learinig",              IDM_AUTO_LEARNING
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Version Information...",     ID_APP_ABOUT
+        MENUITEM "&Read Me...",                 IDM_README
+        MENUITEM "&License Registration...",    IDM_LICENSE_REGIST
+        MENUITEM "Buying &YmecStore...",        IDM_YMEC_STORE
+        MENUITEM SEPARATOR
+        MENUITEM "Online &Program Manual...",   IDM_ONLINE_MANUAL
+        MENUITEM "Technical &Support...",       IDM_TECHNICAL_SUPPORT
+        MENUITEM "Document &Q&&A...",           IDM_DOCUMENT_QA
+        MENUITEM SEPARATOR
+        MENUITEM "Online &Update...",           IDM_ONLINE_UPDATE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_INPUT_DEVICE DIALOGEX 0, 0, 393, 361
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configuration of Input Device"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Input Device Settings",IDC_STATIC,7,5,320,52
+    LTEXT           "Input Device",IDC_STATIC,20,20,42,8
+    COMBOBOX        IDC_INPUT_DEVICE,73,18,121,76,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Device Name",IDC_STATIC,20,37,44,8
+    COMBOBOX        IDC_INPUT_SELECTOR,73,35,121,120,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Input Volume",IDC_STATIC,238,20,42,8
+    CONTROL         "Slider1",IDC_INPUT_VOLUME,"msctls_trackbar32",TBS_AUTOTICKS | TBS_TOP | WS_TABSTOP,201,31,113,19
+    CONTROL         "List1",IDC_MICCAL_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,12,75,307,83
+    GROUPBOX        "Calibration Data list",IDC_STATIC,7,63,320,103
+    CONTROL         "",IDC_FREQ_RESPONSE,"Static",SS_WHITERECT | SS_NOTIFY | WS_DISABLED,12,193,201,87,WS_EX_CLIENTEDGE
+    CONTROL         "List2",IDC_FREQ_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,219,193,74,87
+    LTEXT           "Hz",IDC_STATIC,369,209,10,8
+    LTEXT           "Level",IDC_STATIC,314,222,18,8
+    EDITTEXT        IDC_LEVEL,335,220,31,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,369,224,10,8
+    PUSHBUTTON      "&Set",IDC_FREQ_REGIST,329,241,39,14
+    PUSHBUTTON      "D&elete",IDC_FREQ_DELETE,329,259,39,14
+    GROUPBOX        "Frequency Response",IDC_STATIC,7,181,379,105
+    GROUPBOX        "Information",IDC_STATIC,7,291,202,64
+    LTEXT           "Microphone Info.",IDC_STATIC,18,307,54,8
+    EDITTEXT        IDC_MICINFO,76,305,123,12,ES_AUTOHSCROLL
+    LTEXT           "Mic Amp. Info.",IDC_STATIC,18,322,46,8
+    EDITTEXT        IDC_MICAMPINFO,76,320,123,12,ES_AUTOHSCROLL
+    LTEXT           "Comment",IDC_STATIC,18,337,30,8
+    EDITTEXT        IDC_COMMENT,76,335,123,12,ES_AUTOHSCROLL
+    GROUPBOX        "Sensitivity Adjustment",IDC_STATIC,216,291,171,64
+    LTEXT           "Input Level",IDC_STATIC,223,314,36,8
+    EDITTEXT        IDC_INPUT_LEVEL,262,309,40,18,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,304,319,11,8
+    COMBOBOX        IDC_FILTER,319,305,59,81,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Test Signal",IDC_SIGNAL_OUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,322,51,10
+    SCROLLBAR       IDC_LEVEL_BAR,224,337,155,10
+    PUSHBUTTON      "OK",IDC_READ,336,9,50,14
+    PUSHBUTTON      "&Release",IDC_RESET,336,27,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,336,45,50,14
+    PUSHBUTTON      "&New",IDC_REGIST,336,75,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Over&write",IDC_CHANGE,336,93,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "&Delete",IDC_DELETE,336,111,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "&Edit",IDC_SETTING,336,151,50,14
+    CONTROL         "",IDC_SEPARATOR,"Static",SS_ETCHEDHORZ,5,174,382,1
+    EDITTEXT        IDC_FREQ,335,205,31,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "Frequency",IDC_STATIC,298,207,34,8
+END
+
+IDD_GRAPH_FACTOR DIALOGEX 0, 0, 329, 170
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_GRAPH_FACTOR,"Static",SS_WHITERECT | SS_NOTIFY | WS_CLIPCHILDREN,0,0,312,153,WS_EX_CLIENTEDGE
+    EDITTEXT        IDC_ZOOM_H,53,156,15,12,ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    SCROLLBAR       IDC_SCROLL_H,72,156,240,12
+    EDITTEXT        IDC_ZOOM_V,313,48,15,12,ES_READONLY | NOT WS_TABSTOP,WS_EX_RIGHT
+    SCROLLBAR       IDC_SCROLL_V,315,64,12,89,SBS_VERT
+END
+
+IDD_MEASURE_SET DIALOGEX 0, 0, 353, 313
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configulation Dialog for Measurement Condition"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "A/D Conversion",IDC_STATIC,7,7,165,34
+    LTEXT           "Sampling Rate",IDC_STATIC,18,23,47,8
+    COMBOBOX        IDC_SAMPLING_RATE,91,21,56,98,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Object for Measurement",IDC_STATIC,7,47,165,121
+    LTEXT           "Trigger SPL",IDC_STATIC,18,62,38,8
+    EDITTEXT        IDC_SAMPLING_LEVEL,107,60,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,144,64,10,8
+    CONTROL         "Relative Level",IDC_RELATIVE_LEVEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,107,76,61,10
+    LTEXT           "Time Constant ",IDC_STATIC,18,92,48,8
+    EDITTEXT        IDC_TIMECONSTANT,107,90,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,144,94,12,8
+    LTEXT           "Measurement Timing",IDC_STATIC,18,108,66,8
+    CONTROL         "Maximum Peak",IDC_TIMING_PEAK,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,97,108,64,9
+    CONTROL         "Trigger SPL",IDC_TIMING_LEVEL,"Button",BS_AUTORADIOBUTTON,97,119,53,10
+    LTEXT           "Measurement Period",IDC_STATIC,18,134,66,8
+    LTEXT           "Fwd",IDC_STATIC,90,134,14,8
+    EDITTEXT        IDC_SAMPLING_TIME1,107,132,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,144,136,12,8
+    LTEXT           "Bwd",IDC_STATIC,90,150,15,8
+    EDITTEXT        IDC_SAMPLING_TIME2,107,148,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,143,151,13,7
+    GROUPBOX        "Calculation of Running ACF",IDC_STATIC,181,47,165,121,WS_GROUP
+    LTEXT           "Integration Interval",IDC_STATIC,192,62,60,8
+    EDITTEXT        IDC_INTEGRATION_TIME,265,60,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,302,64,12,8
+    LTEXT           "Running Step",IDC_STATIC,192,78,44,8
+    EDITTEXT        IDC_RUNNING_STEP,265,76,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,302,80,12,8
+    LTEXT           "Weighting",IDC_STATIC,192,94,33,8
+    COMBOBOX        IDC_FREQ_WEIGHTING,265,92,58,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Max. Delay time",IDC_STATIC,192,111,51,8
+    EDITTEXT        IDC_MAX_DELAY_TIME,265,109,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,302,113,12,8
+    GROUPBOX        "Calculation of Tau-e",IDC_STATIC,7,174,165,77,WS_GROUP
+    LTEXT           "Time Interval Detecting Peaks",IDC_STATIC,18,189,96,8
+    EDITTEXT        IDC_TAUE_INTERVAL,117,187,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,154,191,10,8
+    LTEXT           "Decay Level of Regression",IDC_STATIC,18,204,86,8
+    EDITTEXT        IDC_TAUE_ENDLEVEL,117,202,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,154,206,10,8
+    LTEXT           "Delay Time of Regression",IDC_STATIC,18,219,82,8
+    EDITTEXT        IDC_TAUE_ENDTIME,117,217,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,154,221,10,8
+    CONTROL         "Including Origin",IDC_TAUE_ORIGIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,234,64,10
+    GROUPBOX        "Identification",IDC_STATIC,181,174,165,77,WS_GROUP
+    CONTROL         "Maximum SPL",IDC_IDENT_SPL,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,192,189,61,10
+    CONTROL         "Minimum Tau-e",IDC_IDENT_TAUE,"Button",BS_AUTORADIOBUTTON,192,204,64,10
+    LTEXT           "Before Max.SPL",IDC_STATIC,206,219,52,8
+    EDITTEXT        IDC_IDENT_BEFORE_STEP,267,217,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "step",IDC_STATIC,304,221,14,8
+    LTEXT           "After Max.SPL",IDC_STATIC,206,234,46,8
+    EDITTEXT        IDC_IDENT_AFTER_STEP,267,232,32,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "step",IDC_STATIC,304,236,14,8
+    GROUPBOX        "Mesurement Time",IDC_STATIC,8,257,233,50
+    CONTROL         "Start Time",IDC_START_DATE_TIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,271,48,10
+    CONTROL         "DateTimePicker1",IDC_START_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,69,270,59,12
+    CONTROL         "DateTimePicker2",IDC_START_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,133,270,45,12
+    PUSHBUTTON      "Current Time",IDC_START_CURRENT_TIME,186,270,46,13
+    CONTROL         "End Time",IDC_END_DATE_TIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,287,46,10
+    CONTROL         "DateTimePicker1",IDC_END_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,69,286,59,12
+    CONTROL         "DateTimePicker2",IDC_END_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,133,286,45,12
+    PUSHBUTTON      "Current Time",IDC_END_CURRENT_TIME,186,286,46,13
+    DEFPUSHBUTTON   "OK",IDOK,296,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,296,24,50,14
+END
+
+IDD_NMS_FACTOR DIALOGEX 0, 0, 358, 359
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Factors"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Tab1",IDC_GRAPH,"SysTabControl32",WS_TABSTOP,6,6,346,194
+    CONTROL         "List1",IDC_FACTOR_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,12,218,332,108
+    GROUPBOX        "ACF/IACF Factor",IDC_STATIC,6,205,346,128
+    PUSHBUTTON      "&Playback",IDC_PLAY_BACK,238,339,50,14
+    PUSHBUTTON      "E&xit",IDCANCEL,302,339,50,14
+END
+
+IDD_PEAK_LEVEL DIALOG 0, 0, 206, 37
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Peak Level Monitor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "",IDC_PEAK_METER,"Static",SS_GRAYRECT | SS_SUNKEN,11,7,128,14
+    PUSHBUTTON      "&Close",IDCANCEL,149,7,50,14
+    LTEXT           "dB",IDC_STATIC,143,23,10,8
+END
+
+IDD_SAVE DIALOGEX 0, 0, 335, 221
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Save"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "List1",IDC_FOLDER_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,7,7,265,123
+    LTEXT           "Title",IDC_STATIC,15,140,14,8
+    EDITTEXT        IDC_TITLE,50,138,108,12,ES_AUTOHSCROLL
+    LTEXT           "Name",IDC_STATIC,15,155,20,8
+    EDITTEXT        IDC_NAME,50,153,75,12,ES_AUTOHSCROLL
+    LTEXT           "Place",IDC_STATIC,15,170,19,8
+    EDITTEXT        IDC_PLACE,50,168,75,12,ES_AUTOHSCROLL
+    LTEXT           "Comment",IDC_STATIC,15,185,30,8
+    EDITTEXT        IDC_COMMENT,50,183,108,12,ES_AUTOHSCROLL
+    LTEXT           "Date",IDC_STATIC,15,200,16,8
+    EDITTEXT        IDC_DATE,50,198,39,12,ES_AUTOHSCROLL
+    CONTROL         "without Wave Data",IDC_WAVE_NOSAVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,171,139,77,10
+    DEFPUSHBUTTON   "OK",IDOK,278,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,278,24,50,14
+END
+
+IDD_SPL DIALOGEX 0, 0, 136, 34
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SPL"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "&Close",IDCANCEL,79,7,50,14
+    LTEXT           "dB",IDC_DB,58,18,19,8
+    EDITTEXT        IDC_SPL,7,7,47,19,ES_READONLY,WS_EX_RIGHT
+END
+
+IDD_CHANGE_NOISE_SRC DIALOG 0, 0, 222, 163
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Change Noise Source"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,165,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,165,24,50,14
+    PUSHBUTTON      "&New",IDC_ADD_NEW,165,53,50,14
+    LTEXT           "Noise Source List",IDC_STATIC,7,7,56,8
+    LISTBOX         IDC_NOISE_SRC_LIST,7,19,148,137,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_NOISE_SOURCE DIALOGEX 0, 0, 269, 45
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New Noise Source"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "Noise Source",IDC_STATIC,7,17,44,8
+    EDITTEXT        IDC_NOISE_SOURCE_NAME,54,15,148,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,212,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,212,24,50,14
+END
+
+IDD_MANUAL_MODE DIALOGEX 0, 0, 201, 50
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Manual Measurement"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CHECKBOX        "&Start",IDC_START_STOP,142,6,50,14,BS_PUSHLIKE
+    LTEXT           "Max Sampling Time",IDC_STATIC,9,10,61,8
+    EDITTEXT        IDC_SAMPLING_TIME,77,8,36,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,118,12,12,8
+    LTEXT           "Elapse Time",IDC_STATIC,30,30,40,8
+    EDITTEXT        IDC_ELAPSE_TIME,77,28,36,12,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
+    LTEXT           "sec",IDC_STATIC,118,32,12,8
+    PUSHBUTTON      "&Close",IDCANCEL,142,26,50,14
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 287, 103
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Version information"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,14,21,20
+    LTEXT           "Product Name & Version",IDC_PRODUCT,40,10,198,8,SS_NOPREFIX
+    LTEXT           "Copyright.",IDC_COPYRIGHT,40,25,175,8
+    DEFPUSHBUTTON   "OK",IDOK,240,7,40,14,WS_GROUP
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,44,273,1
+    LTEXT           "Product URL",IDC_STATIC,25,53,54,8,0,WS_EX_RIGHT
+    LTEXT           "http://www.ymec.com/products/dssf3e/",IDC_PRODUCT_URL,85,53,130,8,SS_NOTIFY
+    LTEXT           "Ymec-Store URL",IDC_STATIC,25,64,54,8,0,WS_EX_RIGHT
+    LTEXT           "http://www.ymec.com/store/en/",IDC_YMEC_STORE,85,64,105,8,SS_NOTIFY
+    LTEXT           "Company URL",IDC_STATIC,25,75,54,8,0,WS_EX_RIGHT
+    LTEXT           "http://www.ymec.com",IDC_COMPANY_URL,85,75,72,8,SS_NOTIFY
+    LTEXT           "Question",IDC_STATIC,25,86,54,8,0,WS_EX_RIGHT
+    LTEXT           "ymec@ymec.com",IDC_EMAIL_ADDR,85,86,57,8,SS_NOTIFY
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MEASURE_SET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 346
+        TOPMARGIN, 7
+    END
+
+    IDD_NMS_FACTOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 352
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 352
+    END
+
+    IDD_PEAK_LEVEL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 199
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 30
+    END
+
+    IDD_SAVE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 328
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 214
+    END
+
+    IDD_SPL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 129
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 27
+    END
+
+    IDD_CHANGE_NOISE_SRC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 156
+    END
+
+    IDD_NOISE_SOURCE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 262
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_MANUAL_MODE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 194
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 43
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 280
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 96
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "Environmantal Noise Measurement System\n\nNMS\n\n\nNMS.Document\nNMS Document"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "Environmantal Noise Measurement System"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "CVR"
+    ID_INDICATOR_REC        "REC"
+    ID_INDICATOR_KANA       "KANA"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the measured data\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application\nExit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_UNTITLED        "Untitled"
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_MEASURE_START       "Start Auto Measurement\nStart Auto Measurement"
+    IDM_MEASURE_STOP        "Stop Auto Measurement\nStop Auto Measurement"
+    IDM_MEASURE_SET         "Configulation for Measurement Condition\nMeasurement Condition"
+    IDM_INPUT_DEVICE        "Configuration of Input Device\nInput Device"
+    IDM_INPUT_LEVEL         "Show or hide the input level\nInput level"
+    IDM_ONLINE_UPDATE       "Online update"
+    IDM_ONLINE_MANUAL       "Online Program Manual"
+    IDM_TECHNICAL_SUPPORT   "Technical Support"
+    IDM_DOCUMENT_QA         "Document Q&A"
+    IDM_VIEW_FACTOR         "Show or hide the ACF/IACF Factor\nACF/IACF Factor"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS              "Status"
+    IDS_MAX_SPL             "Max.SPL"
+    IDS_DATE                "Date"
+    IDS_NAME                "Name"
+    IDS_PLACE               "Place"
+    IDS_TITLE               "Title"
+    IDS_COMMENT             "Comment"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_MICINFO             "Microphone Info."
+    IDS_MICAMPINFO          "Microphone Amp. Info."
+    IDS_AUTO_MEASURING      "Running"
+    IDS_STOPPED             "Stop"
+    IDS_NOT_CALC            "Waiting"
+    IDS_IN_CALC             "Calculating"
+    IDS_FINISHED            "Finished"
+    IDS_MANUAL_MEASURING    "Manual Measurement"
+    IDS_START               "&Start"
+    IDS_STOP                "&Stop"
+    IDS_ONLINE_MANUAL_CMD   "http://www.ymec.com/manual/eea/"
+    IDS_TECHNICAL_SUPPORT_CMD "http://www.ymec.com/store/en/manuals.htm"
+    IDS_DOCUMENT_QA_CMD     "http://www.ymec.com/products/qa2/index.htm"
+    IDS_MSG_SOUNDINOUT      "Need sound device in-and-out simultaneously."
+    IDS_ERR_TITLE           "Please input a title."
+    IDS_MSG_CHANGEDATA      "Data has changed. Save it?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERR_WRITEDATA       "Can't write data."
+    IDS_MSG_DELTEMICCAL     "Delete microphone calibration data. Are you sure?"
+    IDS_MSG_SAVEMICCAL      "Save new microphone calibration data. Are you sure?"
+    IDS_MSG_SELECTMICCAL    "Select microphone calibration data."
+    IDS_MSG_CHANGEMICCAL    "Make a change on microphone calibration data. Are you sure?"
+    IDS_MSG_INPUTMICINFO    "Input information about microphone."
+    IDS_MSG_UNDER0FREQ      "Can't input data with under 0 frequency."
+    IDS_MSG_SAVEDATA        "Save measured data. Are you sure?"
+    IDS_MSG_INPUTNDATA      "Can't input more than %d data."
+    IDS_MSG_MEAS_EXIT       "Now under measurement!! Do you want to quit? "
+    IDS_MSG_CALC_EXIT       "Now under calculation!! Do you want to quit? "
+    IDS_MSG_NOSAVE_EXIT     "Data have not been saved. Do you want to quit? "
+    IDS_MSG_CLEAR_DATA      "Clear measured data. Are you sure?"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_PEAK_LEVEL          "Show or hide the Peak Level Monitor\nPeak Level Monitor"
+    IDM_CLEAR_DATA          "Clear measured data"
+    IDM_TEMPLATE            "Setting of noise source template\nNoise source template"
+    IDM_RECALC              "Recalclation."
+    IDM_AUTO_LEARNING       "ON or OFF the auto learning\nToggle Auto Learning"
+    IDM_MANUAL_LEARNING     "Execute manual learning\nManual learning"
+    IDM_CHANGE_NOISE_SRC    "Change the noise source"
+    IDM_MEASURE_MANUAL      "Manual Measurement\nManual Measurement"
+    IDM_README              "Display ReadMe file"
+    IDM_LICENSE_REGIST      "License Registration"
+END
+
+#endif    // 英語 (米国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE 17, 1
+#pragma code_page(932)
+#endif //_WIN32
+#include "res\Nms.rc2"  // Microsoft Visual C++ 以外のツールで編集されたリソース
+#include "l.jpn\afxres.rc"          // 標準のコンポーネント
+#include "l.jpn\afxprint.rc"        // 印刷/印刷プレビュー リソース
+#endif
+#define USE_IDD_TEMPLATE
+#include "..\Common\Common.rc"
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

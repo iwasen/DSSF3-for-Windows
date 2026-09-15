@@ -1,0 +1,123 @@
+body {
+	color: #333333;
+	font-size:13px;
+	margin-top: 6px;
+}
+h4 {
+	margin-top: 2px;
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #ffffff;
+	background-color: #FF9900;
+	border: 1px none #FF9900;
+	border-top: 1px solid #ffcc00;
+	border-left: 1px solid #ffcc00;
+	border-right: 1px solid #cc6600;
+	border-bottom: 1px solid #cc6600;
+	padding: 5px 3px 3px 0.5em;
+}
+h5 {
+	margin-top: 2px;
+	font-weight: bold;
+	font-size: 1em;
+	color: #ffffff;
+	background-color: #8484ee;
+	border: 1px none #8888f8;
+	border-top: 1px solid #ccccff;
+	border-left: 1px solid #ccccff;
+	border-right: 1px solid #666699;
+	border-bottom: 1px solid #666699;
+	padding: 5px 3px 3px 0.5em;
+}
+h6 {
+	margin-top: 2px;
+	font-weight: bold;
+	font-size: 16px;
+	color: #666666;
+	background-color: #eeeeee;
+	padding: 5px 3px 3px 0.5em;
+	border-bottom: 1px solid #666699;
+}
+h3 {
+	margin: 0px;
+	font-weight: bold;
+	font-size: 14px;
+	color: #333333;
+  background-color: #eeefff;
+	padding: 2px 0px 2px 15px;
+	border-bottom: 1px solid #666699;
+}
+
+img {
+	margin: 10px 0px 10px 0px;
+}
+table {
+	font-size:13px;
+	margin: 10px 0px 10px 0px;
+	border: 1px solid #333333;
+	width: 100%;
+	border-collapse: collapse;
+}
+th {
+	background-color:#E4E4E4;
+	border: 1px solid #333333;
+	text-align:center;
+}
+tr {
+	border: 1px solid #666666;
+}
+td {
+	border: 1px solid #666666;
+	padding: 2px;
+	vertical-align: top;
+}
+a:link {
+	color: #336699;
+    font-weight: bold;
+	text-decoration: none;
+
+}
+a:visited {
+	color: #006699;
+    font-weight: bold;
+	text-decoration: none;
+}
+a:hover {
+	color: orange
+}
+li {
+	margin: 2px;
+}
+samp {
+	color:#FF0000;
+	font-weight:bold;
+}
+
+/* ヘッダフッタ */
+hr {
+  height: 1px;
+  border: 0px;
+  margin-top:0px;
+}
+p.rt { /* 右寄せテキスト */
+	text-align: right;
+	margin-top:8px;
+	margin-bottom:0px;
+}
+.rt a:link {
+	color: #111111;
+    font-weight: normal;
+	text-decoration: none;
+}
+.rt  a:visited {
+	color: #333333;
+    font-weight: normal;
+	text-decoration: none;
+}
+.rt a:hover {
+	color: orange
+}
+
+td.nowrap {
+	white-space: nowrap;
+}

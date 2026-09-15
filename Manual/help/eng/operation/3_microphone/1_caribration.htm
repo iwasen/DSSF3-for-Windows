@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sensitivity calibration</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Microphone setting</a></p>
+<hr />
+
+<h5>Sensitivity calibration</h5>
+For the measurement of the absolute sound level, an input level of the microphone should be calibrated by using the sound level meter or the acoustic calibrator as reference. A 1 kHz sine tone is typically used as a calibration signal. The calibration procedure is described as follows.<br />
+<br />
+<table>
+	<tr>
+		<td>1)</td>
+		<td>Connect the microphone and the loudspeaker to the soundcard. Confirm that the signal input/output is possible. </td>
+	</tr>
+	<tr>
+		<td>2)</td>
+		<td>Open the FFT analyzer and click the Calibration button. Calibration window opens. If you already have calibration data, select the data and click the OK button. If not, go to the next step. <br />
+		<img src="../img/microphone_1.png" width="501" alt="" />
+		</td>
+	</tr>
+	<tr>
+		<td>3)</td>
+		<td>Click the Edit button. Edit window opens. <br />
+		<img src="../img/microphone_2.png" alt="" width="504" />
+		</td>
+	</tr>
+	<tr>
+		<td>4)</td>
+		<td>
+		<b>A) <u>Using the sound level meter (SLM) </u></b><br />
+		<ol>
+			<li>Place the SLM and the microphone closely to the sound source (loudspeaker), set the frequency weighting curve of the SLM as FLAT, and output the test signal (1kHz sine tone) by checking the "Test Signal" box. </li>
+			<li>Set the volume of the input device (see the main window of Realtime Analyzer) so that the peak level monitor reaches around -15 and -10 dB.</li>
+			<li>On the calibration window, set the frequency weighting curve as FLAT, and adjust the sensitivity scrollbar until the Input Level matches the reading of the SLM.</li>
+		</ol>
+		<b>B) <u></u>Using the acoustic calibrator</b>
+		<ol>
+			<li>Attach the calibrator to the microphone, and turn it on.</li>
+			<li>Set the volume of the input device so that the peak level monitor on the RA's main window will be at between -15 and -10 dB.</li>
+			<li>On the calibration window, set the frequency weighting curve as FLAT, and adjust the sensitivity scrollbar until the Input Level matches the reference sound pressure level of the calibrator (e.g. it is typically 94 dB or 114 dB at 1000 Hz). </li>
+		</ol>
+		<b>C) <u>Measuring sound by the sound level meter as a microphone</u></b>
+		<ol>
+			<li>The sound level meter itself can be used as a microphone. <a href="../4_soundlevel/1_connection.htm">See Connect the sound level meter with PC</a> for how to connect the sound level meter with PC and calibrate its sensitivity.</li>
+		</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>5)</td>
+		<td>Enter the Microphone Info., Mic Amp. Info. (optional) and Comment (optional), and click the New button. It appears on the calibration data list. To use the stored calibration data, just select the microphone data from the list.</td>
+	</tr>
+</table>
+<br />
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Microphone setting</a></p>
+<hr />
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Correction (inverse filter setting)</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Impulse Response</a></p>
+<hr />
+
+<h5>Correction (inverse filter setting)</h5>
+<b>[Save] the inverse filter</b><br />
+<br />
+In this window, the inverse filter is created from the measured impulse response. Only the initial part of the response should be selected because the response of the measurement system is included in this part.<br />
+<img src="../img/impulse_10.png" alt="" /><br />
+<table>
+	<tr>
+		<th>Fields</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td class="nowrap">Impulse Response</td>
+		<td>Measured impulse response is shown. The yellow area represents a filtering range.<br />
+				Adjust the boundary of the yellow area, so as to include the part which is thought of as the impulse response of the measurement system within the yellow area. Drag left and right borderlines when the mouse cursor shape changes to "<-| |->" over borderline.
+		</td>
+	</tr>
+	<tr>
+		<td>Filtering</td>
+		<td>Characteristics (Level, Phase) of the inverse filter corresponding to the impulse response which is cut out from (1) are indicated.<br />
+				Red curve is characteristic of sound pressure level, and green curve is the phase characteristic.
+		</td>
+	</tr>
+	<tr>
+		<td>Title</td>
+		<td>Input the name for the present inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>Input the comment on the present inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Maximum Level</td>
+		<td>Sets the SPL limit for correction of the inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Phase Correction</td>
+		<td>When this box is checked, both SPL and phase are corrected. If not, only SPL is corrected. Ordinarily, it should be checked.</td>
+	</tr>
+	<tr>
+		<td>Save</td>
+		<td>Saves the inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Exit</td>
+		<td>Closes this dialog.</td>
+	</tr>
+</table>
+<br />
+<b>[Setup] the inverse filter</b><br />
+<br />
+To set the filter, click the "Setup" button and select the filter. Then start the measurement. The impulse response of a room excluding the response of the measurement system can be measured.<br />
+<img src="../img/impulse_11.png" alt="" /><br />
+<table>
+	<tr>
+		<th>Field</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>(List box)</td>
+		<td>The inverse filters which have been stored are listed.</td>
+	</tr>
+	<tr>
+		<td class="nowrap">Impulse Response</td>
+		<td>Measured impulse response is shown. The yellow area represents a filtering range.<br />
+				Adjust the boundary of the yellow area, so as to include the part which is thought of as the impulse response of the measurement system within the yellow area. Drag left and right borderlines when the mouse cursor shape changes to "<-| |->" over borderline.
+		</td>
+	</tr>
+	<tr>
+		<td>Filtering</td>
+		<td>Characteristics (Level, Phase) of the inverse filter corresponding to the impulse response which is cut out from (2) are indicated.<br />
+				Red curve is characteristic of sound pressure level, and green curve is the phase characteristic.
+		</td>
+	</tr>
+	<tr>
+		<td>Title</td>
+		<td>The name of the present inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>The comment on the present inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Maximum Level</td>
+		<td>Sets the SPL limit for correction of the inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Phase Correction</td>
+		<td>When this box is checked, both SPL and phase are corrected. If not, only SPL is corrected. Ordinarily, it should be checked.</td>
+	</tr>
+	<tr>
+		<td>OK</td>
+		<td>Applies the selected inverse filter to the measurement.</td>
+	</tr>
+	<tr>
+		<td>Cancel</td>
+		<td>Closes this dialog without doing anything.</td>
+	</tr>
+	<tr>
+		<td>Overwrite</td>
+		<td>Saves the altered inverse filter.</td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>Deletes the selected inverse filter.</td>
+	</tr>
+</table>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Impulse Response</a></p>
+<hr />
+</body>
+
+</html>

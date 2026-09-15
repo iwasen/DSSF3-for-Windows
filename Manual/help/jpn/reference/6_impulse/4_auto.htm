@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>インパルス応答/測定調整機能</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">インパルス応答</a></p>
+<hr />
+
+<h5>インパルス応答/測定調整機能</h5>
+<img src="../img/impulse_15.png" />
+<div class="para">
+インパルス応答測定画面で[調整]ボタンをクリックすると、次のダイアログが表示されます。
+<img src="../img/impulse_8.png" />
+</div>
+
+<table>
+	<tr>
+		<th>項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td nowrap="nowrap">入出力レベル調整</td>
+		<td>
+			Startボタンをクリックすると信号音が出力され、入力信号の大きさが測定されます。入力レベルが低すぎるとS/N比が悪くなり、逆に高すぎると波形が歪んで正しい結果が得られなくなるため、測定は適正なレベルで行う必要があります。
+			入力レベルの大きさはバーの高さで表示され、バーの色が青い範囲ではレベルが低すぎ、緑の範囲なら適正、赤の範囲では高すぎます。レベルが適正でない場合は、メインウィンドウの[入力装置]の[音量]を自動的に調整します。[結果]に適正ならば「ＯＫ］、入力レベルが高すぎるか低すぎる場合は「ＮＧ］と表示されます。
+		</td>
+	</tr>
+	<tr>
+		<td>マイク位置調整</td>
+		<td>Startボタンをクリックすると信号音が出力され、左右のマイクの音源からの距離の差が表示されますので、それが0になるようにマイクの位置を調整します。左右のマイクの音源からの距離差が2cm以内では[結果]に「ＯＫ」、2cmを超えていると「ＮＧ」と表示されます。</td>
+	</tr>
+	<tr>
+		<td>測定時間調整</td>
+		<td>音場の残響の大きさにより最適な測定時間に調整します。残響時間に比べて測定時間が短いと正確な測定が行われません。また長すぎると測定および計算に時間がかかるようになります。通常は、残響時間の２倍くらいの測定時間が適当です。</td>
+	</tr>
+</table>
+
+<div class="cap">入出力レベル調整</div>
+
+<div class="cap">マイクの感度調整</div>
+<div class="para">
+測定時の最大の音量に対して、マイク、マイクアンプおよびPCのラインアンプのラインイン側および、PCのA/Dコンバータについて、過大入力による歪を出さないように調整する必要があります。また、十分なS/N比をを確保できるように、マイク、マイクアンプともできるだけ特性の良いものを使用して、上記すべてのアンプボリュームについて過小入力にならないように調整が必要です。
+</div>
+<div class="cap">スピーカの出力の調整</div>
+<div class="para">
+測定時の最大の音量に対して、PCのD/Aコンバータとラインアンプ、およびパワーアンプとスピーカで歪を発生させないように調整が必要です。また、
+</div>
+<div class="para">
+ここでは、それらの調整結果が適切であるかどうかの確認ができるようになっています。
+</div>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">インパルス応答</a></p>
+<hr />
+</body>
+
+</html>

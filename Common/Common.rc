@@ -1,0 +1,966 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "comres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// ニュートラル resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(932)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_HMOVE_CUR           CURSOR                  "..\\Common\\res\\HMove.cur"
+IDC_FINGER              CURSOR                  "..\\common\\res\\finger.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_INDICATOR_LEFT      BITMAP                  "res\\IndicatorLeft.bmp"
+IDB_INDICATOR_RIGHT     BITMAP                  "res\\IndicatorRight.bmp"
+#endif    // ニュートラル resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "comres.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMPLATE$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 227, 358
+#else
+IDD_TEMPLATE DIALOGEX 0, 0, 227, 358
+#endif
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "騒音源テンプレート設定"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x1
+BEGIN
+    LTEXT           "テンプレートリスト",IDC_STATIC,7,4,52,8
+    LISTBOX         IDC_TEMPLATE_LIST,7,15,155,99,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "新規(&N)",IDOK,169,15,52,14
+    PUSHBUTTON      "更新(&U)",IDC_UPDATE_TEMPLATE,169,32,52,14
+    PUSHBUTTON      "削除(&D)",IDC_DELETE_TEMPLATE,169,49,52,14
+    PUSHBUTTON      "エクスポート(&E)...",IDC_EXPORT,169,66,52,14
+    PUSHBUTTON      "インポート(&I)...",IDC_IMPORT,169,83,52,14
+    PUSHBUTTON      "終了(&X)",IDCANCEL,169,101,52,14
+    LTEXT           "騒音源名称",IDC_STATIC,7,124,35,8
+    EDITTEXT        IDC_NOISE_SOURCE,45,122,148,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TAB,"SysTabControl32",0x0,6,140,215,209
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_EXPORT$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 219, 171
+#else
+IDD_TEMP_EXPORT DIALOGEX 0, 0, 219, 171
+#endif
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "エクスポート"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    LTEXT           "テンプレートリスト",IDC_STATIC,7,7,52,8
+    LISTBOX         IDC_TEMPLATE_LIST,7,19,148,145,LBS_SORT | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,162,7,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,162,24,50,14
+    PUSHBUTTON      "全選択(&S)",IDC_ALL_SELECT,162,132,50,14
+    PUSHBUTTON      "全解除(&R)",IDC_ALL_REMOVE,162,150,50,14
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_IMPORT$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 219, 171
+#else
+IDD_TEMP_IMPORT DIALOGEX 0, 0, 219, 171
+#endif
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "インポート"
+FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
+BEGIN
+    LTEXT           "テンプレートリスト",IDC_STATIC,7,7,52,8
+    LISTBOX         IDC_TEMPLATE_LIST,7,19,148,145,LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,162,7,50,14
+    PUSHBUTTON      "ｷｬﾝｾﾙ",IDCANCEL,162,24,50,14
+    GROUPBOX        "追加モード",IDC_STATIC,162,82,50,41
+    CONTROL         "マージ",IDC_MERGE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,170,95,35,10
+    CONTROL         "上書き",IDC_REPLACE,"Button",BS_AUTORADIOBUTTON,170,108,35,10
+    PUSHBUTTON      "全選択",IDC_ALL_SELECT,162,132,50,14
+    PUSHBUTTON      "全解除",IDC_ALL_REMOVE,162,150,50,14
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_ACF$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 203, 181
+#else
+IDD_TEMP_ACF DIALOGEX 0, 0, 203, 181
+#endif
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_BORDER
+FONT 9, "ＭＳ Ｐゴシック", 400, 0, 0x80
+BEGIN
+    GROUPBOX        "Φ(0)",IDC_STATIC,0,0,98,58
+    LTEXT           "標準値",IDC_STATIC,9,13,22,8
+    EDITTEXT        IDC_PHI0_STANDARD,44,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,83,13,9,8
+    CONTROL         "上限値",IDC_PHI0_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,26,33,10
+    EDITTEXT        IDC_PHI0_UPPER_LIMIT,44,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,83,27,9,8
+    CONTROL         "下限値",IDC_PHI0_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,40,33,10
+    EDITTEXT        IDC_PHI0_LOWER_LIMIT,44,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,83,41,9,8
+    GROUPBOX        "τe",IDC_STATIC,104,0,98,58
+    LTEXT           "標準値",IDC_STATIC,114,13,22,8
+    EDITTEXT        IDC_TAUE_STANDARD,148,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,13,10,8
+    CONTROL         "上限値",IDC_TAUE_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,25,33,10
+    EDITTEXT        IDC_TAUE_UPPER_LIMIT,148,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,27,10,8
+    CONTROL         "下限値",IDC_TAUE_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,39,33,10
+    EDITTEXT        IDC_TAUE_LOWER_LIMIT,148,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,41,10,8
+    GROUPBOX        "φ1",IDC_STATIC,0,63,98,58
+    LTEXT           "標準値",IDC_STATIC,10,76,22,8
+    EDITTEXT        IDC_PHI1_STANDARD,44,74,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "上限値",IDC_PHI1_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,89,33,10
+    EDITTEXT        IDC_PHI1_UPPER_LIMIT,44,88,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "下限値",IDC_PHI1_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,103,33,10
+    EDITTEXT        IDC_PHI1_LOWER_LIMIT,44,102,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    GROUPBOX        "τ1",IDC_STATIC,104,63,98,58
+    LTEXT           "標準値",IDC_STATIC,115,76,22,8
+    EDITTEXT        IDC_TAU1_STANDARD,148,74,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,76,10,8
+    CONTROL         "上限値",IDC_TAU1_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,88,33,10
+    EDITTEXT        IDC_TAU1_UPPER_LIMIT,148,88,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,90,10,8
+    CONTROL         "下限値",IDC_TAU1_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,102,33,10
+    EDITTEXT        IDC_TAU1_LOWER_LIMIT,148,102,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,104,10,8
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,0,129,203,1
+    GROUPBOX        "重み係数",IDC_STATIC,0,135,203,45
+    LTEXT           "Φ(0)",IDC_STATIC,10,149,16,8
+    EDITTEXT        IDC_PHI0_WEIGHTING,33,147,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "τe",IDC_STATIC,78,149,11,8
+    EDITTEXT        IDC_TAUE_WEIGHTING,95,147,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "φ1",IDC_STATIC,10,163,11,8
+    EDITTEXT        IDC_PHI1_WEIGHTING,33,161,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "τ1",IDC_STATIC,78,163,11,8
+    EDITTEXT        IDC_TAU1_WEIGHTING,95,161,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    PUSHBUTTON      "設定(&S)",IDC_SET_WEIGHTING,142,153,50,14
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_IACF$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 203, 181
+#else
+IDD_TEMP_IACF DIALOGEX 0, 0, 203, 181
+#endif
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_BORDER
+FONT 9, "ＭＳ Ｐゴシック", 400, 0, 0x80
+BEGIN
+    GROUPBOX        "IACC",IDC_STATIC,0,0,98,58
+    LTEXT           "標準値",IDC_STATIC,9,13,22,8
+    EDITTEXT        IDC_IACC_STANDARD,44,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "上限値",IDC_IACC_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,26,33,10
+    EDITTEXT        IDC_IACC_UPPER_LIMIT,44,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "下限値",IDC_IACC_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,40,33,10
+    EDITTEXT        IDC_IACC_LOWER_LIMIT,44,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    GROUPBOX        "W_IACC",IDC_STATIC,104,0,98,58
+    LTEXT           "標準値",IDC_STATIC,114,13,22,8
+    EDITTEXT        IDC_WIACC_STANDARD,148,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,13,10,8
+    CONTROL         "上限値",IDC_WIACC_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,25,33,10
+    EDITTEXT        IDC_WIACC_UPPER_LIMIT,148,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,27,10,8
+    CONTROL         "下限値",IDC_WIACC_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,39,33,10
+    EDITTEXT        IDC_WIACC_LOWER_LIMIT,148,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,187,41,10,8
+    GROUPBOX        "τIACC",IDC_STATIC,0,63,98,58
+    LTEXT           "標準値",IDC_STATIC,10,76,22,8
+    EDITTEXT        IDC_TIACC_STANDARD,44,74,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "上限値",IDC_TIACC_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,89,33,10
+    EDITTEXT        IDC_TIACC_UPPER_LIMIT,44,88,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "下限値",IDC_TIACC_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,103,33,10
+    EDITTEXT        IDC_TIACC_LOWER_LIMIT,44,102,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,0,129,203,1
+    GROUPBOX        "重み係数",IDC_STATIC,0,135,203,45
+    LTEXT           "IACC",IDC_STATIC,13,149,16,8
+    EDITTEXT        IDC_IACC_WEIGHTING,33,147,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "W_IACC",IDC_STATIC,73,149,24,8
+    EDITTEXT        IDC_WIACC_WEIGHTING,100,147,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "τIACC",IDC_STATIC,6,163,23,8
+    EDITTEXT        IDC_TIACC_WEIGHTING,33,161,34,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    PUSHBUTTON      "設定(&S)",IDC_SET_WEIGHTING,142,153,50,14
+    LTEXT           "ms",IDC_STATIC,83,76,10,8
+    LTEXT           "ms",IDC_STATIC,83,90,10,8
+    LTEXT           "ms",IDC_STATIC,83,104,10,8
+END
+#endif
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    "IDD_TEMPLATE$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        RIGHTMARGIN, 219
+        BOTTOMMARGIN, 350
+    END
+
+    "IDD_TEMP_EXPORT$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 212
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 164
+    END
+
+    "IDD_TEMP_IMPORT$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 212
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 164
+    END
+
+    "IDD_TEMP_ACF$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 196
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 174
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_DEFAULTFONT         "ＭＳ Ｐゴシック"
+    IDS_FREQUENCY           "周波数"
+    IDS_SPL                 "音圧レベル"
+    IDS_TIME                "時間"
+    IDS_AMPLITUDE           "振幅"
+    IDS_FREQRESP            "周波数特性"
+    IDS_PHASE               "位相特性"
+    IDS_DIRECTSOUND         "直接音"
+    IDS_FIRSTREFLECTION     "第１反射音"
+    IDS_TAU                 "τ"
+    IDS_TAUE                "τe"
+    IDS_NONE                "無し"
+    IDS_AWEIGHTING          "A 特性"
+    IDS_BWEIGHTING          "B 特性"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_MSG_CONVERTIRFILE   "インパルス応答ファイルが古い形式のため変換を行います。よろしいですか？"
+    IDS_MSG_CONVERTFOLDER   "フォルダ管理ファイルが古い形式のため変換を行います。よろしいですか？"
+    IDS_MSG_CONVERTPRESET   "プリセットファイルが古い形式のため変換を行います。よろしいですか？"
+    IDS_MSG_CONVERTMICCAL   "マイク較正情報ファイルが古い形式のため変換を行います。よろしいですか？"
+    IDS_MSG_DELETECALCFILE  "計算結果ファイルが古い形式のため削除します。よろしいですか？"
+    IDS_MSG_CONVERTACFFILE  "ＡＣＦ測定ファイルが古い形式のため変換を行います。よろしいですか？"
+    IDS_MSG_CONVERTNMSFILE  "騒音測定ファイルが古い形式のため変換を行います。よろしいですか？"
+    IDS_MSG_DELETEFOLDER    "指定されたフォルダを削除します。ここに含まれるデータも全て削除されますがよろしいですか？"
+    IDS_MSG_CONVERTNSTMPFILE "騒音源テンプレートファイルが古い形式のため変換を行います。よろしいですか？"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_CREATEFOLDER    "フォルダ管理ファイルの作成に失敗しました。"
+    IDS_ERR_OPENFOLDER      "フォルダ管理ファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERFOLDER    "フォルダ管理ファイルの変換に失敗しました。"
+    IDS_ERR_CREATEFOLDERINDEX "フォルダ管理インデックスファイルの作成に失敗しました。"
+    IDS_ERR_READFOLDER      "フォルダ管理ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEFOLDER     "フォルダ管理ファイルの書き込みに失敗しました。"
+    IDS_ERR_CREATEIRFILE    "インパルス応答ファイルの作成に失敗しました。"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_OPENIRFILE      "インパルス応答ファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERTIRFILE   "インパルス応答ファイルの変換に失敗しました。"
+    IDS_ERR_READIRFILE      "インパルス応答ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEIRFILE     "インパルス応答ファイルの書き込みに失敗しました。"
+    IDS_ERR_CREATECALCFILE  "計算結果ファイルの作成に失敗しました。"
+    IDS_ERR_OPENCALCFILE    "計算結果ファイルのオープンに失敗しました。"
+    IDS_ERR_CREATECALCINDEX "計算結果インデックスファイルの作成に失敗しました。"
+    IDS_ERR_READCALCFILE    "計算結果ファイルの読み込みに失敗しました。"
+    IDS_ERR_FINDCALCFILE    "計算結果ファイルの検索に失敗しました。"
+    IDS_ERR_WRITECALCFILE   "計算結果ファイルの書き込みに失敗しました。"
+    IDS_ERR_CREATEIFFILE    "逆フィルタ管理ファイルの作成に失敗しました。"
+    IDS_ERR_OPENIFFILE      "逆フィルタ管理ファイルのオープンに失敗しました。"
+    IDS_ERR_CREATEIFINDEX   "逆フィルタ管理インデックスファイルの作成に失敗しました。"
+    IDS_ERR_READIFFILE      "逆フィルタ管理ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEIFFILE     "逆フィルタ管理ファイルの書き込みに失敗しました。"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_DELETEIFFILE    "逆フィルタ管理ファイルの削除に失敗しました。"
+    IDS_ERR_CREATEMICCAL    "マイク校正情報の作成に失敗しました。"
+    IDS_ERR_OPENMICCAL      "マイク校正情報ファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERTMICCAL   "マイク校正情報ファイルの変換に失敗しました。"
+    IDS_ERR_CREATEMICCALINDEX "マイク校正情報インデックスファイルの作成に失敗しました。"
+    IDS_ERR_READMICCAL      "マイク校正情報ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEMICCAL     "マイク校正情報ファイルの書き込みに失敗しました。"
+    IDS_STRING4231          "deleted"
+    IDS_ERR_DELETEMICCAL    "マイク校正情報データの削除に失敗しました。"
+    IDS_ERR_CREATEPRESET    "プリセットファイルの作成に失敗しました。"
+    IDS_ERR_OPENPRESET      "プリセットファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERTPRESET   "プリセットファイルの変換に失敗しました。"
+    IDS_ERR_CREATEPRESETINDEX "プリセットインデックスファイルの作成に失敗しました。"
+    IDS_ERR_READPRESET      "プリセットファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEPRESET     "プリセットファイルの書き込みに失敗しました。"
+    IDS_STRING4239          "deleted"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_DELETEPRESET    "プリセットデータの削除に失敗しました。"
+    IDS_ERR_CREATEIRINDEX1  "インパルス応答インデックスファイル１の作成に失敗しました。"
+    IDS_ERR_CREATEIRINDEX2  "インパルス応答インデックスファイル２の作成に失敗しました。"
+    IDS_ERR_DELETEIRDATA    "インパルス応答データの削除に失敗しました。"
+    IDS_ERR_FINDFOLDER      "フォルダがみつかりません。"
+    IDS_ERR_DELETEFOLDER    "フォルダの削除に失敗しました。"
+    IDS_ERR_YMUPDATE        "YMUPDATE.DLL が見つかりません。"
+    IDS_ERR_ONLINEUPDATE    "オンラインアップデートが実行できません。"
+    IDS_ERR_CREATEACFFILE   "ＡＣＦ測定ファイルの作成に失敗しました。"
+    IDS_ERR_OPENACFFILE     "ＡＣＦ測定ファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERTACFFILE  "ＡＣＦ測定ファイルの変換に失敗しました。"
+    IDS_ERR_READACFFILE     "ＡＣＦ測定ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEACFFILE    "ＡＣＦ測定ファイルの書き込みに失敗しました。"
+    IDS_ERR_CREATEACFINDEX1 "ＡＣＦ測定インデックスファイル１の作成に失敗しました。"
+    IDS_ERR_CREATEACFINDEX2 "ＡＣＦ測定インデックスファイル２の作成に失敗しました。"
+    IDS_ERR_CREATENMSFILE   "騒音測定ファイルの作成に失敗しました。"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_CWEIGHTING          "C 特性"
+    IDS_FLAT                "Flat"
+    IDS_REPLAY              "再生(&P)"
+    IDS_INPUTWAVE           "入力波形"
+    IDS_ONLINE_UPDATE       "オンラインアップデート(&U)..."
+    IDS_MEASUREMENT_TIME    "測定時刻"
+    IDS_DECISION            "騒音源"
+    IDS_NOISE_VALUE         "評価値"
+    IDS_NUMBER              "No."
+    IDS_TAU1                "τ1"
+    IDS_PHI0                "Φ(0)"
+    IDS_PHI1                "φ1"
+    IDS_TIACC               "τIACC"
+    IDS_PHI_TAU             "φ(τ)"
+    IDS_UNKNOWN             "不明"
+    IDS_TAU2                "τ2"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_OPENNMSFILE     "騒音測定ファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERTNMSFILE  "騒音測定ファイルの変換に失敗しました。"
+    IDS_ERR_READNMSFILE     "騒音測定ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITENMSFILE    "騒音測定ファイルの書き込みに失敗しました。"
+    IDS_ERR_CREATENMSINDEX1 "騒音測定インデックスファイル１の作成に失敗しました。"
+    IDS_ERR_CREATENMSINDEX2 "騒音測定インデックスファイル２の作成に失敗しました。"
+    IDS_ERR_CREATENSTMPFILE "騒音源テンプレートファイルの作成に失敗しました。"
+    IDS_ERR_OPENNSTMPFILE   "騒音源テンプレートファイルのオープンに失敗しました。"
+    IDS_ERR_CONVERTNSTMPFILE "騒音源テンプレートファイルの変換に失敗しました。"
+    IDS_ERR_READNSTMPFILE   "騒音源テンプレートファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITENSTMPFILE  "騒音源テンプレートファイルの書き込みに失敗しました。"
+    IDS_ERR_CREATENSTMPINDEX "騒音源テンプレートインデックスファイルの作成に失敗しました。"
+    IDS_ERR_NOISE_SOURCE    "騒音源名称が入力されていません。"
+    IDS_ERR_EXPORT_FILE     "エクスポートファイルがオープンできません。"
+    IDS_ERR_IMPORT_FILE     "インポートファイルがオープンできません。"
+    IDS_ERR_DDE_INITIALIZE  "DDEの初期化に失敗しました。"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_TAU3                "τ3"
+    IDS_TAU4                "τ4"
+    IDS_TAU5                "τ5"
+    IDS_TAU6                "τ6"
+    IDS_TAU7                "τ7"
+    IDS_TAU8                "τ8"
+    IDS_TAU9                "τ9"
+    IDS_TAU10               "τ10"
+    IDS_PHI2                "φ2"
+    IDS_PHI3                "φ3"
+    IDS_PHI4                "φ4"
+    IDS_PHI5                "φ5"
+    IDS_PHI6                "φ6"
+    IDS_PHI7                "φ7"
+    IDS_PHI8                "φ8"
+    IDS_PHI9                "φ9"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PHI10               "φ10"
+    IDS_IMAGE_FILE          "画像ファイル"
+    IDS_EXPORT_FILE         "エクスポートファイル"
+    IDS_ONLINEUPDATE        "DSSF5J"
+    IDS_STOP2               "停止(&P)"
+    IDS_LEVEL               "レベル"
+    IDS_SAVE_IMAGE_FILE     "画像ファイル保存"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_MMLIB           "MMLIBへ転送できませんでした。"
+    IDS_ERR_CREATECOLOR     "カラー設定ファイルの作成に失敗しました。"
+    IDS_ERR_OPENCOLOR       "カラー設定ファイルのオープンに失敗しました。"
+    IDS_ERR_CREATECOLORINDEX "カラー設定インデックスファイルの作成に失敗しました。"
+    IDS_ERR_READCOLOR       "カラー設定ファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITECOLOR      "カラー設定ファイルの書き込みに失敗しました。"
+    IDS_ERR_DELETECOLOR     "カラー設定データの削除に失敗しました。"
+    IDS_ERR_CREATEWAVEFORM  "波形データファイルの作成に失敗しました。"
+    IDS_ERR_OPENWAVEFORM    "波形データファイルのオープンに失敗しました。"
+    IDS_ERR_CREATEWAVEFORMINDEX "波形データインデックスファイルの作成に失敗しました。"
+    IDS_ERR_READWAVEFORM    "波形データファイルの読み込みに失敗しました。"
+    IDS_ERR_WRITEWAVEFORM   "波形データファイルの書き込みに失敗しました。"
+    IDS_ASIO_DRIVER_BUSY    "ASIOドライバが他で使用中です。"
+    IDS_ASIO_OPEN_ERROR     "ASIOドライバのオープンに失敗しました。"
+    IDS_ERR_NO_MMLIB_PATH   "MMLIBの実行ファイルが設定されていません。"
+    IDS_ERR_EXEC_MMLIB      "MMLIBの起動に失敗しました。"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PAYPAL_EA           "http://www.ymec.com/buy/dssf31.htm"
+    IDS_PAYPAL_SA           "http://www.ymec.com/buy/dssf32.htm"
+    IDS_PAYPAL_RA           "http://www.ymec.com/buy/dssf33.htm"
+    IDS_PAYPAL_RAL          "http://www.ymec.com/buy/dssf34.htm"
+    IDS_YMEC_STORE          "http://www.ymec.com/store/jp/"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_CONVERTCALCFILE "計算結果ファイルの変換に失敗しました。"
+    IDS_MSG_CONVERTCALCFILE "計算結果ファイルが古い形式のため変換します。よろしいですか？"
+END
+
+#endif    // 日本語 resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英語 (米国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMPLATE$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 264, 345
+#else
+IDD_TEMPLATE DIALOGEX 0, 0, 264, 345
+#endif
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Noise Source Template"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LTEXT           "Template List",IDC_STATIC,7,5,43,8
+    LISTBOX         IDC_TEMPLATE_LIST,7,16,191,98,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&New",IDOK,207,16,50,13
+    PUSHBUTTON      "&Update",IDC_UPDATE_TEMPLATE,207,32,50,13
+    PUSHBUTTON      "&Delete",IDC_DELETE_TEMPLATE,207,48,50,13
+    PUSHBUTTON      "&Export",IDC_EXPORT,207,64,50,13
+    PUSHBUTTON      "&Import",IDC_IMPORT,207,80,50,13
+    PUSHBUTTON      "E&xit",IDCANCEL,207,101,50,13
+    LTEXT           "Noise Source",IDC_STATIC,7,122,44,8
+    EDITTEXT        IDC_NOISE_SOURCE,55,120,175,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TAB,"SysTabControl32",0x0,6,136,252,202
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_EXPORT$(USE_IDD_TEMPLATE) DIALOG  0, 0, 219, 171
+#else
+IDD_TEMP_EXPORT DIALOG  0, 0, 219, 171
+#endif
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Export"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Template List",IDC_STATIC,7,7,43,8
+    LISTBOX         IDC_TEMPLATE_LIST,7,18,148,146,LBS_SORT | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,162,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,162,24,50,14
+    PUSHBUTTON      "&Select All",IDC_ALL_SELECT,162,132,50,14
+    PUSHBUTTON      "&Remove All",IDC_ALL_REMOVE,162,150,50,14
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_IMPORT$(USE_IDD_TEMPLATE) DIALOG  0, 0, 219, 171
+#else
+IDD_TEMP_IMPORT DIALOG  0, 0, 219, 171
+#endif
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Import"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Template List",IDC_STATIC,7,7,43,8
+    LISTBOX         IDC_TEMPLATE_LIST,7,18,148,146,LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,162,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,162,24,50,14
+    GROUPBOX        "Append",IDC_STATIC,162,82,50,41
+    CONTROL         "Merge",IDC_MERGE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,167,95,36,10
+    CONTROL         "Replace",IDC_REPLACE,"Button",BS_AUTORADIOBUTTON,167,108,43,10
+    PUSHBUTTON      "&Select All",IDC_ALL_SELECT,162,132,50,14
+    PUSHBUTTON      "&Remove All",IDC_ALL_REMOVE,162,150,50,14
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_ACF$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 236, 175
+#else
+IDD_TEMP_ACF DIALOGEX 0, 0, 236, 175
+#endif
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_BORDER
+FONT 8, "MS Sans Serif", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Phi(0)",IDC_STATIC,0,0,114,58
+    LTEXT           "Standard Value",IDC_STATIC,9,13,50,8
+    EDITTEXT        IDC_PHI0_STANDARD,61,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,99,13,9,8
+    CONTROL         "Upper Limit",IDC_PHI0_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,26,49,10
+    EDITTEXT        IDC_PHI0_UPPER_LIMIT,61,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,99,27,9,8
+    CONTROL         "Lower Limit",IDC_PHI0_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,41,49,10
+    EDITTEXT        IDC_PHI0_LOWER_LIMIT,61,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,99,41,9,8
+    GROUPBOX        "Tau-e",IDC_STATIC,121,0,114,58
+    LTEXT           "Standard Value",IDC_STATIC,129,13,50,8
+    EDITTEXT        IDC_TAUE_STANDARD,181,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,13,10,8
+    CONTROL         "Upper Limit",IDC_TAUE_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,26,49,10
+    EDITTEXT        IDC_TAUE_UPPER_LIMIT,181,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,27,10,8
+    CONTROL         "Lower Limit",IDC_TAUE_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,40,49,10
+    EDITTEXT        IDC_TAUE_LOWER_LIMIT,181,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,41,10,8
+    GROUPBOX        "Phi1",IDC_STATIC,0,63,114,58
+    LTEXT           "Standard Value",IDC_STATIC,9,76,50,8
+    EDITTEXT        IDC_PHI1_STANDARD,61,74,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "Upper Limit",IDC_PHI1_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,89,49,10
+    EDITTEXT        IDC_PHI1_UPPER_LIMIT,61,88,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "Lower Limit",IDC_PHI1_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,103,49,10
+    EDITTEXT        IDC_PHI1_LOWER_LIMIT,61,102,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    GROUPBOX        "Tau-1",IDC_STATIC,121,63,114,58
+    LTEXT           "Standard Value",IDC_STATIC,129,76,50,8
+    EDITTEXT        IDC_TAU1_STANDARD,181,74,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,76,10,8
+    CONTROL         "Upper Limit",IDC_TAU1_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,89,49,10
+    EDITTEXT        IDC_TAU1_UPPER_LIMIT,181,88,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,90,10,8
+    CONTROL         "Lower Limit",IDC_TAU1_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,103,49,10
+    EDITTEXT        IDC_TAU1_LOWER_LIMIT,181,102,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,104,10,8
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,0,127,234,1
+    GROUPBOX        "Weighting",IDC_STATIC,0,132,235,43
+    LTEXT           "Phi(0)",IDC_STATIC,9,145,19,8
+    EDITTEXT        IDC_PHI0_WEIGHTING,36,143,40,12,ES_AUTOHSCROLL
+    LTEXT           "Tau-e",IDC_STATIC,88,145,20,8
+    EDITTEXT        IDC_TAUE_WEIGHTING,114,143,40,12,ES_AUTOHSCROLL
+    LTEXT           "Phi1",IDC_STATIC,9,158,15,8
+    EDITTEXT        IDC_PHI1_WEIGHTING,36,156,40,12,ES_AUTOHSCROLL
+    LTEXT           "Tau-1",IDC_STATIC,88,158,20,8
+    EDITTEXT        IDC_TAU1_WEIGHTING,114,156,40,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "&Set",IDC_SET_WEIGHTING,171,149,48,13
+END
+#endif
+
+#if defined(APSTUDIO_INVOKED) || defined(USE_IDD_TEMPLATE)
+#if defined(APSTUDIO_INVOKED)
+IDD_TEMP_IACF$(USE_IDD_TEMPLATE) DIALOGEX 0, 0, 236, 175
+#else
+IDD_TEMP_IACF DIALOGEX 0, 0, 236, 175
+#endif
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_BORDER
+FONT 8, "MS Sans Serif", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "IACC",IDC_STATIC,0,0,114,58
+    LTEXT           "Standard Value",IDC_STATIC,9,13,50,8
+    EDITTEXT        IDC_IACC_STANDARD,61,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,99,13,9,8
+    CONTROL         "Upper Limit",IDC_IACC_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,26,49,10
+    EDITTEXT        IDC_IACC_UPPER_LIMIT,61,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,99,27,9,8
+    CONTROL         "Lower Limit",IDC_IACC_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,41,49,10
+    EDITTEXT        IDC_IACC_LOWER_LIMIT,61,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "dB",IDC_STATIC,99,41,9,8
+    GROUPBOX        "W_IACC",IDC_STATIC,121,0,114,58
+    LTEXT           "Standard Value",IDC_STATIC,129,13,50,8
+    EDITTEXT        IDC_WIACC_STANDARD,181,11,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,13,10,8
+    CONTROL         "Upper Limit",IDC_WIACC_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,26,49,10
+    EDITTEXT        IDC_WIACC_UPPER_LIMIT,181,25,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,27,10,8
+    CONTROL         "Lower Limit",IDC_WIACC_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,40,49,10
+    EDITTEXT        IDC_WIACC_LOWER_LIMIT,181,39,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "ms",IDC_STATIC,220,41,10,8
+    GROUPBOX        "t_IACC",IDC_STATIC,0,63,114,58
+    LTEXT           "Standard Value",IDC_STATIC,9,76,50,8
+    EDITTEXT        IDC_TIACC_STANDARD,61,74,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "Upper Limit",IDC_TIACC_UPPER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,89,49,10
+    EDITTEXT        IDC_TIACC_UPPER_LIMIT,61,88,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "Lower Limit",IDC_TIACC_LOWER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,103,49,10
+    EDITTEXT        IDC_TIACC_LOWER_LIMIT,61,102,35,12,ES_AUTOHSCROLL,WS_EX_RIGHT
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,0,127,234,1
+    GROUPBOX        "Weighting",IDC_STATIC,0,132,235,43
+    LTEXT           "IACC",IDC_STATIC,14,145,17,8
+    EDITTEXT        IDC_IACC_WEIGHTING,36,143,40,12,ES_AUTOHSCROLL
+    LTEXT           "W_IACC",IDC_STATIC,84,145,28,8
+    EDITTEXT        IDC_WIACC_WEIGHTING,117,143,40,12,ES_AUTOHSCROLL
+    LTEXT           "t_IACC",IDC_STATIC,8,158,23,8
+    EDITTEXT        IDC_TIACC_WEIGHTING,36,156,40,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "&Set",IDC_SET_WEIGHTING,171,149,48,13
+END
+#endif
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    "IDD_TEMPLATE$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        RIGHTMARGIN, 255
+        BOTTOMMARGIN, 336
+    END
+
+    "IDD_TEMP_EXPORT$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 212
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 164
+    END
+
+    "IDD_TEMP_IMPORT$(USE_IDD_TEMPLATE)", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 212
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 164
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_DEFAULTFONT         "Arial"
+    IDS_FREQUENCY           "Frequency"
+    IDS_SPL                 "SPL"
+    IDS_TIME                "Time"
+    IDS_AMPLITUDE           "Amplitude"
+    IDS_FREQRESP            "Frequency Response"
+    IDS_PHASE               "Phase"
+    IDS_DIRECTSOUND         "Direct Sound"
+    IDS_FIRSTREFLECTION     "First Reflection"
+    IDS_TAU                 "Tau"
+    IDS_TAUE                "Tau_e"
+    IDS_NONE                "None"
+    IDS_AWEIGHTING          "A-weighting"
+    IDS_BWEIGHTING          "B-weighting"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_MSG_CONVERTIRFILE   "Need convert impulse response data file. Are you sure?"
+    IDS_MSG_CONVERTFOLDER   "Need convert from old folder recording file into new one. Are you sure?"
+    IDS_MSG_CONVERTPRESET   "Need convert from old preset file into new one. Are you sure?"
+    IDS_MSG_CONVERTMICCAL   "Need convert from old microphone calibration data into new one. Are you sure?"
+    IDS_MSG_DELETECALCFILE  "Delete old calculation file. Are you sure?"
+    IDS_MSG_CONVERTACFFILE  "Need convert from old running ACF file into new one. Are you sure?"
+    IDS_MSG_CONVERTNMSFILE  "Need convert from old noise measurement file into new one. Are you sure?"
+    IDS_MSG_DELETEFOLDER    "Delete selected folder with all data in. Are you sure?"
+    IDS_MSG_CONVERTNSTMPFILE 
+                            "Need convert from old noise template file into new one. Are you sure?"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_CREATEFOLDER    "Can't create folder."
+    IDS_ERR_OPENFOLDER      "Can't open folder."
+    IDS_ERR_CONVERFOLDER    "Can't convert folder."
+    IDS_ERR_CREATEFOLDERINDEX "Can't create folder index file."
+    IDS_ERR_READFOLDER      "Can't read folder."
+    IDS_ERR_WRITEFOLDER     "Can't write folder."
+    IDS_ERR_CREATEIRFILE    "Can't create impulse response file."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_OPENIRFILE      "Can't open impulse response file."
+    IDS_ERR_CONVERTIRFILE   "Can't convert impulse response file."
+    IDS_ERR_READIRFILE      "Can't read impulse response file."
+    IDS_ERR_WRITEIRFILE     "Can't write impulse response file."
+    IDS_ERR_CREATECALCFILE  "Can't create calculation file."
+    IDS_ERR_OPENCALCFILE    "Can't open calclation file."
+    IDS_ERR_CREATECALCINDEX "Can't create calculation index file."
+    IDS_ERR_READCALCFILE    "Can't read calculation file."
+    IDS_ERR_FINDCALCFILE    "Can't find calculation file."
+    IDS_ERR_WRITECALCFILE   "Can't write calculation file."
+    IDS_ERR_CREATEIFFILE    "Can't create inverse filter file."
+    IDS_ERR_OPENIFFILE      "Can't open inverse filter file."
+    IDS_ERR_CREATEIFINDEX   "Can't create inverse filter index file."
+    IDS_ERR_READIFFILE      "Can't read inverse filter file."
+    IDS_ERR_WRITEIFFILE     "Can't write inverse filter file."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_DELETEIFFILE    "Can't delete inverse filter file."
+    IDS_ERR_CREATEMICCAL    "Can't create microphone caliblation file."
+    IDS_ERR_OPENMICCAL      "Can't open microphone caliblation file."
+    IDS_ERR_CONVERTMICCAL   "Can't convert microphone caliblation file."
+    IDS_ERR_CREATEMICCALINDEX 
+                            "Can't create microphone caliblation index file."
+    IDS_ERR_READMICCAL      "Can't read microphone caliblation file."
+    IDS_ERR_WRITEMICCAL     "Can't write microphone caliblation file."
+    IDS_ERR_DELETEMICCAL    "Can't delete microphone caliblation file."
+    IDS_ERR_CREATEPRESET    "Can't create preset file."
+    IDS_ERR_OPENPRESET      "Can't open preset file."
+    IDS_ERR_CONVERTPRESET   "Can't convert preset file."
+    IDS_ERR_CREATEPRESETINDEX "Can't create preset index file."
+    IDS_ERR_READPRESET      "Can't read preset file."
+    IDS_ERR_WRITEPRESET     "Can't write preset file."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_DELETEPRESET    "Can't delete preset file."
+    IDS_ERR_CREATEIRINDEX1  "Can't create impulse response index file 1."
+    IDS_ERR_CREATEIRINDEX2  "Can't create impulse response index file 2."
+    IDS_ERR_DELETEIRDATA    "Can't delete impulse response data."
+    IDS_ERR_FINDFOLDER      "Can't find folder."
+    IDS_ERR_DELETEFOLDER    "Can't delete folder."
+    IDS_ERR_YMUPDATE        "Can't find YMUPDATE.DLL."
+    IDS_ERR_ONLINEUPDATE    "Can't execute Online update."
+    IDS_ERR_CREATEACFFILE   "Can't create running ACF file."
+    IDS_ERR_OPENACFFILE     "Can't open running ACF file."
+    IDS_ERR_CONVERTACFFILE  "Can't convert running ACF file."
+    IDS_ERR_READACFFILE     "Can't read running ACF file."
+    IDS_ERR_WRITEACFFILE    "Can't write running ACF file."
+    IDS_ERR_CREATEACFINDEX1 "Can't create running ACF index file 1."
+    IDS_ERR_CREATEACFINDEX2 "Can't create running ACF index file 2."
+    IDS_ERR_CREATENMSFILE   "Can't create noise measurement file."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_CWEIGHTING          "C-weighting"
+    IDS_FLAT                "Flat"
+    IDS_REPLAY              "Re&play"
+    IDS_INPUTWAVE           "Input Wave"
+    IDS_ONLINE_UPDATE       "Online &Update..."
+    IDS_MEASUREMENT_TIME    "Date / Time"
+    IDS_DECISION            "Noise Source"
+    IDS_NOISE_VALUE         "Evaluation"
+    IDS_NUMBER              "No."
+    IDS_TAU1                "Tau_1"
+    IDS_PHI0                "Phi(0)"
+    IDS_PHI1                "Phi_1"
+    IDS_TIACC               "t_IACC"
+    IDS_PHI_TAU             "Phi(Tau)"
+    IDS_UNKNOWN             "Unknown"
+    IDS_TAU2                "Tau2"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_OPENNMSFILE     "Can't open noise measurement file."
+    IDS_ERR_CONVERTNMSFILE  "Can't convert noise measurement file."
+    IDS_ERR_READNMSFILE     "Can't read noise measurement file."
+    IDS_ERR_WRITENMSFILE    "Can't write noise measurement file."
+    IDS_ERR_CREATENMSINDEX1 "Can't create noise measurement index file 1."
+    IDS_ERR_CREATENMSINDEX2 "Can't create noise measurement index file 2."
+    IDS_ERR_CREATENSTMPFILE "Can't create noise template file."
+    IDS_ERR_OPENNSTMPFILE   "Can't open noise template file."
+    IDS_ERR_CONVERTNSTMPFILE "Can't convert noise template file."
+    IDS_ERR_READNSTMPFILE   "Can't read noise template file."
+    IDS_ERR_WRITENSTMPFILE  "Can't write noise template file."
+    IDS_ERR_CREATENSTMPINDEX "Can't create noise template index file."
+    IDS_ERR_NOISE_SOURCE    "Please input a name for this noise source."
+    IDS_ERR_EXPORT_FILE     "Can't open export file."
+    IDS_ERR_IMPORT_FILE     "Can't open import file."
+    IDS_ERR_DDE_INITIALIZE  "DDE has not been initialized."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_TAU3                "Tau3"
+    IDS_TAU4                "Tau4"
+    IDS_TAU5                "Tau5"
+    IDS_TAU6                "Tau6"
+    IDS_TAU7                "Tau7"
+    IDS_TAU8                "Tau8"
+    IDS_TAU9                "Tau9"
+    IDS_TAU10               "Tau10"
+    IDS_PHI2                "Phi2"
+    IDS_PHI3                "Phi3"
+    IDS_PHI4                "Phi4"
+    IDS_PHI5                "Phi5"
+    IDS_PHI6                "Phi6"
+    IDS_PHI7                "Phi7"
+    IDS_PHI8                "Phi8"
+    IDS_PHI9                "Phi9"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PHI10               "Phi10"
+    IDS_IMAGE_FILE          "Image File"
+    IDS_EXPORT_FILE         "Export File"
+    IDS_ONLINEUPDATE        "DSSF5E"
+    IDS_STOP2               "Sto&p"
+    IDS_LEVEL               "Level"
+    IDS_SAVE_IMAGE_FILE     "Save Image File"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_MMLIB           "Can't send to MMLIB."
+    IDS_ERR_CREATECOLOR     "Can't create color setting file."
+    IDS_ERR_OPENCOLOR       "Can't open color setting file."
+    IDS_ERR_CREATECOLORINDEX "Can't create color setting index file."
+    IDS_ERR_READCOLOR       "Can't read color setting file."
+    IDS_ERR_WRITECOLOR      "Can't write color setting file."
+    IDS_ERR_DELETECOLOR     "Can't delete color setting file."
+    IDS_ERR_CREATEWAVEFORM  "Can't create waveform file."
+    IDS_ERR_OPENWAVEFORM    "Can't open waveform file."
+    IDS_ERR_CREATEWAVEFORMINDEX "Can't create waveform index file."
+    IDS_ERR_READWAVEFORM    "Can't read waveform file."
+    IDS_ERR_WRITEWAVEFORM   "Can't write waveform file."
+    IDS_ASIO_DRIVER_BUSY    "ASIO Driver is busy."
+    IDS_ASIO_OPEN_ERROR     "ASIO Driver open Failure"
+    IDS_ERR_NO_MMLIB_PATH   "An execute file of MMLIB is not set."
+    IDS_ERR_EXEC_MMLIB      "MMLIB was not able to start."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PAYPAL_EA           "http://www.ymec.com/buy/dssf3e1.htm"
+    IDS_PAYPAL_SA           "http://www.ymec.com/buy/dssf3e2.htm"
+    IDS_PAYPAL_RA           "http://www.ymec.com/buy/dssf3e3.htm"
+    IDS_PAYPAL_RAL          "http://www.ymec.com/buy/dssf3e4.htm"
+    IDS_YMEC_STORE          "http://www.ymec.com/store/en/"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_CONVERTCALCFILE "Can't convert calculation file."
+    IDS_MSG_CONVERTCALCFILE "Need convert from old calculation file into new one. Are you sure?"
+END
+
+#endif    // 英語 (米国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

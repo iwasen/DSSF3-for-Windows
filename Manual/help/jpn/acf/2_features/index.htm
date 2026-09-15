@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ランニングACF測定の概要</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">ACF/CCF測定</a></p>
+<hr />
+
+<h5>ランニングACF測定の概要</h5>
+リアルタイムアナライザ（以下、RAと表記）のランニングACF(autocorrelation function)測定は、リアルタイムなＦＦＴアナライザでは、解析の難しい高時間解像度ＦＦＴ分析（パワースペクトラム）や、自己相関分析のため、RAにデータの取り込みを行います。<br />
+<ul>
+	<li class="mb10">
+		<div class="bold">2チャンネル信号の録音再生、編集</div>
+		<div>マイク、ライン入力等を利用した音源の録音再生、編集ができます。 また、録音した音源のWAVEファイルへの出力、WAVEファイルを取り込んでの分析ができます。</div>
+	</li>
+	<li class="mb10">
+		<div class="bold">ランニングACF測定</div>
+		<div>指定した積分時間、計算周期で連続的にACFを計算し、結果をリアルタイムで3次元表示します。</div>
+	</li>
+	<li class="mb10">
+		<div class="bold">192kHzサンプリング対応</div>
+		<div>最新のサウンドカードを利用すれば、サウンドカードの上限、たとえば、96kHzまでのサンプリングが可能です。これにより、従来よりも高精度の測定が可能になります。</div>
+	</li>
+	<li class="mb10">
+		<div class="bold">32bit WAVEファイルに対応</div>
+		<div>他のシステムで測定された任意の長さのWAVEファイルを読み込んで、音響分析システム（SA）で解析可能です。 精度は32bitまで対応しています。</div>
+	</li>
+</ul>
+ACF分析は従来のFFT分析に時間という概念を加えたものです。そのため音響信号の時間的変化といったものが分析できます。時間という次元が加わったメリットは大きく、音響信号の違いを多次元に数値化して、記録、表示可能です。
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">ACF/CCF測定</a></p>
+<hr />
+</body>
+
+</html>

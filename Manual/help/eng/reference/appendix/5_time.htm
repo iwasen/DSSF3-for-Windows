@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Time resolution and frequency resolution in the FFT analyzer</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Appendix</a></p>
+<hr />
+
+<h5>Time resolution and frequency resolution in the FFT analyzer</h5>
+In the FFT analyzer, the input wave data is extracted for every FFT size, then calculated, and the result is displayed one by one. <br />
+<br />
+Display interval, or time resolution [s] is calculated as FFT size / sampling rate.<br />
+<br />
+Frequency resolution [Hz] is its reciprocal and calculated as sampling rate / FFT size.<br />
+<br />
+The time resolution and the frequency resolution could not be improved simultaneously. To solve the problem, FFT calculation is not performed for every FFT size, but is performed with shifting data at a shorter interval. Consequently, the apparent time resolution can be improved with the frequency resolution maintained.<br />
+<br />
+However, when the time resolution is raised, the number the FFT calculation within unit time and display processing will increase, and so the CPU load will much increased. Set the time resolution, looking at the rate of CPU use by the task manager of Windows.<br />
+<br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Appendix</a></p>
+<hr />
+</body>
+
+</html>

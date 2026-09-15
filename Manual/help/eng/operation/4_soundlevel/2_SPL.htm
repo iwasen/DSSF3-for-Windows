@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SPL calibration</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">How to use a Sound Level Meter</a></p>
+<hr />
+
+<h5>SPL calibration</h5>
+When you use a sound level meter, note that the measurement range is divided into several modes. For example, ACO sound level meter Type 6146 has three measurement ranges. Maximum level of each range is 70, 100, and 130 dB and its dynamic range is 40 dB. If the dynamic range of sound to be measured exceeds 40 dB, it can not be measured correctly<br />
+<img src="../img/soundlevel_3.png" alt="" /><br />
+The important thing is to calibrate the input level so that it can record a sound with a sufficient level for analysis. For this purpose, it should be calibrated with a test sound close to the sound level to be measured. Test sound should have a fixed volume during the calibration. Then it is easy to match the input level of RA with that of a sound level meter. <br />
+<br />
+This is a calibration window. Confirm that the frequency weighting (A, C, or Flat) of RA and the sound level meter is same. Adjust the input level to match the sound level meter reading.<br />
+<img src="../img/soundlevel_4.png" alt="" /><br />
+When the time constant (dynamic characteristic switch) of the sound level meter is FAST (time constant is 125 ms), set the sampling rate to 44.1 kHz, FFT size to 4096, and smoothing to 2. When the time constant is SLOW (time constant is 1.0 s), set the smoothing to 5. <br />
+<br />
+
+<div class="dot_box">
+<b><u>Setting of time constant in the FFT analyzer</u></b><br />
+<br />
+Time constant of the smoothing function in the FFT analyzer can be set as time (s or ms). The standard Fast (125 ms) and Slow (1.0 s) time window can also be selected. <br />
+<img src="../img/soundlevel_5.png" alt="" /><br />
+</div>
+
+The sound level meter might have a measurement range switch. In this case, you can save several settings for each measurement range to measure a wide dynamic range. <br />
+<br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">How to use a Sound Level Meter</a></p>
+<hr />
+</body>
+
+</html>

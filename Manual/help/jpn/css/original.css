@@ -1,0 +1,81 @@
+BODY {
+	COLOR: #333333;
+	font-size:13px
+}
+table {
+	font-size:13px;
+}
+H2 {
+	BORDER-RIGHT: #003366 1px; PADDING-RIGHT: 0px; BORDER-TOP: #003366 1px; PADDING-LEFT: 8px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: #003366 1px; WIDTH: 100%; COLOR: #ffffff; PADDING-TOP: 2px; BORDER-BOTTOM: #003366 1px; BACKGROUND-COLOR: #3333cc
+}
+H3 {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #000000 1px solid; PADDING-LEFT: 0px; FONT-WEIGHT: bold; PADDING-BOTTOM: 10px; BORDER-LEFT: #000000 1px solid; WIDTH: 100%; COLOR: #ffffff; PADDING-TOP: 10px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #9999ff; TEXT-ALIGN: center
+}
+H4 {
+	BORDER-RIGHT: white 1px; PADDING-RIGHT: 2px; BORDER-TOP: white 1px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: white 1px; WIDTH: 100%; COLOR: #ffffff; PADDING-TOP: 2px; BORDER-BOTTOM: white 1px; BACKGROUND-COLOR: #3333cc
+}
+H5 {
+	BORDER-RIGHT: white 1px; PADDING-RIGHT: 2px; BORDER-TOP: white 1px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: white 1px; WIDTH: 100%; COLOR: #ffffff; PADDING-TOP: 2px; BORDER-BOTTOM: white 1px; BACKGROUND-COLOR: #9999ff; TEXT-ALIGN: center
+}
+H6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 1em
+}
+A:link {
+	COLOR: #0000b0
+}
+A:visited {
+	COLOR: #000066
+}
+H2 A:link {
+	COLOR: #ffffff
+}
+H2 A:visited {
+	COLOR: #ffffff
+}
+H3 A:link {
+	COLOR: #ffffff
+}
+H3 A:visited {
+	COLOR: #ffffff
+}
+H4 A:link {
+	COLOR: #ffffff
+}
+H4 A:visited {
+	COLOR: #ffffff
+}
+H5 A:link {
+	COLOR: #ffffff
+}
+H5 A:visited {
+	COLOR: #ffffff
+}
+.p {
+	MARGIN-LEFT: 30px; MARGIN-RIGHT: 30px
+}
+.s {
+	MARGIN-LEFT: 60px; MARGIN-RIGHT: 30px
+}
+DIV.i {
+	MARGIN-LEFT: 30px; MARGIN-RIGHT: 30px
+}
+PRE.c {
+	BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: gray 1px solid; WIDTH: 100%; PADDING-TOP: 5px; BORDER-BOTTOM: gray 1px solid; WHITE-SPACE: pre
+}
+DIV.c {
+	BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; BORDER-LEFT: gray 1px solid; WIDTH: 100%; PADDING-TOP: 3px; BORDER-BOTTOM: gray 1px solid
+}
+a:hover {
+	color: orange
+}
+li {
+	padding-top: 5px;
+}
+p.text-right {
+	text-align: right;
+	margin-bottom:4px;
+}
+samp {
+	color:#FF0000;
+	font-weight:bold;
+}

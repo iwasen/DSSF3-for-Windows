@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Oscilloscope</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a></p>
+<hr />
+
+<h5>Oscilloscope</h5>
+	<ol>
+		<li><a href="1_function.htm">Items of the Oscilloscope</a></li>
+	</ol>
+Channel mode (previously, 1ch or 2ch) has been extended to Mono, Stereo, Left only, Right only, L-R difference.<br />
+<br />
+The oscilloscope shows the waveform of the input signal in real time. Difficult settings can be ignored first. By just clicking the Start button, input signal is triggered and the level range is adjusted automatically. The waveform is displayed in the proper positions.<br />
+<br />
+The waveform of the input signal is observed. Vertical axis is amplitude and horizontal axis is time. When "X-Y" check box is marked, horizontal axis is left channel's amplitude and vertical axis is right channel's amplitude. The mark	on the left of window indicates the point of trigger start level.<br />
+<img src="../img/oscilloscope_1.png" alt="" /><br />
+<br />
+<b><u>Note:</u></b><br />
+When the input and the output signals are to be compared by the 2ch mode, it is important to remember that it is not possible to select different input devices (for example, line-in and wave) at the same time. It is a limitation of Windows' sound control. So, the signals to be measured should be fed into the separate channels of the same input device.<br />
+<br />
+For example, let's consider the situation to measure the audio amplifier's output. We want to input the sinusoidal wave to the amplifier, measure the output of the amplifier, and compare it with the input waveform to know how much the signal is changed. In this case, one signal is the signal generator's output (this is the input to the amplifier) and another is the amplifier's output. To compare these signals, connect the Right channel of the soundcard's output directly to the Right channel input of the sound card (for measuring the signal generator's output), connect the Left channel output to the amplifier (for feeding the signal generator's output to the amplifier), and connect the amplifier's output to the Left channel input of the sound card (for measuring the amplifier's output).<br />
+<br />
+Then, start the signal generator and the oscilloscope. You can see two waveforms (one is the input signal, and another is the output of the amplifier) on the oscilloscope screen at the same time. It can be easily observed whether the signal is correctly amplified, whether the signal is distorted or not. By changing two inputs of the soundcard, any signals can be compared similarly.<br />
+<br />
+Snapshot of the measurement screen can be easily taken by the Screen Copy button. Automatic over sampling is applied to the signal to display the smoothed waveform especially for the short sweep time range.<br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a></p>
+<hr />
+</body>
+
+</html>

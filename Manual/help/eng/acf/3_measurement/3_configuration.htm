@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Configuration of the measurement conditions</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Running ACF</a> &gt; <a href="index.htm">Measurement guide</a></p>
+<hr />
+
+<h5>Configuration of the measurement conditions</h5>
+Before performing the measurement, check the measurement settings and the display settings. The important settings are explained below. See the <a href="../../reference/7_running/index.htm">reference manual</a> for other items. <br />
+<table>
+	<tr>
+		<td rowspan="6"><img src="../img/guide_3.png" alt="" /></td>
+		<td><u>Sampling Rate</u><br />
+48 kHz or 44.1 kHz is recommended. If your soundcard is the latest, 96 kHz may also be available.
+		</td>
+	</tr>
+	<tr>
+		<td><u>Time</u><br />
+Set the measurement time of the ACF in second. By clicking up and down button, it can be specified between 1 and 30 s. Generally it should be set below 10 seconds. Longer measurement time can be set by entering the number in the box, but note that much memory is needed if you set the long measurement time. The maximum measurement time depends on the computer.
+</td>
+	</tr>
+	<tr>
+		<td><u>Channels</u><br />
+Select 1ch or 2ch. To measure the CCF, select 2ch.
+</td>
+	</tr>
+	<tr>
+		<td><u>Integration Time</u><br />
+Set the integration time of the ACF calculation. This value corresponds to the averaging time for calculating the sound intensity. It can be set between 0.001 and 10 s. But note that longer integration time results in the longer calculation time.
+</td>
+	</tr>
+	<tr>
+		<td><u>Running Step</u><br />
+Set the calculation interval of the ACF. This value can be set between 0.001 and 10 s. Shorter the this value, the more the number of calculation.
+</td>
+	</tr>
+	<tr>
+		<td><u>Freq. Weighting</u><br />
+Select the frequency weighting filter. Usually, select Flat or A-weighting. A-weighting filter roughly simulates the sensitivity curve of human ear that attenuates low and high frequencies.
+</td>
+	</tr>
+</table>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Running ACF</a> &gt; <a href="index.htm">Measurement guide</a></p>
+<hr />
+</body>
+
+</html>

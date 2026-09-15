@@ -1,0 +1,901 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Asio">
+      <UniqueIdentifier>{417daad0-4ad2-4803-87ef-ed4bc2599817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Acf">
+      <UniqueIdentifier>{402076bf-709b-4818-903b-424c7ea0abcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Dst">
+      <UniqueIdentifier>{1bc16139-dec0-4e6d-94e2-88f0cc712098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Fft">
+      <UniqueIdentifier>{1f40792b-8c52-4e87-b12d-b7d441398401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Fre">
+      <UniqueIdentifier>{66b4f2d1-49a5-4ca7-9fca-75718aed7c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Impulse">
+      <UniqueIdentifier>{dd55e615-2bcf-4ce0-a71f-00c1f733243a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Os">
+      <UniqueIdentifier>{0f02709b-494e-4ac4-a08c-e0ee737a9247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sg">
+      <UniqueIdentifier>{6c5af5d6-a28d-40d0-a3ae-de43a53e661a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Wave">
+      <UniqueIdentifier>{d080e4e0-23ec-4836-9abe-07a50aaab90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Rec">
+      <UniqueIdentifier>{dca2d550-7787-4853-b5ea-d5dffe8ee604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Etc">
+      <UniqueIdentifier>{a083da3b-d625-4183-ba10-d7612f770fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Filter">
+      <UniqueIdentifier>{f8204d9c-9c86-4faa-a323-35e84d11b290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Tools">
+      <UniqueIdentifier>{97382c93-ab4c-4fc2-8722-40608aae42ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asio">
+      <UniqueIdentifier>{010494ac-c966-463c-92c4-dd78ff40471f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Acf">
+      <UniqueIdentifier>{8e4dc064-396f-4a07-a8f8-d05aab765525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Dst">
+      <UniqueIdentifier>{51a2a6c5-3a17-442f-bb61-36713ebb786d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Fft">
+      <UniqueIdentifier>{3713dbb4-3eb0-4cd6-8bb5-a2bad2bfbb91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Fre">
+      <UniqueIdentifier>{f8b8af6f-f148-41d0-a852-a96b70fae0a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Impulse">
+      <UniqueIdentifier>{1cafaf26-e0bc-427c-b233-0077e4c719fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Etc">
+      <UniqueIdentifier>{cf89a65b-a598-4109-99bf-e1f4f02bf121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Rec">
+      <UniqueIdentifier>{b8e12224-06dd-4c75-8d3c-843597c08c03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Wave">
+      <UniqueIdentifier>{fb90a9aa-5e40-4c34-9fde-6f19d333dcee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Sg">
+      <UniqueIdentifier>{97a5f9d4-e7ef-41c5-8789-44f80902d447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Os">
+      <UniqueIdentifier>{e4c33781-04ff-4938-b82e-43a3016d2a60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Filter">
+      <UniqueIdentifier>{ccee2386-3a7b-4773-83da-785320e9928e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tools">
+      <UniqueIdentifier>{782e7a98-3e6c-4805-b81a-0a192b87d3e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="ヘルプ ファイル">
+      <UniqueIdentifier>{3e6a4002-1ce1-4cf4-8768-eeb66b9a9ee8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\AsioDriver.cpp">
+      <Filter>ソース ファイル\Asio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\AsioManager.cpp">
+      <Filter>ソース ファイル\Asio</Filter>
+    </ClCompile>
+    <ClCompile Include="Acf3dd.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="AcfDlg.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="AcfRealtimeCalcDlg.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="AcfRealtimeDlg.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="AcfSpgWnd.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CalcAcf.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\FactorWnd.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\regress.cpp">
+      <Filter>ソース ファイル\Acf</Filter>
+    </ClCompile>
+    <ClCompile Include="DstDlg.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstFreq.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstFreqWnd.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstHoldData.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstLevel.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstLevelWnd.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstManual.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DstManualWnd.cpp">
+      <Filter>ソース ファイル\Dst</Filter>
+    </ClCompile>
+    <ClCompile Include="DataRecordDlg.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="Fft3dd.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftCep.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftCoh.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftCrf.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftCrs.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftDlg.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftFreqDlg.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftLevelDlg.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftOct.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftPhs.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftPws.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftSpg.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftWnd.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FftWndEx.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="MicCal2.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="MicCalDlg.cpp">
+      <Filter>ソース ファイル\Fft</Filter>
+    </ClCompile>
+    <ClCompile Include="FreDlg.cpp">
+      <Filter>ソース ファイル\Fre</Filter>
+    </ClCompile>
+    <ClCompile Include="FreHoldData.cpp">
+      <Filter>ソース ファイル\Fre</Filter>
+    </ClCompile>
+    <ClCompile Include="FreNoise.cpp">
+      <Filter>ソース ファイル\Fre</Filter>
+    </ClCompile>
+    <ClCompile Include="FreSpot.cpp">
+      <Filter>ソース ファイル\Fre</Filter>
+    </ClCompile>
+    <ClCompile Include="FreSweep.cpp">
+      <Filter>ソース ファイル\Fre</Filter>
+    </ClCompile>
+    <ClCompile Include="FreWnd.cpp">
+      <Filter>ソース ファイル\Fre</Filter>
+    </ClCompile>
+    <ClCompile Include="IfaSave.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="IfaSet.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="ImpulseDlg.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ImpWnd.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="IRAssistDlg.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="IRAssistWnd.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\IRMethod.cpp">
+      <Filter>ソース ファイル\Impulse</Filter>
+    </ClCompile>
+    <ClCompile Include="OsCalDlg.cpp">
+      <Filter>ソース ファイル\Os</Filter>
+    </ClCompile>
+    <ClCompile Include="OsDlg.cpp">
+      <Filter>ソース ファイル\Os</Filter>
+    </ClCompile>
+    <ClCompile Include="OsWin.cpp">
+      <Filter>ソース ファイル\Os</Filter>
+    </ClCompile>
+    <ClCompile Include="SG.CPP">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgDlg.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgNoise.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgPulse.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgScale.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgSweep.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgSynth.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgTone.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="SgWave.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveEditDlg.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveEditFM.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveEditManual.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveEditWnd.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveViewWnd.cpp">
+      <Filter>ソース ファイル\Sg</Filter>
+    </ClCompile>
+    <ClCompile Include="WasapiManager.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveEx.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\WaveFile.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveForm.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\WaveIn.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveInEx.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\WaveOut.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveOutEx.cpp">
+      <Filter>ソース ファイル\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="RecDlg.cpp">
+      <Filter>ソース ファイル\Rec</Filter>
+    </ClCompile>
+    <ClCompile Include="RecWnd.cpp">
+      <Filter>ソース ファイル\Rec</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoRec.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoRecDlg.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="AverageBuf.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDlg.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Common.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="CsvFile.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogEx.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Directory.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\DllCall.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\DllUxTheme.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Dpi.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\DssData.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Fft.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDlg.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\FileIO.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Filter.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\FreqWnd.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\HyperLink.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Indicator.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Mixer.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Mrnd.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSeq.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MyCtrl.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Noise.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="ParentWnd.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\PlaybackBtn.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="PresetDlg.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\RemarkWnd.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Rta.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="RtaDlg.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenShot.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="SetData.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Spline.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeWnd.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ToolBarEx.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\TSP.cpp">
+      <Filter>ソース ファイル\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="DigitalFilter.cpp">
+      <Filter>ソース ファイル\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterDlg.cpp">
+      <Filter>ソース ファイル\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterWnd.cpp">
+      <Filter>ソース ファイル\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="DataBackupDlg.cpp">
+      <Filter>ソース ファイル\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="DataRestoreDlg.cpp">
+      <Filter>ソース ファイル\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting.cpp">
+      <Filter>ソース ファイル\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingDevice.cpp">
+      <Filter>ソース ファイル\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingFont.cpp">
+      <Filter>ソース ファイル\Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\AsioDriver.h">
+      <Filter>ヘッダー ファイル\Asio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\AsioManager.h">
+      <Filter>ヘッダー ファイル\Asio</Filter>
+    </ClInclude>
+    <ClInclude Include="Acf3dd.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="AcfDlg.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="AcfRealtimeCalcDlg.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="AcfRealtimeDlg.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="AcfSpgWnd.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CalcAcf.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\FactorWnd.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\regress.h">
+      <Filter>ヘッダー ファイル\Acf</Filter>
+    </ClInclude>
+    <ClInclude Include="DstDlg.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstFreq.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstFreqWnd.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstHoldData.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstLevel.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstLevelWnd.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstManual.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="DstManualWnd.h">
+      <Filter>ヘッダー ファイル\Dst</Filter>
+    </ClInclude>
+    <ClInclude Include="FftDlg.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="FftFreqDlg.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="FftLevelDlg.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="FftWnd.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="FftWndEx.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="MicCal2.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="MicCalDlg.h">
+      <Filter>ヘッダー ファイル\Fft</Filter>
+    </ClInclude>
+    <ClInclude Include="FreDlg.h">
+      <Filter>ヘッダー ファイル\Fre</Filter>
+    </ClInclude>
+    <ClInclude Include="FreHoldData.h">
+      <Filter>ヘッダー ファイル\Fre</Filter>
+    </ClInclude>
+    <ClInclude Include="FreNoise.h">
+      <Filter>ヘッダー ファイル\Fre</Filter>
+    </ClInclude>
+    <ClInclude Include="FreSpot.h">
+      <Filter>ヘッダー ファイル\Fre</Filter>
+    </ClInclude>
+    <ClInclude Include="FreSweep.h">
+      <Filter>ヘッダー ファイル\Fre</Filter>
+    </ClInclude>
+    <ClInclude Include="FreWnd.h">
+      <Filter>ヘッダー ファイル\Fre</Filter>
+    </ClInclude>
+    <ClInclude Include="IfaSave.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="IfaSet.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="ImpulseDlg.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ImpWnd.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="IRAssistDlg.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="IRAssistWnd.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\IRMethod.h">
+      <Filter>ヘッダー ファイル\Impulse</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoRec.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoRecDlg.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="AverageBuf.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDlg.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Common.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\comres.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="CsvFile.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="DataRecordDlg.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogEx.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Directory.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\DllCall.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\DllUxTheme.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Dpi.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\DssData.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\FFT.H">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDlg.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\FileIO.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MakeFilter.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\FreqWnd.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\HyperLink.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Indicator.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Mixer.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Mrnd.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSeq.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MyCtrl.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="ParentWnd.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\PlaybackBtn.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="PresetDlg.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\RemarkWnd.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Rta.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="RtaDlg.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenShot.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="SetData.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Spline.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeWnd.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ToolBarEx.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\TSP.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\VerRes.h">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="RecDlg.h">
+      <Filter>ヘッダー ファイル\Rec</Filter>
+    </ClInclude>
+    <ClInclude Include="RecWnd.h">
+      <Filter>ヘッダー ファイル\Rec</Filter>
+    </ClInclude>
+    <ClInclude Include="WasapiManager.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEx.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\WaveFile.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveForm.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\WaveIn.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveInEx.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\WaveNotify.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\WaveOut.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveOutEx.h">
+      <Filter>ヘッダー ファイル\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="SG.H">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgDlg.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgNoise.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgPulse.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgScale.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgSweep.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgSynth.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgTone.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="SgWave.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEditDlg.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEditFM.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEditManual.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEditWnd.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveViewWnd.h">
+      <Filter>ヘッダー ファイル\Sg</Filter>
+    </ClInclude>
+    <ClInclude Include="OsCalDlg.h">
+      <Filter>ヘッダー ファイル\Os</Filter>
+    </ClInclude>
+    <ClInclude Include="OsDlg.h">
+      <Filter>ヘッダー ファイル\Os</Filter>
+    </ClInclude>
+    <ClInclude Include="OsWin.h">
+      <Filter>ヘッダー ファイル\Os</Filter>
+    </ClInclude>
+    <ClInclude Include="DigitalFilter.h">
+      <Filter>ヘッダー ファイル\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterDlg.h">
+      <Filter>ヘッダー ファイル\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterWnd.h">
+      <Filter>ヘッダー ファイル\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="DataBackupDlg.h">
+      <Filter>ヘッダー ファイル\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="DataRestoreDlg.h">
+      <Filter>ヘッダー ファイル\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>ヘッダー ファイル\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingDevice.h">
+      <Filter>ヘッダー ファイル\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingFont.h">
+      <Filter>ヘッダー ファイル\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Help\ContextHelp.h">
+      <Filter>ヘルプ ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource.hm">
+      <Filter>ヘッダー ファイル\Etc</Filter>
+    </None>
+    <None Include="..\Common\res\finger.cur">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="..\Common\HMove.cur">
+      <Filter>リソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\ico00001.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\icon1.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="..\Common\res\IndicatorLeft.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="..\Common\res\IndicatorRight.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\Rta.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\RtaOctHoldLeft.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\RtaOctHoldRight.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\RtaOctLeft.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\RtaOctPeakLeft.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\RtaOctPeakRight.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\RtaOctRight.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\zoom_h.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\zoom_v.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Rta.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Help\ContextHelp_E.txt">
+      <Filter>ヘルプ ファイル</Filter>
+    </Text>
+    <Text Include="Help\ContextHelp_J.txt">
+      <Filter>ヘルプ ファイル</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Help\RTA_E.hhp">
+      <Filter>ヘルプ ファイル</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Help\RTA_J.hhp">
+      <Filter>ヘルプ ファイル</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

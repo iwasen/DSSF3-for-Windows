@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>インパルス応答/[保存]機能</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">インパルス応答</a></p>
+<hr />
+
+<h5>インパルス応答/[保存]機能</h5>
+<img src="../img/impulse_12.png" />
+インパルス応答測定の画面から[保存]ボタンをクリックすると、次の『測定データ保存』画面が表示されます。測定データはフォルダの中に保存されます。
+
+<img src="../img/impulse_3.png" />
+
+<table>
+	<tr>
+		<th colspan="2">項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td colspan="2">フォルダ</td>
+		<td>測定データの保存先のフォルダが一覧表示されます。</td>
+	</tr>
+		<tr>
+			<td colspan="2">データ</td>
+			<td>選択したフォルダに保存されている測定データが一覧表示されます。</td>
+		</tr>
+	<tr>
+		<td colspan="2">測定条件</td>
+		<td>測定したデータの測定条件が表示されます。</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap" rowspan="2">記録</td>
+		<td nowrap="nowrap" style="height: 19px">タイトル</td>
+		<td style="height: 19px">測定データに付けるタイトルを入力します。ここで入力したタイトルは、[データ]の一覧に表示されます。</td>
+	</tr>
+	<tr>
+		<td>コメント</td>
+		<td>任意につける情報です。不要であれば入力しなくても構いません。</td>
+	</tr>
+	<tr>
+		<td colspan="2">測定日時</td>
+		<td>データを測定した日時が表示されます。</td>
+	</tr>
+	<tr>
+		<td colspan="2">保存</td>
+		<td>保存を実行します。</td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap" colspan="2">フォルダ管理</td>
+		<td>データを保存するフォルダに関して、新規作成，フォルダ名等のフォルダ情報変更，削除を行います。 →<a href="#folder">後頁</a>で説明</td>
+	</tr>
+</table>
+<div class="para">
+そのほかインパルス応答測定の機能ではＲＡのインパルス応答のファイル入出力の機能には、入力信号、出力信号をＣＳＶなどの形式で、テキスト出力する機能があります。
+たくさんの場所のインパルス応答を測定する場合、コンサートホールの各座席の2chのインパルス応答を測定する場合には、それぞれの音圧レベルを比較して測定結果を計算させ、連続測定を簡単に行うための機能として、最大の音量の場所をあるdB値にして測定結果を管理する指定や、ある座席を指定ｄＢにして測定結果を管理する指定などができます。この機能と、計算条件などが自動的にデータベース記録される機能を利用すると、インパルス応答測定が、非常に簡単に短時間に行えます。この場合は全部を同一フォルダーに保存します。
+</div>
+
+<div class="cap"><a name="folder">[フォルダ管理]機能</a></div>
+<div class="para">
+『測定データ保存』画面の[フォルダ管理]ボタンをクリックすると、次の『フォルダ管理』画面が表示されます。
+<img src="../img/impulse_5.png" />
+</div>
+
+<table>
+	<tr>
+		<th>項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td nowrap="nowrap">フォルダ一覧</td>
+		<td>登録済みのフォルダが一覧表示されます。</td>
+	</tr>
+	<tr>
+		<td>タイトル</td>
+		<td>フォルダに付けるタイトル（フォルダ名）を入力します。</td>
+	</tr>
+	<tr>
+		<td>名前</td>
+		<td>測定者名を入力します。入力は任意です。</td>
+	</tr>
+	<tr>
+		<td>場所</td>
+		<td>測定場所を入力します。入力は任意です。</td>
+	</tr>
+	<tr>
+		<td>コメント</td>
+		<td>フォルダに付けるコメントを入力します。入力は任意です。</td>
+	</tr>
+	<tr>
+		<td>日付</td>
+		<td>フォルダの作成日付を入力します。現在の日付がデフォルトで入っています。</td>
+	</tr>
+	<tr>
+		<td>スケール</td>
+		<td>模型での測定の場合にそのスケールを入力します。音響分析システム(SA)では、スケールに基づいて実際の大きさに換算して計算を行います。</td>
+	</tr>
+	<tr>
+		<td>登録</td>
+		<td>入力した内容でフォルダを新規作成します。</td>
+	</tr>
+	<tr>
+		<td>変更</td>
+		<td>フォルダ一覧で選択したフォルダの情報を変更します。フォルダ一覧の中から変更したいフォルダを選択して、タイトルなどの情報を変更し、[変更]ボタンをクリックしてください。</td>
+	</tr>
+	<tr>
+		<td>削除</td>
+		<td>フォルダ一覧で選択したフォルダを削除します。</td>
+	</tr>
+</table>
+
+<div class="cap">【測定したインパルス応答データの保存手順】</div>
+<table>
+	<tr>
+		<td>1．</td>
+		<td>保存先フォルダを選択する： [フォルダ]リストボックスに並んでいるフォルダの一覧から、測定したデータを保存するフォルダを選択します。なお、保存先フォルダを新規に作成したい場合は、[フォルダ管理]ボタンで行います。</td>
+	</tr>
+	<tr>
+		<td>2．</td>
+		<td>データ名を入力する：[記録]の[タイトル]入力ボックスに、測定したデータのデータ名を入力します。また、必要に応じて[コメント]を入力します。</td>
+	</tr>
+	<tr>
+		<td>3．</td>
+		<td>保存する：[保存]ボタンで保存を実行します。取りやめたいときは[キャンセル]ボタンをクリックします。</td>
+	</tr>
+</table>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">インパルス応答</a></p>
+<hr />
+</body>
+
+</html>

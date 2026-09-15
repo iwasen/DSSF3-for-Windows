@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ACF測定画面の説明</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">ACF/CCF測定</a></p>
+<hr />
+
+<h5>ACF測定画面の説明</h5>
+		ACF測定は、音の信号を一定時間ごとにずらしながらACF（自己相関）を計算し、ACFの時間的変化を解析するものです。RAではランニングACFの測定及びその三次元表示が可能ですが、更に詳細な分析は音響分析システム(SA)で行います。<br />
+		<br />
+		SAでは、ランニングACFやIACC/IACFなどの計算結果をグラフ表示したり、CSVファイルに出力することができます。<br />
+		<br />
+<img src="../img/running_1.png" alt="" /><br />
+<table>
+	<tr>
+		<th colspan="2">項目</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td colspan="2">グラフ（上）</td>
+		<td>
+				ランニングACFのグラフを表示します。縦軸は自己相関値、横軸は時間、奥行きはランニングステップです。</td>
+	</tr>
+	<tr>
+		<td colspan="2">測定</td>
+		<td>
+				[開始]ボタンで測定を開始します。測定は設定した時間が経過すると自動的に終了しますが、[中止]ボタンで中断することもできます。</td>
+	</tr>
+	<tr>
+		<td colspan="2">ファイル</td>
+		<td>
+				[保存]ボタンで測定したデータをデータベースに保存します。 →<a href="#7-2">7-2.ACF測定/[保存]機能</a><br />
+				[読込]ボタンで保存されたデータを読み込んで表示します。 →<a href="#7-3">7-3.ACF測定/[読込]機能</a></td>
+	</tr>
+	<tr>
+		<td rowspan="3" class="nowrap">
+			測定<br />
+			条件<br />
+			設定</td>
+		<td>サンプリング</td>
+		<td>
+				A/Dコンバータのサンプリングレートを設定します。</td>
+	</tr>
+	<tr>
+		<td>測定時間</td>
+		<td>
+				測定時間を設定します。</td>
+	</tr>
+	<tr>
+		<td>チャネル</td>
+		<td>
+				モノラル測定（1チャンネル）かステレオ測定（2チャンネル）かを選択します。</td>
+	</tr>
+	<tr>
+		<td rowspan="10">
+			<p align="center"><br />
+			表<br />
+			<br />
+			示<br />
+			<br />
+			設<br />
+			<br />
+			定</td>
+		<td>積分時間</td>
+		<td>
+				ACFの積分時間を設定します。</td>
+	</tr>
+	<tr>
+		<td>計算周期</td>
+		<td>
+				ランニングステップを設定します。</td>
+	</tr>
+	<tr>
+		<td>横軸（τ）</td>
+		<td>
+				グラフの横軸（τ）の最大値を設定します。</td>
+	</tr>
+	<tr>
+		<td>聴感補正</td>
+		<td>
+				聴感補正フィルタを選択します。</td>
+	</tr>
+	<tr>
+		<td class="nowrap">時間軸データ数</td>
+		<td>
+				グラフの時間軸（奥行き方向）のデータ数を設定します。測定時には、測定時間、積分時間、計算周期により自動的に決定されます。</td>
+	</tr>
+	<tr>
+		<td>時間軸方向</td>
+		<td>
+				グラフの時間軸の方向を設定します。</td>
+	</tr>
+	<tr>
+		<td>縦軸</td>
+		<td>
+				縦軸（自己相関値）のスケールを設定します。<br />
+			直線： 自己相関値を-1から1の間でリニアスケールで表示します。<br />
+			絶対値： 自己相関値の絶対値を0から1の間で表示します。<br />
+			対数： 自己相関値を対数(dB)スケールで表示します。</td>
+	</tr>
+	<tr>
+		<td>チャネル</td>
+		<td>
+				ステレオ測定をした場合に、Leftチャネルのデータを表示させたいときは「Lch」を選択し、Rightチャネルのデータを表示させたいときは「Rch」を選択します。(Leftチャネルのデータは水色で、Rightチャネルのデータはピンク色で表示されます。)<br />
+				モノラル測定の場合はLeftチャネルのみ表示します。</td>
+	</tr>
+	<tr>
+		<td>再表示</td>
+		<td>
+				設定を変更した際に、[再表示]ボタンをクリックして、変更後の新しいデータを表示させます。</td>
+	</tr>
+		<tr>
+				<td>
+						リアルタイム<br />
+						グラフ</td>
+				<td>
+						各種グラフをリアルタイムに測定して表示します。</td>
+		</tr>
+	<tr>
+		<td colspan="2">入力波形</td>
+		<td>
+				サンプリングされた入力データの波形を表示します。</td>
+	</tr>
+	<tr>
+		<td colspan="2">正規化</td>
+		<td>
+				入力波形の最大値を1として正規化します。</td>
+	</tr>
+	<tr>
+		<td colspan="2">編集</td>
+		<td>
+				測定したデータから不要な部分を取り除きます。<br />
+				[切り取り]ボタン：入力波形の水色で表示された部分を残して切り取ります。水色の部分はその両端の境界を左右にドラッグして変更できます。<br />
+				[全選択]ボタン：全ての範囲を選択（水色の範囲に）します。<br />
+				[再生]ボタン：選択された範囲をスピーカーから再生します。再生時には、再生位置が緑色の線で示されます。</td>
+	</tr>
+	<tr>
+		<td colspan="2">測定条件</td>
+		<td>
+				測定条件（測定時刻、サンプリング、測定時間）を表示します。</td>
+	</tr>
+		<tr>
+				<td colspan="2">
+						SA起動</td>
+				<td>
+						SA(Sound Analyzer)を起動して測定データを分析します。</td>
+		</tr>
+	<tr>
+		<td colspan="2">終了</td>
+		<td>
+				「ACF測定」のウィンドウを閉じます。</td>
+	</tr>
+</table>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">ACF/CCF測定</a></p>
+<hr />
+</body>
+
+</html>

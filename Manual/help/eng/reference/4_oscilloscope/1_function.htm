@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Items of the Oscilloscope</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Oscilloscope</a></p>
+<hr />
+
+<h5>Items of the Oscilloscope</h5>
+<img src="../img/oscilloscope_1.png" alt="" />
+<table>
+	<tr>
+		<th colspan="2">Item</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td colspan="2">Start (Stop)</td>
+		<td>Starts (and stops) an oscilloscope.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Exit</td>
+		<td>Closes "Oscilloscope". </td>
+	</tr>
+	<tr>
+		<td colspan="2">Screen Copy</td>
+		<td>Click to capture the measurement screen. </td>
+	</tr>
+	<tr>
+		<td colspan="2">Level Range</td>
+		<td>Decides a value of one grid of the vertical axis in the oscilloscope display. For example, when the Level Range is set to 1, one grid becomes 1. When the Level Range is set to 32768, one grid becomes 32768. When the [Automatic] checkbox is marked, this value is set automatically so that the signal is displayed in an appropriate range.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Position</td>
+		<td>Vertical position of the waveform is adjusted by the slider for each channel.
+If [Center] button is clicked, the waveform is arranged at the middle of the window. If [Split] button is clicked, two waveforms are arranged vertically.
+</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<th colspan="2">Item</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td colspan="2" class="nowrap">Trigger Settings</td>
+		<td>Trigger settings are adjusted here.</td>
+	</tr>
+	<tr>
+		<td rowspan="10">&nbsp;</td>
+		<td>Level</td>
+		<td>Trigger level is set up. This is the starting point of a waveform. If the [Auto] checkbox is marked, trigger level is adjusted automatically. </td>
+	</tr>
+	<tr>
+		<td>Channel</td>
+		<td>Select the channel which becomes the object of trigger settings.</td>
+	</tr>
+	<tr>
+		<td>Slope</td>
+		<td>The timing of trigger.<br />
+			- Ascent: When a waveform gets over the trigger level in upward direction, the trigger is pulled. (A waveform starts upward.)<br />
+			- Descent: When a waveform gets over the trigger level downward, the trigger is pulled. (A waveform starts downward.)
+		</td>
+	</tr>
+	<tr>
+		<td>Highcut</td>
+		<td>High frequency noise is cut.</td>
+	</tr>
+	<tr>
+		<td>Lowcut</td>
+		<td>Low frequency noise is cut.</td>
+	</tr>
+	<tr>
+		<td>Relative</td>
+		<td>If this checkbox is marked, it is indicated relatively. Without a check, an absolute position is shown.</td>
+	</tr>
+	<tr>
+		<td>Indication</td>
+		<td>The starting level of the trigger is indicated with " " mark.</td>
+	</tr>
+	<tr>
+		<td>Auto Trigger</td>
+		<td>If you check here, the waveform will be displayed even when it has no trigger for a certain period of time.</td>
+	</tr>
+	<tr>
+		<td>Single</td>
+		<td>Snapshot of the waveform is created when the [Reset] button is clicked.</td>
+	</tr>
+	<tr>
+		<td>Reset</td>
+		<td>Display is reset with this button, when the [Single] checkbox is marked.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Overlay</td>
+		<td>Automatic over sampling is applied to the signal to display the smoothed waveform especially for the short sweep time range.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Sweep Time Range</td>
+		<td>Time range of one grid on the horizontal axis [ms]. For displaying a low frequency signal, Sweep Time Range should be set to large. For example, to see one cycle of 1 Hz tone, Sweep Time Range has to be larger than 100ms/div. However, the calculation load becomes high at such a condition. It might be difficult to display a signal smoothly if you use a slow PC.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Delay Time</td>
+		<td>An interval from the input to the display [ms].<br />
+Select the time range from 1ms, 10ms, 100ms, and 1000ms in a popup menu. Then, adjust the delay time (= It is shown in the box) with the slider. For example, when you select "1ms" from a popup menu, The scale of the slider becomes 0-1 ms.
+</td>
+	</tr>
+	<tr>
+		<td colspan="3">Display Mode</td>
+	</tr>
+	<tr>
+		<td rowspan="4">&nbsp;</td>
+		<td>Lch Inverse</td>
+		<td>Inverts a waveform of left channel up and down.</td>
+	</tr>
+	<tr>
+		<td>Rch Inverse</td>
+		<td>Inverts a waveform of right channel up and down.</td>
+	</tr>
+	<tr>
+		<td>X-Y</td>
+		<td>Plots the left channel as a vertical axis and the right channel as a horizontal axis. This plot is called Lissajous pattern. It is shown with green lines.</td>
+	</tr>
+	<tr>
+		<td>Zero Level</td>
+		<td>The left channel displays zero level in the line where blue, the right channel are red.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Sampling Rate</td>
+		<td>Sampling rate of the A/D conversion.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Channels</td>
+		<td>Mono (L+R): Measured in a monaural mode of the soundcard.<br />	
+				Stereo: Two channels are measured (left: blue, right: pink)<br />
+				Left only: Only left channel is measured<br />
+				Right only: Only right channel is measured<br />
+				Differ (L-R): Difference of L-R channels is measured<br />
+				<br />
+				<b>Note</b> In a monaural mode (Mono), some sound cards input only the left channel, but some cards mix both channels into one channel. To measure only one channel input, use Left only or Right only mode.
+		</td>
+	</tr>
+</table>
+<br />
+<b><u>Note:</u> Supplementary information of the oscilloscope </b><br />
+The oscilloscope is generally used in checking an operation of electronic circuits. Voltage variations in a short time, or its oscillating waveforms is measured in real time. RA's oscilloscope not only measures the voltage waveform but also waveforms of various signals through the input devices.<br />
+<br />
+Input devices as below can be used by the oscilloscope.<br />
+<table>
+	<tr>
+		<th>Device</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>WAVE</td>
+		<td>Sound signal generated inside the PC, such as Windows Media Player or RA's signal generator, can be measured. </td>
+	</tr>
+	<tr>
+		<td class="nowrap">SW synthesizer(MIDI)</td>
+		<td>Output signal of the SW synthesizer can be measured.</td>
+	</tr>
+	<tr>
+		<td>CD player</td>
+		<td>Signal in the CD (test signal or music) can be measured.</td>
+	</tr>
+	<tr>
+		<td>mic</td>
+		<td>Signal from the built-in microphones or devices connected to the microphone port can be measured. </td>
+	</tr>
+	<tr>
+		<td>telephony</td>
+		<td>Signal from the internal modem can be measured. </td>
+	</tr>
+	<tr>
+		<td>PCBeep</td>
+		<td>Phase difference between two channels can be measured.</td>
+	</tr>
+</table>
+<br />
+The unit of the oscilloscope display is the amplitude of the digitized signal. Its maximum is +-32768 at the time of 16bit sampling. To measure the voltage, it is required to calibrate the input level using the voltmeter. Once the input voltage of the soundcard is calibrated, you can measure the voltage by the oscilloscope. Calibration can be done by feeding a stationary signal (e.g. sine tone) to the soundcard and by measuring its AC voltage.<br />
+<br />
+The software does not have a maximum input voltage limit. Input signal to the oscilloscope is always scaled to the maximum level of the soundcard. Rather, the maximum input voltage is limited by the soundcard (usually it is around 1.0-1.5V). But even if the signal level exceeds the maximum voltage of the soundcard, it can be measured by using attenuator.<br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Oscilloscope</a></p>
+<hr />
+</body>
+
+</html>

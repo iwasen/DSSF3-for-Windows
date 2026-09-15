@@ -1,0 +1,196 @@
+#include "CommonHelp.h"
+
+.topic IDH_TEMPLATE_OK
+新規に騒音源テンプレートを追加します。騒音源名称と各パラメータを入力してからクリックしてください。
+
+.topic IDH_TEMPLATE_UPDATE_TEMPLATE
+[テンプレートリスト]で選択している騒音源テンプレートを更新します。[テンプレートリスト]の中から騒音源テンプレートを選択して、設定値を変更後クリックしてください。
+
+.topic IDH_TEMPLATE_DELETE_TEMPLATE
+[テンプレートリスト]で選択している騒音源テンプレートを削除します。
+
+.topic IDH_TEMPLATE_EXPORT
+騒音源テンプレートを外部ファイルにエクスポートします。エクスポートしたファイルは[インポート]ボタンで別のコンピュータに取り込むことができます。
+
+.topic IDH_TEMPLATE_IMPORT
+エクスポートされた騒音源テンプレートを取り込みます。
+
+.topic IDH_TEMPLATE_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_TEMPLATE_TEMPLATE_LIST
+登録済みの騒音源テンプレートを表示します。クリックして選択するとその設定値が表示されます。
+
+.topic IDH_TEMPLATE_NOISE_SOURCE
+騒音源の名称を入力します。内容は任意です。
+
+.topic IDH_TEMPLATE_TAB
+騒音源の同定に使用されるACF（自己相関関数）とIACF（相互相関関数）のパラメータを設定します。
+
+.topic IDH_TEMP_ACF_PHI0_STANDARD
+騒音源のΦ(0)（音響エネルギー）の標準値を入力します。
+
+.topic IDH_TEMP_ACF_PHI0_UPPER_CHECK
+騒音源のΦ(0)（音響エネルギー）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_PHI0_UPPER_LIMIT
+騒音源のΦ(0)（音響エネルギー）の上限値を入力します。Φ(0)が設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_PHI0_LOWER_CHECK
+騒音源のΦ(0)（音響エネルギー）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_PHI0_LOWER_LIMIT
+騒音源のΦ(0)（音響エネルギー）の下限値を入力します。Φ(0)が設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_TAUE_STANDARD
+騒音源のτe（自己相関関数の有効継続時間）の標準値を入力します。
+
+.topic IDH_TEMP_ACF_TAUE_UPPER_CHECK
+騒音源のτe（自己相関関数の有効継続時間）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_TAUE_UPPER_LIMIT
+騒音源のτe（自己相関関数の有効継続時間）の上限値を入力します。τeが設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_TAUE_LOWER_CHECK
+騒音源のτe（自己相関関数の有効継続時間）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_TAUE_LOWER_LIMIT
+騒音源のτe（自己相関関数の有効継続時間）の下限値を入力します。τeが設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_PHI1_STANDARD
+騒音源のΦ1（自己相関関数の初期ピークの振幅）の標準値を入力します。
+
+.topic IDH_TEMP_ACF_PHI1_UPPER_CHECK
+騒音源のΦ1（自己相関関数の初期ピークの振幅）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_PHI1_UPPER_LIMIT
+騒音源のΦ1（自己相関関数の初期ピークの振幅）の上限値を入力します。Φ1が設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_PHI1_LOWER_CHECK
+騒音源のΦ1（自己相関関数の初期ピークの振幅）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_PHI1_LOWER_LIMIT
+騒音源のΦ1（自己相関関数の初期ピークの振幅）の下限値を入力します。Φ1が設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_TAU1_STANDARD
+騒音源のτ1（自己相関関数の初期ピークまでの遅れ時間）の標準値を入力します。
+
+.topic IDH_TEMP_ACF_TAU1_UPPER_CHECK
+騒音源のτ1（自己相関関数の初期ピークまでの遅れ時間）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_TAU1_UPPER_LIMIT
+騒音源のτ1（自己相関関数の初期ピークまでの遅れ時間）の上限値を入力します。τ1が設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_TAU1_LOWER_CHECK
+騒音源のτ1（自己相関関数の初期ピークまでの遅れ時間）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_ACF_TAU1_LOWER_LIMIT
+騒音源のτ1（自己相関関数の初期ピークまでの遅れ時間）の下限値を入力します。τ1が設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_ACF_PHI0_WEIGHTING
+Φ(0)（音響エネルギー）の重み係数を入力します。値を大きくするとΦ(0)が騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_ACF_TAUE_WEIGHTING
+τe（自己相関関数の有効継続時間）の重み係数を入力します。値を大きくするとτeが騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_ACF_PHI1_WEIGHTING
+Φ1（自己相関関数の初期ピークの振幅）の重み係数を入力します。値を大きくするとΦ1が騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_ACF_TAU1_WEIGHTING
+τ1（自己相関関数の初期ピークまでの遅れ時間）の重み係数を入力します。値を大きくするとτ1が騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_ACF_SET_WEIGHTING
+入力した重み係数を保存します。
+
+.topic IDH_TEMP_IACF_IACC_STANDARD
+騒音源のIACC（両耳間相互相関度）の標準値を入力します。
+
+.topic IDH_TEMP_IACF_IACC_UPPER_CHECK
+騒音源のIACC（両耳間相互相関度）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_IACF_IACC_UPPER_LIMIT
+騒音源のIACC（両耳間相互相関度）の上限値を入力します。IACCが設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_IACF_IACC_LOWER_CHECK
+騒音源のIACC（両耳間相互相関度）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_IACF_IACC_LOWER_LIMIT
+騒音源のIACC（両耳間相互相関度）の下限値を入力します。IACCが設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_IACF_WIACC_STANDARD
+騒音源のWIACC（相互相関関数のピークの幅）の標準値を入力します。
+
+.topic IDH_TEMP_IACF_WIACC_UPPER_CHECK
+騒音源のWIACC（相互相関関数のピークの幅）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_IACF_WIACC_UPPER_LIMIT
+騒音源のWIACC（相互相関関数のピークの幅）の上限値を入力します。WIACCが設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_IACF_WIACC_LOWER_CHECK
+騒音源のWIACC（相互相関関数のピークの幅）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_IACF_WIACC_LOWER_LIMIT
+騒音源のWIACC（相互相関関数のピークの幅）の下限値を入力します。WIACCが設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_IACF_TIACC_STANDARD
+騒音源のτIACC（相互相関関数のピークの遅れ時間）の標準値を入力します。
+
+.topic IDH_TEMP_IACF_TIACC_UPPER_CHECK
+騒音源のτIACC（相互相関関数のピークの遅れ時間）の上限値の入力を有効にします。
+
+.topic IDH_TEMP_IACF_TIACC_UPPER_LIMIT
+騒音源のτIACC（相互相関関数のピークの遅れ時間）の上限値を入力します。τIACCが設定した値を超えた場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_IACF_TIACC_LOWER_CHECK
+騒音源のτIACC（相互相関関数のピークの遅れ時間）の下限値の入力を有効にします。
+
+.topic IDH_TEMP_IACF_TIACC_LOWER_LIMIT
+騒音源のτIACC（相互相関関数のピークの遅れ時間）の下限値を入力します。τIACCが設定した値を下回る場合はこの騒音源に同定されなくなります。
+
+.topic IDH_TEMP_IACF_IACC_WEIGHTING
+IACC（両耳間相互相関度）の重み係数を入力します。値を大きくするとIACCが騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_IACF_WIACC_WEIGHTING
+WIACC（相互相関関数のピークの幅）の重み係数を入力します。値を大きくするとWIACCが騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_IACF_TIACC_WEIGHTING
+τIACC（相互相関関数のピークの遅れ時間）の重み係数を入力します。値を大きくするとτIACCが騒音源の同定に重視されるようになります。
+
+.topic IDH_TEMP_IACF_SET_WEIGHTING
+入力した重み係数を保存します。
+
+.topic IDH_TEMP_IMPORT_OK
+騒音源テンプレートのインポートを実行します。[テンプレートリスト]で選択されているテンプレートがインポートされます。
+
+.topic IDH_TEMP_IMPORT_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_TEMP_IMPORT_TEMPLATE_LIST
+指定したファイルに含まれる騒音源テンプレートの一覧が表示されます。インポートするテンプレートを選択してください。
+
+.topic IDH_TEMP_IMPORT_MERGE
+インポートする騒音源テンプレートが既に存在する場合、既存のテンプレートの設定値とインポートするテンプレートの設定値をマージします。
+
+.topic IDH_TEMP_IMPORT_REPLACE
+インポートする騒音源テンプレートが既に存在する場合、既存のテンプレートの設定値はインポートするテンプレートの設定値で上書きされます。
+
+.topic IDH_TEMP_IMPORT_ALL_SELECT
+[テンプレートリスト]に表示されている騒音源テンプレートを全て選択します。
+
+.topic IDH_TEMP_IMPORT_ALL_REMOVE
+[テンプレートリスト]に表示されている騒音源テンプレートの選択を全て解除します。
+
+.topic IDH_TEMP_EXPORT_OK
+騒音源テンプレートのエクスポートを実行します。[テンプレートリスト]で選択されているテンプレートがエクスポートされます。
+
+.topic IDH_TEMP_EXPORT_CANCEL
+このダイアログを閉じます。
+
+.topic IDH_TEMP_EXPORT_TEMPLATE_LIST
+登録済みの騒音源テンプレートの一覧が表示されます。エクスポートするテンプレートを選択してください。
+
+.topic IDH_TEMP_EXPORT_ALL_SELECT
+[テンプレートリスト]に表示されている騒音源テンプレートを全て選択します。
+
+.topic IDH_TEMP_EXPORT_ALL_REMOVE
+[テンプレートリスト]に表示されている騒音源テンプレートの選択を全て解除します。

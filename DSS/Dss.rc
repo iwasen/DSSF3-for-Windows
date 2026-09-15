@@ -1,0 +1,384 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// ニュートラル resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(932)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\Dss.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 5,2,0,6
+ PRODUCTVERSION 5,2,0,6
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041103a4"
+        BEGIN
+            VALUE "Comments", "Written by Shinichi Aizawa"
+            VALUE "CompanyName", "Yoshimasa Electronic Inc."
+            VALUE "FileDescription", "Diagnostic System for Sound Fields Version 5"
+            VALUE "FileVersion", "5.2.0.6"
+            VALUE "InternalName", "DSS"
+            VALUE "LegalCopyright", "Copyright (C) 2000-2026 Yoshimasa Electronic Inc."
+            VALUE "LegalTrademarks", "YMEC"
+            VALUE "OriginalFilename", "DSS.EXE"
+            VALUE "ProductName", "Setting Utility"
+            VALUE "ProductVersion", "5.2.0.6"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 932
+    END
+END
+
+#endif    // ニュートラル resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 (日本) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#pragma code_page(932)\r\n"
+    "#include ""res\\Dss.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // 標準コンポーネント\r\n"
+    "#endif\r\n"
+    "#include ""..\\Common\\Common.rc""\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 271, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "バージョン情報 Dss"
+FONT 9, "ＭＳ Ｐゴシック", 400, 0, 0x80
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Product Name & Version",IDC_PRODUCT,40,10,187,8,SS_NOPREFIX
+    LTEXT           "Copyright",IDC_COPYRIGHT,40,25,187,8
+    DEFPUSHBUTTON   "OK",IDOK,232,6,32,14,WS_GROUP
+END
+
+IDD_FOLDER DIALOGEX 0, 0, 271, 115
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+CAPTION "フォルダ"
+FONT 9, "ＭＳ Ｐゴシック", 400, 0, 0x80
+BEGIN
+    GROUPBOX        "データベースフォルダ",IDC_STATIC,7,7,257,48
+    EDITTEXT        IDC_DATABASE_FOLDER,14,20,241,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "規定値",IDC_DEFAULT_DATABASE,174,35,42,14
+    PUSHBUTTON      "参照",IDC_REFERENCE_DATABASE,221,35,34,14
+    GROUPBOX        "バックアップフォルダ",IDC_STATIC,7,60,257,48
+    EDITTEXT        IDC_BACKUP_FOLDER,14,73,241,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "規定値",IDC_DEFAULT_BACKUP,174,88,42,14
+    PUSHBUTTON      "参照",IDC_REFERENCE_BACKUP,221,88,34,14
+END
+
+IDD_INITIALIZE DIALOGEX 0, 0, 271, 115
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+CAPTION "初期化"
+FONT 9, "ＭＳ Ｐゴシック", 400, 0, 0x80
+BEGIN
+    GROUPBOX        "設定初期化",IDC_STATIC,7,7,154,66
+    CONTROL         "リアルタイムアナライザ",IDC_CHECK_INIT_RTA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,22,83,10
+    CONTROL         "音響分析システム",IDC_CHECK_INIT_SAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,36,69,10
+    CONTROL         "騒音計測システム",IDC_CHECK_INIT_NMS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,51,69,10
+    PUSHBUTTON      "実行",IDC_BUTTON_INIT_SETTINGS,103,20,50,14
+    GROUPBOX        "データベース初期化",IDC_STATIC,168,7,96,36
+    PUSHBUTTON      "実行",IDC_BUTTON_INIT_DATABASE,192,20,50,14
+END
+
+IDD_MMLIB DIALOGEX 0, 0, 271, 115
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+CAPTION "MMLIB"
+FONT 9, "ＭＳ Ｐゴシック", 400, 0, 0x80
+BEGIN
+    GROUPBOX        "MMLIB実行ファイル",IDC_STATIC,7,7,257,48
+    EDITTEXT        IDC_MMLIB_PATH,14,20,241,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "参照",IDC_REFERENCE_MMLIB,221,35,34,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_FOLDER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 108
+    END
+
+    IDD_INITIALIZE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 108
+    END
+
+    IDD_MMLIB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 108
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "バージョン情報 DSS(&A)..."
+    IDS_DSS_DIALOG          "設定ユーティリティ for DSSF3"
+    IDS_DATABASE_FOLDER     "データベースフォルダ"
+    IDS_BACKUP_FOLDER       "バックアップフォルダ"
+    IDS_INIT_SETTINGS       "設定を初期化します。よろしいですか？"
+    IDS_INIT_DATABASE       "データベースを初期化します。よろしいですか？"
+    IDS_MMLIB_PATH          "MMLIB実行ファイル"
+END
+
+#endif    // 日本語 (日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英語 (米国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 287, 53
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Dss"
+FONT 8, "MS Sans Serif", 400, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Product Name & Version",IDC_PRODUCT,40,10,201,8,SS_NOPREFIX
+    LTEXT           "Copyright",IDC_COPYRIGHT,39,27,201,8
+    DEFPUSHBUTTON   "OK",IDOK,247,6,32,14,WS_GROUP
+END
+
+IDD_FOLDER DIALOGEX 0, 0, 290, 109
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+CAPTION "Folder"
+FONT 8, "MS Sans Serif", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Database folder",IDC_STATIC,7,7,276,46
+    EDITTEXT        IDC_DATABASE_FOLDER,16,18,259,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Default value",IDC_DEFAULT_DATABASE,173,33,54,14
+    PUSHBUTTON      "Reference",IDC_REFERENCE_DATABASE,231,33,44,14
+    GROUPBOX        "Backup folder",IDC_STATIC,7,56,276,46
+    EDITTEXT        IDC_BACKUP_FOLDER,16,67,259,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Default value",IDC_DEFAULT_BACKUP,173,82,54,14
+    PUSHBUTTON      "Reference",IDC_REFERENCE_BACKUP,231,82,44,14
+END
+
+IDD_INITIALIZE DIALOGEX 0, 0, 290, 109
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+CAPTION "Initialize"
+FONT 8, "MS Sans Serif", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Initialize Settings",IDC_STATIC,7,7,170,61
+    CONTROL         "Realtime Analyzer",IDC_CHECK_INIT_RTA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,20,72,10
+    CONTROL         "Sound Analyzing System",IDC_CHECK_INIT_SAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,34,93,10
+    CONTROL         "Noise Measurement System",IDC_CHECK_INIT_NMS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,48,103,10
+    PUSHBUTTON      "OK",IDC_BUTTON_INIT_SETTINGS,119,19,47,13
+    GROUPBOX        "Initialize Database",IDC_STATIC,185,7,98,33
+    PUSHBUTTON      "OK",IDC_BUTTON_INIT_DATABASE,212,19,47,13
+END
+
+IDD_MMLIB DIALOGEX 0, 0, 290, 109
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+CAPTION "MMLIB"
+FONT 8, "MS Sans Serif", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "MMLIB executable file",IDC_STATIC,7,7,276,46
+    EDITTEXT        IDC_MMLIB_PATH,16,18,259,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Reference",IDC_REFERENCE_MMLIB,231,33,44,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 280
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 46
+    END
+
+    IDD_FOLDER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 283
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 102
+    END
+
+    IDD_INITIALIZE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 283
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 102
+    END
+
+    IDD_MMLIB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 283
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 102
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "Version Information (DSS) (&A)..."
+    IDS_DSS_DIALOG          "Setting Utility for DSSF3"
+    IDS_DATABASE_FOLDER     "Database folder"
+    IDS_BACKUP_FOLDER       "Backup folder"
+    IDS_INIT_SETTINGS       "Initialize the settings. Are you sure?"
+    IDS_INIT_DATABASE       "Initialize the database. Are you sure?"
+    IDS_MMLIB_PATH          "MMLIB executable file"
+END
+
+#endif    // 英語 (米国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#pragma code_page(932)
+#include "res\Dss.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // 標準コンポーネント
+#endif
+#include "..\Common\Common.rc"
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

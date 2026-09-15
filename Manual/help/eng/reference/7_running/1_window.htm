@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Items on the Running ACF window</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Running ACF</a></p>
+<hr />
+
+<h5>Items on the Running ACF window</h5>
+<img src="../img/acf_2.png" alt="" /><br />
+<table>
+	<tr>
+		<th colspan="2">Items</th>
+		<th>Descriptions</th>
+	</tr>
+	<tr>
+		<td colspan="2">Graph (Upper)</td>
+		<td>The graph of the Running ACF is displayed. The vertical axis is the autocorrelation, the horizontal axis is the time, and the depth is the running step.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Measurement</td>
+		<td>The measurement starts with [Start] button. Although the measurement stops automatically if the time you have set passes by, it is possible to stop it with [Stop] button.</td>
+	</tr>
+	<tr>
+		<td colspan="2">File</td>
+		<td>[Save...] button is used for saving the measured data in a file (database) <b>See:</b> <a href="2_save.htm">Save measurement data</a><br />
+				[Load...] button is used for loading the stored data. <b>See:</b> <a href="3_load.htm">Load measurement data</a></td>
+	</tr>
+	<tr>
+		<td rowspan="3" class="nowrap">Measurement Settings</td>
+		<td>Sampling Rate</td>
+		<td>A sampling rate of A/D conversion. (44.1 or 48 kHz is recommended)</td>
+	</tr>
+	<tr>
+		<td>Time</td>
+		<td>Set the time for measuring.</td>
+	</tr>
+	<tr>
+		<td>Channels</td>
+		<td>Choose the number of channel used for measurement, 1 channel (monaural) or 2 channels (stereo).</td>
+	</tr>
+	<tr>
+		<td rowspan="10">Display Settings</td>
+		<td class="nowrap">Integration Time</td>
+		<td>Set the Integration Time of ACF between 0.001 and 10 s.</td>
+	</tr>
+	<tr>
+		<td>Running Step</td>
+		<td>Set the Running Step (calculation interval) between 0.001 and 10 s.</td>
+	</tr>
+	<tr>
+		<td>Time Range</td>
+		<td>Set the maximum value of the horizontal axis (t) in the graph.</td>
+	</tr>
+	<tr>
+		<td>Freq. Weighting</td>
+		<td>Select the frequency weighting filter.</td>
+	</tr>
+	<tr>
+		<td>Number of Data</td>
+		<td>Set the number of the data on the time axis (= The depth of graph)</td>
+	</tr>
+	<tr>
+		<td>Direction</td>
+		<td>Set the direction of the time axis of the graph.<br />
+				Forward: The time shifts forward.<br />
+				Backward: The time shifts backward.
+		</td>
+	</tr>
+	<tr>
+		<td>Vertical Axis</td>
+		<td>Set the scale of the vertical axis (Autocorrelation value).<br />
+				Linear: Autocorrelation is indicated in linear scale between -1 and 1. If [Abs.] box is checked, absolute value of Autocorrelation is indicated between 0 and 1.<br />
+				Log: Autocorrelation is indicated in logarithm (decibel) scale. Its range is from 0 dB to the value inputted to the right text box.
+		</td>
+	</tr>
+	<tr>
+		<td>Channel</td>
+		<td>In the case of stereo measurement, left channel's data is displayed by checking "L ch" radio button, and right channel's data is displayed by checking "R ch" radio button. (Left channel's data is displayed in light blue, and right channel's one is pink.) In the case of monaural measurement, only left channel is displayed.</td>
+	</tr>
+	<tr>
+		<td>Redraw</td>
+		<td>When the setting is changed, clicking on this button displays new data.</td>
+	</tr>
+		<tr>
+			<td>Realtime Graph</td>
+			<td>Displays in SA (Sound Analyzer) measured data.</td>
+		</tr>
+	<tr>
+		<td colspan="2">Input Wave</td>
+		<td>The waveform of the input signal is displayed.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Normalization</td>
+		<td>The input data is normalized between -1 and 1.</td>
+	</tr>
+	<tr>
+		<td colspan="2
+		">Measurement Conditions</td>
+		<td>The measurement conditions (Time, Sampling Rate, Measurement Time) are shown.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Edit</td>
+		<td>Unnecessary part can be removed from the measured data.<br />
+				[Sel. Area] text boxes: Input the start and the end of the part you want to select. The selected area is painted with light blue. Or, this light blue area is changeable by dragging its left and right borderlines when the mouse cursor shape changes to "<-||->" over borderline.<br />
+				[Cut] button: Cuts off the part except light blue area.<br />
+				[All Sel.] button: Selects the whole area. (The whole area becomes light blue.)<br />
+				[Replay] button: Outputs the selected part (light blue area) from the speaker. During playback, a green line indicates where is replayed.
+		</td>
+	</tr>
+		<tr>
+			<td colspan="2">Launch SA</td>
+			<td>To analyze the measurement data to start the Sound Analyzer.</td>
+		</tr>
+	<tr>
+		<td colspan="2">Exit</td>
+		<td>Finishes "Running ACF" program.</td>
+	</tr>
+</table>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Running ACF</a></p>
+<hr />
+</body>
+
+</html>

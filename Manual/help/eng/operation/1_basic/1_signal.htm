@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Signal input and output</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Basic measurement procedure</a></p>
+<hr />
+
+<h5>Signal input and output</h5>
+When measuring sound, analog signal is first converted to digital signal in the soundboard. Then, the digital signal is put in the mixer device in Windows and is taken in to RA. When replaying the test signals created in RA's signal generator, the signal passes the same course in the opposite direction. Windows' sound control program (volume control) is used to select input / output device and to adjust the volume.<br />
+<br />
+<b>Input/output device setting and volume control</b><br />
+<br />
+<b>Signal output:</b> RA outputs the digital signal (WAVE signal) to the Windows sound mixer. Output volume is adjusted by the Windows volume control. <br />
+<img src="../img/basic_1.gif" alt="" /><br />
+Open the Windows volume control (Playback). Check the Mute except for WAVE.<br />
+<img src="../img/basic_2.png" alt="" /><br />
+<br />
+Another important function to control the output volume is "Digital Output" in the signal generator. This volume adjusts the range of the digital signal, to make the signal not to be distorted. It is important to remember that many soundboards' performance becomes poor around their maximum output level. Before the measurement, it is highly recommended to check the distortion of the output signal (<a href="../2_adjustment/index.htm">Adjustment before a measurement</a>).<br />
+<img src="../img/basic_3.png" alt="" /><br />
+<br />
+<b>Signal input:</b> RA inputs the A/D converted signal from the Windows sound mixer. Microphone input, line-in, WAVE signal, and so, can be measured similarly. <br />
+<img src="../img/basic_4.gif" alt="" /><br />
+Select the input device in the main window of RA. To measure the signal generator's output, select WAVE/DirectSound as below. <br />
+<img src="../img/basic_5.png" alt="" /><br />
+In actual measurements, "line" is used as the input device. If your PC does not have a line-in terminal, microphone input terminal can also be used. But note that the quality of PC's mic-in terminal is not good in general. Alternatively, a soundcard with USB or PCMCIA interface is available. Adjustment of the input volume is done by the Windows volume control or by the volume control in RA's main window. These two controls are interlinked for ease of use.<br />
+
+
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Basic measurement procedure</a></p>
+<hr />
+</body>
+
+</html>

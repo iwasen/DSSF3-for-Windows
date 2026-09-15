@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Microphone calibration</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">FFT Analyzer</a></p>
+<hr />
+
+<h5>Microphone calibration</h5>
+For the measurement of the sound pressure level (SPL), an input level sensitivity can be calibrated. The sound level meter or the acoustic calibrator can be used for the calibration. Microphone's frequency response can also be compensated, if you have the data provided from the manufacturer. This compensation is useful if you are measuring the frequency response of the audio device, such as the amplifier and the loudspeaker.<br />
+<br />
+This is a convenient function even though you don't need to calibrate SPL. Once the input level is adjusted and saved in the calibration window, input volume is re-adjusted automatically when the calibration data is selected.<br />
+<br />
+Read <a href="../../operation/3_microphone/1_caribration.htm">Operation Guide 3. Microphone setting</a> for a step by step instruction of microphone calibration.<br />
+<img src="../img/fft_5.png" alt="" /><br />
+<br />
+<b>Items in the Calibration dialog</b><br />
+<table>
+	<tr>
+		<th>Items</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Calibration Data list</td>
+		<td>Calibration data already stored in the database is displayed. </td>
+	</tr>
+	<tr>
+		<td>OK</td>
+		<td>Applies the selected calibration data.</td>
+	</tr>
+	<tr>
+		<td>Release</td>
+		<td>Releases the already applied calibration data.</td>
+	</tr>
+	<tr>
+		<td>Cancel</td>
+		<td>Closes the dialog without doing anything.</td>
+	</tr>
+	<tr>
+		<td>Edit</td>
+		<td>Opens the edit window for the calibration data.</td>
+	</tr>
+</table>
+<br />
+<img src="../img/fft_6.png" alt="" /><br />
+<b>Items in the Calibration dialog, edit window</b>
+<table>
+	<tr>
+		<th>Items</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Calibration Data list</td>
+		<td>Calibration data already stored in the database is displayed.</td>
+	</tr>
+	<tr>
+		<td>OK</td>
+		<td>Applies the selected calibration data.</td>
+	</tr>
+	<tr>
+		<td>Release</td>
+		<td>Releases the already applied calibration data.</td>
+	</tr>
+	<tr>
+		<td>Cancel</td>
+		<td>Closes the dialog without doing anything.</td>
+	</tr>
+	<tr>
+		<td>New</td>
+		<td>Saves the new calibration data. </td>
+	</tr>
+	<tr>
+		<td>Overwrite</td>
+		<td>Makes a change to the already stored calibration data.</td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>Deletes the selected calibration data.</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<th>Items</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Information</td>
+		<td>Microphone Info., Mic Amp. Info. (optional), and Comment (optional) can be saved with the calibration data. </td>
+	</tr>
+	<tr>
+		<td>Frequency Response</td>
+		<td>Frequency response data is edited for compensation. The frequency response curve is created by entering [Frequency] and [Level] values. Only four frequencies of 10, 100, 1000, and 10000 are appeared in the list, but the new frequency values can be added by entering the number in the Frequency box and clicking the [Set] button. </td>
+	</tr>
+	<tr>
+		<td class="nowrap">Sensitivity Adjustment</td>
+		<td>Input level is indicated in dB. Frequency weighting can be selected from Flat, A-, B-, C-weighting. The input level can be adjusted by moving the scrollbar. Test signal (1kHz tone) can be generated. Note that the sensitivity adjustment for measuring the absolute sound pressure level must be done with the sound level meter or the acoustic calibrator. </td>
+	</tr>
+</table>
+<br />
+<b><u>Note: Supplement explanation of microphone calibration</u></b><br />
+If you are using two or more microphones, or doing measurements in different settings, you can store the calibration data for each setting. The calibration data can be used as a preset for the input device settings. Once you save the calibration data, input volume is re-adjusted automatically when that calibration data is selected.<br />
+<br />
+It is important that a wide dynamic range and a high S/N ratio are obtained. So the calibration should be done by increasing the input level as much as possible with the expected sound level in the actual measurement. If necessary, several different calibration data can be used for different input sound level.<br />
+<br />
+In the following example, the frequency response curve of Sony ECM-999 is edited, before the measurement of the loudspeaker's frequency response. This microphone covers a wide frequency range and a wide dynamic range. By compensating the frequency curve, more accurate measurement would be possible.<br />
+<br />
+But note that the microphone compensation is recommended only for the frequency response measurement by using pink noise or white noise. For measuring transient sounds, we recommend to use the high quality microphone without compensation. It is because the amplitude spectrum (i.e. frequency response) can be compensated, but the phase spectrum (i.e. transient response) can not be compensated. Ideally, the microphone should have a flat frequency response and transient response to capture sound accurately, but generally it is not. Most microphones are adjusted so that they have balanced frequency response and transient response. If only the frequency response is compensated, its transient response is distorted. It is no problem for measuring the stationary sound such as pink noise and white noise, but it causes problems for measuring the transient sound (music, speech, etc.).<br />
+<img src="../img/fft_7.png" alt="" /><br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">FFT Analyzer</a></p>
+<hr />
+</body>
+
+</html>

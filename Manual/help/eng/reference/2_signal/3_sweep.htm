@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sweep</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Signal Generator</a></p>
+<hr />
+
+<h5>Sweep</h5>
+Signal generator can also generate a sweep signal. Sweep is a tone signal of which frequency is changed continuously between the specified range (From, To) with the specified speed. In the logarithmic sweep, the frequency increases with a fixed rate of octave change per time (octave/sec). This means that every octave contains the same energy. Its long time spectrum is same as the pink noise.<br />
+<br />
+Sweep is a good signal for testing the loudspeaker. Waterfall display with a sweep signal is a very useful measure for the crossover network of the loudspeaker. By changing the sweeping frequency range and its speed, it can be tested in a various way.<br />
+<img src="../img/signal_7.png" alt="" /><br />
+<b>Items in Sweep generator</b><br />
+<table>
+	<tr>
+		<th colspan="2">Item</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td class="nowrap">Frequency</td>
+		<td>From<br />To</td>
+		<td>The frequency sweep is generated from the frequency inputted in the [From] to the frequency inputted in the [To]. This is the logarithmic sweep, of which the frequency increases with a fixed rate of octave change per time. It means that the energy is constant within octave bands and it decreases at 3dB/oct.</td>
+	</tr>
+	<tr>
+		<td>Level</td>
+		<td>From<br />To</td>
+		<td>The start level and end level of a sweep are set up. </td>
+	</tr>
+	<tr>
+		<td colspan="2">Sweep Time</td>
+		<td>Sweep Rate [octave/sec].</td>
+	</tr>
+	<tr>
+		<td colspan="2">Loop</td>
+		<td>Normally, a sweep signal is outputted only once. If [Loop] is checked, the output is repeated.</td>
+	</tr>
+	<tr>
+		<td colspan="2">Waveform</td>
+		<td>Select the waveform of output sound.</td>
+	</tr>
+</table>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Signal Generator</a></p>
+<hr />
+</body>
+
+</html>

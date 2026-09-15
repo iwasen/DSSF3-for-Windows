@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Pulse</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Signal Generator</a></p>
+<hr />
+
+<h5>Pulse</h5>
+Pulse signal is generated with specified length, number of time, interval, and polarity. This is used for the measurement of the impulse response or the polarity of the loudspeaker.<br />
+<img src="../img/signal_8.png" alt="" /><br />
+<table>
+	<tr>
+		<th>Item</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Width of Pulse</td>
+		<td>Specify a width of pulse [ms].</td>
+	</tr>
+	<tr>
+		<td>Number of Pulse</td>
+		<td>Specify a number of output pulses. If [Repeat] is checked, it will be repeated for the number of pulses until the Stop button is clicked.</td>
+	</tr>
+	<tr>
+		<td>Period</td>
+		<td>Specify a period of the pulses [ms].</td>
+	</tr>
+	<tr>
+		<td>Polarity</td>
+		<td>Specify a polarity of pulses.<br />
+			<img src="../img/signal_9.png" alt="" />
+		</td>
+	</tr>
+</table>
+<br />
+<b><u>Note:</u></b><br />
+On the pulse generator window, the width of pulse is set to 0.023 ms. Number of pulse is 1 and its period is 10 ms. To check the waveform of this pulse, the recorder is used as below. Open the recorder window and check the "Recording" mode. Then click the start button on the signal generator. Output signal is automatically recorded. The figure below is the result. One pulse is recorded at 10 ms.<br />
+<img src="../img/signal_10.png" alt="" /><br />
+The recorded waveform is zoomed in to x19 in the figure below. In this figure, we can see that the very short pulse with the maximum volume is recorded. If the width of pulse was set to longer values, the waveform becomes square. If the polarity was set to "-", the amplitude becomes negative values.<br />
+<br />
+The recorded sound can be saved as a wav format. A wav file can also be loaded on the recorder, and by using the "Playback" mode, it is automatically measured by the FFT analyzer or the oscilloscope.<br />
+<img src="../img/signal_11.png" alt="" /><br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Signal Generator</a></p>
+<hr />
+</body>
+
+</html>

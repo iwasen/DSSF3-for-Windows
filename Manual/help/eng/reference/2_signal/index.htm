@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Signal Generator</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a></p>
+<hr />
+
+<h5>Signal Generator</h5>
+	<ol>
+		<li><a href="1_tone.htm">Tone</a></li>
+		<li><a href="2_noise.htm">Noise</a></li>
+		<li><a href="3_sweep.htm">Sweep</a></li>
+		<li><a href="4_pulse.htm">Pulse</a></li>
+		<li><a href="5_composition.htm">Synthesis</a></li>
+		<li><a href="6_scale.htm">Scale</a></li>
+		<li><a href="7_waveform.htm">Wave</a></li>
+	</ol>
+
+In the signal generator, several kinds of the test signals (tone, noise, sweep, pulse) are generated. Recently, new functions "Synthesis" and "Scale" have been added. These functions allow easy generation of the complex tone and the musical scale in a various waveforms. <br />
+<br />
+<b><u>Note</u></b><br />
+<br />
+<b>Selection of the output device is a same operation as in Windows.</b> When the sound is output from the loudspeakers, RA outputs the digital signal (WAVE signal) to the Windows sound mixer. Output volume is adjusted by the Windows volume control. To output the sound to external devices (e.g. amplifier), select "line" as the output device in Windows volume control.<br />
+<br />
+<b>Adjustment of output volume is done by Windows volume control.</b> Output volume of the signal is adjusted on the Windows volume control and PC's hard volume. Another important function to control the output volume is "Digital Output" in the signal generator. This is an original function of RA. This volume adjusts the range of the digital signal, to make the signal not to be distorted. It is important to remember that many soundboards' performance becomes poor around their maximum output level.<br />
+<br />
+<b>Selection of the input device is a same operation as in Windows.</b> To measure the sound and other signals by RA, selection of the soundcard and other input device, volume control, and combination of several input devices are controlled in Windows volume control.<br />
+<br />
+<b>Operation of the input microphones is same as in usual sound recording.</b> Usually, "line" is used as the input device. If your PC does not have the line-in terminal, use the microphone input terminal. Alternatively, a soundcard with USB interface is available. Adjustment of the input volume is done by the Windows volume control or by the volume control in RA's main window. These two controls are interlinked for ease of use.<br />
+<br />
+<b>Basic measurement procedure</b><br />
+Input sound can be listened to, be displayed and be measured at the same time. For the measurement of the performance of audio devices, input the test signal (by use of the signal generator) to the device and measure its output by the oscilloscope or the FFT analyzer. Measurement results can be saved as a picture file by using the Windows screen copy function (Alt + PrtScr). Our image database software, MMLIB, is also convenient.<br />
+<br />
+<b>Common items in the Signal Generator</b><br />
+<img src="../img/signal_1.png" alt="" /><br />
+<br />
+<b><u>Note:</u></b> The figure above is the signal generator window (Noise generator is selected). Just below the output "Start" button, elapsed time will be displayed. Sampling rate is now set to 44.1 kHz. There are two volume controls in this window. One is the "Digital Level", that controls the output level of the digital signal to the D/A converter. It is now set to 100%, meaning that the range of the digital signal is between -32767 and +32767 (maximum level in 16 bit resolution). But it is important to remember that most D/A converters cause distortion with such a high output level. Another is the "Output Level", that controls the analog amplifier's output level (after the D/A conversion). In addition, Windows volume control works to adjust the volume of the built in loudspeaker or the line-out. Note that adjusting the signal generator's output level and Windows volume control does not change the level of the digital signal. These volumes only work for the output of the loudspeaker or the line-out. Three volume controls mentioned are connected in series. It is important to adjust them not to cause distortion and to improve the S/N ratio at the same time. For how to do this, see the Operation Guide in the program manual.<br />
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Output Level</td>
+		<td>Adjustment of the analogue output level after the D/A converter. When the [Interlock] box is checked, left and right channels are outputted as the same level. This control is linked with the Windows' volume control.</td>
+	</tr>
+	<tr>
+		<td>Output</td>
+		<td>The output of sound signals starts by clicking the [Start] button.
+There is a stopwatch function. Time counter starts by clicking on the [Start] button and the time counter is displayed here during the output. The count lasts until the output is finished.</td>
+	</tr>
+	<tr>
+		<td class="nowrap">Sampling Rate</td>
+		<td>Number of sampling per second. Hardware is automatically checked and the available sampling rate is displayed. Generally, it is enough to use 44 kHz or 48 kHz.</td>
+	</tr>
+	<tr>
+		<td>Digital Level</td>
+		<td>Controls the output level of the digital signal that is fed into the D/A converter. This volume should be reduced if the output signal is distorted.</td>
+	</tr>
+	<tr>
+		<td>Exit</td>
+		<td>Signal Generator program finishes.</td>
+	</tr>
+</table>
+
+
+	
+	
+	
+	
+	
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a></p>
+<hr />
+</body>
+
+</html>

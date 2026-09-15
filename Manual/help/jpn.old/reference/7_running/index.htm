@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ACF/CCF測定</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a></p>
+<hr />
+
+<h5>ACF/CCF測定</h5>
+<ol>
+	<li><a href="1_window.htm">ACF測定画面の説明</a></li>
+	<li><a href="2_save.htm">ACF測定/[保存]機能</a></li>
+	<li><a href="3_load.htm">ACF測定/[読込]機能</a></li>
+</ol>
+<img src="../img/running_1.png" alt="" /><br />
+		<br />
+		FFT分析が周波数領域で解析を行うのに対して、ランニングACF分析は時間領域での解析を目的にしています。ランニングACFとは、測定対象の音声信号を、[計算周期]で設定した時間だけずらしながら、[積分時間]で設定した時間の範囲でACF（自己相関）を次々に計算して求めたものです。例として上の三次元のグラフでは、[積分時間]が2秒で[計算周期]が0.5秒なので、一番手前の青い線は0～2秒の間のACFを表し、そのひとつ奥の線は、0.5～2.5秒の間のACFを表しています。更にそれ以降も0.5秒ずつずらしながら2秒間のACFが表示されています。<br />
+		<br />
+		RAではランニングACFの測定と三次元表示、及び測定データのデータベースへの保存を行うことができますが、詳細な解析は音響分析システム(SA)で行います。<br />
+		<br />
+		<br />
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a></p>
+<hr />
+</body>
+
+</html>

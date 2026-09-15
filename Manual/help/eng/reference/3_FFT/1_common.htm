@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Common setting items</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">FFT Analyzer</a></p>
+<hr />
+
+<h5>Common setting items</h5>
+<img src="../img/fft_2.png" alt="" /><br />
+<table>
+	<tr>
+		<th class="nowrap">Commands or options</th>
+		<th>Descriptions</th>
+	</tr>
+	<tr>
+		<td>Input</td>
+		<td>Measurement starts with the [Start] button. Time counter starts when the Start button is clicked. The elapsed time is displayed here during a measurement.</td>
+	</tr>
+	<tr>
+		<td>Calibration</td>
+		<td>Microphone calibration data is managed. -><a href="3_mike.htm">Microphone calibration</a></td>
+	</tr>
+	<tr>
+		<td>SPL</td>
+		<td>Peak level or total level for L (= left) and R (= right) are displayed in [dB]. By a left-click on the graph, the level and the frequency at the cursor's location is displayed. By a right-click, the cursor on the graph disappears and the total level is displayed.</td>
+	</tr>
+	<tr>
+		<td>Frequency</td>
+		<td>Peak frequencies for L (= left) and R (= right) are displayed in [Hz], when the cursor appears on the graph. When the cursor disappears, it is shown as [All].</td>
+	</tr>
+	<tr>
+		<td>Resolution</td>
+		<td>Time resolution and frequency resolution are displayed.<br />
+				F: frequency resolution [Hz].<br />
+				T: time resolution [ms].<br />
+				<div align="right">Appendix: <a href="../appendix/6_function.htm">more info about time resolution and frequency resolution</a></div>
+		</td>
+	</tr>
+	<tr>
+		<td>Split L-R</td>
+		<td>If this checkbox is marked, screen is split in two and data for two channels are displayed separately.</td>
+	</tr>
+	<tr>
+		<td>Screen Copy</td>
+		<td>Click to capture the snapshot of the measurement screen. You can record any number of measurement screens during a measurement. It is convenient for comparison and printing of measurement results.</td>
+	</tr>
+	<tr>
+		<td>Data Rec. </td>
+		<td>Click to open the data logging window (only available in the octave band analyzer). Time series data of the octave band level with a specified interval can be saved as a .CSV format.	-><a href="4_data.htm">Data record</a></td>
+	</tr>
+	<tr>
+		<td>Output CSV</td>
+		<td>Output the measured data to a CSV Format file.</td>
+	</tr>
+	<tr>
+		<td>Exit</td>
+		<td>Finishes the "Realtime Analyzer".</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<th class="nowrap">Commands or options</th>
+		<th>Descriptions</th>
+	</tr>
+	<tr>
+		<td>Level Range</td>
+		<td>Set the display range of the sound pressure level (= vertical axis). Automatic and manual setting is available.</td>
+	</tr>
+	<tr>
+		<td>Freq. Range</td>
+		<td>Set the display range of the frequency (= horizontal axis). Automatic and manual setting is available.</td>
+	</tr>
+	<tr>
+		<td>Sampling Rate</td>
+		<td>Set the sampling rate of A/D conversion. </td>
+	</tr>
+	<tr>
+		<td>FFT Size</td>
+		<td>A block size of FFT (Fast Fourier Transform). It can be chosen between 1024 and 65536. Large FFT size causes fine frequency resolution and rough time resolution. Default setting can be used in most cases. </td>
+	</tr>
+	<tr>
+		<td>Time Window</td>
+		<td>The time window is used to decrease extra frequencies. Six window functions are available. Default setting can be used in most cases. </td>
+	</tr>
+	<tr>
+		<td>Channel Mode</td>
+		<td>Mono (L+R): Measured in a monaural mode of the soundcard.<br />
+				Stereo: Two channels are measured (left: blue, right: pink)<br />
+				Left only: Only left channel is measured<br />
+				Right only: Only right channel is measured<br />
+				Differ (L-R): Difference of L-R channels is measured<br />
+				<br />
+				<b>Note:</b> In a monaural mode (Mono), some sound cards input only the left channel, but some cards mix both channels into one channel. To measure only one channel input, use Left only or Right only mode.
+		</td>
+	</tr>
+	<tr>
+		<td>Freq. Weighting</td>
+		<td>Select the frequency weighting filter from Flat, A-weighting, B-weighting, and C-weighting. Normally, Flat weighting is recommended. For measuring the noise level, A-weighting is commonly used.</td>
+	</tr>
+	<tr>
+		<td class="nowrap">Smoothing (T.C.)</td>
+		<td>Smoothing coefficient is specified as time constant (ms or s). Standard sound level meter settings (fast: 125 ms or slow: 1s) are available. </td>
+	</tr>
+	<tr>
+		<td>Moving Average</td>
+		<td>When the time is specified (1sec to 10sec, or Infinite), the average value for this period is displayed.</td>
+	</tr>
+	<tr>
+		<td>Freq. Axis</td>
+		<td>Setting of the scale of the frequency axis.<br />
+				Logarithm: Rate of the frequency is constant in this scale.<br />
+				Linear: Difference of the frequency is constant in this scale.<br />
+		</td>
+	</tr>
+	<tr>
+		<td>Time Resolution</td>
+		<td>Refresh speed of the real-time display is specified. "1x" (standard), "2x" (double), "4x" (4 times), and "8x" (8 times) can be chosen. </td>
+	</tr>
+	<tr>
+		<td rowspan="2">Peak Detection</td>
+		<td>Peak: A peak location is indicated by the blue crossing (In the case of 2 channels, blue and red).</td>
+	</tr>
+	<tr>
+		<td>Peak Hold: Peak values are held for some seconds.<br />
+				Auto Reset: peak indication is refreshed with the specified period.<br />
+				Manual Reset: peak indication is refreshed when the "Reset" button is clicked.
+		</td>
+	</tr>
+	<tr>
+		<td>Time Range</td>
+		<td>It sets up in the range for 1 to 20 seconds. </td>
+	</tr>
+	<tr>
+		<td>Direction of Axis</td>
+		<td>Direction of the time axis in "Waterfall" and "Spectrogram". When [Forward] is selected, the time shifts forward on the screen. When [Backward] is selected, the time shifts backward.</td>
+	</tr>
+	<tr>
+		<td>Octave band</td>
+		<td>Bandwidth of the octave band analysis is selected from 1/1 to 1/24.</td>
+	</tr>
+	<tr>
+		<td>Color Scale</td>
+		<td>It is chosen whether by voiceprint display, the scale corresponding to a sound pressure level is displayed in a color, or it displays by the gradation of monochrome. </td>
+	</tr>
+	<tr>
+		<td>Correlation</td>
+		<td>ACF: Auto-correlation is displayed.<br />
+				CCF: Cross-correlation is displayed.<br />
+				Moving the "Zoom" slider makes it possible to zoom the correlation function to a suitable scale on time-axis.
+		</td>
+	</tr>
+	<tr>
+		<td>Auto Stop</td>
+		<td>If the number of seconds specified after starting measurement passes, it will stop automatically. </td>
+	</tr>
+	<tr>
+		<td><img src="../img/fft_3.png" alt="" /></td>
+		<td>Help button	 : click it to use a help function.<br />
+				Close button	: click to close the analyzer window.
+		</td>
+	</tr>
+</table>
+
+
+
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">FFT Analyzer</a></p>
+<hr />
+</body>
+
+</html>

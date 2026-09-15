@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>相関関数について</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">補足</a></p>
+<hr />
+
+<h5>相関関数について</h5>
+<div class="para">
+相互相関関数（Cross-correlation function）は、2つの時系列信号x（t）とy（t）がどれだけ似ているか（類似度）を調べるために使われるものです。一般に、信号の時間遅れτの関数として、時間とともに変化する類似度を表します。特に、時間τだけ遅れた信号と元の信号との相関を表すものは自己相関関数（Auto-correlation function: ACF）と呼ばれ、信号がその変動の中に隠れた周期変動成分を持っている場合、τがその周期と一致しているところで相関が高くなるという信号解析上有効な性質を持っています。ACFは次の式で定義されます。x（t）は入力信号、τは遅れ時間、２Tは積分時間を表します。RAで測定されるランニングACFは、信号を取り込む時間を少しずつずらしながら、時々刻々のACFを計算するものです。
+<img src="../img/appendix_4.gif" />
+</div>
+<div class="para">
+SAでは、ACFを計算する際に2つのパラメータ（積分区間、最大遅れ時間）を設定できます。下の図において、赤で示された範囲を積分区間、青で示された範囲を最大遅れ時間とします。積分区間として設定した区間分の信号を積分した値がACFの各サンプル（τ）における値になります。積分時間より最大遅れ時間が長い場合は、積分区間分の積分値（A'-B'とC-Dの積分値）を最大遅れ時間まで計算していきます。積分時間より最大遅れ時間が短い場合も同様に、最大遅れ時間まで計算します。つまり、ここで設定する最大遅れ時間は、ACFを計算する範囲を表すものです。
+</div>
+<img src="../img/appendix_4.gif" />
+<div class="para">
+相関関数の概念図　（赤の範囲が積分時間、青の範囲が最大遅れ時間）
+<img src="../img/appendix_5.gif" />
+</div>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">補足</a></p>
+<hr />
+</body>
+
+</html>

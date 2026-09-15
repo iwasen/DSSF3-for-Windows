@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>時間分解能、周波数分解能について</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">補足</a></p>
+<hr />
+
+<h5>時間分解能、周波数分解能について</h5>
+<div class="para">
+FFTアナライザでは、入力したwaveデータをFFTサイズ毎に取り出し、FFT処理を行った結果を表示しています。 その場合、表示間隔はサンプリングレートをFFTサイズで割ったものとなり、それが時間分解能となります。周波数分解能はその逆数です。
+</div>
+<div class="para">
+	<div class="ml10">時間分解能[s] ＝ FFTサイズ / サンプリングレート</div>
+	<div class="ml10">周波数分解能[Hz] ＝ 1 / 時間分解能 ＝ サンプリングレート / FFTサイズ</div>
+</div>
+<div class="para">
+この関係から、時間分解能を良くすれば周波数分解能が悪くなり、 周波数分解能を良くすれば時間分解能が悪くなってしまいます。
+</div>
+<div class="para">
+そこでRAでは、FFT処理をFFTサイズ毎に行うのではなく、より短い間隔でデータをずらしながら行うことにより、 周波数分解能を落とさずに見かけ上の時間分解能を上げることができるようになっています。 FFTアナライザの時間分解能の設定を2xにするとFFTサイズの1/2の間隔で、4xにすると1/4の間隔で FFT処理（表示）を行いますので、それぞれ時間分解能を上げることができます。
+</div>
+<div class="para">
+ただし、時間分解能を上げるとそれに伴い単位時間内のFFT処理および表示処理の回数も比例して増えますので、 CPUにより多くの負荷がかかります。WindowsのタスクマネージャでCPU使用率を見ながら、 あまり高くならない範囲で設定してください。
+</div>
+<div class="para">
+※RA Version 5.0.3.4以降では、時間分解能の設定がさらに8xまで可能になりました。
+</div>
+
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">リファレンス</a> &gt; <a href="index.htm">補足</a></p>
+<hr />
+</body>
+
+</html>

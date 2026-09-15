@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Items on the Impulse response window</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Impulse Response</a></p>
+<hr />
+
+<h5>Items on the Impulse response window</h5>
+<img src="../img/impulse_2.png" alt="" />
+<table>
+	<tr>
+		<th>Field</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Measurement</td>
+		<td>The measurement starts with [Start] button. Though the measurement finishes automatically, you can stop it with [Stop] button.</td>
+	</tr>
+	<tr>
+		<td>File</td>
+		<td>[Save...] button: Saves the data measured here. See: <a href="2_save.htm">Save measurement data</a><br />
+				[Load...] button: Loads the data stored previously. See: <a href="3_load.htm">Load measurement data</a>
+		</td>
+	</tr>
+	<tr>
+		<td>Sampling Rate</td>
+		<td>Available sampling rates of the sound card used are displayed.</td>
+	</tr>
+	<tr>
+		<td>Conditions</td>
+		<td>[Adjustment...] button: Input / output level, microphones position, measurement time are adjusted automatically. See: <a href="4_auto.htm">Adjustment</a></td>
+	</tr>
+	<tr>
+		<td>Measure Time</td>
+		<td>The time duration for measuring the impulse response. It is automatically adjusted. </td>
+	</tr>
+	<tr>
+		<td>Summation</td>
+		<td>The number of times that the measured impulse responses are added and averaged out. If this number becomes larger, S/N ratio is improved. But the time duration becomes longer.</td>
+	</tr>
+	<tr>
+		<td>Channels</td>
+		<td>Choose stereo (= 2 channels) or monaural (= 1 channel).</td>
+	</tr>
+	<tr>
+		<td>Method</td>
+		<td>The MLS method and the TSP method can be used in the impulse response measurement. It can be used only by choosing one of the MLS and the TSP.<br />
+				TSP is a signal in which the energy of an impulse is distributed on the time axis. In the TSP method, an impulse response is calculated by generating TSP signal, acquiring the response and returning the dispersed energy.
+</td>
+	</tr>
+	<tr>
+		<td>Auto level</td>
+		<td>It is adjusted so that an output level can become the most suitable. (The output signal is amplified within the range that the input doesn't become saturated, and S/N ratio is improved.)<br />
+				If you turn "Auto Level" off. You can adjust the sound volume (output level) using Windows sound volume control.</td>
+	</tr>
+	<tr>
+		<td>Auto Retry</td>
+		<td>Measurement will be repeated until distortion-free data can be obtained. You can release it at your option by switching on/off.</td>
+	</tr>
+	<tr>
+		<td>Correction</td>
+		<td>Unwanted response of the measurement system including microphone and loudspeaker is removed.<br />
+				[Setup...] button: Sets the Inverse filter.<br />
+				[Cancel] button: Cancels the Inverse filter.<br />
+				[Save...] button: Saves new Inverse filter.<br />
+				<div align="right">See: <a href="5_correction.htm">Correction (inverse filter setting)</a></div>
+		</td>
+	</tr>
+	<tr>
+		<td>Output Wave File</td>
+		<td>The data are saved in wave file format and text file format.</td>
+	</tr>
+	<tr>
+		<td>Play</td>
+		<td>Clicking on this enables to listen to the impulse response sound.</td>
+	</tr>
+		<tr>
+			<td>Launch SA</td>
+			<td>To analyze the measurement data to start the Sound Analyzer.</td>
+		</tr>
+	<tr>
+		<td>Exit</td>
+		<td>"Impulse Response" program is finished.</td>
+	</tr>
+	<tr>
+		<td><img src="../img/impulse_3.png" alt="" /></td>
+		<td>These buttons adjust the range of indication of impulse response.</td>
+	</tr>
+	<tr>
+		<td class="nowrap">Measurement Conditions</td>
+		<td>Various conditions of the measurement are shown. (Time, Measurement Time, Bits, Sampling Rate, Summation, Channels)</td>
+	</tr>
+</table>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Reference Manual</a> &gt; <a href="index.htm">Impulse Response</a></p>
+<hr />
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Frequency response compensation</title>
+<link href="../../css/main.css" rel="Stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Microphone setting</a></p>
+<hr />
+
+<h5>Frequency response compensation</h5>
+If you have the microphone's frequency response data provided by the manufacturer, it can be compensated on the calibration window. Follow the instruction below to make a microphone compensation data. <br />
+<br />
+<b>Note:</b> Microphone compensation is recommended only for the frequency response measurement by using pink noise or white noise. It is because the amplitude spectrum (i.e. frequency response) can be compensated, but the phase spectrum (i.e. transient response) can not be compensated. Ideally, the microphone should have a flat frequency response and transient response to capture sound accurately, but generally it is not. Most microphones are adjusted so that they have balanced frequency response and transient response. If only the frequency response is compensated, its transient response is distorted. It is no problem for measuring the stationary sound such as pink noise and white noise, but it causes problems for measuring the transient sound (music, speech, etc.). <br />
+<br />
+<table>
+	<tr>
+		<td>1)</td>
+		<td>Open the FFT analyzer and click the Calibration button.</td>
+	</tr>
+	<tr>
+		<td>2)</td>
+		<td>Calibration window opens. Click the Edit button. </td>
+	</tr>
+	<tr>
+		<td>3)</td>
+		<td>Edit window opens. Frequency Response curve on this window can be edited by entering the frequency and its level. For practice, select 10000 Hz from the list, enter 5 (dB) in the Level box, and click the Set button. Then the frequency curve changes as in the figure below. Only four frequencies of 10, 100, 1000, and 10000 are appeared in the list, but you can add the new frequencies by entering the frequency and its level in the boxes and clicking the Set button. <br />
+		<img src="../img/microphone_3.png" alt="" width="504" />
+		</td>
+	</tr>
+	<tr>
+		<td>4)</td>
+		<td>Edit the frequency response curve to match those of the microphone. <br />
+		<img src="../img/microphone_4.png" alt="" width="503" /><br />
+		In this example, the following frequencies were edited to make a frequency response curve (0deg.) below. <br />
+		<table>
+			<tr>
+				<td class="nowrap">Frequency [Hz]</td>
+				<td>5</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>2</td>
+				<td>0</td>
+				<td>1</td>
+				<td>-10</td>
+			</tr>
+			<tr>
+				<td>Frequency</td>
+				<td>40</td>
+				<td>150</td>
+				<td>200</td>
+				<td>3k</td>
+				<td>4k</td>
+				<td>10k</td>
+				<td>12k</td>
+				<td>16k</td>
+				<td>20k</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>5)</td>
+		<td>Enter the Microphone Info., Mic Amp. Info. (optional) and Comment (optional), and click the New button. It appears on the calibration data list. To use the stored calibration data, just select the microphone data from the list.</td>
+	</tr>
+</table>
+<p class="rt">DSSF3 &gt; <a href="../../index.htm">RA</a> &gt; <a href="../index.htm">Operation Guide</a> &gt; <a href="index.htm">Microphone setting</a></p>
+<hr />
+</body>
+
+</html>
