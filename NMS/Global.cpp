@@ -2,7 +2,6 @@
 #include "Nms.h"
 #include "mixer.h"
 #include "SetData.h"
-#include <mmsystem.h>
 
 CSetData g_oSetData;
 HICON g_hIcon;

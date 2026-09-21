@@ -740,10 +740,6 @@ void CAcfDlg::OnGraphNorm()
 
 void CAcfDlg::DispWaveGraph()
 {
-	SCROLLINFO si;
-	int nScrollSize;
-	int nScrollPos;
-
 	if (m_fDispTime == 0)
 		m_fDispTime = m_fTotalTime;
 	else if (m_fDispTime < MIN_DISP_TIME)
@@ -756,13 +752,14 @@ void CAcfDlg::DispWaveGraph()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
 		m_nScrollPos = nScrollPos;
 
+		SCROLLINFO si;
 		si.cbSize = sizeof(SCROLLINFO);
 		si.fMask = SIF_ALL;
 		si.nMin = 0;
@@ -1290,6 +1287,7 @@ void CAcfDlg::OnSize(UINT nType, int cx, int cy)
 	}
 }
 
+#pragma warning (disable: 6277)
 void CAcfDlg::OnBnClickedLaunchSa()
 {
 	HWAVEDATA hWaveData = MakeWaveDataHandle(m_nSamplingRate, m_nBitsPerSample, m_nChannel, m_nWaveBufSize, m_pWaveBuf, NULL);

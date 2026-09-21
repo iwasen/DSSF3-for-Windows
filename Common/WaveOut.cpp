@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include <mmsystem.h>
 #include "WaveOut.h"
 #include "Mixer.h"
 #include "Common.h"

@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include <mmsystem.h>
 #include <mmreg.h>
-#include <ks.h>
-#include <ksmedia.h>
 #include "wavefile.h"
 #include "common.h"
 

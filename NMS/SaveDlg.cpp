@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "Nms.h"
 #include "SaveDlg.h"
-#include "NmsDoc.h"
 #include "NmsItem.h"
 #include "Help\ContextHelp.h"
 

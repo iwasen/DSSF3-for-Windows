@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "Sas.h"
 #include "AcfFactor.h"
-#include "SasDoc.h"
 #include "SasView.h"
 #include "CalcAcf.h"
 #include "AcfScDlg.h"

@@ -176,6 +176,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -205,6 +206,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -229,6 +231,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -260,6 +263,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -286,6 +290,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -315,6 +320,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -339,6 +345,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -370,6 +377,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
+      <DisableSpecificWarnings>6031;26495</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>

@@ -8,7 +8,6 @@
 #include "MicCalDlg.h"
 #include "FileIO.h"
 #include "WaveInEx.h"
-#include "WaveOut.h"
 #include "DataRecordDlg.h"
 #include "Regist.h"
 #include "Help\ContextHelp.h"

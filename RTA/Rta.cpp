@@ -5,7 +5,6 @@
 #include "Rta.h"
 #include "RtaDlg.h"
 #include "ParentWnd.h"
-#include "Mixer.h"
 #include "WaveInEx.h"
 #include "WaveOutEx.h"
 #include "UpdateAp.h"

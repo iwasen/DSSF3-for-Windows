@@ -5,8 +5,6 @@
 #include "Nms.h"
 #include "NmsDoc.h"
 #include "MeasureSetDlg.h"
-#include <mmsystem.h>
-#include "WaveIn.h"
 #include "SplWnd.h"
 #include "PeakLevelWnd.h"
 #include "NmsFactor.h"

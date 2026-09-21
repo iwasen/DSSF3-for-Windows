@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "RTA.h"
 #include "FftWndEx.h"
-#include "FftDlg.h"
 
 static CString s_sTab2("\t\t");
 

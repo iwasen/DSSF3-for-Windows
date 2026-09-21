@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "Common.h"
 #include "FileIO.h"
 
 void UpdateNsWeightData()

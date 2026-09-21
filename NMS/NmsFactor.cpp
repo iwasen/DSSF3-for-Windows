@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "Nms.h"
-#include "NmsDoc.h"
 #include "NmsFactor.h"
 #include "SetData.h"
 #include "Help\ContextHelp.h"

@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "Nms.h"
-#include "NmsDoc.h"
 #include "ChangeNoiseSrcDlg.h"
 #include "NoiseSourceDlg.h"
 #include "Help\ContextHelp.h"

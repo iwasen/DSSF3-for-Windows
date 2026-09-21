@@ -5,7 +5,6 @@
 #include "RTA.h"
 #include "SgWave.h"
 #include "WaveEditDlg.h"
-#include "WaveEditManual.h"
 #include "Help\ContextHelp.h"
 
 #define MIN_POS		0

@@ -1,5 +1,4 @@
 #include "StdAfx.h"
-#include "Rta.h"
 #include "Noise.h"
 #include "Mrnd.h"
 

@@ -6,7 +6,6 @@
 #include "OsDlg.h"
 #include "OsCalDlg.h"
 #include "WaveInEx.h"
-#include "WaveOut.h"
 #include "Regist.h"
 #include "Help\ContextHelp.h"
 
