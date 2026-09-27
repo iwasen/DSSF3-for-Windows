@@ -16,7 +16,7 @@ public:
 	void Redraw();
 	BOOL WaveOutData(double *pData, int nBitsPerSample);
 	BOOL WaveInData(const double *pData);
-	BOOL CheckDataExist();
+	BOOL CheckDataExist() const;
 	BOOL CheckDataHold();
 	void CsvOutput(LPCTSTR pFileName);
 	HBITMAP GetBitmap();
@@ -65,7 +65,7 @@ protected:
 	void InitLevelSlider();
 	void SetLevel(int nLevel);
 	void FreeBuffers();
-	double CalcFreqResponse(const double *pData, double fFreq, const DbMicCalRec &oMicCalData);
+	double CalcFreqResponse(const double *pData, double fFreq, const DbMicCalRec &oMicCalData) const;
 
 	DECLARE_MESSAGE_MAP()
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート

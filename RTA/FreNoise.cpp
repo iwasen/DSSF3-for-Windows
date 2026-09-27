@@ -229,7 +229,7 @@ void CFreNoise::SetResolutionList()
 	CString sText;
 
 	m_cResolution.ResetContent();
-	for (int i = 0; i < sizeof(s_tFftSize) / sizeof(int); i++) {
+	for (int i = 0; i < ARRAY_SIZE(s_tFftSize); i++) {
 		sText.Format("%.1f Hz", (double)g_oSetData.Fre.nSamplingRate / s_tFftSize[i]);
 		m_cResolution.AddString(sText);
 	}
@@ -241,7 +241,7 @@ void CFreNoise::SetAveragingList()
 	CString sText;
 
 	m_cAveraging.ResetContent();
-	for (int i = 0; i < sizeof(s_tTimeConstant) / sizeof(int); i++) {
+	for (int i = 0; i < ARRAY_SIZE(s_tTimeConstant); i++) {
 		sText.Format("%d s", s_tTimeConstant[i]);
 		m_cAveraging.AddString(sText);
 	}
@@ -353,7 +353,7 @@ void CFreNoise::CalcFreqResponse(double *pWave, double *pData, const double *m_p
 	}
 }
 
-BOOL CFreNoise::CheckDataExist()
+BOOL CFreNoise::CheckDataExist() const
 {
 	return m_bValidData != 0;
 }
@@ -387,13 +387,15 @@ void CFreNoise::ReadCsv(CCsvFile &oCsvFile)
 		double fFreq;
 		double fLeftData;
 		double fRightData;
-	} oCsvData;
+	};
 	CList<SCsvData, SCsvData&> oCsvDataList;
 
 	while (oCsvFile.Input()) {
-		oCsvData.fFreq = oCsvFile.GetDouble(0);
-		oCsvData.fLeftData = oCsvFile.GetDouble(1);
-		oCsvData.fRightData = oCsvFile.GetDouble(2);
+		SCsvData oCsvData{
+			.fFreq = oCsvFile.GetDouble(0),
+			.fLeftData = oCsvFile.GetDouble(1),
+			.fRightData = oCsvFile.GetDouble(2)
+		};
 		oCsvDataList.AddTail(oCsvData);
 	}
 
@@ -422,7 +424,7 @@ void CFreNoise::ReadCsv(CCsvFile &oCsvFile)
 	}
 
 	while (oCsvDataList.GetCount() != 0) {
-		oCsvData = oCsvDataList.RemoveHead();
+		SCsvData oCsvData = oCsvDataList.RemoveHead();
 		*pFreq++ = oCsvData.fFreq;
 		*pLeftData++ = pow(10.0, oCsvData.fLeftData / 10);
 		if (m_nChannel == 2) {

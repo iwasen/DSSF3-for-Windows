@@ -13,7 +13,7 @@ public:
 	void SelectDB(char type);
 	void DeleteItem(long nItemID);
 	void ChangeTitle(long nItemID, LPCTSTR pTitle);
-	void Export(long *pIDs, int nItem, LPCTSTR pItemName);
+	void Export(long *pIDs, int nItem, LPCTSTR pItemName) const;
 	void Import(long nID);
 
 protected: // シリアライズ機能のみから作成します。

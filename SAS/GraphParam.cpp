@@ -174,7 +174,7 @@ void CGraphParam::DispParamWindow()
 	int nData = m_pDbAcParamRec->nDataNum;
 	double fScaleMin, fScaleMax, fScaleStep;
 	LPCTSTR pTitle;
-	char *vAxis;
+	LPCSTR vAxis;
 	int nRemark;
 	int i;
 	CString str, str2;

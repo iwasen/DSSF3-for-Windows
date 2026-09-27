@@ -59,19 +59,20 @@ void CAutoRecDlg::OnOK()
 void CAutoRecDlg::OnBnClickedButtonReference()
 {
 	char dst_file[MAX_PATH];
-	BROWSEINFO binfo;
 	CString sTitle;
 
 	sTitle.LoadString(IDS_SAVE_FOLDER);
 	strcpy_s(dst_file, g_oSetData2.sAutoRecFolder);
-	binfo.hwndOwner = m_hWnd;
-	binfo.pidlRoot = NULL;
-	binfo.pszDisplayName = dst_file;
-	binfo.lpszTitle = sTitle;
-	binfo.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI;
-	binfo.lpfn = &BrowseCallbackProc;
-	binfo.lParam = (LPARAM)dst_file;
-	binfo.iImage = (int)NULL;
+	BROWSEINFO binfo{
+		.hwndOwner = m_hWnd,
+		.pidlRoot = NULL,
+		.pszDisplayName = dst_file,
+		.lpszTitle = sTitle,
+		.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI,
+		.lpfn = &BrowseCallbackProc,
+		.lParam = (LPARAM)dst_file,
+		.iImage = 0
+	};
 	LPITEMIDLIST idlist = ::SHBrowseForFolder(&binfo);
 	if (idlist) {
 		::SHGetPathFromIDList(idlist, dst_file);

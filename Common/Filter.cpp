@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "MakeFilter.h"
+#include "Common.h"
 #include "Spline.h"
 
 static const FilterData AFilter[] = {
@@ -47,15 +48,15 @@ BOOL MakeFilterTbl2(double *pFilterTbl, int nData, double fRate, int nFilterType
 		break;
 	case FILTER_A:
 		pFilterData = AFilter;
-		nFilterData = sizeof(AFilter) / sizeof(FilterData);
+		nFilterData = ARRAY_SIZE(AFilter);
 		break;
 	case FILTER_B:
 		pFilterData = BFilter;
-		nFilterData = sizeof(BFilter) / sizeof(FilterData);
+		nFilterData = ARRAY_SIZE(BFilter);
 		break;
 	case FILTER_C:
 		pFilterData = CFilter;
-		nFilterData = sizeof(CFilter) / sizeof(FilterData);
+		nFilterData = ARRAY_SIZE(CFilter);
 		break;
 	default:
 		return FALSE;

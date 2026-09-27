@@ -22,7 +22,6 @@ CNmsItem::CNmsItem()
 	m_fDataTime = 0;
 	m_nNmsFactorData = 0;
 	m_pNmsFactorData = NULL;
-	memset(&m_NoiseSrcData, 0, sizeof(NoiseSrcData));
 	m_nNoiseTmpID = -1;
 	m_bLearning = FALSE;
 }

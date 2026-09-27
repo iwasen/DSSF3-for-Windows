@@ -253,7 +253,7 @@ BOOL CAcfFactor::ReadData()
 			m_fAdjustPhi0 = GetAdjustPhi0(m_nFolderID, pAcfCondition->nPhi0RefData, pAcfCondition->fPhi0RefLevel);
 			m_bCalculated = TRUE;
 		} else {
-			memset(&m_dbAcfFactorRec, 0, sizeof(m_dbAcfFactorRec));
+			m_dbAcfFactorRec = {};
 			m_fAdjustPhi0 = 0;
 			m_bCalculated = FALSE;
 		}
@@ -279,7 +279,7 @@ BOOL CAcfFactor::ReadData()
 	m_cScreenCopy.EnableWindow(m_bCalculated);
 	m_cCsvOutput.EnableWindow(m_bCalculated);
 
-	SetWindowText(m_nAcfID != -2 ? m_dbAcfRec.sTitle : SA_ACF_TITLE);
+	SetWindowText(m_nAcfID != -2 ? (LPCSTR)m_dbAcfRec.sTitle : SA_ACF_TITLE);
 
 	m_bChangeData = FALSE;
 
@@ -485,7 +485,7 @@ void CAcfFactor::InitAcfFactorList()
 {
 	struct LISTCOLUMN {
 		UINT nID;
-		char *text;
+		LPCSTR text;
 		int width;
 	};
 	static const LISTCOLUMN tColumnHeader1[] = {
@@ -545,20 +545,20 @@ void CAcfFactor::InitAcfFactorList()
 	case 1:
 		if (m_dbAcfRec.nChannel == 1) {
 			pColumnHeader = tColumnHeader1;
-			m_nColumn = sizeof(tColumnHeader1) / sizeof(LISTCOLUMN);
+			m_nColumn = ARRAY_SIZE(tColumnHeader1);
 			pUnit = tUnit1;
 		} else {
 			pColumnHeader = tColumnHeader2;
-			m_nColumn = sizeof(tColumnHeader2) / sizeof(LISTCOLUMN);
+			m_nColumn = ARRAY_SIZE(tColumnHeader2);
 		}
 		break;
 	case 2:
 		pColumnHeader = tColumnHeaderTau;
-		m_nColumn = sizeof(tColumnHeaderTau) / sizeof(LISTCOLUMN);
+		m_nColumn = ARRAY_SIZE(tColumnHeaderTau);
 		break;
 	case 3:
 		pColumnHeader = tColumnHeaderPhi;
-		m_nColumn = sizeof(tColumnHeaderPhi) / sizeof(LISTCOLUMN);
+		m_nColumn = ARRAY_SIZE(tColumnHeaderPhi);
 		break;
 	default:
 		return;
@@ -1263,15 +1263,15 @@ HDIB CAcfFactor::GraphCopy()
 
 CString CAcfFactor::GetDataText()
 {
-	LVCOLUMN lvc;
 	int i, j;
 	CString data;
 	char text[32];
 
-	memset(&lvc, 0, sizeof(lvc));
-	lvc.mask = LVCF_TEXT;
-	lvc.pszText = text;
-	lvc.cchTextMax = sizeof(text);
+	LVCOLUMN lvc{
+		.mask = LVCF_TEXT,
+		.pszText = text,
+		.cchTextMax = sizeof(text)
+	};
 
 	for (i = 0; i < m_nColumn; i++) {
 		m_cFactorList.GetColumn(i, &lvc);

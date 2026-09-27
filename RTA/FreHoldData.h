@@ -20,6 +20,6 @@ public:
 			int nLeftDataSize, int nRightDataSize, int nFreqSize,
 			double *pLeftData, double *pRightData, double *pFreq);
 	void FreeBuffers();
-	void Save(CFile &oFile);
+	void Save(CFile &oFile) const;
 	void Load(CFile &oFile);
 };

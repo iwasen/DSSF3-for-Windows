@@ -28,8 +28,7 @@ void CDstFreqWnd::Initialize()
 	m_penLightGray.CreatePen(PS_SOLID, 0, COLOR_LIGHTGRAY);
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(90, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -101,7 +100,6 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 	CSize size;
 	CString sText;
 	CRect rect;
-	double fStep;
 	double fTHD;
 	int nTHD;
 	CString sUnit;
@@ -155,6 +153,7 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 		double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
 		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
+			double fStep;
 			for (fTHD = fMinTHD, i = 0; fTHD <= fMaxTHD * 1.0001; fTHD += fStep, i++) {
 				y = m_nScaleBottom - (int)((dB20((double)fTHD) - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
 

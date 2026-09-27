@@ -196,10 +196,9 @@ void CNmsFactor::DispGraph()
 
 void CNmsFactor::InitNmsFactorList()
 {
-	LV_COLUMN lvc;
 	struct LISTCOLUMN {
 		UINT nID;
-		char *text;
+		LPCSTR text;
 		int width;
 	};
 	static const LISTCOLUMN tColumnHeader[] = {
@@ -217,19 +216,19 @@ void CNmsFactor::InitNmsFactorList()
 	CString str;
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;
-	int size = sizeof(tColumnHeader) / sizeof(LISTCOLUMN);
+	int size = ARRAY_SIZE(tColumnHeader);
 
 	for (int i = 0; i < size; i++, pColumnHeader++) {
-		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-		lvc.fmt = LVCFMT_RIGHT;
 		if (pColumnHeader->nID == 0)
 			str = pColumnHeader->text;
 		else
 			str.LoadString(pColumnHeader->nID);
-//		str += tUnit[i];
-		lvc.pszText = (LPTSTR)(LPCSTR)str;
-
-		lvc.cx = CDpi::AdjustDpi(pColumnHeader->width, 92);
+		LV_COLUMN lvc{
+			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
+			.fmt = LVCFMT_RIGHT,
+			.cx = CDpi::AdjustDpi(pColumnHeader->width, 92),
+			.pszText = (LPTSTR)(LPCSTR)str
+		};
 		m_cFactorList.InsertColumn(i, &lvc);
 	}
 }
@@ -347,9 +346,9 @@ void CNmsFactor::OnCancel()
 
 void CNmsFactor::OnDestroy()
 {
-	WINDOWPLACEMENT winpl;
-
-	winpl.length = sizeof(WINDOWPLACEMENT);
+	WINDOWPLACEMENT winpl{
+		.length = sizeof(WINDOWPLACEMENT)
+	};
 	GetWindowPlacement(&winpl);			// ダイアログ表示位置取得
 	g_oSetData.FactorWindow.left = winpl.rcNormalPosition.left;
 	g_oSetData.FactorWindow.top = winpl.rcNormalPosition.top;

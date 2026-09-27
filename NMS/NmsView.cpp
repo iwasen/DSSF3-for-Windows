@@ -95,10 +95,9 @@ CNmsDoc* CNmsView::GetDocument() // 非デバッグ バージョンはインラインです。
 
 void CNmsView::SetListHeader()
 {
-	LV_COLUMN lvc;
 	struct LISTCOLUMN {
 		UINT nID;
-		char *text;
+		LPCSTR text;
 		int fmt;
 		int width;
 	};
@@ -119,18 +118,19 @@ void CNmsView::SetListHeader()
 	CString str;
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;
-	int size = sizeof(tColumnHeader) / sizeof(LISTCOLUMN);
+	int size = ARRAY_SIZE(tColumnHeader);
 
 	for (int i = 0; i < size; i++, pColumnHeader++) {
-		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-		lvc.fmt = pColumnHeader->fmt;
 		if (pColumnHeader->nID == 0)
 			str = pColumnHeader->text;
 		else
 			str.LoadString(pColumnHeader->nID);
-		lvc.pszText = (LPTSTR)(LPCSTR)str;
-
-		lvc.cx = CDpi::AdjustDpi(pColumnHeader->width);
+		LV_COLUMN lvc{
+			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
+			.fmt = pColumnHeader->fmt,
+			.cx = CDpi::AdjustDpi(pColumnHeader->width),
+			.pszText = (LPTSTR)(LPCSTR)str
+		};
 		GetListCtrl().InsertColumn(i, &lvc);
 	}
 }

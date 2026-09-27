@@ -16,7 +16,7 @@ public:
 	void Stop();
 	void StartManualSampling();
 	void StopManualSampling();
-	BOOL InCalculating();
+	BOOL InCalculating() const;
 	void ResetCounter();
 	void Recalclation();
 	void WaveFileMeasuring(LPCTSTR pWaveFileName);
@@ -63,7 +63,7 @@ protected:
 
 	void AutoMeasuring(LPWAVENOTIFY pWaveNotify);
 	void ManualMeasuring(LPWAVENOTIFY pWaveNotify);
-	double CalcPower(double fData);
+	double CalcPower(double fData) const;
 	BOOL SaveSampleData();
 	void FreeBuffers();
 	static UINT CalcThreadEntry(LPVOID pParam);

@@ -94,15 +94,16 @@ void CDataRecordDlg::OnBnClickedFileSave()
 		CHeaderCtrl *pHeaderCtrl = m_cDataList.GetHeaderCtrl();
 		int nItem = m_cDataList.GetItemCount();
 		int nColumn = pHeaderCtrl->GetItemCount();
-		HDITEM hdItem;
 		char textBuf[32];
 
 		for (j = 0; j < nColumn; j++) {
 			if (j != 0)
 				fprintf(fp, ",");
-			hdItem.mask = HDI_TEXT;
-			hdItem.pszText = textBuf;
-			hdItem.cchTextMax = sizeof(textBuf);
+			HDITEM hdItem{
+				.mask = HDI_TEXT,
+				.pszText = textBuf,
+				.cchTextMax = sizeof(textBuf)
+			};
 			pHeaderCtrl->GetItem(j, &hdItem);
 			fprintf(fp, "%s", textBuf);
 		}
@@ -327,16 +328,19 @@ int CALLBACK CDataRecordDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM
 {
 	CDataRecordDlg *pDlg = (CDataRecordDlg *)lParamSort;
 	CListCtrl &dataList = pDlg->m_cDataList;
-	LV_FINDINFO findInfo;
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam1;
-	int index1 = dataList.FindItem(&findInfo);
+	LV_FINDINFO findInfo1{
+		.flags = LVFI_PARAM,
+		.lParam = lParam1
+	};
+	int index1 = dataList.FindItem(&findInfo1);
 	double fData1 = atof(dataList.GetItemText(index1, pDlg->m_nSortItem));
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam2;
-	int index2 = dataList.FindItem(&findInfo);
+	LV_FINDINFO findInfo2{
+		.flags = LVFI_PARAM,
+		.lParam = lParam2
+	};
+	int index2 = dataList.FindItem(&findInfo2);
 	double fData2 = atof(dataList.GetItemText(index2, pDlg->m_nSortItem));
 
 	double fComp = (fData1 - fData2) * pDlg->m_nSortDir;

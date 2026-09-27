@@ -213,11 +213,9 @@ void CDstManual::Initialize()
 	FreeBuffers();
 	Redraw();
 
-	m_pLeftDst = new double[MAX_HARMONICS];
-	memset(m_pLeftDst, 0, sizeof(double) * MAX_HARMONICS);
+	m_pLeftDst = new double[MAX_HARMONICS]();
 	if (g_oSetData.Dst.nChannel == 1) {
-		m_pRightDst = new double[MAX_HARMONICS];
-		memset(m_pRightDst, 0, sizeof(double) * MAX_HARMONICS);
+		m_pRightDst = new double[MAX_HARMONICS]();
 	}
 
 	m_nAverageCnt = 0;
@@ -325,7 +323,7 @@ void CDstManual::CsvOutput(LPCTSTR pFileName)
 		m_cGraph.CsvOutput(oCsvFile, m_pLeftDst, m_pRightDst, m_nMaxHarmonics);
 }
 
-BOOL CDstManual::CheckDataExist()
+BOOL CDstManual::CheckDataExist() const
 {
 	return m_bValidData;
 }

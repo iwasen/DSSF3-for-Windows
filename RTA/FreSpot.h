@@ -16,7 +16,7 @@ public:
 	void Redraw();
 	BOOL WaveOutData(double *pData, int nBitsPerSample);
 	BOOL WaveInData(const double *pData);
-	BOOL CheckDataExist();
+	BOOL CheckDataExist() const;
 	BOOL CheckDataHold();
 	void CsvOutput(LPCTSTR pFileName);
 	HBITMAP GetBitmap();

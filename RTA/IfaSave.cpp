@@ -240,10 +240,6 @@ void CIfaSave::OnSave()
 
 void CIfaSave::DispIRWindow()
 {
-	SCROLLINFO si;
-	int nScrollSize;
-	int nScrollPos;
-
 	if (m_fDispTime == 0)
 		m_fDispTime = m_fTotalTime;
 	else if (m_fDispTime < m_fTotalTime / MAX_ZOOM_TIME)
@@ -256,19 +252,21 @@ void CIfaSave::DispIRWindow()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
 		m_nScrollPos = nScrollPos;
 
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = nScrollPos
+		};
 		m_cScroll.SetScrollInfo(&si, TRUE);
 	}
 

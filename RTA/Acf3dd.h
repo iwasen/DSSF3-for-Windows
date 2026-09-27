@@ -39,7 +39,7 @@ protected:
 	void Uninitialize2();
 	void SetBitmap();
 	void FreeBuffers();
-	void Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, double fSamplingRate);
+	void Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, double fSamplingRate) const;
 	void PaintSub(const DISPDATA *pDispData);
 
 	DECLARE_MESSAGE_MAP()

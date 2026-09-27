@@ -4,7 +4,7 @@ class CDssData {
 public:
 	CDssData();
 
-	void SaveData();
+	void SaveData() const;
 
 	char m_sDatabaseFolder[MAX_PATH];
 	char m_sBackupFolder[MAX_PATH];

@@ -428,7 +428,7 @@ void CNmsFactor::InitNmsFactorList()
 {
 	struct LISTCOLUMN {
 		UINT nID;
-		char *text;
+		LPCSTR text;
 		int width;
 	};
 	static const LISTCOLUMN tColumnHeader[] = {
@@ -455,7 +455,7 @@ void CNmsFactor::InitNmsFactorList()
 		return;
 
 	pColumnHeader = tColumnHeader;
-	m_nColumn = sizeof(tColumnHeader) / sizeof(LISTCOLUMN);
+	m_nColumn = ARRAY_SIZE(tColumnHeader);
 
 	for (int i = 0; i < m_nColumn; i++, pColumnHeader++) {
 		if (pColumnHeader->nID == 0)
@@ -968,12 +968,11 @@ HDIB CNmsFactor::GraphCopy()
 
 CString CNmsFactor::GetDataText()
 {
-	LVCOLUMN lvc;
 	int i, j;
 	CString data;
 	char text[32];
 
-	memset(&lvc, 0, sizeof(lvc));
+	LVCOLUMN lvc{};
 	lvc.mask = LVCF_TEXT;
 	lvc.pszText = text;
 	lvc.cchTextMax = sizeof(text);

@@ -58,7 +58,7 @@ void CDstHoldData::FreeBuffers()
 	}
 }
 
-void CDstHoldData::Save(CFile &oFile)
+void CDstHoldData::Save(CFile &oFile) const
 {
 	oFile.Write(&m_colorLeft, sizeof(m_colorLeft));
 	oFile.Write(&m_colorRight, sizeof(m_colorRight));

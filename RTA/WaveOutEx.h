@@ -24,8 +24,8 @@ public:
 	void Pause();
 	void Restart();
 	void SetVolume(UINT left, UINT right);
-	int GetSamplesPerSec();
-	int GetChannels();
+	int GetSamplesPerSec() const;
+	int GetChannels() const;
 	int GetBitsPerSample();
 
 protected:

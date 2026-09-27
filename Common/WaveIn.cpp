@@ -112,8 +112,7 @@ int CWaveIn::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 	LONG nRc = 0;
 
 	if (m_pWnd != NULL) {
-		WAVENOTIFY waveNotify;
-		memset(&waveNotify, 0, sizeof(waveNotify));
+		WAVENOTIFY waveNotify{};
 
 		if (pWaveHdr != NULL) {
 			int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
@@ -179,7 +178,7 @@ void CWaveIn::ConvertWaveToDouble(LPWAVEHDR pWaveHdr)
 	}
 }
 
-void CWaveIn::Start()
+void CWaveIn::Start() const
 {
 	if (m_hWave != NULL)
 		waveInStart(m_hWave);
@@ -216,13 +215,13 @@ void CWaveIn::Close()
 	}
 }
 
-void CWaveIn::Reset()
+void CWaveIn::Reset() const
 {
 	if (m_hWave != NULL)
 		waveInReset(m_hWave);
 }
 
-void CWaveIn::Stop()
+void CWaveIn::Stop() const
 {
 	if (m_hWave != NULL)
 		waveInStop(m_hWave);
@@ -317,7 +316,7 @@ LRESULT CWaveIn::OnWaveInData(WPARAM /*wParam*/, LPARAM lParam)
 	return 0L;
 }
 
-int CWaveIn::GetBitsPerSample()
+int CWaveIn::GetBitsPerSample() const
 {
 	return m_oWaveFormat.Format.wBitsPerSample;
 }

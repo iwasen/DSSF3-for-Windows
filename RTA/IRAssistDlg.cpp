@@ -86,8 +86,7 @@ BOOL CIRAssistDlg::OnInitDialog()
 	m_nTimeSave = g_oSetData.Imp.nTime;
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 #ifdef _LANG_JPN
 	font.lfHeight = 200;
 #else
@@ -500,13 +499,13 @@ void CIRAssistDlg::OnPaint()
 
 void CIRAssistDlg::SetSwitch(int nSwitchNo)
 {
-	CButton *pSwitch[N_SWITCH];
-
 	m_nSwitchNo = nSwitchNo;
 
-	pSwitch[0] = &m_cSwitch1;
-	pSwitch[1] = &m_cSwitch2;
-	pSwitch[2] = &m_cSwitch3;
+	CButton* pSwitch[N_SWITCH]{
+		&m_cSwitch1,
+		&m_cSwitch2,
+		&m_cSwitch3
+	};
 
 	for (int i = 0; i < N_SWITCH; i++) {
 		if (i == m_nSwitchNo) {

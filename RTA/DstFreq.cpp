@@ -344,7 +344,7 @@ void CDstFreq::CsvOutput(LPCTSTR pFileName)
 		m_cGraph.CsvOutput(oCsvFile, m_pLeftDst[g_oSetData.Dst.nFreqHD], m_pRightDst[g_oSetData.Dst.nFreqHD], m_pFreq, m_nFreqCount);
 }
 
-BOOL CDstFreq::CheckDataExist()
+BOOL CDstFreq::CheckDataExist() const
 {
 	return m_bValidData && m_nFreqCount != 0;
 }

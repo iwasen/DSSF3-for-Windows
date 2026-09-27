@@ -16,7 +16,7 @@ public:
 	void DispGraph2(const double *pData, int nData, int nChannel, int nLR, int nOffset, int nLength);
 	void SetPenColor(COLORREF color);
 	void SetSelectArea(double startTime, double endTime, BOOL bErase = TRUE);
-	void GetSelectArea(double *startTime, double *endTime);
+	void GetSelectArea(double *startTime, double *endTime) const;
 	void SetReplayPosition(double fReplayTime);
 
 protected:
@@ -53,7 +53,7 @@ protected:
 	void Initialize2();
 	void Uninitialize2();
 	void SetBitmap(double startTime, double dispTime);
-	void SetMouseCursor(CPoint point);
+	void SetMouseCursor(CPoint point) const;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();

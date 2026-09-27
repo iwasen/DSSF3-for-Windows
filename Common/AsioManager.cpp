@@ -304,7 +304,7 @@ void CAsioManager::CloseDriver()
 	m_bAsioStart = FALSE;
 }
 
-int CAsioManager::GetBufSize()
+int CAsioManager::GetBufSize() const
 {
 	int nBufSize = m_nPreferredSize;
 
@@ -684,12 +684,12 @@ int CAsioManager::GetBitsPerSample(int nType)
 	return nBits;
 }
 
-int CAsioManager::GetBitsPerSampleIn()
+int CAsioManager::GetBitsPerSampleIn() const
 {
 	return GetBitsPerSample(m_asioChannelInfo[0].type);
 }
 
-int CAsioManager::GetBitsPerSampleOut()
+int CAsioManager::GetBitsPerSampleOut() const
 {
 	return GetBitsPerSample(m_asioChannelInfo[2].type);
 }

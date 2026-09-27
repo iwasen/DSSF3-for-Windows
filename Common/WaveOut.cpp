@@ -110,8 +110,7 @@ int CWaveOut::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 	LONG nRc = 0;
 
 	if (m_pWnd != NULL) {
-		WAVENOTIFY waveNotify;
-		memset(&waveNotify, 0, sizeof(waveNotify));
+		WAVENOTIFY waveNotify{};
 
 		if (pWaveHdr != NULL) {
 			int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
@@ -228,25 +227,25 @@ void CWaveOut::Close()
 	}
 }
 
-void CWaveOut::Reset()
+void CWaveOut::Reset() const
 {
 	if (m_hWave != NULL)
 		waveOutReset(m_hWave);
 }
 
-void CWaveOut::Pause()
+void CWaveOut::Pause()const
 {
 	if (m_hWave != NULL)
 		waveOutPause(m_hWave);
 }
 
-void CWaveOut::Restart()
+void CWaveOut::Restart() const
 {
 	if (m_hWave != NULL)
 		waveOutRestart(m_hWave);
 }
 
-void CWaveOut::SetVolume(UINT left, UINT right)
+void CWaveOut::SetVolume(UINT left, UINT right) const
 {
 	if (m_hWave != NULL)
 		waveOutSetVolume(m_hWave, (right << 16) | left);
@@ -353,7 +352,7 @@ LRESULT CWaveOut::OnWaveOutDone(WPARAM /*wParam*/, LPARAM lParam)
 	return 0L;
 }
 
-int CWaveOut::GetBitsPerSample()
+int CWaveOut::GetBitsPerSample() const
 {
 	return m_oWaveFormat.Format.wBitsPerSample;
 }

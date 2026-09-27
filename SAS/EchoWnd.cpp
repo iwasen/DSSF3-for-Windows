@@ -83,8 +83,7 @@ void CEchoWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc,
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -431,10 +430,15 @@ void CEchoWnd::DispEnergy(double totalTime, double startTime, double dispTime, c
 	m_dcMem.SelectObject(pPenOrg);
 
 	if (!m_sTitle.IsEmpty()) {
-		REMARK_INFO remark;
-		remark.nRemark = 1;
-		remark.remarks[0].pen = NULL;
-		remark.remarks[0].text = m_sTitle;
+		REMARK_INFO remark{
+			.nRemark = 1,
+			.remarks{
+				{
+					.pen = NULL,
+					.text = m_sTitle
+				}
+			}
+		};
 		m_wndRemark.DispRemarks(&remark);
 	}
 
@@ -488,7 +492,7 @@ BOOL CEchoWnd::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/)
 	return TRUE;
 }
 
-void CEchoWnd::SetMouseCursor(CPoint /*point*/)
+void CEchoWnd::SetMouseCursor(CPoint /*point*/) const
 {
 	HCURSOR hCursor;
 

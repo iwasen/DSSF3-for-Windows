@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "MSeq.h"
+#include "Common.h"
 
 static const MSeqParam tMSeqParam[] = {
 	{10, 2, {3, 10},       {3, 13, 19, 30, 104, 152, 177, 325, 904, 1009}},
@@ -41,11 +42,11 @@ void CMSeq::InitMethod(int nStage)
 	if (nStage == 0)
 		return;
 
-	for (i = 0; i < sizeof(tMSeqParam) / sizeof(MSeqParam); i++) {
+	for (i = 0; i < ARRAY_SIZE(tMSeqParam); i++) {
 		if (tMSeqParam[i].nBit == nStage)
 			break;
 	}
-	if (i == sizeof(tMSeqParam) / sizeof(MSeqParam))
+	if (i == ARRAY_SIZE(tMSeqParam))
 		i = 0;
 
 	FreeBuffers();

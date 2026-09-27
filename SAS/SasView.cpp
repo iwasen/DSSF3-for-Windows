@@ -100,7 +100,6 @@ void CSasView::SetHeader(int nHeader)
 	const LISTCOLUMN *pColumn;
 	int nColumn;
 	CString str;
-	LV_COLUMN lvc;
 	CListCtrl &lc = GetListCtrl();
 	CHeaderCtrl &hc = *lc.GetHeaderCtrl();
 
@@ -112,16 +111,16 @@ void CSasView::SetHeader(int nHeader)
 	switch (nHeader) {
 	case HEADER_FOLDER:
 		pColumn = tColumnFolder;
-		nColumn  = sizeof(tColumnFolder) / sizeof(LISTCOLUMN);
+		nColumn  = ARRAY_SIZE(tColumnFolder);
 		break;
 	case HEADER_IR:
 	case HEADER_ACF:
 		pColumn = tColumnIR;
-		nColumn  = sizeof(tColumnIR) / sizeof(LISTCOLUMN);
+		nColumn  = ARRAY_SIZE(tColumnIR);
 		break;
 	case HEADER_NMS:
 		pColumn = tColumnNms;
-		nColumn  = sizeof(tColumnNms) / sizeof(LISTCOLUMN);
+		nColumn  = ARRAY_SIZE(tColumnNms);
 		break;
 	default:
 		return;
@@ -129,11 +128,13 @@ void CSasView::SetHeader(int nHeader)
 
 	GetListCtrl().SetImageList(&imageList, LVSIL_SMALL);
 	for (int i = 0; i < nColumn; i++) {
-		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-		lvc.fmt = pColumn->fmt;
 		str.LoadString(pColumn->textID);
-		lvc.pszText = (LPTSTR)(LPCSTR)str;
-		lvc.cx = CDpi::AdjustDpi(pColumn->width);
+		LV_COLUMN lvc{
+			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
+			.fmt = pColumn->fmt,
+			.cx = CDpi::AdjustDpi(pColumn->width),
+			.pszText = (LPTSTR)(LPCSTR)str
+		};
 		lc.InsertColumn(i, &lvc);
 		pColumn++;
 	}
@@ -371,7 +372,6 @@ void CSasView::DrawNMS()
 	CString str;
 	long nRec;
 	BOOL bEof;
-	NoiseSrcData noiseSrcData;
 	long nBytes;
 
 	SetHeader(HEADER_NMS);
@@ -383,7 +383,7 @@ void CSasView::DrawNMS()
 		if (bEof)
 			break;
 
-		memset(&noiseSrcData, 0, sizeof(noiseSrcData));
+		NoiseSrcData noiseSrcData{};
 		dbNms.DBReadBinary("NOISESRC", &noiseSrcData, sizeof(noiseSrcData), &nBytes);
 
 		if (!dbNms.ReadRecNext(&dbNmsRec))
@@ -557,15 +557,18 @@ int CALLBACK CSasView::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lPara
 {
 	CSasView *pView = (CSasView *)lParamSort;
 	CListCtrl &lc = pView->GetListCtrl();
-	LV_FINDINFO findInfo;
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam1;
-	int index1 = lc.FindItem(&findInfo);
+	LV_FINDINFO findInfo1{
+		.flags = LVFI_PARAM,
+		.lParam = lParam1
+	};
+	int index1 = lc.FindItem(&findInfo1);
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam2;
-	int index2 = lc.FindItem(&findInfo);
+	LV_FINDINFO findInfo2{
+		.flags = LVFI_PARAM,
+		.lParam = lParam2
+	};
+	int index2 = lc.FindItem(&findInfo2);
 
 	return lc.GetItemText(index1, pView->m_nSortItem).Compare(lc.GetItemText(index2, pView->m_nSortItem)) * pView->m_nSortDir;
 }
@@ -575,9 +578,10 @@ long CSasView::GetNextItem(long impulseID)
 	CListCtrl &lc = GetListCtrl();
 	int index;
 
-	LV_FINDINFO findInfo;
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = impulseID | ID_DATA;
+	LV_FINDINFO findInfo{
+		.flags = LVFI_PARAM,
+		.lParam = impulseID | ID_DATA
+	};
 	if ((index = lc.FindItem(&findInfo)) == -1)
 		return -1;
 
@@ -592,9 +596,10 @@ long CSasView::GetPrevItem(long impulseID)
 	CListCtrl &lc = GetListCtrl();
 	int index;
 
-	LV_FINDINFO findInfo;
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = impulseID | ID_DATA;
+	LV_FINDINFO findInfo{
+		.flags = LVFI_PARAM,
+		.lParam = impulseID | ID_DATA
+	};
 	if ((index = lc.FindItem(&findInfo)) == -1)
 		return -1;
 

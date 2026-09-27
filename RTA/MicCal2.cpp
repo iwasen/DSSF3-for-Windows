@@ -81,8 +81,7 @@ BOOL CMicCal2::OnInitDialog()
 	m_cLevelBar.SetScrollPos((int)(m_fInputSens * 10), FALSE);
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = 140;
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -127,14 +126,15 @@ void CMicCal2::InitFreqList()
 		{IDS_LEVEL, 55}
 	};
 	CString str;
-	LV_COLUMN lvc;
 
-	for (int i = 0; i < sizeof(tColumn) / sizeof(LISTCOLUMN); i++) {
-		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-		lvc.fmt = LVCFMT_LEFT;
+	for (int i = 0; i < ARRAY_SIZE(tColumn); i++) {
 		str.LoadString(tColumn[i].textID);
-		lvc.pszText = (LPTSTR)(LPCSTR)str;
-		lvc.cx = CDpi::AdjustDpi(tColumn[i].width, 92);
+		LV_COLUMN lvc{
+			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
+			.fmt = LVCFMT_LEFT,
+			.cx = CDpi::AdjustDpi(tColumn[i].width, 92),
+			.pszText = (LPTSTR)(LPCSTR)str
+		};
 		m_cFreqList.InsertColumn(i, &lvc);
 	}
 
@@ -259,9 +259,10 @@ void CMicCal2::OnFreqRegist()
 	CString str;
 	str.Format("%g", m_fFreq);
 
-	LV_FINDINFO findInfo;
-	findInfo.flags = LVFI_STRING;
-	findInfo.psz = str;
+	LV_FINDINFO findInfo{
+		.flags = LVFI_STRING,
+		.psz = str
+	};
 	if ((index = m_cFreqList.FindItem(&findInfo)) == -1) {
 		if (m_cFreqList.GetItemCount() == MICCAL_NFREQ) {
 			str.FormatMessage(IDS_MSG_INPUTNDATA, MICCAL_NFREQ);
@@ -291,9 +292,10 @@ void CMicCal2::OnFreqDelete()
 	CString str;
 	str.Format("%g", m_fFreq);
 
-	LV_FINDINFO findInfo;
-	findInfo.flags = LVFI_STRING;
-	findInfo.psz = str;
+	LV_FINDINFO findInfo{
+		.flags = LVFI_STRING,
+		.psz = str
+	};
 	if ((index = m_cFreqList.FindItem(&findInfo)) != -1) {
 		m_cFreqList.DeleteItem(index);
 	}
@@ -406,24 +408,23 @@ void CMicCal2::WaveInData(double *pData)
 {
 	int i, j;
 	double xt, yt;
-	double fftBuf[WAVEBUF_SAMPLESPERBUFFER];
+	double *pFftBuf = new double[WAVEBUF_SAMPLESPERBUFFER];
 
-	for (i = 0; i < WAVEBUF_SAMPLESPERBUFFER; i++) {
-		fftBuf[i] = *pData++;
-		pData++;
-	}
+	memcpy(pFftBuf, pData, sizeof(double) * WAVEBUF_SAMPLESPERBUFFER);
 
-	m_oRFFT.fft(WAVEBUF_SAMPLESPERBUFFER, fftBuf);
+	m_oRFFT.fft(WAVEBUF_SAMPLESPERBUFFER, pFftBuf);
 
 	double fPower = 0;
 	for (i = 1; i < WAVEBUF_SAMPLESPERBUFFER / 2; i++) {
 		j = i * 2;
 
-		xt = fftBuf[j] * m_pFilterTbl[i];
-		yt = fftBuf[j + 1] * m_pFilterTbl[i];
+		xt = pFftBuf[j] * m_pFilterTbl[i];
+		yt = pFftBuf[j + 1] * m_pFilterTbl[i];
 
 		fPower += xt * xt + yt * yt;
 	}
+
+	delete [] pFftBuf;
 
 	m_fMeanBuf[m_nMeanBufPtr] = fPower * 4;
 	if (++m_nMeanBufPtr >= N_MEAN)

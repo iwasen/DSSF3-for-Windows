@@ -30,8 +30,7 @@ void CDstManualWnd::Initialize()
 	m_penRight.CreatePen(PS_SOLID, 0, COLOR_RIGHT);
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(90, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);

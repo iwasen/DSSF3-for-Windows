@@ -141,12 +141,12 @@ void CWaveOutEx::SetVolume(UINT left, UINT right)
 		m_oWaveOut.SetVolume(left, right);
 }
 
-int CWaveOutEx::GetSamplesPerSec()
+int CWaveOutEx::GetSamplesPerSec() const
 {
 	return m_nSamplesPerSec;
 }
 
-int CWaveOutEx::GetChannels()
+int CWaveOutEx::GetChannels() const
 {
 	return m_nChannels;
 }

@@ -589,7 +589,6 @@ BOOL CRtaDlg::SetInputSelect()
 {
 	if (g_nWaveInDevice >= 0) {
 		// WAVE
-		MIXERLINE mxl;
 		MIXERCONTROL mxc;
 		MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 		MIXERCONTROLDETAILS_LISTTEXT mxcdl[MAX_CONTROL_ID];
@@ -601,7 +600,7 @@ BOOL CRtaDlg::SetInputSelect()
 		m_cInputSelect.ResetContent();
 
 		// 録音マスターの LineID を取得
-		memset(&mxl, 0, sizeof(mxl));
+		MIXERLINE mxl{};
 		mxl.cbStruct = sizeof(mxl);
 		mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
 		if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
@@ -647,7 +646,7 @@ BOOL CRtaDlg::SetInputSelect()
 			m_nSelectInput = 0;
 			for (src = 0; src < m_dwSrcItems; src++) {
 				// 入力機器の LineID 取得
-				memset(&mxl, 0, sizeof(mxl));
+				MIXERLINE mxl{};
 				mxl.cbStruct = sizeof(mxl);
 				mxl.dwDestination = dst;
 				mxl.dwSource = src;
@@ -681,6 +680,9 @@ BOOL CRtaDlg::SetInputSelect()
 		OnSelchangeRaInputSelect();
 	} else {
 		// ASIO or WASAPI
+		m_nInputDevice = -1;
+		m_nSelectInput = -1;
+
 		m_cInputSelect.ResetContent();
 		m_cInputSelect.EnableWindow(FALSE);
 		m_cInputVolume.EnableWindow(FALSE);
@@ -691,7 +693,6 @@ BOOL CRtaDlg::SetInputSelect()
 /*
 void CRtaDlg::MuteMicAndLineIn()
 {
-	MIXERLINE mxl;
 	DWORD dst, src;
 	DWORD cSrcItems;
 	DWORD dwSrcRecMuteID;
@@ -702,7 +703,7 @@ void CRtaDlg::MuteMicAndLineIn()
 		return;
 
 	// 再生マスターの LineID を取得
-	memset(&mxl, 0, sizeof(mxl));
+	MIXERLINE mxl{};
 	mxl.cbStruct = sizeof(mxl);
 	mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
 	if (mixerGetLineInfo((HMIXEROBJ)dwMixerOutDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
@@ -713,7 +714,7 @@ void CRtaDlg::MuteMicAndLineIn()
 	dst = mxl.dwDestination;
 	for (src = 0; src < cSrcItems; src++) {
 		// 出力機器の LineID 取得
-		memset(&mxl, 0, sizeof(mxl));
+		MIXERLINE mxl{};
 		mxl.cbStruct = sizeof(mxl);
 		mxl.dwDestination = dst;
 		mxl.dwSource = src;
@@ -794,23 +795,24 @@ void CRtaDlg::OnDestroy()
 
 void CRtaDlg::GetInputDevice(int *pInputDevice, int *pInputVolume)
 {
+	*pInputDevice = m_nSelectInput;
 	if (m_nSelectInput >= 0) {
-		*pInputDevice = m_nSelectInput;
 		*pInputVolume = GetInputVolume(m_dwSrcRecVolID[m_nSelectInput]);
+	} else {
+		*pInputVolume = 0;
 	}
 }
 
 void CRtaDlg::SetInputDevice(int nInputDevice, int nInputVolume)
 {
-	if (nInputDevice >= m_nInputDevice)
-		return;
+	if (nInputDevice >= 0 && nInputDevice < m_nInputDevice) {
+		m_cInputSelect.SetCurSel(nInputDevice);
+		OnSelchangeRaInputSelect();
 
-	m_cInputSelect.SetCurSel(nInputDevice);
-	OnSelchangeRaInputSelect();
-
-	if (m_nSelectInput >= 0) {
-		SetInputVolume(m_dwSrcRecVolID[m_nSelectInput], nInputVolume);
-		m_cInputVolume.SetPos(GetInputVolume(m_dwSrcRecVolID[m_nSelectInput]) * 100 / 65535);
+		if (m_nSelectInput >= 0) {
+			SetInputVolume(m_dwSrcRecVolID[m_nSelectInput], nInputVolume);
+			m_cInputVolume.SetPos(GetInputVolume(m_dwSrcRecVolID[m_nSelectInput]) * 100 / 65535);
+		}
 	}
 }
 
@@ -1445,8 +1447,7 @@ HDIB CRtaDlg::CreateDIB(CWnd *pWnd)
 		if (bDwmEnable){
 			// エアロ環境
 			DwmGetWindowAttribute(pWnd->GetSafeHwnd(), DWMWA_EXTENDED_FRAME_BOUNDS, rect, sizeof(rect));
-		}
-		else{
+		} else {
 			// 非エアロ環境
 			pWnd->GetWindowRect(rect);
 		}
@@ -1465,8 +1466,9 @@ HDIB CRtaDlg::CreateDIB(CWnd *pWnd)
 	monInfo.cbSize = sizeof(MONITORINFOEX);
 	GetMonitorInfo(monitor, &monInfo);
 
-	DEVMODE monDeviceConfig;
-	monDeviceConfig.dmSize = sizeof(DEVMODE);
+	DEVMODE monDeviceConfig{
+		.dmSize = sizeof(DEVMODE)
+	};
 	EnumDisplaySettings(monInfo.szDevice, ENUM_CURRENT_SETTINGS, &monDeviceConfig);
 
 	// スケーリングが100%の時はそのウィンドウ、それ以外はタイトルバーが正常に取れないのでデスクトップウィンドウから転送

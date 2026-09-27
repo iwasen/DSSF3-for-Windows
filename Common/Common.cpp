@@ -56,7 +56,7 @@ void ResetSamplingRate()
 	bCheckSamplingRateIn = FALSE;
 	bCheckSamplingRateOut = FALSE;
 
-	for (int i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++)
+	for (int i = 0; i < ARRAY_SIZE(tSamplingRate); i++)
 		tSamplingRate[i].dwAvail = 0;
 }
 
@@ -82,7 +82,7 @@ void SetSamplingRateList(CComboBox &combo, int nInOut, INT_PTR nDeviceIn, INT_PT
 
 	combo.ResetContent();
 
-	for (int i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+	for (int i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 		if ((tSamplingRate[i].dwAvail & nInOut) == (DWORD)nInOut) {
 			strBuf.Format("%.3f kHz", (double)tSamplingRate[i].dwSamplingRate / 1000);
 			nIndex = combo.AddString(strBuf);
@@ -110,12 +110,11 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 	if (nDevice >= 0) {
 		// WAVE
 		WAVEINCAPS wic;
-		WAVEFORMATEX waveFormat;
 		DWORD dwAvail;
 
 		waveInGetDevCaps(nDevice, &wic, sizeof(wic));
 
-		for (i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			dwAvail = 0;
 
 			if (tSamplingRate[i].dwFormat) {
@@ -128,14 +127,15 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 				int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
 				int nBitsPerSample = 16;
 
-				waveFormat.wFormatTag = WAVE_FORMAT_PCM;
-				waveFormat.nChannels = (WORD)nChannels;
-				waveFormat.nSamplesPerSec = nSamplesPerSec;
-				waveFormat.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8);
-				waveFormat.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8));
-				waveFormat.wBitsPerSample = (WORD)nBitsPerSample;
-				waveFormat.cbSize = sizeof(waveFormat);
-
+				WAVEFORMATEX waveFormat{
+					.wFormatTag = WAVE_FORMAT_PCM,
+					.nChannels = (WORD)nChannels,
+					.nSamplesPerSec = (DWORD)nSamplesPerSec,
+					.nAvgBytesPerSec = (DWORD)(nSamplesPerSec * nChannels * (nBitsPerSample / 8)),
+					.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8)),
+					.wBitsPerSample = (WORD)nBitsPerSample,
+					.cbSize = sizeof(waveFormat)
+				};
 				if (waveInOpen(NULL, (UINT)nDevice, &waveFormat, 0, 0, WAVE_FORMAT_QUERY) == MMSYSERR_NOERROR)
 					dwAvail = WAVE_IN;
 			}
@@ -145,7 +145,7 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 #ifdef USE_WASAPI
 	} if (nDevice <= -100) {
 		// WASAPI
-		for (i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			if (g_cWasapiManager.CanSamplingRateIn(-(nDevice + 100), tSamplingRate[i].dwSamplingRate))
 				tSamplingRate[i].dwAvail |= WAVE_IN;
 		}
@@ -153,7 +153,7 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 #ifdef USE_ASIO
 	} else {
 		// ASIO
-		for (i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			if (g_cAsioManager.CanSamplingRate(-(nDevice + 1), tSamplingRate[i].dwSamplingRate))
 				tSamplingRate[i].dwAvail |= WAVE_IN;
 		}
@@ -168,12 +168,11 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 	if (nDevice >= 0) {
 		// WAVE
 		WAVEOUTCAPS woc;
-		WAVEFORMATEX waveFormat;
 		DWORD dwAvail;
 
 		waveOutGetDevCaps(nDevice, &woc, sizeof(woc));
 
-		for (i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			dwAvail = 0;
 
 			if (tSamplingRate[i].dwFormat) {
@@ -186,14 +185,15 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 				int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
 				int nBitsPerSample = 16;
 
-				waveFormat.wFormatTag = WAVE_FORMAT_PCM;
-				waveFormat.nChannels = (WORD)nChannels;
-				waveFormat.nSamplesPerSec = nSamplesPerSec;
-				waveFormat.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8);
-				waveFormat.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8));
-				waveFormat.wBitsPerSample = (WORD)nBitsPerSample;
-				waveFormat.cbSize = sizeof(waveFormat);
-
+				WAVEFORMATEX waveFormat{
+					.wFormatTag = WAVE_FORMAT_PCM,
+					.nChannels = (WORD)nChannels,
+					.nSamplesPerSec = (DWORD)nSamplesPerSec,
+					.nAvgBytesPerSec = (DWORD)(nSamplesPerSec * nChannels * (nBitsPerSample / 8)),
+					.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8)),
+					.wBitsPerSample = (WORD)nBitsPerSample,
+					.cbSize = sizeof(waveFormat)
+				};
 				if (waveOutOpen(NULL, (UINT)nDevice, &waveFormat, 0, 0, WAVE_FORMAT_QUERY) == MMSYSERR_NOERROR)
 					dwAvail = WAVE_OUT;
 			}
@@ -203,7 +203,7 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 #ifdef USE_WASAPI
 	} if (nDevice <= -100) {
 		// WASAPI
-		for (i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			if (g_cWasapiManager.CanSamplingRateOut(-(nDevice + 100), tSamplingRate[i].dwSamplingRate))
 				tSamplingRate[i].dwAvail |= WAVE_OUT;
 		}
@@ -211,7 +211,7 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 #ifdef USE_ASIO
 	} else {
 		// ASIO
-		for (i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			if (g_cAsioManager.CanSamplingRate(-(nDevice + 1), tSamplingRate[i].dwSamplingRate))
 				tSamplingRate[i].dwAvail |= WAVE_OUT;
 		}
@@ -223,7 +223,7 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 #if defined(_PRJ_RTA)
 int GetSamplingRateIndex(int nSamplingRate)
 {
-	for (int i = 0; i < sizeof(tSamplingRate) / sizeof(SAMPLING_RATE); i++) {
+	for (int i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 		if (nSamplingRate - 500 < (int)tSamplingRate[i].dwSamplingRate && nSamplingRate + 500 > (int)tSamplingRate[i].dwSamplingRate) {
 			return i;
 		}
@@ -286,7 +286,7 @@ BOOL ExecMMLib(CWnd *pWnd)
 	}
 
 	STARTUPINFO si = { sizeof(STARTUPINFO) };
-	PROCESS_INFORMATION pi = {};
+	PROCESS_INFORMATION pi{};
 	CString sCommandLine;
 	sCommandLine.Format("%s /C", g_DssData.m_sMmlibPath);
 	if (!::CreateProcess(NULL, (LPTSTR)(LPCSTR)sCommandLine, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi)) {
@@ -747,10 +747,9 @@ void DispContextHelp(const HELPINFO* pHelpInfo, const UINT *pIDs)
 	}
 
 	if (nHelpId != 0) {
-		HH_POPUP hp;
 		CString sHelpFile;
 
-		memset(&hp, 0, sizeof(HH_POPUP));
+		HH_POPUP hp{};
 		hp.cbStruct = sizeof(HH_POPUP);
 		hp.pt.x = pHelpInfo->MousePos.x;
 		hp.pt.y = pHelpInfo->MousePos.y;

@@ -382,9 +382,7 @@ int CSG::WaveOutSynth(LPWAVENOTIFY pWaveNotify)
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 	int i, j;
 	double *buf = new double[SG_SPB];
-	double *waveBuf = new double[SG_SPB];
-
-	memset(waveBuf, 0, sizeof(double) * SG_SPB);
+	double *waveBuf = new double[SG_SPB]();
 
 	for (i = 0; i < N_SG_COMPONENT; i++) {
 		if (g_oSetData.Sg.fCompFreq[i] != 0 && g_oSetData.Sg.nCompLevel[i] != 0) {
@@ -433,8 +431,7 @@ void CSG::Init()
 		if (m_pRingBuf != NULL)
 			delete [] m_pRingBuf;
 		m_nRingBufSize = SG_SPB + g_oSetData.Sg.nSamplingRate + 1;
-		m_pRingBuf = new double[m_nRingBufSize];
-		MEMCLEAR(m_pRingBuf, m_nRingBufSize);
+		m_pRingBuf = new double[m_nRingBufSize]();
 		m_nRingBufPtr = 0;
 		break;
 	case SG_MODE_SWEEP:

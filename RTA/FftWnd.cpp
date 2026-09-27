@@ -95,8 +95,7 @@ CFftWnd::CFftWnd()
 	m_brushBlack.CreateSolidBrush(COLOR_BLACK);
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	if (g_oSetData2.nFontSizeFft == 0)
 #ifdef _LANG_JPN
 		font.lfHeight = 90;
@@ -203,17 +202,13 @@ void CFftWnd::InitFFT()
 	m_pFftBufR = new double[m_nFftSize];
 	m_pFftBufM = new double[m_nFftSize];
 
-	m_pPhaseBuf = new double[nFftBufSize];
-	MEMCLEAR(m_pPhaseBuf, nFftBufSize);
+	m_pPhaseBuf = new double[nFftBufSize]();
 
-	m_pCrossBufRe = new double[nFftBufSize];
-	MEMCLEAR(m_pCrossBufRe, nFftBufSize);
+	m_pCrossBufRe = new double[nFftBufSize]();
 
-	m_pCrossBufIm = new double[nFftBufSize];
-	MEMCLEAR(m_pCrossBufIm, nFftBufSize);
+	m_pCrossBufIm = new double[nFftBufSize]();
 
-	m_pCoherenceBuf = new double[nFftBufSize];
-	MEMCLEAR(m_pCoherenceBuf, nFftBufSize);
+	m_pCoherenceBuf = new double[nFftBufSize]();
 
 	int nAverageNum = (g_oSetData.Fft.nAverage >= 0) ? g_oSetData.Fft.nAverage * m_nSamplingRate * g_oSetData.Fft.nTimeRes / m_nFftSize : -1;
 
@@ -228,18 +223,15 @@ void CFftWnd::InitFFT()
 	for (i = 0; i < 2; i++) {
 		FFTDATA *pFftData = &m_aFftData[i];
 
-		pFftData->m_pPowerSpecBuf = new double[nFftBufSize];
-		MEMCLEAR(pFftData->m_pPowerSpecBuf, nFftBufSize);
+		pFftData->m_pPowerSpecBuf = new double[nFftBufSize]();
 
 		pFftData->m_oPowerSpecBuf.Alloc(nFftBufSize, nAverageNum);
 
 		pFftData->m_pPwsPeakLevel = new double[nFftBufSize];
 
-		pFftData->m_pCrfBuf = new double[m_nFftSize];
-		MEMCLEAR(pFftData->m_pCrfBuf, m_nFftSize);
+		pFftData->m_pCrfBuf = new double[m_nFftSize]();
 
-		pFftData->m_pCepBuf = new double[m_nFftSize];
-		MEMCLEAR(pFftData->m_pCepBuf, m_nFftSize);
+		pFftData->m_pCepBuf = new double[m_nFftSize]();
 
 		pFftData->m_pCepPeakLevel = new double[nFftBufSize];
 
@@ -248,8 +240,7 @@ void CFftWnd::InitFFT()
 
 	m_pCrsPeakLevel = new double[nFftBufSize];
 
-	m_pCrsBuf = new double[nFftBufSize];
-	MEMCLEAR(m_pCrsBuf, nFftBufSize);
+	m_pCrsBuf = new double[nFftBufSize]();
 
 	m_pWindowFunc = new double[m_nFftSize];
 	MakeWindowFunc(g_oSetData.Fft.nFftWindowFunc, m_nFftSize, m_pWindowFunc, 2);
@@ -738,7 +729,7 @@ void CFftWnd::CalcSpectrum(const double *pFftBufL, const double *pFftBufR)
 	}
 }
 
-void CFftWnd::CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const double *pFilterTbl)
+void CFftWnd::CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const double *pFilterTbl) const
 {
 	int i, j;
 	double xt, yt;
@@ -1132,7 +1123,7 @@ void CFftWnd::DrawNote(LPCTSTR pText, int nTop, int nRight)
 {
 	CSize size;
 	int x, y;
-	LPSTR pDrawText;
+	LPCSTR pDrawText;
 
 	if (pText == NULL) {
 		switch (m_nChannel) {
@@ -1227,8 +1218,7 @@ HBITMAP CFftWnd::GetBitmap()
 
 FFTWINDOW *CFftWnd::AddFftWindow(int nMode, CWnd *pWnd, BOOL bMasterWindow)
 {
-	FFTWINDOW *pFftWindow = new FFTWINDOW;
-	memset(pFftWindow, 0, sizeof(FFTWINDOW));
+	FFTWINDOW *pFftWindow = new FFTWINDOW();
 	pFftWindow->m_nMode = nMode;
 	pFftWindow->m_pWnd = pWnd;
 	pFftWindow->m_pBitmap = new CBitmap;

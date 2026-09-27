@@ -79,7 +79,7 @@ BOOL CListViewEx::SetFullRowSel(BOOL bFullRowSel)
 	return(bRet);
 }
 
-BOOL CListViewEx::GetFullRowSel()
+BOOL CListViewEx::GetFullRowSel() const
 {
 	return(m_bFullRowSel);
 }
@@ -107,13 +107,14 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 // アイテム データを取得します。
 
-	LV_ITEM lvi;
-	lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE | LVIF_INDENT;
-	lvi.iItem = nItem;
-	lvi.iSubItem = 0;
-	lvi.pszText = szBuff;
-	lvi.cchTextMax = sizeof(szBuff);
-	lvi.stateMask = 0xFFFF;		// すべての状態フラグを取得します。
+	LV_ITEM lvi{
+		.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE | LVIF_INDENT,
+		.iItem = nItem,
+		.iSubItem = 0,
+		.stateMask = 0xFFFF,
+		.pszText = szBuff,
+		.cchTextMax = sizeof(szBuff)
+	};
 	ListCtrl.GetItem(&lvi);
 
 	BOOL bSelected = (bFocus || (GetStyle() & LVS_SHOWSELALWAYS)) && lvi.state & LVIS_SELECTED;
@@ -208,8 +209,9 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 // 特別なカラム用のラベルを描きます。
 
-	LV_COLUMN lvc;
-	lvc.mask = LVCF_FMT | LVCF_WIDTH;
+	LV_COLUMN lvc{
+		.mask = LVCF_FMT | LVCF_WIDTH
+	};
 
 	for(int nColumn = 1; ListCtrl.GetColumn(nColumn, &lvc); nColumn++)
 	{
@@ -457,11 +459,11 @@ void CListViewEx::OnKillFocus(CWnd* pNewWnd)
 
 void CListViewEx::SetItemColor(int nItem, int nColor)
 {
-	LVITEM lvi;
-
-	lvi.mask = LVIF_INDENT;
-	lvi.iItem = nItem;
-	lvi.iSubItem = 0;
-	lvi.iIndent = nColor;
+	LVITEM lvi{
+		.mask = LVIF_INDENT,
+		.iItem = nItem,
+		.iSubItem = 0,
+		.iIndent = nColor
+	};
 	GetListCtrl().SetItem(&lvi);
 }

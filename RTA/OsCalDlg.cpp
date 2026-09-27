@@ -72,7 +72,7 @@ void COsCalDlg::OnOK()
 	g_oSetData.Os.nCalType = m_iCalType;
 	g_oSetData.Os.fCalValue = m_cEditCalValue;
 	g_oSetData.Os.fCalLevel = GetCalLevel();
-	strcpy_s(g_oSetData.Os.sCalUnit, g_oSetData.Os.fCalValue != 0 ? (CString)m_cEditUnit : "");
+	strcpy_s(g_oSetData.Os.sCalUnit, g_oSetData.Os.fCalValue != 0 ? (LPCSTR)(CString)m_cEditUnit : "");
 
 	EndDialog(IDOK);
 }

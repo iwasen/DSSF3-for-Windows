@@ -365,7 +365,7 @@ void CDstLevel::CsvOutput(LPCTSTR pFileName)
 		m_cGraph.CsvOutput(oCsvFile, m_pLeftDst[g_oSetData.Dst.nLevelHD], m_pRightDst[g_oSetData.Dst.nLevelHD], m_pLevel, m_nLevelCount);
 }
 
-BOOL CDstLevel::CheckDataExist()
+BOOL CDstLevel::CheckDataExist() const
 {
 	return m_bValidData && m_nLevelCount != 0;
 }

@@ -25,8 +25,8 @@ public:
 	void Start();
 	void Stop();
 	void Reset();
-	int GetSamplesPerSec();
-	int GetChannels();
+	int GetSamplesPerSec() const;
+	int GetChannels() const;
 	int GetBitsPerSample();
 	void CreateWasapiSaveFile(int nChannels, int nSamplesPerSec, int nBitsPerSample);
 	void WriteWasapiSaveFile(LPWAVENOTIFY pWaveNotify);

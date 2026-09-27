@@ -54,9 +54,9 @@ void CPeakLevelWnd::OnOK()
 
 void CPeakLevelWnd::OnDestroy()
 {
-	WINDOWPLACEMENT winpl;
-
-	winpl.length = sizeof(WINDOWPLACEMENT);
+	WINDOWPLACEMENT winpl{
+		.length = sizeof(WINDOWPLACEMENT)
+	};
 	GetWindowPlacement(&winpl);			// ダイアログ表示位置取得
 	g_oSetData.PeakLevelWindow.left = winpl.rcNormalPosition.left;
 	g_oSetData.PeakLevelWindow.top = winpl.rcNormalPosition.top;

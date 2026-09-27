@@ -133,13 +133,14 @@ LRESULT CMeasurement::OnWaveInData(WPARAM /*wParam*/, LPARAM lParam)
 	LPWAVEHDR pWaveHdr = (LPWAVEHDR)lParam;
 
 	int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
-	WAVENOTIFY waveNotify;
-	waveNotify.pSamplesData = m_pSamplesBuffer;
-	waveNotify.nSamplesNum = pWaveHdr->dwBufferLength / nBytesPerSample;
-	waveNotify.nSamplesRecorded = pWaveHdr->dwBytesRecorded / nBytesPerSample;
-	waveNotify.nFlags = pWaveHdr->dwFlags;
-	waveNotify.nChannels = m_oWaveFormat.Format.nChannels;
-	waveNotify.nSamplesPerSec = m_oWaveFormat.Format.nSamplesPerSec;
+	WAVENOTIFY waveNotify{
+		.pSamplesData = m_pSamplesBuffer,
+		.nSamplesNum = (int)pWaveHdr->dwBufferLength / nBytesPerSample,
+		.nSamplesRecorded = (int)pWaveHdr->dwBytesRecorded / nBytesPerSample,
+		.nFlags = (int)pWaveHdr->dwFlags,
+		.nChannels = m_oWaveFormat.Format.nChannels,
+		.nSamplesPerSec = (int)m_oWaveFormat.Format.nSamplesPerSec
+	};
 
 	ConvertWaveToDouble(pWaveHdr);
 
@@ -343,7 +344,7 @@ void CMeasurement::StopManualSampling()
 	}
 }
 
-double CMeasurement::CalcPower(double fData)
+double CMeasurement::CalcPower(double fData) const
 {
 	double fPower;
 
@@ -466,7 +467,7 @@ void CMeasurement::CalcThread()
 	m_cExitEvent.SetEvent();
 }
 
-BOOL CMeasurement::InCalculating()
+BOOL CMeasurement::InCalculating() const
 {
 	return m_bInCalculating;
 }

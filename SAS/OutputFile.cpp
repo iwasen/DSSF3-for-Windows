@@ -931,16 +931,17 @@ void OutputListToCsv(CListCtrl &lc, const CString &pathName)
 	int nCol = hc.GetItemCount();
 	int nRow = lc.GetItemCount();
 	int i, j;
-	HDITEM hdi;
 	TCHAR  buf[256];
 
 	try {
 		CStdioFile file(pathName, CFile::modeCreate | CFile::modeWrite);
 
 		// ÉwÉbÉ_èoóÕ
-		hdi.mask = HDI_TEXT;
-		hdi.pszText = buf;
-		hdi.cchTextMax = sizeof(buf);
+		HDITEM hdi{
+			.mask = HDI_TEXT,
+			.pszText = buf,
+			.cchTextMax = sizeof(buf)
+		};
 		for (i = 0; i < nCol; i++) {
 			hc.GetItem(i, &hdi);
 			if (i != 0)

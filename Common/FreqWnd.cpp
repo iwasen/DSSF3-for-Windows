@@ -49,8 +49,7 @@ void CFreqWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF f
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -65,18 +64,25 @@ void CFreqWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF f
 	m_dcMem.SetTextColor(RGB(64, 64, 64));
 
 	if (pTitle != NULL) {
-		REMARK_INFO remark;
 		CString str1, str2;
-		remark.nRemark = nRemark;
-		remark.remarks[0].pen = NULL;
-		remark.remarks[0].text = pTitle;
-		remark.remarks[1].pen = &m_penFreq;
 		str1.LoadString(IDS_FREQRESP);
-		remark.remarks[1].text = str1;
-		remark.remarks[2].pen = &m_penPhase;
 		str2.LoadString(IDS_PHASE);
-		remark.remarks[3].text = str2;
 
+		REMARK_INFO remark{
+			.nRemark = nRemark,
+			.remarks{
+				{
+					.pen = NULL,
+					.text = pTitle
+				},{
+					.pen = &m_penFreq,
+					.text = str1
+				},{
+					.pen = &m_penPhase,
+					.text = str2
+				}
+			}
+		};
 		m_wndRemark.Create(this);
 		m_wndRemark.DispRemarks(&remark);
 	}
@@ -249,7 +255,7 @@ void CFreqWnd::DispGraph(const double *pFreqData, int nData, double fRate, int n
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
-	double fFreqStep = (double)fRate / nData;
+	double fFreqStep = fRate / nData;
 	double fStepY = (double)m_nScaleHeight / (nMinLevel - nMaxLevel);
 	double fTmp1 = (double)m_nScaleWidth / (fMaxFreqLog - fMinFreqLog);
 	double fTmp2 = (double)m_nScaleWidth / (nMaxFreq - nMinFreq);

@@ -78,12 +78,10 @@ AllFactorData *CalcAcfFactor1(HWAVEDATA hWaveData, int nWaveData, const AcfCondi
 	MakeFilterTbl2(pFilterTbl, nFftSize, fSamplingRate, pAcfCondition->nFreqWeighting, 20);
 
 	// 計算結果（４つのファクタ）格納エリア確保
-	AllFactorData *pAllFactorData = new AllFactorData[nStepCount];
-	memset(pAllFactorData, 0, sizeof(AllFactorData) * nStepCount);
+	AllFactorData *pAllFactorData = new AllFactorData[nStepCount]();
 
 	// 計算結果（τn, φn）格納エリア確保
-	*pTaunPhinData = new TaunPhinData[nStepCount];
-	memset(*pTaunPhinData, 0, sizeof(TaunPhinData) * nStepCount);
+	*pTaunPhinData = new TaunPhinData[nStepCount]();
 
 	// 積分実行回数分計算
 	for (i = 0; i < nStepCount; i++) {
@@ -161,12 +159,10 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 	double *pIAcfData = new double[nIAcfData];
 
 	// 計算結果格納エリア確保
-	AllFactorData *pAllFactorData = new AllFactorData[nStepCount];
-	memset(pAllFactorData, 0, sizeof(AllFactorData) * nStepCount);
+	AllFactorData *pAllFactorData = new AllFactorData[nStepCount]();
 
 	// 計算結果（τn, φn）格納エリア確保
-	*pTaunPhinData = new TaunPhinData[nStepCount];
-	memset(*pTaunPhinData, 0, sizeof(TaunPhinData) * nStepCount);
+	*pTaunPhinData = new TaunPhinData[nStepCount]();
 
 	// 積分実行回数分計算
 	for (i = 0; i < nStepCount; i++) {

@@ -456,8 +456,7 @@ void SetBackupList(CListCtrl &cListBackup, CStringArray &oBackupList)
 				if (::GetPrivateProfileString("backup", "time", "", time, sizeof(time), sIniFileName)) {
 					::GetPrivateProfileString("backup", "comment", "", comment, sizeof(comment), sIniFileName);
 
-					LVITEM lvitem;
-					memset(&lvitem, 0, sizeof(lvitem));
+					LVITEM lvitem{};
 					lvitem.mask = LVIF_TEXT | LVIF_PARAM;
 					lvitem.iItem = 0;
 					lvitem.pszText = time;

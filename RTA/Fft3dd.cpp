@@ -80,20 +80,28 @@ void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
-	POINT point[6];
-	point[0].x = nLeft2;
-	point[0].y = nBottom2;
-	point[1].x = nLeft1;
-	point[1].y = nBottom1;
-	point[2].x = nLeft1;
-	point[2].y = nTop1;
-	point[3].x = nRight1;
-	point[3].y = nTop1;
-	point[4].x = nRight2;
-	point[4].y = nTop2;
-	point[5].x = nRight2;
-	point[5].y = nBottom2;
-	m_dcMem.Polygon(point, 6);
+	POINT point[]{
+		{
+			.x = nLeft2,
+			.y = nBottom2,
+		},{
+			.x = nLeft1,
+			.y = nBottom1,
+		},{
+			.x = nLeft1,
+			.y = nTop1,
+		},{
+			.x = nRight1,
+			.y = nTop1,
+		},{
+			.x = nRight2,
+			.y = nTop2,
+		},{
+			.x = nRight2,
+			.y = nBottom2,
+		}
+	};
+	m_dcMem.Polygon(point, ARRAY_SIZE(point));
 
 	m_dcMem.SelectObject(&m_penGray);
 

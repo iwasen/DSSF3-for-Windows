@@ -295,14 +295,16 @@ BOOL CNmsDoc::SetCondition(int nCalcCounter)
 
 	int nSampleNum = dwSize / (wf.wf.nChannels * wf.wBitsPerSample / 8);
 
-	NmsConditionData nmsConditionData;
-	nmsConditionData.nDataNum = nSampleNum;
-	nmsConditionData.nStartPos = 0;
-	nmsConditionData.AcfCondition = g_oSetData.Measurement.AcfCondition;
-	nmsConditionData.IAcfCondition = g_oSetData.Measurement.IAcfCondition;
-
-	nmsConditionData.NmsMicCal.fInputSens = m_oMeasurement.m_oMicCalData.fInputSens;
-	nmsConditionData.NmsMicCal.nFreqData = m_oMeasurement.m_oMicCalData.nFreqData;
+	NmsConditionData nmsConditionData{
+		.nStartPos = 0,
+		.nDataNum = nSampleNum,
+		.AcfCondition = g_oSetData.Measurement.AcfCondition,
+		.IAcfCondition = g_oSetData.Measurement.IAcfCondition,
+		.NmsMicCal{
+			.fInputSens = m_oMeasurement.m_oMicCalData.fInputSens,
+			.nFreqData = m_oMeasurement.m_oMicCalData.nFreqData
+		}
+	};
 	for (int i = 0; i < MICCAL_NFREQ; i++)
 		nmsConditionData.NmsMicCal.freq[i] = m_oMeasurement.m_oMicCalData.aFreq[i];
 
@@ -435,7 +437,7 @@ void CNmsDoc::OnRecalc()
 			delete [] pNmsItem->m_pNmsFactorData;
 			pNmsItem->m_pNmsFactorData = NULL;
 		}
-		memset(&pNmsItem->m_NoiseSrcData, 0, sizeof(NoiseSrcData));
+		pNmsItem->m_NoiseSrcData = {};
 		UpdateAllViews(NULL, VIEWHINT_UPDATEITEM, pNmsItem);
 	}
 

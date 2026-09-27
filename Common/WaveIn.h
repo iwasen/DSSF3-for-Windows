@@ -18,11 +18,11 @@ public:
 	static BOOL m_b16BitOnly;
 
 	BOOL Open(INT_PTR nWaveDevice, IWaveNotify *pWnd, int nChannels, int nSamplesPerSec, int nSamplesPerBuffer, int nBufferNum, BOOL bErrMsg = TRUE);
-	void Start();
+	void Start() const;
 	void Close();
-	void Reset();
-	void Stop();
-	int GetBitsPerSample();
+	void Reset() const;
+	void Stop() const;
+	int GetBitsPerSample() const;
 
 protected:
 	WAVEFORMATEXTENSIBLE m_oWaveFormat;

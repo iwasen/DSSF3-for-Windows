@@ -45,7 +45,7 @@ BOOL CHyperLink::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/
 
 void CHyperLink::SetHyperLinkURL(LPCTSTR pLinkURL, LPCTSTR pFontName, int nFontSize)
 {
-	LOGFONT font;
+	LOGFONT font{};
 
 	if (pLinkURL == NULL)
 		GetWindowText(m_sLinkURL);
@@ -58,7 +58,6 @@ void CHyperLink::SetHyperLinkURL(LPCTSTR pLinkURL, LPCTSTR pFontName, int nFontS
 		font.lfUnderline = 1;
 		m_Font.CreateFontIndirect(&font);
 	} else {
-		memset(&font, 0, sizeof(font));
 		font.lfHeight = nFontSize * 10;
 		font.lfUnderline = 1;
 		font.lfCharSet = DEFAULT_CHARSET;

@@ -38,6 +38,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{80FE1C08-0219-4E35-B70B-01C2492ACB0D}</ProjectGuid>
     <RootNamespace>RTA</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'" Label="Configuration">
@@ -177,6 +178,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -209,6 +211,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -237,6 +240,7 @@
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -271,6 +275,7 @@
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_JPN;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -300,6 +305,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -332,6 +338,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -359,6 +366,7 @@
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -393,6 +401,7 @@
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;_AFXDLL;AFX_RESOURCE_DLL;AFX_TARG_NEU;AFX_TARG_ENU;%(PreprocessorDefinitions)</PreprocessorDefinitions>

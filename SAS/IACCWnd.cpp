@@ -64,8 +64,7 @@ void CIACCWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark)
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = nFontSize;
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -94,18 +93,26 @@ void CIACCWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark)
 	m_Rgn.CreateRectRgn(m_nScaleLeft, m_nScaleTop, m_nScaleRight, m_nScaleBottom);
 
 	if (pTitle != NULL) {
-		REMARK_INFO remark;
-		remark.nRemark = nRemark;
-		remark.remarks[0].pen = &m_penData;
-		remark.remarks[0].text = pTitle;
-		remark.remarks[1].pen = &m_penIACC;
-		remark.remarks[1].text = "IACC";
-		remark.remarks[2].pen = &m_penTIACC;
 		str.LoadString(IDS_TIACC);
-		remark.remarks[2].text = str;
-		remark.remarks[3].pen = &m_penWIACC;
-		remark.remarks[3].text = "W_IACC";
 
+		REMARK_INFO remark{
+			.nRemark = nRemark,
+			.remarks{
+				{
+					.pen = &m_penData,
+					.text = pTitle
+				},{
+					.pen = &m_penIACC,
+					.text = "IACC"
+				},{
+					.pen = &m_penTIACC,
+					.text = str
+				},{
+					.pen = &m_penWIACC,
+					.text = "W_IACC"
+				}
+			}
+		};
 		m_wndRemark.Create(this);
 		m_wndRemark.DispRemarks(&remark);
 	}

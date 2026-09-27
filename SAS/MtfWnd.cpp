@@ -53,8 +53,7 @@ void CMtfWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF co
 	m_brushData.CreateSolidBrush(color);
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = nFontSize;
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -67,16 +66,21 @@ void CMtfWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF co
 	m_dcMem.SetTextColor(RGB(64, 64, 64));
 
 	if (pTitle != NULL) {
-		REMARK_INFO remark;
-		CString str1, str2;
-		remark.nRemark = nRemark;
-		remark.remarks[0].pen = NULL;
-		remark.remarks[0].text = pTitle;
-		remark.remarks[1].pen = &m_penMtf;
+		CString str1;
 		str1.LoadString(IDS_FREQRESP);
-		remark.remarks[1].text = str1;
-		remark.remarks[2].text = str2;
 
+		REMARK_INFO remark{
+			.nRemark = nRemark,
+			.remarks{
+				{
+					.pen = NULL,
+					.text = pTitle
+				},{
+					.pen = &m_penMtf,
+					.text = str1
+				}
+			}
+		};
 		m_wndRemark.Create(this);
 		m_wndRemark.DispRemarks(&remark);
 	}

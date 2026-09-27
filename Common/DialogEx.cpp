@@ -1,4 +1,4 @@
-// D:\aizawa\DSSF3_5.0.6\Common\DialogEx.cpp : 実装ファイル
+// DialogEx.cpp : 実装ファイル
 //
 
 #include "stdafx.h"

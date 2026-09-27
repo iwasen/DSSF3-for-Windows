@@ -260,13 +260,14 @@ void CGraphEcho::DispGraphWindow()
 		m_nScrollSize = nScrollSize;
 		m_nScrollPos = nScrollPos;
 
-		SCROLLINFO si;
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = nScrollPos
+		};
 		m_cScrollH.SetScrollInfo(&si, TRUE);
 	}
 

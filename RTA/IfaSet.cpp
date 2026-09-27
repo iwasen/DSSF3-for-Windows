@@ -107,16 +107,17 @@ BOOL CIfaSet::OnInitDialog()
 		{IDS_SAMPLING, 65}
 	};
 	CString str;
-	LV_COLUMN lvc;
 
 	m_cIRList.SetExtendedStyle(LVS_EX_FULLROWSELECT);
 
-	for (int i = 0; i < sizeof(tColumn) / sizeof(LISTCOLUMN); i++) {
-		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-		lvc.fmt = LVCFMT_LEFT;
+	for (int i = 0; i < ARRAY_SIZE(tColumn); i++) {
 		str.LoadString(tColumn[i].textID);
-		lvc.pszText = (LPTSTR)(LPCSTR)str;
-		lvc.cx = CDpi::AdjustDpi(tColumn[i].width, 98);
+		LV_COLUMN lvc{
+			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
+			.fmt = LVCFMT_LEFT,
+			.cx = CDpi::AdjustDpi(tColumn[i].width, 98),
+			.pszText = (LPTSTR)(LPCSTR)str
+		};
 		m_cIRList.InsertColumn(i, &lvc);
 	}
 
@@ -270,13 +271,14 @@ void CIfaSet::DispIRWindow()
 		m_nScrollSize = nScrollSize;
 		m_nScrollPos = nScrollPos;
 
-		SCROLLINFO si;
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = nScrollPos
+		};
 		m_cScroll.SetScrollInfo(&si, TRUE);
 	}
 
@@ -533,16 +535,18 @@ int CALLBACK CIfaSet::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lParam
 {
 	CIfaSet *pDlg = (CIfaSet *)lParamSort;
 	CListCtrl &dataList = pDlg->m_cIRList;
-	LV_FINDINFO findInfo;
-	int index1, index2;
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam1;
-	index1 = dataList.FindItem(&findInfo);
+	LV_FINDINFO findInfo1{
+		.flags = LVFI_PARAM,
+		.lParam = lParam1
+	};
+	int index1 = dataList.FindItem(&findInfo1);
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam2;
-	index2 = dataList.FindItem(&findInfo);
+	LV_FINDINFO findInfo2{
+		.flags = LVFI_PARAM,
+		.lParam = lParam2
+	};
+	int index2 = dataList.FindItem(&findInfo2);
 
 	return dataList.GetItemText(index1, pDlg->m_nSortItem).Compare(dataList.GetItemText(index2, pDlg->m_nSortItem)) * pDlg->m_nSortDir;
 }

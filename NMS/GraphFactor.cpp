@@ -391,7 +391,6 @@ void CGraphFactor::DispGraphWindow()
 
 void CGraphFactor::SetHScroll()
 {
-	SCROLLINFO si;
 	int nScrollSize;
 	int nScrollPos;
 
@@ -402,12 +401,14 @@ void CGraphFactor::SetHScroll()
 		m_nHScrollSize = nScrollSize;
 		m_nHScrollPos = nScrollPos;
 
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = nScrollPos
+		};
 		m_cScrollH.SetScrollInfo(&si, TRUE);
 	}
 
@@ -429,7 +430,6 @@ void CGraphFactor::SetHScroll()
 
 void CGraphFactor::SetVScroll()
 {
-	SCROLLINFO si;
 	int nScrollSize;
 	int nScrollPos;
 
@@ -440,12 +440,14 @@ void CGraphFactor::SetVScroll()
 		m_nVScrollSize = nScrollSize;
 		m_nVScrollPos = nScrollPos;
 
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = SCROLL_RANGE - nScrollPos - m_nVScrollSize;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = SCROLL_RANGE - nScrollPos - m_nVScrollSize
+		};
 		m_cScrollV.SetScrollInfo(&si, TRUE);
 	}
 

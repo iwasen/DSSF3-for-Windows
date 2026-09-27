@@ -14,7 +14,6 @@ CManualMode *g_pManualWnd;
 #define MAX_CONTROL_ID	20
 void SetInputDevice(int nInputDevice, int nInputSelector, int nInputVolume)
 {
-	MIXERLINE mxl;
 	MIXERCONTROL mxc;
 	MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 	MIXERCONTROLDETAILS_LISTTEXT mxcdl[MAX_CONTROL_ID];
@@ -28,7 +27,7 @@ void SetInputDevice(int nInputDevice, int nInputSelector, int nInputVolume)
 	MixerInitialize(nInputDevice, 0);
 
 	// 録音マスターの LineID を取得
-	memset(&mxl, 0, sizeof(mxl));
+	MIXERLINE mxl{};
 	mxl.cbStruct = sizeof(mxl);
 	mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
 	if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
@@ -64,7 +63,7 @@ void SetInputDevice(int nInputDevice, int nInputSelector, int nInputVolume)
 		dst = mxl.dwDestination;
 		for (src = 0; src < dwSrcItems; src++) {
 			// 入力機器の LineID 取得
-			memset(&mxl, 0, sizeof(mxl));
+			MIXERLINE mxl{};
 			mxl.cbStruct = sizeof(mxl);
 			mxl.dwDestination = dst;
 			mxl.dwSource = src;

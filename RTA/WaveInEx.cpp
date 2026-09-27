@@ -343,12 +343,12 @@ void CWaveInEx::Reset()
 		return g_cAsioManager.ResetIn();
 }
 
-int CWaveInEx::GetSamplesPerSec()
+int CWaveInEx::GetSamplesPerSec() const
 {
 	return m_nSamplesPerSec;
 }
 
-int CWaveInEx::GetChannels()
+int CWaveInEx::GetChannels() const
 {
 	return m_nChannels;
 }
@@ -453,13 +453,16 @@ void CWaveInEx::CreateWasapiSaveFile(int nChannels, int nSamplesPerSec, int nBit
 				m_pWaveFile24 = pWaveFile;
 			}
 
-			PCMWAVEFORMAT waveFormat;
-			waveFormat.wBitsPerSample = (WORD)nBitsPerSample;
-			waveFormat.wf.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8);
-			waveFormat.wf.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8));
-			waveFormat.wf.nChannels = (WORD)nChannels;
-			waveFormat.wf.nSamplesPerSec = nSamplesPerSec;
-			waveFormat.wf.wFormatTag = WAVE_FORMAT_PCM;
+			PCMWAVEFORMAT waveFormat{
+				.wf{
+					.wFormatTag = WAVE_FORMAT_PCM,
+					.nChannels = (WORD)nChannels,
+					.nSamplesPerSec = (DWORD)nSamplesPerSec,
+					.nAvgBytesPerSec = (DWORD)(nSamplesPerSec * nChannels * (nBitsPerSample / 8)),
+					.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8))
+				},
+				.wBitsPerSample = (WORD)nBitsPerSample
+			};
 
 			CString sWaveFilePath;
 			sWaveFilePath.Format("%s\\wasapi%d.wav", (LPCSTR)sWaveFileDir, nBitsPerSample);

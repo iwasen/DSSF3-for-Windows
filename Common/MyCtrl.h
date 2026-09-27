@@ -30,6 +30,7 @@ public:
 	CMyEdit();
 
 	int operator=(int param);
+	long operator=(long nParam);
 	float operator=(float param);
 	double operator=(double param);
 	CString &operator=(CString &param);

@@ -58,11 +58,11 @@ void CManualMode::OnCancel()
 
 void CManualMode::OnDestroy()
 {
-	WINDOWPLACEMENT winpl;
-
 	m_pDoc->StopManualMode();
 
-	winpl.length = sizeof(WINDOWPLACEMENT);
+	WINDOWPLACEMENT winpl{
+		.length = sizeof(WINDOWPLACEMENT)
+	};
 	GetWindowPlacement(&winpl);			// ダイアログ表示位置取得
 	g_oSetData.ManualWindow.left = winpl.rcNormalPosition.left;
 	g_oSetData.ManualWindow.top = winpl.rcNormalPosition.top;

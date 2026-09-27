@@ -22,7 +22,7 @@ public:
 	void MouseMove(float x, float y);
 	void MouseAdd(float x, float y);
 	void MouseDelete();
-	int GetSelPoint();
+	int GetSelPoint() const;
 	int GetEditMode();
 
 protected:

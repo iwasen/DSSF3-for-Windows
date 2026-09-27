@@ -23,7 +23,7 @@ public:
 	void CloseIn();
 	void ResetIn();
 	void StopIn();
-	int GetBitsPerSampleIn();
+	int GetBitsPerSampleIn() const;
 
 	BOOL OpenOut(INT_PTR nWaveDevice, IWaveNotify *pWaveNotify, int nChannels, int nSamplesPerSec, int nSamplesPerBuffer, BOOL bErrMsg);
 	void StartOut();
@@ -31,7 +31,7 @@ public:
 	void ResetOut();
 	void PauseOut();
 	void RestartOut();
-	int GetBitsPerSampleOut();
+	int GetBitsPerSampleOut() const;
 
 protected:
 	CAsioDriver m_cAsioDriver;
@@ -73,7 +73,7 @@ protected:
 	void UnLoadAsioDriver();
 	BOOL OpenDriver(INT_PTR nWaveDevice, BOOL bErrMsg);
 	void CloseDriver();
-	int GetBufSize();
+	int GetBufSize() const;
 	BOOL ChangeBufSize();
 	void FreeBufferIn();
 	void FreeBufferOut();

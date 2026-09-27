@@ -1,4 +1,4 @@
-// D:\aizawa\DSSF5\Common\TempAcf.cpp : 実装ファイル
+// TempAcf.cpp : 実装ファイル
 //
 
 #include "stdafx.h"

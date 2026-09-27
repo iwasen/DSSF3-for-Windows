@@ -75,8 +75,7 @@ void CRecWnd::Initialize(int nFontSize, PFNGRAPH pCallBackFunc, LPARAM nCallBack
 	m_brushSelectArea.CreateSolidBrush(RGB(192, 255, 255));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -89,11 +88,16 @@ void CRecWnd::Initialize(int nFontSize, PFNGRAPH pCallBackFunc, LPARAM nCallBack
 	m_dcMem.SetTextColor(RGB(64, 64, 64));
 
 	if (bRemark) {
-		REMARK_INFO remark;
-		remark.nRemark = 1;
-		remark.remarks[0].pen = NULL;
 		str.LoadString(IDS_INPUTWAVE);
-		remark.remarks[0].text = str;
+		REMARK_INFO remark{
+			.nRemark = 1,
+			.remarks{
+				{
+					.pen = NULL,
+					.text = str
+				}
+			}
+		};
 		m_wndRemark.Create(this);
 		m_wndRemark.DispRemarks(&remark);
 	}
@@ -417,7 +421,7 @@ void CRecWnd::SetSelectArea(double startTime, double endTime, BOOL bErase)
 		m_pCallBackFunc(CC_SELECT_SET, m_dwCallBackData, m_fStartSelectTime, m_fEndSelectTime);
 }
 
-void CRecWnd::GetSelectArea(double *startTime, double *endTime)
+void CRecWnd::GetSelectArea(double *startTime, double *endTime) const
 {
 	*startTime = m_fStartSelectTime;
 	*endTime = m_fEndSelectTime;
@@ -456,7 +460,7 @@ void CRecWnd::SetReplayPosition(double fReplayTime)
 	UpdateWindow();
 }
 
-void CRecWnd::SetMouseCursor(CPoint point)
+void CRecWnd::SetMouseCursor(CPoint point) const
 {
 	HCURSOR hCursor = m_hCursorArrow;
 

@@ -292,12 +292,12 @@ void CWasapiManager::StopIn()
 {
 }
 
-int CWasapiManager::GetBitsPerSampleIn()
+int CWasapiManager::GetBitsPerSampleIn() const
 {
 	return m_oWaveFormatIn.Samples.wValidBitsPerSample;
 }
 
-BOOL CWasapiManager::IsOpenIn()
+BOOL CWasapiManager::IsOpenIn() const
 {
 	return m_pAudioClientIn != NULL;
 }
@@ -307,8 +307,7 @@ int CWasapiManager::NotifyMessageIn(int nCode)
 	LONG nRc = 0;
 
 	if (m_pWaveInNotify != NULL) {
-		WAVENOTIFY waveNotify;
-		memset(&waveNotify, 0, sizeof(waveNotify));
+		WAVENOTIFY waveNotify{};
 
 		if (nCode == WAVEIN_DATA) {
 			UINT frame;
@@ -496,12 +495,12 @@ void CWasapiManager::RestartOut()
 {
 }
 
-int CWasapiManager::GetBitsPerSampleOut()
+int CWasapiManager::GetBitsPerSampleOut() const
 {
 	return m_oWaveFormatOut.Samples.wValidBitsPerSample;
 }
 
-BOOL CWasapiManager::IsOpenOut()
+BOOL CWasapiManager::IsOpenOut() const
 {
 	return m_pAudioClientOut != NULL;
 }
@@ -511,8 +510,7 @@ int CWasapiManager::NotifyMessageOut(int nCode)
 	LONG nRc = 0;
 
 	if (m_pWaveOutNotify != NULL) {
-		WAVENOTIFY waveNotify;
-		memset(&waveNotify, 0, sizeof(waveNotify));
+		WAVENOTIFY waveNotify{};
 
 		if (nCode == WAVEOUT_DATA) {
 			UINT frame;

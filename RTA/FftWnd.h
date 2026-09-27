@@ -214,7 +214,7 @@ protected:
 	void SetBitmapAll();
 	void SetBitmap(FFTWINDOW *pFftWindow);
 	void CalcSpectrum(const double *pFftBufL, const double *pFftBufR);
-	void CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const double *pFilterTbl);
+	void CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const double *pFilterTbl) const;
 	void CalcCrossSpectrum(const double *pBufL, const double *pBufR);
 	void FreeBuffer();
 	void FreeBuffer2(const FFTWINDOW *pFftWindow);
@@ -242,7 +242,7 @@ protected:
 	void SetBitmapOct(FFTWINDOW *pFftWindow);
 	void DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, TEXTMETRIC &tm, LPCTSTR pText);
 	void GetWaveDataOct(const FFTWINDOW *pFftWindow);
-	void CalcOct(FFTDATA *pFftData);
+	void CalcOct(FFTDATA *pFftData) const;
 	void DispOctInfo(const FFTWINDOW *pFftWindow);
 	void DispOctInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId);
 	void PaintOct(const FFTWINDOW *pFftWindow, int nChannel);
@@ -266,14 +266,14 @@ protected:
 	void GetWaveDataCrf(const FFTWINDOW *pFftWindow);
 	void CalcAutoCorrelation(const double *pFftBuf, double *pCrfBuf);
 	void CalcLateralCorrelation(double *pFftBufRe, double *pFftBufIm);
-	void CalcCrf(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffset, int nDataSize);
+	void CalcCrf(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffset, int nDataSize) const;
 	void DispCrfInfo(const FFTWINDOW *pFftWindow);
 	void DispCrfInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId);
 	void PaintCrf(const FFTWINDOW *pFftWindow, int nChannel);
 	void PaintCrfSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffest, CPen &penData, CPen &penLine, CPen &penPeak);
 	void SetDispFreqCrf(const FFTWINDOW *pFftWindow, CPoint point);
 	void ResetDispFreqCrf(const FFTWINDOW *pFftWindow);
-	void CsvOutputCrf(CCsvFile &oCsvFile);
+	void CsvOutputCrf(CCsvFile &oCsvFile) const;
 	void CsvInputCrf(CCsvFile &oCsvFile);
 
 	void SetBitmapPhs(FFTWINDOW *pFftWindow);
@@ -291,7 +291,7 @@ protected:
 	void SetBitmapSpg(FFTWINDOW *pFftWindow);
 	void DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
 	void DrawLevelScale(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom);
-	COLORREF GetLevelColor(double fLevel);
+	COLORREF GetLevelColor(double fLevel) const;
 	void GetWaveDataSpg(const FFTWINDOW *pFftWindow);
 	void CalcSpg(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nTimeStep);
 	void CalcSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBitmap *pBitmap, int nTimeStep);
@@ -327,14 +327,14 @@ protected:
 	void DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
 	void GetWaveDataCep(const FFTWINDOW *pFftWindow);
 	void CalcCep(const FFTWINDOW *pFftWindow, FFTDATA *pFftWork);
-	int CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPoint);
+	int CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPoint) const;
 	void DispCepInfo(const FFTWINDOW *pFftWindow);
 	void DispCepInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId);
 	void PaintCep(const FFTWINDOW *pFftWindow, int nChannel);
 	void PaintCepSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, CPen &penData, CPen &penPeak);
 	void SetDispFreqCep(const FFTWINDOW *pFftWindow, CPoint point);
 	void ResetDispFreqCep(const FFTWINDOW *pFftWindow);
-	void CsvOutputCep(CCsvFile &oCsvFile);
+	void CsvOutputCep(CCsvFile &oCsvFile) const;
 	void CsvInputCep(CCsvFile &oCsvFile);
 	void GetThemaHandle();
 

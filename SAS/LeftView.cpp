@@ -15,17 +15,20 @@ public:
 		int nSelectedImage, UINT nState, UINT nStateMask, LPARAM lParam,
 		HTREEITEM hParent, HTREEITEM hInsertAfter)
 	{
-		TVINSERTSTRUCT tvis;
-		tvis.hParent = hParent;
-		tvis.hInsertAfter = hInsertAfter;
-		tvis.item.mask = nMask;
-		tvis.item.pszText = (LPTSTR) lpszItem;
-		tvis.item.iImage = nImage;
-		tvis.item.iSelectedImage = nSelectedImage;
-		tvis.item.state = nState;
-		tvis.item.stateMask = nStateMask;
-		tvis.item.lParam = lParam;
-		tvis.item.cChildren = 1;
+		TVINSERTSTRUCT tvis{
+			.hParent = hParent,
+			.hInsertAfter = hInsertAfter,
+			.item{
+				.mask = nMask,
+				.state = nState,
+				.stateMask = nStateMask,
+				.pszText = (LPTSTR)lpszItem,
+				.iImage = nImage,
+				.iSelectedImage = nSelectedImage,
+				.cChildren = 1,
+				.lParam = lParam
+			}
+		};
 		return (HTREEITEM)::SendMessage(m_hWnd, TVM_INSERTITEM, 0, (LPARAM)&tvis);
 	}
 };
@@ -413,8 +416,11 @@ void CLeftView::OnFileExport()
 	HTREEITEM hTreeItem = tc.GetSelectedItem();
 	if (hTreeItem != NULL) {
 		CSasDoc *pDoc = GetDocument();
-		long nID[1];
-		nID[0] = (long)tc.GetItemData(hTreeItem);
+		long nID[1]{
+			{
+				(long)tc.GetItemData(hTreeItem)
+			}
+		};
 		pDoc->Export(nID, 1, tc.GetItemText(hTreeItem));
 	}
 }

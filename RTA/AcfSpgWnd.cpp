@@ -48,8 +48,7 @@ void CAcfSpgWnd::Initialize()
 	m_bmpGraph.CreateCompatibleBitmap(pDC, m_rectView.Width(), m_rectView.Height());
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(90, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);

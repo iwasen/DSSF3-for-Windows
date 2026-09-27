@@ -56,7 +56,7 @@ BOOL CSgNoise::OnInitDialog()
 	m_nSgNoiseMode = g_oSetData.Sg.nNoiseMode;
 
 	CString str;
-	for (int i = 0; i < sizeof(tMaxTimeRange) / sizeof(int); i++) {
+	for (int i = 0; i < ARRAY_SIZE(tMaxTimeRange); i++) {
 		str.Format("%d ms", tMaxTimeRange[i]);
 		m_cTimeRange.AddString(str);
 	}

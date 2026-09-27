@@ -17,6 +17,6 @@ public:
 	void Set(COLORREF colorLeft, COLORREF colorRight, int nPoint, int nCount,
 			double *(pLeftData[3]), double *(pRightData[3]), double *pValue);
 	void FreeBuffers();
-	void Save(CFile &oFile);
+	void Save(CFile &oFile) const;
 	void Load(CFile &oFile);
 };

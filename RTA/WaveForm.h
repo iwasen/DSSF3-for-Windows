@@ -33,7 +33,7 @@ public:
 	~CWaveForm(void);
 
 	WaveForm *ReadWaveForm(int id);
-	void WriteWaveForm(int id);
+	void WriteWaveForm(int id) const;
 	void SetTestWaveForm(WaveForm *pWaveForm);
 
 protected:

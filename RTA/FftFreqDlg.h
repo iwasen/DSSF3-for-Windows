@@ -22,8 +22,8 @@ protected:
 	CSliderCtrl m_cFftMaxFreq;
 	CSliderCtrl m_cFftMinFreq;
 
-	int CalcSliderPos(double fFreq);
-	int CalcFreq(int pos);
+	int CalcSliderPos(double fFreq) const;
+	int CalcFreq(int pos) const;
 	void SetFreqScale(CSliderCtrl &oSliderCtrl);
 
 	DECLARE_MESSAGE_MAP()

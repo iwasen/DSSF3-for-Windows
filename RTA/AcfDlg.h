@@ -43,7 +43,7 @@ protected:
 	virtual void ChangeWaveDevice(int nInOut);
 	void ChangeSamplingRate(int nSamplingRate);
 	int OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify);
-	BOOL SaveACF(HWAVEDATA hWaveData);
+	BOOL SaveACF(HWAVEDATA hWaveData) const;
 
 	CMyEdit	m_cZoomH;
 	CScrollBar	m_cGraphScroll;

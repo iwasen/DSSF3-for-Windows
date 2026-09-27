@@ -62,6 +62,19 @@ int CMyEdit::operator=(int param)
 	return param;
 }
 
+long CMyEdit::operator=(long nParam)
+{
+	CString sStr1, sStr2;
+
+	sStr1.Format("%ld", nParam);
+	GetWindowText(sStr2);
+
+	if (sStr1 != sStr2)
+		SetWindowText(sStr1);
+
+	return nParam;
+}
+
 float CMyEdit::operator=(float param)
 {
 	CString str1, str2;
@@ -444,7 +457,6 @@ void CMyTab::DisplayChildDlg(int n)
 void CMyTab::CreateChildDlg(int n)
 {
 	CRect rect1, rect2;
-	POINT point;
 	CWnd *pParent = GetParent();
 	CDialog *pDialog = m_TabData[n].pDialog;
 
@@ -460,8 +472,10 @@ void CMyTab::CreateChildDlg(int n)
 	GetWindowRect(rect1);
 	AdjustRect(FALSE, rect1);
 	pDialog->GetWindowRect(rect2);
-	point.x = (rect1.Width() - rect2.Width()) / 2 - 1;
-	point.y = (rect1.Height() - rect2.Height()) / 2;
+	POINT point{
+		.x = (rect1.Width() - rect2.Width()) / 2 - 1,
+		.y = (rect1.Height() - rect2.Height()) / 2
+	};
 	pParent->ScreenToClient(rect1);
 	pDialog->MoveWindow(rect1, FALSE);
 
@@ -583,12 +597,13 @@ void CMyTab::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CDC dc;
 	dc.Attach(lpDrawItemStruct->hDC);
 
-	TCITEM ti;
 	char text[32];
-	ti.mask = TCIF_TEXT | TCIF_STATE;
-	ti.pszText = text;
-	ti.cchTextMax = sizeof(text);
-	ti.dwStateMask = TCIS_HIGHLIGHTED;
+	TCITEM ti{
+		.mask = TCIF_TEXT | TCIF_STATE,
+		.dwStateMask = TCIS_HIGHLIGHTED,
+		.pszText = text,
+		.cchTextMax = sizeof(text)
+	};
 	GetItem(lpDrawItemStruct->itemID, &ti);
 	CString str = text;
 
@@ -614,10 +629,11 @@ void CMyTab::GetCurrentTitle(CString &sTitle)
 {
 	int n = GetCurSel();
 	if (n != -1) {
-		TCITEM tci;
-		tci.mask = TCIF_TEXT;
-		tci.pszText = sTitle.GetBuffer(256);
-		tci.cchTextMax = 256;
+		TCITEM tci{
+			.mask = TCIF_TEXT,
+			.pszText = sTitle.GetBuffer(256),
+			.cchTextMax = 256
+		};
 		GetItem(n, &tci);
 		sTitle.ReleaseBuffer();
 	}

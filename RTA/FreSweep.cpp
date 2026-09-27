@@ -325,7 +325,7 @@ BOOL CFreSweep::WaveInData(const double *pData)
 	return m_nFreqCount < m_nFreqPoint;
 }
 
-double CFreSweep::CalcFreqResponse(const double *pData, double fFreq, const DbMicCalRec &oMicCalData)
+double CFreSweep::CalcFreqResponse(const double *pData, double fFreq, const DbMicCalRec &oMicCalData) const
 {
 	int i;
 
@@ -369,7 +369,7 @@ double CFreSweep::CalcFreqResponse(const double *pData, double fFreq, const DbMi
 	return fSum / m_nWaveBufSize;
 }
 
-BOOL CFreSweep::CheckDataExist()
+BOOL CFreSweep::CheckDataExist() const
 {
 	return m_bValidData && m_nFreqCount != 0;
 }
@@ -403,13 +403,15 @@ void CFreSweep::ReadCsv(CCsvFile &oCsvFile)
 		double fFreq;
 		double fLeftData;
 		double fRightData;
-	} oCsvData;
+	};
 	CList<SCsvData, SCsvData&> oCsvDataList;
 
 	while (oCsvFile.Input()) {
-		oCsvData.fFreq = oCsvFile.GetDouble(0);
-		oCsvData.fLeftData = oCsvFile.GetDouble(1);
-		oCsvData.fRightData = oCsvFile.GetDouble(2);
+		SCsvData oCsvData{
+			.fFreq = oCsvFile.GetDouble(0),
+			.fLeftData = oCsvFile.GetDouble(1),
+			.fRightData = oCsvFile.GetDouble(2)
+		};
 		oCsvDataList.AddTail(oCsvData);
 	}
 
@@ -433,7 +435,7 @@ void CFreSweep::ReadCsv(CCsvFile &oCsvFile)
 	pFreq = m_pFreq;
 
 	while (oCsvDataList.GetCount() != 0) {
-		oCsvData = oCsvDataList.RemoveHead();
+		SCsvData oCsvData = oCsvDataList.RemoveHead();
 		*pFreq++ = oCsvData.fFreq;
 		*pLeftData++ = pow(10.0, oCsvData.fLeftData / 10);
 		if (m_nChannel == 2) {

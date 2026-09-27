@@ -105,6 +105,7 @@
 #define ID_ZOOM_V_OUT		30013
 
 #define MEMCLEAR(ptr,size)	memset(ptr,0,sizeof(*(ptr))*size)
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
 #define PRODUCT_CODE	"DSSF3"
 

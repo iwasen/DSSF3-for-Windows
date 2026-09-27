@@ -20,11 +20,11 @@ public:
 	BOOL Open(INT_PTR nWaveDevice, IWaveNotify *pWnd, int nChannels, int nSamplesPerSec, int nSamplesPerBuffer, int nBufferNum, BOOL bErrMsg = TRUE, BOOL bVolumeSet = TRUE);
 	void Start();
 	void Close();
-	void Reset();
-	void Pause();
-	void Restart();
-	void SetVolume(UINT left, UINT right);
-	int GetBitsPerSample();
+	void Reset() const;
+	void Pause() const;
+	void Restart() const;
+	void SetVolume(UINT left, UINT right) const;
+	int GetBitsPerSample() const;
 
 protected:
 	WAVEFORMATEXTENSIBLE m_oWaveFormat;

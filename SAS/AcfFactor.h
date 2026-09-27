@@ -146,7 +146,6 @@ protected:
 	HDIB GraphCopy();
 	CString GetDataText();
 	void SaveStartDisp();
-	void SelectData(double fTime);
 	BOOL CalcMeasurementAcf();
 	static BOOL AbortCheck(int nPercent);
 	void ReadAcfMarker();

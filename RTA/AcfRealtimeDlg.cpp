@@ -369,7 +369,7 @@ void CAcfRealtimeDlg::CalcThread()
 	m_oExitEvent.SetEvent();
 }
 
-void CAcfRealtimeDlg::CalcAcfFactor(AllFactorData *pFactorData)
+void CAcfRealtimeDlg::CalcAcfFactor(AllFactorData *pFactorData) const
 {
 	double *pIAcfData;
 	double *pFft;
@@ -509,7 +509,7 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 	int i;
 	struct LISTCOLUMN {
 		UINT nID;
-		char *text;
+		LPCSTR text;
 		int width;
 	};
 	static const LISTCOLUMN tColumnHeader1[] = {
@@ -541,11 +541,11 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 
 	if (m_nChannel == 1) {
 		pColumnHeader = tColumnHeader1;
-		nColumn = sizeof(tColumnHeader1) / sizeof(LISTCOLUMN);
+		nColumn = ARRAY_SIZE(tColumnHeader1);
 		pUnit = tUnit1;
 	} else {
 		pColumnHeader = tColumnHeader2;
-		nColumn = sizeof(tColumnHeader2) / sizeof(LISTCOLUMN);
+		nColumn = ARRAY_SIZE(tColumnHeader2);
 	}
 
 	for (i = 0; i < nColumn; i++, pColumnHeader++) {

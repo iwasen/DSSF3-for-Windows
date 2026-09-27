@@ -78,8 +78,7 @@ void CImpWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF rg
 	m_brushSelectArea.CreateSolidBrush(RGB(255, 255, 128));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -92,17 +91,25 @@ void CImpWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF rg
 	m_dcMem.SetTextColor(RGB(64, 64, 64));
 
 	if (pTitle != NULL) {
-		REMARK_INFO remark;
 		CString str1, str2;
-		remark.nRemark = nRemark;
-		remark.remarks[0].pen = (nRemark > 1) ? &m_penWave : NULL;
-		remark.remarks[0].text = pTitle;
-		remark.remarks[1].pen = &m_penT0;
 		str1.LoadString(IDS_DIRECTSOUND);
-		remark.remarks[1].text = str1;
-		remark.remarks[2].pen = &m_penT1;
 		str2.LoadString(IDS_FIRSTREFLECTION);
-		remark.remarks[2].text = str2;
+
+		REMARK_INFO remark{
+			.nRemark = nRemark,
+			.remarks{
+				{
+					.pen = (nRemark > 1) ? &m_penWave : NULL,
+					.text = pTitle
+				},{
+					.pen = &m_penT0,
+					.text = str1
+				},{
+					.pen = &m_penT1,
+					.text = str2
+				}
+			}
+		};
 
 		m_wndRemark.Create(this);
 		m_wndRemark.DispRemarks(&remark);
@@ -439,7 +446,7 @@ void CImpWnd::SetSelectArea(double startTime, double endTime, BOOL bErase)
 		m_pCallBackFunc(CC_SELECT_SET, m_dwCallBackData, m_fStartSelectTime, m_fEndSelectTime);
 }
 
-void CImpWnd::GetSelectArea(double *startTime, double *endTime)
+void CImpWnd::GetSelectArea(double *startTime, double *endTime) const
 {
 	*startTime = m_fStartSelectTime;
 	*endTime = m_fEndSelectTime;
@@ -579,7 +586,7 @@ void CImpWnd::OnMouseMove(UINT nFlags, CPoint point)
 	CWnd::OnMouseMove(nFlags, point);
 }
 
-void CImpWnd::SetMouseCursor(CPoint point)
+void CImpWnd::SetMouseCursor(CPoint point) const
 {
 	HCURSOR hCursor = m_hCursorArrow;
 

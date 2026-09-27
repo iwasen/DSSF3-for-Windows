@@ -75,9 +75,10 @@ BOOL CMicCalDlg::OnInitDialog()
 
 	m_cCommonRL.SetCheck(1);
 
-	LV_FINDINFO lvFindInfo;
-	lvFindInfo.flags = LVFI_PARAM;
-	lvFindInfo.lParam = m_MicCalID;
+	LV_FINDINFO lvFindInfo{
+		.flags = LVFI_PARAM,
+		.lParam = m_MicCalID
+	};
 	int index;
 	if ((index = m_cMicCalList.FindItem(&lvFindInfo)) != -1)
 		m_cMicCalList.SetItemState(index, LVIS_SELECTED, LVIS_SELECTED);
@@ -117,14 +118,15 @@ void CMicCalDlg::InitMicCalList()
 		{IDS_COMMENT, 150}
 	};
 	CString str;
-	LV_COLUMN lvc;
 
-	for (int i = 0; i < sizeof(tColumn) / sizeof(LISTCOLUMN); i++) {
-		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-		lvc.fmt = LVCFMT_LEFT;
+	for (int i = 0; i < ARRAY_SIZE(tColumn); i++) {
 		str.LoadString(tColumn[i].textID);
-		lvc.pszText = (LPTSTR)(LPCSTR)str;
-		lvc.cx = CDpi::AdjustDpi(tColumn[i].width, 91);
+		LV_COLUMN lvc{
+			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
+			.fmt = LVCFMT_LEFT,
+			.cx = CDpi::AdjustDpi(tColumn[i].width, 91),
+			.pszText = (LPTSTR)(LPCSTR)str
+		};
 		m_cMicCalList.InsertColumn(i, &lvc);
 	}
 }
@@ -279,11 +281,12 @@ int CMicCalDlg::GetCurSel()
 
 void CMicCalDlg::SetCurSel(DWORD lParam)
 {
-	LV_FINDINFO findInfo;
 	int index;
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam;
+	LV_FINDINFO findInfo{
+		.flags = LVFI_PARAM,
+		.lParam = (LPARAM)lParam
+	};
 	if ((index = m_cMicCalList.FindItem(&findInfo)) != -1)
 		m_cMicCalList.SetItemState(index, LVIS_SELECTED, LVIS_SELECTED);
 }
@@ -307,16 +310,18 @@ int CALLBACK CMicCalDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lPa
 {
 	CMicCalDlg *pDlg = (CMicCalDlg *)lParamSort;
 	CListCtrl &dataList = pDlg->m_cMicCalList;
-	LV_FINDINFO findInfo;
-	int index1, index2;
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam1;
-	index1 = dataList.FindItem(&findInfo);
+	LV_FINDINFO findInfo1{
+		.flags = LVFI_PARAM,
+		.lParam = lParam1
+	};
+	int index1 = dataList.FindItem(&findInfo1);
 
-	findInfo.flags = LVFI_PARAM;
-	findInfo.lParam = lParam2;
-	index2 = dataList.FindItem(&findInfo);
+	LV_FINDINFO findInfo2{
+		.flags = LVFI_PARAM,
+		.lParam = lParam2
+	};
+	int index2 = dataList.FindItem(&findInfo2);
 
 	return dataList.GetItemText(index1, pDlg->m_nSortItem).Compare(dataList.GetItemText(index2, pDlg->m_nSortItem)) * pDlg->m_nSortDir;
 }

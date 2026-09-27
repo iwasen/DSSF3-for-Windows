@@ -220,12 +220,12 @@ void CFftWnd::GetWaveDataOct(const FFTWINDOW *pFftWindow)
 	DispOctInfo(pFftWindow);
 }
 
-void CFftWnd::CalcOct(FFTDATA *pFftData)
+void CFftWnd::CalcOct(FFTDATA *pFftData) const
 {
 	int i;
 	double *pFftPBuf = pFftData->m_oPowerSpecBuf.GetBuf();
 	double *pOctData = pFftData->m_fOctData;
-	double *pOctTbl = m_fOctTbl;
+	double const *pOctTbl = m_fOctTbl;
 	int nOctData[MAX_OCT];
 	int t1, t2, t3;
 

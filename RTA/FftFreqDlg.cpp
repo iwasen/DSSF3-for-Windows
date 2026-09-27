@@ -81,7 +81,7 @@ void CFftFreqDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CDialogAF::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
-int CFftFreqDlg::CalcSliderPos(double fFreq)
+int CFftFreqDlg::CalcSliderPos(double fFreq) const
 {
 	if (fFreq < MIN_FREQ)
 		fFreq = MIN_FREQ;
@@ -98,7 +98,7 @@ int CFftFreqDlg::CalcSliderPos(double fFreq)
 	return nPos;
 }
 
-int CFftFreqDlg::CalcFreq(int pos)
+int CFftFreqDlg::CalcFreq(int pos) const
 {
 	return (int)(exp(log((double)m_nMinRange) + pos * (log((double)m_nMaxRange) - log((double)m_nMinRange)) / MAX_POS) + 0.5);
 }

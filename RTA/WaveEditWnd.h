@@ -33,8 +33,8 @@ protected:
 	CPoint m_pointMenu;
 
 	void SetBitmap(double fMaxX, double fMinX, double fMaxY, double fMinY);
-	float GetVertexX(int x);
-	float GetVertexY(int y);
+	float GetVertexX(int x) const;
+	float GetVertexY(int y) const;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();

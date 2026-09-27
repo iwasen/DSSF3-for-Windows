@@ -245,7 +245,7 @@ BOOL CFftDlg::OnInitDialog()
 		g_oSetData.Fft.nSmoothing = 125;
 	str.LoadString(IDS_NONE);
 	m_cFftSmoothing.AddString(str);
-	for (i = 0; i < sizeof(tTimeConstant) / sizeof(int); i++) {
+	for (i = 0; i < ARRAY_SIZE(tTimeConstant); i++) {
 		int nTimeConstant = tTimeConstant[i];
 		if (nTimeConstant < 1000)
 			str.Format("%dms", nTimeConstant);
@@ -286,7 +286,7 @@ BOOL CFftDlg::OnInitDialog()
 	m_cFftTimeDataNum.SelectString(-1, str);
 
 	static const int TimeResTbl[] = {1, 2, 4, 8};
-	for (i = 0; i < sizeof(TimeResTbl) / sizeof(int); i++) {
+	for (i = 0; i < ARRAY_SIZE(TimeResTbl); i++) {
 		str.Format("%dx", TimeResTbl[i]);
 		m_cFftTimeRes.InsertString(i, str);
 		m_cFftTimeRes.SetItemData(i, TimeResTbl[i]);
@@ -324,7 +324,7 @@ BOOL CFftDlg::OnInitDialog()
 	SelectListBox(m_cFftTimeRange, g_oSetData.Fft.nTimeRange);
 
 	static const int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
-	for (i = 0; i < sizeof(tChannel) / sizeof(int); i++) {
+	for (i = 0; i < ARRAY_SIZE(tChannel); i++) {
 		str.LoadString(tChannel[i]);
 		m_cFftChannel.AddString(str);
 	}

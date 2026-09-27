@@ -34,8 +34,8 @@ protected:
 	int m_nMaxFreq;
 	int m_nFreqRange;
 
-	int CalcSliderPos(double fFreq);
-	double CalcFreq(int pos);
+	int CalcSliderPos(double fFreq) const;
+	double CalcFreq(int pos) const;
 	void SetLFreq(double fFreq);
 	void SetLFreq2(double fFreq);
 	void SetRFreq(double fFreq);

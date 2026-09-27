@@ -80,8 +80,7 @@ void CWaveEditWnd::Initialize(CWaveEditManual *pWaveEditManual)
 	m_brushSel.CreateSolidBrush(COLOR_SEL);
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(90, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -344,12 +343,12 @@ void CWaveEditWnd::OnMouseMove(UINT nFlags, CPoint point)
 	CWnd::OnMouseMove(nFlags, point);
 }
 
-float CWaveEditWnd::GetVertexX(int x)
+float CWaveEditWnd::GetVertexX(int x) const
 {
 	return (float)((x - m_nScaleLeft) * m_fDispX / m_nScaleWidth + m_fStartX);
 }
 
-float CWaveEditWnd::GetVertexY(int y)
+float CWaveEditWnd::GetVertexY(int y) const
 {
 	return (float)((m_nScaleZero - y) * (m_fMaxY - m_fMinY) / m_nScaleHeight);
 }

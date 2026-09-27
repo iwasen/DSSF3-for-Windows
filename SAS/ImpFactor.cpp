@@ -277,7 +277,7 @@ BOOL CImpFactor::ReadData()
 			m_fAdjustSPL = GetAdjustSPL(m_nFolderID, m_dbAcParamRec.dbAcParamCond.nSplRefData, m_dbAcParamRec.dbAcParamCond.fSplRefLevel);
 			m_bCalculated = TRUE;
 		} else {
-			memset(&m_dbAcParamRec, 0, sizeof(m_dbAcParamRec));
+			m_dbAcParamRec = {};
 			m_fAdjustSPL = 0;
 			m_bCalculated = FALSE;
 		}
@@ -306,7 +306,7 @@ BOOL CImpFactor::ReadData()
 
 	CalcIR(m_dbAcParamRec.dbAcParamData[m_nCurrentDataNo].nFreq, m_dbAcParamRec.dbAcParamCond.nFreqBand);
 
-	SetWindowText(m_nImpulseID != -2 ? m_dbImpulseRec.sTitle : SA_IR_TITLE);
+	SetWindowText(m_nImpulseID != -2 ? (LPCSTR)m_dbImpulseRec.sTitle : SA_IR_TITLE);
 
 	m_bChangeData = FALSE;
 
@@ -422,9 +422,11 @@ void CImpFactor::InitDispAcParamList()
 	if (m_nScrollX[m_nParam] != 0 || m_nScrollY != 0) {
 		RECT rect;
 		m_cParameterList.GetItemRect(0, &rect, LVIR_BOUNDS);
-		SIZE size;
-		size.cx = m_nScrollX[m_nParam];
-		size.cy = m_nScrollY * (rect.bottom - rect.top);
+
+		SIZE size{
+			.cx = m_nScrollX[m_nParam],
+			.cy = m_nScrollY * (rect.bottom - rect.top)
+		};
 		m_cParameterList.Scroll(size);
 	}
 }
@@ -433,7 +435,7 @@ void CImpFactor::InitAcParamList()
 {
 	struct LISTCOLUMN {
 		UINT nID;
-		char *text;
+		LPCSTR text;
 		int width;
 	};
 	static const LISTCOLUMN tParam1Stereo[] = {
@@ -522,18 +524,18 @@ void CImpFactor::InitAcParamList()
 	if (m_nParam == 0) {
 		if (m_dbImpulseRec.nChannel == 1) {
 			pListColumn = tParam1Mono;
-			size = sizeof(tParam1Mono) / sizeof(LISTCOLUMN);
+			size = ARRAY_SIZE(tParam1Mono);
 		} else {
 			pListColumn = tParam1Stereo;
-			size = sizeof(tParam1Stereo) / sizeof(LISTCOLUMN);
+			size = ARRAY_SIZE(tParam1Stereo);
 		}
 	} else {
 		if (m_dbImpulseRec.nChannel == 1) {
 			pListColumn = tParam2Mono;
-			size = sizeof(tParam2Mono) / sizeof(LISTCOLUMN);
+			size = ARRAY_SIZE(tParam2Mono);
 		} else {
 			pListColumn = tParam2Stereo;
-			size = sizeof(tParam2Stereo) / sizeof(LISTCOLUMN);
+			size = ARRAY_SIZE(tParam2Stereo);
 		}
 	}
 
@@ -566,9 +568,10 @@ void CImpFactor::DispAcParamList()
 	else
 		DispAcParam2List();
 
-	LVFINDINFO fi;
-	fi.flags = LVFI_STRING;
-	fi.psz = m_sCurrentFreq;
+	LVFINDINFO fi{
+		.flags = LVFI_STRING,
+		.psz = m_sCurrentFreq
+	};
 	m_nCurrentDataNo = m_cParameterList.FindItem(&fi);
 	if (m_nCurrentDataNo == -1)
 		m_nCurrentDataNo = 0;
@@ -1643,8 +1646,7 @@ BOOL CImpFactor::CalcMeasurementIR()
 	progressDlg.SetRange(1);
 	progressDlg.SetProgressBar(0);
 
-	DbAcParamRec dbAcParamRec;
-	memset(&m_dbAcParamRec, 0, sizeof(m_dbAcParamRec));
+	DbAcParamRec dbAcParamRec{};
 	dbAcParamRec.nImpulseID = m_dbImpulseRec.nImpulseID;
 	if (CalcAcParam(&m_dbImpulseRec, m_hWaveData, &m_dbAcParamRec, m_dbImpulseRec.nSampling / fScale, &progressDlg))
 		return FALSE;

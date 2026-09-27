@@ -45,9 +45,8 @@ void CNoiseSourceDlg::OnOK()
 	if (!dbNsTmp.GetNewID(&dbNsTmpRec.nNsTmpID))
 		return;
 
-	NsTmpData nsTmpData;
+	NsTmpData nsTmpData{};
 	dbNsTmpRec.sName = m_sNoiseSource;
-	memset(&nsTmpData, 0, sizeof(nsTmpData));
 
 	dbNsTmp.StoreRec(&dbNsTmpRec, &nsTmpData);
 

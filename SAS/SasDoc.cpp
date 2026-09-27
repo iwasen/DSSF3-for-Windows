@@ -142,7 +142,6 @@ DWORD s = GetTickCount();
 	BOOL eof;
 	HWAVEDATA hWaveData;
 	DbImpulseRec dbImpulseRec;
-	DbAcParamRec dbAcParamRec;
 	for (int i = 0; ; i++, dbImpulse.DBSkip(1)) {
 		progressDlg.SetProgressBar(i);
 
@@ -166,7 +165,7 @@ DWORD s = GetTickCount();
 		if (MMWaveReadDB(&hWaveData, dbImpulse.GetFCB(), "WAVEDATA") != 0)
 			continue;
 
-		memset(&dbAcParamRec, 0, sizeof(dbAcParamRec));
+		DbAcParamRec dbAcParamRec{};
 		dbAcParamRec.nImpulseID = dbImpulseRec.nImpulseID;
 		if (CalcAcParam(&dbImpulseRec, hWaveData, &dbAcParamRec, dbImpulseRec.nSampling / fScale, &progressDlg)) {
 			::GlobalFree(hWaveData);
@@ -241,7 +240,7 @@ void CSasDoc::CalcAcf(int nCalcData)
 	BOOL eof;
 	HWAVEDATA hWaveData;
 	int find;
-DbAcfBuf dbAcfBuf;
+	DbAcfBuf dbAcfBuf;
 	DbAcfRec dbAcfRec;
 	DbAcfFactorBuf dbAcfFactorBuf;
 	DbAcfFactorRec dbAcfFactorRec;
@@ -351,7 +350,7 @@ void CSasDoc::CalcNms(int nCalcData)
 	int nFactor;
 	NmsConditionData nmsConditionData;
 	NmsFactorData *pNmsFactorData;
-	NoiseSrcData noiseSrcData, noiseSrcData2;
+	NoiseSrcData noiseSrcData2;
 	BOOL eof;
 	long nBytes;
 	HWAVEDATA hWaveData;
@@ -398,7 +397,7 @@ void CSasDoc::CalcNms(int nCalcData)
 
 		::GlobalFree(hWaveData);
 
-		memset(&noiseSrcData, 0, sizeof(noiseSrcData));
+		NoiseSrcData noiseSrcData{};
 		CalcNoiseSource(pNmsFactorData, nFactor, &noiseSrcData, &setData.NmsCondition.IdentCondition);
 
 		dbNms.DBWriteBinary("NMSCOND", &nmsConditionData, sizeof(NmsConditionData));
@@ -611,7 +610,7 @@ void CSasDoc::ChangeTitle(long nItemID, LPCTSTR pTitle)
 		UpdateAllViews(NULL, nItemID, (CObject *)pTitle);
 }
 
-void CSasDoc::Export(long *pIDs, int nItem, LPCTSTR pItemName)
+void CSasDoc::Export(long *pIDs, int nItem, LPCTSTR pItemName) const
 {
 	CFileDialog fileDlg(FALSE, "dssf", pItemName,
 			OFN_OVERWRITEPROMPT, "DSSF3 File (*.dssf)|*.dssf|All Files (*.*)|*.*||", ::AfxGetApp()->m_pMainWnd, 0);

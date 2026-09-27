@@ -7,8 +7,8 @@ class CSasView;
 class CMainFrame : public CFrameWnd
 {
 public:
-	CView *GetListView();
-	CView *GetTreeView();
+	CView *GetListView() const;
+	CView *GetTreeView() const;
 
 protected: // シリアライズ機能のみから作成します。
 	CMainFrame();
@@ -19,7 +19,7 @@ protected: // シリアライズ機能のみから作成します。
 	CSplitterWnd m_wndSplitter;
 	ULONG m_nCheckData;
 
-	CSasView* GetRightPane();
+	CSasView* GetRightPane() const;
 
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);

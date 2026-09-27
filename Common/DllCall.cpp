@@ -12,7 +12,7 @@ CDllCall::~CDllCall()
 		::FreeLibrary(m_hLibModule);
 }
 
-FARPROC CDllCall::LoadFunction(LPCTSTR pFuncName)
+FARPROC CDllCall::LoadFunction(LPCTSTR pFuncName) const
 {
 	if (m_hLibModule == NULL)
 		return NULL;

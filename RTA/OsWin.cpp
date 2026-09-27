@@ -115,8 +115,7 @@ void COsWin::Initialize2()
 	m_hBitmapOrg2 = (HBITMAP)m_dcMem2.SelectObject(&m_bitmapMem2)->m_hObject;
 	ReleaseDC(pDC);
 
-	m_pPosTbl = new POSTBL[m_nWidth + 1];
-	memset(m_pPosTbl, 0, sizeof(POSTBL) * (m_nWidth + 1));
+	m_pPosTbl = new POSTBL[m_nWidth + 1]();
 
 	m_Rgn.CreateRectRgn(m_nScaleLeft, 0, m_nScaleRight + 1, m_nHeight);
 
@@ -267,7 +266,6 @@ void COsWin::DispScreen(const double *pLeftData, const double *pRightData, doubl
 	int y;
 	POINT *pPoint;
 	int nPoint;
-	RECT rect;
 	int nMin = 0, nMax = 0;
 	int x2;
 	int s, e;
@@ -443,10 +441,12 @@ void COsWin::DispScreen(const double *pLeftData, const double *pRightData, doubl
 
 	m_dcMem2.SelectClipRgn(NULL);
 
-	rect.left = xMin - 1;
-	rect.top = yMin;
-	rect.right = xMax + 1;
-	rect.bottom = yMax + 1;
+	RECT rect{
+		.left = xMin - 1,
+		.top = yMin,
+		.right = xMax + 1,
+		.bottom = yMax + 1
+	};
 	InvalidateRect(&rect, FALSE);
 }
 
@@ -458,7 +458,6 @@ void COsWin::DispXY(const double *pData, int nData, double fLevelL, double fLeve
 	POINT *pPoint;
 	int nPoint;
 	int nPos;
-	RECT rect;
 
 	if (m_pOverlayBufXY == NULL || g_oSetData.Os.nOverlay != m_nOverlayXY || m_nOverlaySize != nData) {
 		AllocOverlayXY(nData);
@@ -522,10 +521,12 @@ void COsWin::DispXY(const double *pData, int nData, double fLevelL, double fLeve
 	xMax++;
 	yMax++;
 
-	rect.left = min(xMin, xMin);
-	rect.top = min(yMin, yMin);
-	rect.right = max(xMax, xMax);
-	rect.bottom = max(yMax, yMax);
+	RECT rect{
+		.left = min(xMin, xMin),
+		.top = min(yMin, yMin),
+		.right = max(xMax, xMax),
+		.bottom = max(yMax, yMax)
+	};
 	InvalidateRect(&rect, FALSE);
 }
 
@@ -545,31 +546,39 @@ void COsWin::ClearScreen()
 void COsWin::DispTriggerLevel(int nTrigLevel, int nChannel, BOOL bDraw)
 {
 	int y;
-	RECT rect;
-	POINT point[3];
 
 	if (m_bTrigLevel) {
 		y = m_nScaleVCenter - m_nTrigLevel * m_nScaleHeight / 100;
-		rect.left = m_nScaleLeft - 10;
-		rect.top = y - 5;
-		rect.right= m_nScaleLeft;
-		rect.bottom = y + 5;
+		RECT rect{
+			.left = m_nScaleLeft - 10,
+			.top = y - 5,
+			.right = m_nScaleLeft,
+			.bottom = y + 5
+		};
 		m_dcMem2.BitBlt(rect.left, rect.top, 10, 10, &m_dcMem, rect.left, rect.top, SRCCOPY);
 		InvalidateRect(&rect, FALSE);
 	}
 
 	if (bDraw) {
 		y = m_nScaleVCenter - nTrigLevel * m_nScaleHeight / 100;
-		rect.left = m_nScaleLeft - 10;
-		rect.top = y - 5;
-		rect.right= m_nScaleLeft;
-		rect.bottom = y + 5;
-		point[0].x = rect.left + 1;
-		point[0].y = rect.top + 1;
-		point[1].x = rect.right - 1;
-		point[1].y = y;
-		point[2].x = rect.left + 1;
-		point[2].y = rect.bottom - 1;
+		RECT rect{
+			.left = m_nScaleLeft - 10,
+			.top = y - 5,
+			.right = m_nScaleLeft,
+			.bottom = y + 5
+		};
+		POINT point[3]{
+			{
+				.x = rect.left + 1,
+				.y = rect.top + 1
+			},{
+				.x = rect.right - 1,
+				.y = y
+			},{
+				.x = rect.left + 1,
+				.y = rect.bottom - 1
+			}
+		};
 		m_dcMem2.SelectObject(nChannel == 0 ? &m_penLeft : &m_penRight);
 		m_dcMem2.SelectObject(&m_brushGreen);
 		m_dcMem2.Polygon(point, 3);

@@ -891,7 +891,6 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 	BOOL bAbort = FALSE;
 	int nFreqIndex;
 	int nT0PosL = 0, nT0PosR = 0;
-	double fMTIL[N_MTF_BAND], fMTIR[N_MTF_BAND];
 	double fMTI500L, fMTI500R;
 	double fMTI2000L, fMTI2000R;
 
@@ -940,11 +939,11 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 	pDbAcParamRec->dbAcParamCond.fTCustom2 = setData.CalcParam.fTCustom2;
 	pDbAcParamRec->dbAcParamCond.fCCustom = setData.CalcParam.fCCustom;
 
-	memset(fMTIL, 0, sizeof(fMTIL));
+	double fMTIL[N_MTF_BAND]{};
 	fMTI500L = 0;
 	fMTI2000L = 0;
 
-	memset(fMTIR, 0, sizeof(fMTIR));
+	double fMTIR[N_MTF_BAND]{};
 	fMTI500R = 0;
 	fMTI2000R = 0;
 

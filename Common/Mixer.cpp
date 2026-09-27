@@ -27,7 +27,7 @@ static DWORD dwOutBassVal;
 
 BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 {
-	MIXERLINE mxl;
+	MIXERLINE mxl{};
 	int i;
 	MIXERCAPS mxcaps;
 	int nMixerNum = mixerGetNumDevs();
@@ -46,7 +46,6 @@ BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 		}
 
 		// 出力マスターの LineID を取得
-		memset(&mxl, 0, sizeof(mxl));
 		mxl.cbStruct = sizeof(mxl);
 		mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
 		if (mixerGetLineInfo((HMIXEROBJ)dwMixerOutDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
@@ -75,7 +74,6 @@ BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 		}
 
 		// 録音マスターの LineID を取得
-		memset(&mxl, 0, sizeof(mxl));
 		mxl.cbStruct = sizeof(mxl);
 		mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
 		if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
@@ -163,10 +161,9 @@ DWORD MixerGetControlID(DWORD_PTR dwMixerDevice, DWORD dwLineID, DWORD dwControl
 
 UINT MixerGetControlsByType(DWORD_PTR dwMixerDevice, DWORD dwLineID, DWORD dwControlType, MIXERCONTROL &mxc)
 {
-	MIXERLINECONTROLS mxlc;
+	mxc = {};
 
-	memset(&mxc, 0, sizeof(&mxc));
-	memset(&mxlc, 0, sizeof(mxlc));
+	MIXERLINECONTROLS mxlc{};
 	mxlc.cbStruct = sizeof(mxlc);
 	mxlc.dwLineID = dwLineID;
 	mxlc.dwControlType = dwControlType;
@@ -209,9 +206,8 @@ void MixerSetUnsignedControl(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD v
 
 UINT MixerGetControlValue(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMultipleItems, LPVOID paDetails, DWORD cbDetails)
 {
-	MIXERCONTROLDETAILS mxcd;
+	MIXERCONTROLDETAILS mxcd{};
 
-	memset(&mxcd, 0, sizeof(mxcd));
 	mxcd.cbStruct = sizeof(mxcd);
 	mxcd.dwControlID = dwControlID;
 	mxcd.cChannels = 1;
@@ -223,9 +219,8 @@ UINT MixerGetControlValue(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMul
 
 UINT MixerGetControlList(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMultipleItems, LPVOID paDetails, DWORD cbDetails)
 {
-	MIXERCONTROLDETAILS mxcd;
+	MIXERCONTROLDETAILS mxcd{};
 
-	memset(&mxcd, 0, sizeof(mxcd));
 	mxcd.cbStruct = sizeof(mxcd);
 	mxcd.dwControlID = dwControlID;
 	mxcd.cChannels = 1;
@@ -237,9 +232,8 @@ UINT MixerGetControlList(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMult
 
 UINT MixerSetControlValue(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMultipleItems, LPVOID paDetails, DWORD cbDetails)
 {
-	MIXERCONTROLDETAILS mxcd;
+	MIXERCONTROLDETAILS mxcd{};
 
-	memset(&mxcd, 0, sizeof(mxcd));
 	mxcd.cbStruct = sizeof(mxcd);
 	mxcd.dwControlID = dwControlID;
 	mxcd.cChannels = 1;

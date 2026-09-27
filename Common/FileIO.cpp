@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "FileIO.h"
+#include "Common.h"
 #include "comres.h"
 #include "mmdb.h"
 #include "DssData.h"
@@ -27,8 +28,7 @@ void CMyPcserve::Initialize()
 		::PathAppend(szSrcDir, "DataBase");
 		szSrcDir[strlen(szSrcDir) + 1] = '\0';
 
-		SHFILEOPSTRUCT shfs;
-		memset(&shfs, 0, sizeof(shfs));
+		SHFILEOPSTRUCT shfs{};
 		shfs.wFunc = FO_COPY;
 		shfs.pFrom = szSrcDir;
 		shfs.pTo = g_szDefaultDir;
@@ -61,7 +61,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_FOLDER_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEFOLDER, err);
 				return FALSE;
 			}
@@ -82,7 +82,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATEFOLDER, err);
 			return FALSE;
 		}
@@ -229,7 +229,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_IMPULSE_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEIRFILE, err);
 				return FALSE;
 			}
@@ -250,7 +250,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATEIRFILE, err);
 			return FALSE;
 		}
@@ -429,7 +429,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_ACF_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEACFFILE, err);
 				return FALSE;
 			}
@@ -450,7 +450,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATEACFFILE, err);
 			return FALSE;
 		}
@@ -617,7 +617,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_NMS_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATENMSFILE, err);
 				return FALSE;
 			}
@@ -630,7 +630,7 @@ Reopen:
 
 	DBRecSize(&nRecSize);
 	DBNField(&nField);
-	if (nRecSize - 1 != sizeof(DbNmsBuf) || nField != sizeof(fieldInf) / sizeof(DBF_I)) {
+	if (nRecSize - 1 != sizeof(DbNmsBuf) || nField != ARRAY_SIZE(fieldInf)) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTNMSFILE, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
 			DBClose();
 			return FALSE;
@@ -639,7 +639,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATENMSFILE, err);
 			return FALSE;
 		}
@@ -786,8 +786,7 @@ BOOL CDbNms::ReadRecID(long id, DbNmsRec *pDbRec, NmsConditionData *pNmsConditio
 	}
 
 	if (pNmsFactorData != NULL) {
-		*pNmsFactorData = new NmsFactorData[pDbRec->nNmsFactor];
-		memset(*pNmsFactorData, 0, sizeof(NmsFactorData) * pDbRec->nNmsFactor);
+		*pNmsFactorData = new NmsFactorData[pDbRec->nNmsFactor]();
 		if ((err = DBReadBinary("NMSFACTOR", *pNmsFactorData, sizeof(NmsFactorData) * pDbRec->nNmsFactor, &nRead)) != 0) {
 			ErrorMessage(IDS_ERR_READCALCFILE, err);
 			return FALSE;
@@ -885,7 +884,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_NSTMP_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATENSTMPFILE, err);
 				return FALSE;
 			}
@@ -906,7 +905,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATENSTMPFILE, err);
 			return FALSE;
 		}
@@ -1115,7 +1114,7 @@ BOOL CDbAcParam::Open(LPCTSTR dir)
 Reopen:
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATECALCFILE, err);
 				return FALSE;
 			}
@@ -1290,7 +1289,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_ACFFACT_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATECALCFILE, err);
 				return FALSE;
 			}
@@ -1312,7 +1311,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATECALCFILE, err);
 			return FALSE;
 		}
@@ -1376,15 +1375,13 @@ BOOL CDbAcfFactor::ReadRecID(long id, DbAcfFactorRec *pDbRec, AcfConditionData *
 	}
 
 	if (pAcfFactorData != NULL) {
-		*pAcfFactorData = new AcfFactorData[pDbRec->nAcfFactor];
-		memset(*pAcfFactorData, 0, sizeof(AcfFactorData) * pDbRec->nAcfFactor);
+		*pAcfFactorData = new AcfFactorData[pDbRec->nAcfFactor]();
 		if ((err = DBReadBinary("ACFFACTOR", *pAcfFactorData, sizeof(AcfFactorData) * pDbRec->nAcfFactor, &nRead)) != 0) {
 			ErrorMessage(IDS_ERR_READCALCFILE, err);
 			return FALSE;
 		}
 		if (pTaunPhinData != NULL) {
-			*pTaunPhinData = new TaunPhinData[pDbRec->nAcfFactor];
-			memset(*pTaunPhinData, 0, sizeof(TaunPhinData) * pDbRec->nAcfFactor);
+			*pTaunPhinData = new TaunPhinData[pDbRec->nAcfFactor]();
 			if ((err = DBReadBinary(NULL, *pTaunPhinData, sizeof(TaunPhinData) * pDbRec->nAcfFactor, &nRead)) != 0) {
 				ErrorMessage(IDS_ERR_READCALCFILE, err);
 				return FALSE;
@@ -1457,7 +1454,7 @@ BOOL CDbAcfMarker::Open(LPCTSTR dir)
 	pathName.Format("%s\\%s", dir, FN_ACFMARKER_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 //				ErrorMessage(IDS_ERR_CREATEACFFILE, err);
 				return FALSE;
 			}
@@ -1645,7 +1642,7 @@ BOOL CDbIFilter::Open(LPCTSTR dir)
 	pathName.Format("%s\\%s", dir, FN_IFILTER_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEIFFILE, err);
 				return FALSE;
 			}
@@ -1832,7 +1829,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_MICCAL_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEMICCAL, err);
 				return FALSE;
 			}
@@ -1853,7 +1850,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATEMICCAL, err);
 			return FALSE;
 		}
@@ -2029,7 +2026,7 @@ Reopen:
 	pathName.Format("%s\\%s", dir, FN_PRESET_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEPRESET, err);
 				return FALSE;
 			}
@@ -2042,7 +2039,7 @@ Reopen:
 
 	DBNField(&nField);
 	DBRecSize(&nRecSize);
-	if (nField != sizeof(fieldInf) / sizeof(DBF_I) || nRecSize - 1 != sizeof(DbPresetBuf)) {
+	if (nField != ARRAY_SIZE(fieldInf) || nRecSize - 1 != sizeof(DbPresetBuf)) {
 //		if (::AfxMessageBox(IDS_MSG_CONVERTPRESET, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
 		if (bReopen) {
 			DBClose();
@@ -2052,7 +2049,7 @@ Reopen:
 		CPSDB dbTemp;
 		CString pathNameTmp;
 		pathNameTmp.Format("%s\\%s", dir, FN_TEMP_DBF);
-		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+		if ((err = dbTemp.DBCreate(g_oPcserve, pathNameTmp, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 			ErrorMessage(IDS_ERR_CREATEPRESET, err);
 			return FALSE;
 		}
@@ -2207,7 +2204,7 @@ BOOL CDbWaveForm::Open(LPCTSTR dir)
 	pathName.Format("%s\\%s", dir, FN_WAVEFORM_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, sizeof(fieldInf) / sizeof(DBF_I))) != 0) {
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
 				ErrorMessage(IDS_ERR_CREATEWAVEFORM, err);
 				return FALSE;
 			}

@@ -79,8 +79,7 @@ void CAcfWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, 
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -248,21 +247,24 @@ void CAcfWnd::DispGraph1(double totalTime, double startTime, double dispTime, co
 
 	if (!m_sTitle.IsEmpty()) {
 		CString str1, str2;
-		REMARK_INFO remark;
-		int n = 0;
-
-		remark.remarks[n].pen = &m_penData;
-		remark.remarks[n++].text = m_sTitle;
-
-		remark.remarks[n].pen = &m_penLine1;
 		str1.LoadString(IDS_PHI1);
-		remark.remarks[n++].text = str1;
-
-		remark.remarks[n].pen = &m_penLine2;
 		str2.LoadString(IDS_TAU1);
-		remark.remarks[n++].text = str2;
 
-		remark.nRemark = n;
+		REMARK_INFO remark{
+			.nRemark = 3,
+			.remarks{
+				{
+					.pen = &m_penData,
+					.text = m_sTitle
+				},{
+					.pen = &m_penLine1,
+					.text = str1
+				},{
+					.pen = &m_penLine2,
+					.text = str2
+				}
+			}
+		};
 		m_wndRemark.DispRemarks(&remark);
 	}
 
@@ -321,21 +323,24 @@ void CAcfWnd::DispGraph2(double totalTime, double startTime, double dispTime, co
 
 	if (!m_sTitle.IsEmpty()) {
 		CString str1, str2;
-		REMARK_INFO remark;
-		int n = 0;
-
-		remark.remarks[n].pen = &m_penData;
-		remark.remarks[n++].text = m_sTitle;
-
-		remark.remarks[n].pen = &m_penLine1;
-		str1.LoadString(IDS_REGRESSIONLINE);
-		remark.remarks[n++].text = str1;
-
-		remark.remarks[n].pen = &m_penLine2;
 		str2.LoadString(IDS_TAUE);
-		remark.remarks[n++].text = str2;
+		str1.LoadString(IDS_REGRESSIONLINE);
 
-		remark.nRemark = n;
+		REMARK_INFO remark{
+			.nRemark = 3,
+			.remarks{
+				{
+					.pen = &m_penData,
+					.text = m_sTitle
+				},{
+					.pen = &m_penLine1,
+					.text = str1
+				},{
+					.pen = &m_penLine2,
+					.text = str2
+				}
+			}
+		};
 		m_wndRemark.DispRemarks(&remark);
 	}
 
@@ -387,7 +392,7 @@ BOOL CAcfWnd::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/)
 	return TRUE;
 }
 
-void CAcfWnd::SetMouseCursor()
+void CAcfWnd::SetMouseCursor() const
 {
 	HCURSOR hCursor;
 

@@ -108,7 +108,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 /////////////////////////////////////////////////////////////////////////////
 // CMainFrame メッセージ ハンドラ
 
-CSasView* CMainFrame::GetRightPane()
+CSasView* CMainFrame::GetRightPane() const
 {
 	CWnd* pWnd = m_wndSplitter.GetPane(0, 1);
 	CSasView* pView = DYNAMIC_DOWNCAST(CSasView, pWnd);
@@ -186,14 +186,14 @@ void CMainFrame::OnClose()
 	CFrameWnd::OnClose();
 }
 
-CView *CMainFrame::GetTreeView()
+CView *CMainFrame::GetTreeView() const
 {
 	CWnd* pWnd = m_wndSplitter.GetPane(0, 0);
 	CView* pView = DYNAMIC_DOWNCAST(CView, pWnd);
 	return pView;
 }
 
-CView *CMainFrame::GetListView()
+CView *CMainFrame::GetListView() const
 {
 	CWnd* pWnd = m_wndSplitter.GetPane(0, 1);
 	CView* pView = DYNAMIC_DOWNCAST(CView, pWnd);

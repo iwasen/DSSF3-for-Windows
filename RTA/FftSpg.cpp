@@ -174,7 +174,7 @@ void CFftWnd::DrawLevelScale(const FFTWINDOW *pFftWindow, int /*nLeft*/, int nTo
 	m_dcMem.SelectObject(pPenOrg);
 }
 
-COLORREF CFftWnd::GetLevelColor(double fLevel)
+COLORREF CFftWnd::GetLevelColor(double fLevel) const
 {
 	int r, g, b;
 

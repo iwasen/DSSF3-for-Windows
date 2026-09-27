@@ -161,11 +161,16 @@ void CWaveWnd::Initialize(int nChannel, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, 
 	m_hCursorAScroll = pWinApp->LoadStandardCursor(IDC_SIZEALL);
 
 	if (pTitle != NULL) {
+		REMARK_INFO remark{
+			.nRemark = 1,
+			.remarks{
+				{
+					.pen = NULL,
+					.text = pTitle
+				}
+			}
+		};
 		m_wndRemark.Create(this);
-		REMARK_INFO remark;
-		remark.nRemark = 1;
-		remark.remarks[0].pen = NULL;
-		remark.remarks[0].text = pTitle;
 		m_wndRemark.DispRemarks(&remark);
 	}
 }
@@ -197,8 +202,7 @@ void CWaveWnd::SetSize(int nFontSize)
 	ReleaseDC(pDC);
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = nFontSize;
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -512,11 +516,12 @@ void CWaveWnd::OnLButtonUp(UINT nFlags, CPoint point)
 				CPoint pointStart, pointEnd;
 				pointStart.SetPoint(min(m_pointDragStart.x, m_pointDragEnd.x), min(m_pointDragStart.y, m_pointDragEnd.y));
 				pointEnd.SetPoint(max(m_pointDragStart.x, m_pointDragEnd.x), max(m_pointDragStart.y, m_pointDragEnd.y));
-				SGraphDrag drag;
-				drag.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth;
-				drag.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight;
-				drag.fEndX = (double)(pointEnd.x - m_nScaleLeft) / m_nScaleWidth;
-				drag.fEndY = (double)(pointEnd.y - m_nScaleTop) / m_nScaleHeight;
+				SGraphDrag drag{
+					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
+					.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight,
+					.fEndX = (double)(pointEnd.x - m_nScaleLeft) / m_nScaleWidth,
+					.fEndY = (double)(pointEnd.y - m_nScaleTop) / m_nScaleHeight
+				};
 				GetParent()->SendMessage(WM_GRAPH_DRAG, (WPARAM)&drag, m_nChannel);
 			}
 
@@ -553,11 +558,12 @@ void CWaveWnd::OnMouseMove(UINT nFlags, CPoint point)
 				pointStart = point - m_pointZoomArea;
 				pointEnd = pointStart + m_rectZoom.Size();
 
-				SGraphDrag drag;
-				drag.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth;
-				drag.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight;
-				drag.fEndX = (double)(pointEnd.x - m_nScaleLeft) / m_nScaleWidth;
-				drag.fEndY = (double)(pointEnd.y - m_nScaleTop) / m_nScaleHeight;
+				SGraphDrag drag{
+					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
+					.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight,
+					.fEndX = (double)(pointEnd.x - m_nScaleLeft) / m_nScaleWidth,
+					.fEndY = (double)(pointEnd.y - m_nScaleTop) / m_nScaleHeight
+				};
 				GetParent()->SendMessage(WM_GRAPH_DRAG, (WPARAM)&drag, m_nChannel);
 			}
 			break;

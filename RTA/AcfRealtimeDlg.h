@@ -84,7 +84,7 @@ protected:
 	void FreeBuffers();
 	static UINT CalcThreadEntry(LPVOID pParam);
 	void CalcThread();
-	void CalcAcfFactor(AllFactorData *pFactorData);
+	void CalcAcfFactor(AllFactorData *pFactorData) const;
 	void GetFactor(int nFactorKind, FACTOR_GRAPH &oFactorGraph);
 	void CalcSpectrum();
 	void InitAcfFactorList();

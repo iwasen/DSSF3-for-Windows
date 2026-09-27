@@ -319,14 +319,7 @@ void CAcfDlg::OnStart()
 
 	InitDispTime();
 	DispWaveGraph();
-/*
-	if (!m_cGraphAcf.ClearGraph()) {
-		::AfxMessageBox(IDS_ERR_RUNNINGSTEP);
-		m_cCalcCycle.SetFocus();
-		m_cCalcCycle.SetSel(0, -1);
-		return;
-	}
-*/
+
 	m_cGraphAcf.ClearGraph();
 
 	if (!AllocBuffers()) {
@@ -337,8 +330,7 @@ void CAcfDlg::OnStart()
 	SetFilter();
 
 	m_nWaveBufSize = m_nSample * m_nChannel;
-	m_pWaveBuf = new double[m_nWaveBufSize];
-	MEMCLEAR(m_pWaveBuf, m_nWaveBufSize);
+	m_pWaveBuf = new double[m_nWaveBufSize]();
 
 	SYSTEMTIME st;
 	GetLocalTime(&st);
@@ -526,7 +518,6 @@ void CAcfDlg::CalcAcf()
 	double xt, yt;
 
 	j = m_nRingBufPtr;
-
 	for (i = 0; i < m_nAcfSize; i++) {
 		m_pAcfBuf1[i] = m_pRingBuf[j];
 		if (++j >= m_nRingBufSize)
@@ -759,13 +750,14 @@ void CAcfDlg::DispWaveGraph()
 		m_nScrollSize = nScrollSize;
 		m_nScrollPos = nScrollPos;
 
-		SCROLLINFO si;
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = nScrollPos
+		};
 		m_cGraphScroll.SetScrollInfo(&si, TRUE);
 	}
 
@@ -1297,7 +1289,8 @@ void CAcfDlg::OnBnClickedLaunchSa()
 			PROCESS_INFORMATION pi;
 			ZeroMemory(&si, sizeof(si));
 			si.cb = sizeof(si);
-			::CreateProcess(NULL, "SAS /ACF", NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi);
+			CString sCommand = "SAS /ACF";
+			::CreateProcess(NULL, sCommand.GetBuffer(), NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi);
 			::CloseHandle(pi.hProcess);
 			::CloseHandle(pi.hThread);
 		}
@@ -1306,7 +1299,7 @@ void CAcfDlg::OnBnClickedLaunchSa()
 	::GlobalFree(hWaveData);
 }
 
-BOOL CAcfDlg::SaveACF(HWAVEDATA hWaveData)
+BOOL CAcfDlg::SaveACF(HWAVEDATA hWaveData) const
 {
 	CDbAcf dbAcf;
 	DbAcfRec dbAcfRec;

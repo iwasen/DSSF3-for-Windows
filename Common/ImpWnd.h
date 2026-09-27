@@ -14,7 +14,7 @@ public:
 	void Resize();
 	void DispImpulse(double totalTime, double startTime, double dispTime, const double *pData, int nData, BOOL bHScroll);
 	void SetSelectArea(double startTime, double endTime, BOOL bErase = TRUE);
-	void GetSelectArea(double *startTime, double *endTime);
+	void GetSelectArea(double *startTime, double *endTime) const;
 	void SetDeltaT1(double T0, double T1);
 
 protected:
@@ -53,7 +53,7 @@ protected:
 	void Uninitialize2();
 	void SetPenColor(COLORREF color);
 	void SetBitmap(double startTime, double dispTime);
-	void SetMouseCursor(CPoint point);
+	void SetMouseCursor(CPoint point) const;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();

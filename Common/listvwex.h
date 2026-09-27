@@ -33,7 +33,7 @@ protected:
 	BOOL m_bFullRowSel;
 
 	BOOL SetFullRowSel(BOOL bFillRowSel);
-	BOOL GetFullRowSel();
+	BOOL GetFullRowSel() const;
 
 	BOOL m_bClientWidthSel;
 

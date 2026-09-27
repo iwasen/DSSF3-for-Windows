@@ -30,8 +30,8 @@ public:
 	void CloseIn();
 	void ResetIn();
 	void StopIn();
-	int GetBitsPerSampleIn();
-	BOOL IsOpenIn();
+	int GetBitsPerSampleIn() const;
+	BOOL IsOpenIn() const;
 
 	BOOL GetDevicesOut(CStringArray &aDeviceNames);
 	BOOL CanSamplingRateOut(INT_PTR nWaveDevice, int nSamplesPerSec);
@@ -41,8 +41,8 @@ public:
 	void ResetOut();
 	void PauseOut();
 	void RestartOut();
-	int GetBitsPerSampleOut();
-	BOOL IsOpenOut();
+	int GetBitsPerSampleOut() const;
+	BOOL IsOpenOut() const;
 
 protected:
 	PIMMDeviceEnumerator m_pDeviceEnumerator;

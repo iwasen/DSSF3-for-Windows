@@ -41,8 +41,7 @@ void CAcf3dd::Initialize(int nFontSize)
 	ReleaseDC(pDC);
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -139,19 +138,27 @@ void CAcf3dd::SetBitmap()
 	rect.SetRect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &brushBkGrnd);
 
-	POINT point[6];
-	point[0].x = m_nScaleRight2;
-	point[0].y = m_nScaleBottom2;
-	point[1].x = m_nScaleRight;
-	point[1].y = m_nScaleBottom;
-	point[2].x = m_nScaleRight;
-	point[2].y = m_nScaleTop;
-	point[3].x = m_nScaleLeft;
-	point[3].y = m_nScaleTop;
-	point[4].x = m_nScaleLeft2;
-	point[4].y = m_nScaleTop2;
-	point[5].x = m_nScaleLeft2;
-	point[5].y = m_nScaleBottom2;
+	POINT point[6]{
+		{
+			.x = m_nScaleRight2,
+			.y = m_nScaleBottom2
+		},{
+			.x = m_nScaleRight,
+			.y = m_nScaleBottom
+		},{
+			.x = m_nScaleRight,
+			.y = m_nScaleTop
+		},{
+			.x = m_nScaleLeft,
+			.y = m_nScaleTop
+		},{
+			.x = m_nScaleLeft2,
+			.y = m_nScaleTop2
+		},{
+			.x = m_nScaleLeft2,
+			.y = m_nScaleBottom2
+		}
+	};
 	m_dcMem.Polygon(point, 6);
 
 	m_dcMem.SelectObject(&penGray);
@@ -341,7 +348,7 @@ void CAcf3dd::ClearGraph()
 	Invalidate();
 }
 
-void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, double fSamplingRate)
+void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, double fSamplingRate) const
 {
 	int i, j;
 	int ptr = pDispData->m_nCurrentPtr;

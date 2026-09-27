@@ -58,7 +58,7 @@ protected:
 	void SetHScroll();
 	void SetVScroll();
 	static void CALLBACK GraphCallBack(WPARAM code, LPARAM data, double param1, double param2);
-	void DispZoomGraph(CWaveWnd *pWnd);
+	void DispZoomGraph(CWaveWnd *pWnd) const;
 	void CloseZoomWnd();
 	void SetZoomArea();
 

@@ -763,8 +763,6 @@ void CImpulseDlg::InitDispTime()
 
 void CImpulseDlg::DispImpWindow()
 {
-	SCROLLINFO si;
-
 	if (m_fDispTime == 0)
 		m_fDispTime = m_fTotalTime;
 	else if (m_fDispTime < m_fTotalTime / MAX_ZOOM_TIME)
@@ -784,12 +782,14 @@ void CImpulseDlg::DispImpWindow()
 		m_nScrollSize = g_oSetData.Imp.nScrollSize;
 		m_nScrollPos = g_oSetData.Imp.nScrollPos;
 
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = g_oSetData.Imp.nScrollSize;
-		si.nPos = g_oSetData.Imp.nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)g_oSetData.Imp.nScrollSize,
+			.nPos = g_oSetData.Imp.nScrollPos
+		};
 		m_cGraphScroll.SetScrollInfo(&si, TRUE);
 	}
 
@@ -1454,7 +1454,10 @@ void CImpulseDlg::OnBnClickedLaunchSa()
 			PROCESS_INFORMATION pi;
 			ZeroMemory(&si, sizeof(si));
 			si.cb = sizeof(si);
-			::CreateProcess(NULL, "SAS /IMP", NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi);
+			CString sCommand = "SAS /IMP";
+			::CreateProcess(NULL, sCommand.GetBuffer(), NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi);
+			::CloseHandle(pi.hProcess);
+			::CloseHandle(pi.hThread);
 		}
 	}
 

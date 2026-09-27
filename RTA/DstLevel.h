@@ -16,7 +16,7 @@ public:
 	BOOL NotifyTHD(const double *pLeftDst, const double *pRightDst);
 	void Redraw();
 	void CsvOutput(LPCTSTR pFileName);
-	BOOL CheckDataExist();
+	BOOL CheckDataExist() const;
 	BOOL CheckDataHold();
 	HBITMAP GetBitmap();
 	void AddDataHold(COLORREF colorLeft, COLORREF colorRight);

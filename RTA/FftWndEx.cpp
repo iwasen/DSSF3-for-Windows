@@ -150,7 +150,7 @@ void CFftWndEx::SetStatusPane()
 {
 	static const int widthsLR[] = { 15, 50, 25, 50, 25, -1, 15, 50, 25, 50, 25};
 	static const int widths[] = { 15, 50, 25, 50, 25 };
-	int parts[sizeof(widthsLR) / sizeof(int)];
+	int parts[ARRAY_SIZE(widthsLR)];
 	CRect rect;
 	int size;
 	const int *pWidth;
@@ -158,10 +158,10 @@ void CFftWndEx::SetStatusPane()
 
 	if (m_nMode == FFT_MODE_PHS || m_nMode == FFT_MODE_CRS || m_nMode == FFT_MODE_COH) {
 		pWidth = widths;
-		nWidth = sizeof(widths) / sizeof(int);
+		nWidth = ARRAY_SIZE(widths);
 	} else {
 		pWidth = widthsLR;
-		nWidth = sizeof(widthsLR) / sizeof(int);
+		nWidth = ARRAY_SIZE(widthsLR);
 	}
 
 	int pos = 0;

@@ -36,8 +36,7 @@ BOOL CSplWnd::OnInitDialog()
 	CDialogAF::OnInitDialog();
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = 180;
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -65,9 +64,9 @@ void CSplWnd::OnOK()
 
 void CSplWnd::OnDestroy()
 {
-	WINDOWPLACEMENT winpl;
-
-	winpl.length = sizeof(WINDOWPLACEMENT);
+	WINDOWPLACEMENT winpl{
+		.length = sizeof(WINDOWPLACEMENT)
+	};
 	GetWindowPlacement(&winpl);			// ダイアログ表示位置取得
 	g_oSetData.SplWindow.left = winpl.rcNormalPosition.left;
 	g_oSetData.SplWindow.top = winpl.rcNormalPosition.top;

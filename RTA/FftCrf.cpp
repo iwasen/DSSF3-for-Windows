@@ -234,7 +234,7 @@ void CFftWnd::CalcLateralCorrelation(double *pFftBufRe, double *pFftBufIm)
 		pCrfBuf[i] *= f0;
 }
 
-void CFftWnd::CalcCrf(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffset, int nDataSize)
+void CFftWnd::CalcCrf(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffset, int nDataSize) const
 {
 	POINT *pPoint = pFftData->m_pCrfPoint;
 	int x, y;
@@ -373,7 +373,7 @@ void CFftWnd::ResetDispFreqCrf(const FFTWINDOW *pFftWindow)
 	}
 }
 
-void CFftWnd::CsvOutputCrf(CCsvFile &oCsvFile)
+void CFftWnd::CsvOutputCrf(CCsvFile &oCsvFile) const
 {
 	oCsvFile.SetData("FFT");
 	oCsvFile.SetData("Correlation");

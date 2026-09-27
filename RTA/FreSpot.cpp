@@ -376,7 +376,7 @@ double CFreSpot::CalcFreqResponse(const double *pData, double fFreq, const DbMic
 	return (fSinSum * fSinSum + fCosSum * fCosSum) * 2;
 }
 
-BOOL CFreSpot::CheckDataExist()
+BOOL CFreSpot::CheckDataExist() const
 {
 	return m_bValidData && m_nFreqCount != 0;
 }
@@ -410,13 +410,15 @@ void CFreSpot::ReadCsv(CCsvFile &oCsvFile)
 		double fFreq;
 		double fLeftData;
 		double fRightData;
-	} oCsvData;
+	};
 	CList<SCsvData, SCsvData&> oCsvDataList;
 
 	while (oCsvFile.Input()) {
-		oCsvData.fFreq = oCsvFile.GetDouble(0);
-		oCsvData.fLeftData = oCsvFile.GetDouble(1);
-		oCsvData.fRightData = oCsvFile.GetDouble(2);
+		SCsvData oCsvData{
+			.fFreq = oCsvFile.GetDouble(0),
+			.fLeftData = oCsvFile.GetDouble(1),
+			.fRightData = oCsvFile.GetDouble(2)
+		};
 		oCsvDataList.AddTail(oCsvData);
 	}
 
@@ -441,7 +443,7 @@ void CFreSpot::ReadCsv(CCsvFile &oCsvFile)
 	pFreq = m_pFreq;
 
 	while (oCsvDataList.GetCount() != 0) {
-		oCsvData = oCsvDataList.RemoveHead();
+		SCsvData oCsvData = oCsvDataList.RemoveHead();
 		*pFreq++ = oCsvData.fFreq;
 		*pLeftData++ = pow(10.0, oCsvData.fLeftData / 10);
 		if (m_nChannel == 2) {

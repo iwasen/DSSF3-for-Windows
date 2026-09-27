@@ -29,8 +29,7 @@ WaveForm *CWaveForm::ReadWaveForm(int id)
 		DbWaveFormRec dbRec;
 		WaveForm *pWaveForm;
 
-		pWaveForm = new WaveForm;
-		memset(pWaveForm, 0, sizeof(WaveForm));
+		pWaveForm = new WaveForm();
 
 		if (dbWaveForm.Open()) {
 			if (dbWaveForm.ReadRecID(id, &dbRec, (WaveFormData *)pWaveForm->uWaveFormManual.vertex)) {
@@ -60,7 +59,7 @@ WaveForm *CWaveForm::ReadWaveForm(int id)
 	return m_pWaveForm[id];
 }
 
-void CWaveForm::WriteWaveForm(int id)
+void CWaveForm::WriteWaveForm(int id) const
 {
 	WaveForm *pWaveForm = m_pWaveForm[id];
 

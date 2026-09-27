@@ -36,7 +36,7 @@ CDssData::CDssData()
 	}
 }
 
-void CDssData::SaveData()
+void CDssData::SaveData() const
 {
 	CString sDataDirectory;
 	CString sPathName;

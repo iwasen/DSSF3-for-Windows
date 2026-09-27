@@ -426,8 +426,9 @@ int CRecDlg::PlayData(LPWAVENOTIFY pWaveNotify)
 
 void CRecDlg::AllocBuf()
 {
-	MEMORYSTATUSEX msex;
-	msex.dwLength = sizeof(msex);
+	MEMORYSTATUSEX msex{
+		.dwLength = sizeof(msex)
+	};
 	::GlobalMemoryStatusEx(&msex);
 
 	DWORDLONG dwMem = msex.ullAvailPhys;
@@ -541,13 +542,14 @@ void CRecDlg::DispWaveGraph()
 		m_nScrollSize = nScrollSize;
 		m_nScrollPos = nScrollPos;
 
-		SCROLLINFO si;
-		si.cbSize = sizeof(SCROLLINFO);
-		si.fMask = SIF_ALL;
-		si.nMin = 0;
-		si.nMax = SCROLL_RANGE;
-		si.nPage = nScrollSize;
-		si.nPos = nScrollPos;
+		SCROLLINFO si{
+			.cbSize = sizeof(SCROLLINFO),
+			.fMask = SIF_ALL,
+			.nMin = 0,
+			.nMax = SCROLL_RANGE,
+			.nPage = (UINT)nScrollSize,
+			.nPos = nScrollPos
+		};
 		m_cGraphScroll.SetScrollInfo(&si, TRUE);
 	}
 
@@ -684,9 +686,7 @@ void CRecDlg::LoadWavDssfFile(LPCTSTR pPathName)
 		int nSizeWav;
 		int nSizeAutoRecInfo;
 		int nSizeSetData;
-		AutoRecInfo oAutoRecInfo;
-
-		memset(&oAutoRecInfo, 0, sizeof(oAutoRecInfo));
+		AutoRecInfo oAutoRecInfo{};
 
 		file.Seek(4, CFile::begin);
 		file.Read(&nSizeWav, 4);
@@ -740,13 +740,16 @@ void CRecDlg::OnBnClickedFileSave()
 	int nBitsPerSample = fileDlg.m_pOFN->nFilterIndex == 1 ? 16 : 24;
 	int nBytesPerSample = (nBitsPerSample / 8) * m_nRecChannel;
 
-	PCMWAVEFORMAT waveFormat;
-	waveFormat.wf.wFormatTag = WAVE_FORMAT_PCM;
-	waveFormat.wf.nChannels = (WORD)m_nRecChannel;
-	waveFormat.wf.nSamplesPerSec = m_nSamplingRate;
-	waveFormat.wf.nAvgBytesPerSec = m_nSamplingRate * nBytesPerSample;
-	waveFormat.wf.nBlockAlign = (WORD)nBytesPerSample;
-	waveFormat.wBitsPerSample = (WORD)nBitsPerSample;
+	PCMWAVEFORMAT waveFormat{
+		.wf{
+			.wFormatTag = WAVE_FORMAT_PCM,
+			.nChannels = (WORD)m_nRecChannel,
+			.nSamplesPerSec = (DWORD)m_nSamplingRate,
+			.nAvgBytesPerSec = (DWORD)(m_nSamplingRate * nBytesPerSample),
+			.nBlockAlign = (WORD)nBytesPerSample,
+		},
+		.wBitsPerSample = (WORD)nBitsPerSample
+	};
 
 	// Filterèàóù
 	CRtaApp *pWinApp = (CRtaApp *)::AfxGetApp();

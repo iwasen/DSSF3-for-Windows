@@ -32,16 +32,19 @@ void CAutoRec::StartRecord(int nSampleRate, int nChannels, int nWindow, BOOL bOu
 
 	m_sFileName.Format("%s\\%s-%s-%s.wavdssf", (LPCSTR)g_oSetData2.sAutoRecFolder, (LPCSTR)m_oAutoRecInfo.oStartTime.Format("%Y%m%d-%H%M%S"), (LPCSTR)GetWindowName(), bOut ? "O" : "I");
 
-	PCMWAVEFORMAT waveFormat;
 	int nBitsPerSample = 16;
 	int nBytesPerSample = (nBitsPerSample / 8) * nChannels;
 
-	waveFormat.wBitsPerSample = 16;
-	waveFormat.wf.wFormatTag = WAVE_FORMAT_PCM;
-	waveFormat.wf.nChannels = (WORD)nChannels;
-	waveFormat.wf.nSamplesPerSec = nSampleRate;
-	waveFormat.wf.nAvgBytesPerSec = nSampleRate * nBytesPerSample;
-	waveFormat.wf.nBlockAlign = (WORD)nBytesPerSample;
+	PCMWAVEFORMAT waveFormat{
+		.wf{
+			.wFormatTag = WAVE_FORMAT_PCM,
+			.nChannels = (WORD)nChannels,
+			.nSamplesPerSec = (DWORD)nSampleRate,
+			.nAvgBytesPerSec = (DWORD)(nSampleRate * nBytesPerSample),
+			.nBlockAlign = (WORD)nBytesPerSample
+		},
+		.wBitsPerSample = 16
+	};
 	if (m_oWaveFile.Create(m_sFileName, &waveFormat))
 		m_bRecording = TRUE;
 }

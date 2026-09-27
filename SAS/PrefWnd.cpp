@@ -63,8 +63,7 @@ void CPrefWnd::Initialize(int nFontSize)
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font;
-	memset(&font, 0, sizeof(font));
+	LOGFONT font{};
 	font.lfHeight = nFontSize;
 	font.lfCharSet = DEFAULT_CHARSET;
 	str.LoadString(IDS_DEFAULTFONT);
@@ -89,17 +88,25 @@ void CPrefWnd::Initialize(int nFontSize)
 	m_nScaleHeight = m_nScaleBottom - m_nScaleTop;
 
 	CString str1, str2, str3;
-	REMARK_INFO remark;
-	remark.nRemark = 3;
-	remark.remarks[0].pen = &m_penData;
 	str1.LoadString(IDS_TAUEPREF);
-	remark.remarks[0].text = str1;
-	remark.remarks[1].pen = &m_penTauE;
 	str2.LoadString(IDS_OPTIMUMTAUE);
-	remark.remarks[1].text = str2;
-	remark.remarks[2].pen = &m_penS;
 	str3.LoadString(IDS_MAXPREF);
-	remark.remarks[2].text = str3;
+
+	REMARK_INFO remark{
+		.nRemark = 3,
+		.remarks{
+			{
+				.pen = &m_penData,
+				.text = str1
+			},{
+				.pen = &m_penTauE,
+				.text = str2
+			},{
+				.pen = &m_penS,
+				.text = str3
+			}
+		}
+	};
 	m_wndRemark.Create(this);
 	m_wndRemark.DispRemarks(&remark);
 }
@@ -178,7 +185,6 @@ void CPrefWnd::SetBitmap(int minS, int maxTe)
 #define MIN_S	-10
 void CPrefWnd::DispGraph(const double *pData, int nData, double maxTauE, double maxS)
 {
-	int i;
 	int x, y;
 
 	SetBitmap(MIN_S, nData);
@@ -201,7 +207,7 @@ void CPrefWnd::DispGraph(const double *pData, int nData, double maxTauE, double 
 
 	m_dcMem.SelectObject(&m_penData);
 
-	for (i = 0; i < nData; i++) {
+	for (int i = 0; i < nData; i++) {
 		x = m_nScaleLeft + (i + 1) * m_nScaleWidth / nData;
 		y = m_nScaleTop + (int)(pData[i] * m_nScaleHeight / MIN_S + 0.5);
 

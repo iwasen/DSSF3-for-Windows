@@ -37,7 +37,7 @@ protected:
 	BOOL m_bHScroll;
 
 	void SetBitmap(double startTime, double dispTime, int nMaxLevel, int nMinLevel);
-	void SetMouseCursor(CPoint point);
+	void SetMouseCursor(CPoint point) const;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();

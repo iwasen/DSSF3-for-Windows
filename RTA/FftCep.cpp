@@ -201,7 +201,7 @@ void CFftWnd::CalcCep(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 	}
 }
 
-int CFftWnd::CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPoint)
+int CFftWnd::CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPoint) const
 {
 	int x2 = 0;
 	double fStepY = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
@@ -336,7 +336,7 @@ void CFftWnd::ResetDispFreqCep(const FFTWINDOW *pFftWindow)
 	}
 }
 
-void CFftWnd::CsvOutputCep(CCsvFile &oCsvFile)
+void CFftWnd::CsvOutputCep(CCsvFile &oCsvFile) const
 {
 	oCsvFile.SetData("FFT");
 	oCsvFile.SetData("Cepstrum");

@@ -22,7 +22,7 @@ public:
 	int m_nNmsFactorData;
 	NmsConditionData m_NmsConditionData;
 	NmsFactorData *m_pNmsFactorData;
-	NoiseSrcData m_NoiseSrcData;
+	NoiseSrcData m_NoiseSrcData{};
 	int m_nNoiseTmpID;
 	BOOL m_bLearning;
 

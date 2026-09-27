@@ -72,20 +72,21 @@ void CFolder::OnBnClickedDefaultBackup()
 void CFolder::SelectFolder(CString &sFolder, int nTitleId)
 {
 	char dst_file[MAX_PATH];
-	BROWSEINFO binfo;
 	LPITEMIDLIST idlist;
 	CString sTitle;
 
 	sTitle.LoadString(nTitleId);
 	strcpy_s(dst_file, sFolder);
-	binfo.hwndOwner = m_hWnd;
-	binfo.pidlRoot = NULL;
-	binfo.pszDisplayName = dst_file;
-	binfo.lpszTitle = sTitle;
-	binfo.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI; 
-	binfo.lpfn = &BrowseCallbackProc;
-	binfo.lParam = (LPARAM)dst_file;
-	binfo.iImage = (int)NULL;
+	BROWSEINFO binfo{
+		.hwndOwner = m_hWnd,
+		.pidlRoot = NULL,
+		.pszDisplayName = dst_file,
+		.lpszTitle = sTitle,
+		.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI,
+		.lpfn = &BrowseCallbackProc,
+		.lParam = (LPARAM)dst_file,
+		.iImage = (int)NULL
+	};
 	idlist = ::SHBrowseForFolder(&binfo);
 	if (idlist) {
 		::SHGetPathFromIDList(idlist, dst_file);

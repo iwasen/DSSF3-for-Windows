@@ -152,7 +152,7 @@ void CSgTone::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CDialogAF::OnVScroll(nSBCode, nPos, pScrollBar);
 }
 
-int CSgTone::CalcSliderPos(double fFreq)
+int CSgTone::CalcSliderPos(double fFreq) const
 {
 	if (fFreq < MIN_FREQ)
 		fFreq = MIN_FREQ;
@@ -169,7 +169,7 @@ int CSgTone::CalcSliderPos(double fFreq)
 	return nPos;
 }
 
-double CSgTone::CalcFreq(int pos)
+double CSgTone::CalcFreq(int pos) const
 {
 	if (pos < MIN_POS)
 		pos = MIN_POS;
