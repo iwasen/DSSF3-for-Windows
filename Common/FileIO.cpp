@@ -42,7 +42,7 @@ void CMyPcserve::Initialize()
 
 BOOL CDbFolder::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"FOLDERID", 'I', LEN_ID,      0},
 		{"TYPE",     'C', LEN_TYPE,    0},
 		{"NAME",     'C', LEN_NAME,    0},
@@ -203,7 +203,7 @@ BOOL CDbFolder::UpdateRec(DbFolderRec *pDbRec)
 
 BOOL CDbImpulse::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"FOLDERID",   'I', LEN_ID,         0},
 		{"IMPULSEID",  'I', LEN_ID,         0},
 		{"SAMPLING",   'I', LEN_SAMPLING,   0},
@@ -409,7 +409,7 @@ BOOL CDbImpulse::UpdateRec(DbImpulseRec *pDbRec)
 
 BOOL CDbAcf::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"FOLDERID",   'I', LEN_ID,         0},
 		{"ACFID",      'I', LEN_ID,         0},
 		{"SAMPLING",   'I', LEN_SAMPLING,   0},
@@ -591,7 +591,7 @@ BOOL CDbAcf::UpdateRec(DbAcfRec *pDbRec)
 
 BOOL CDbNms::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"FOLDERID",  'I', LEN_ID,        0},
 		{"NMSID",     'I', LEN_ID,        0},
 		{"SAMPLING",  'I', LEN_SAMPLING,  0},
@@ -871,7 +871,7 @@ BOOL CDbNms::UpdateRec(DbNmsRec *pDbRec)
 
 BOOL CDbNsTmp::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"NSTMPID",   'I', LEN_ID,        0},
 		{"NSTMPNAME", 'C', LEN_NSTMPNAME, 0},
 		{"NSTMPDATA", 'B', 0, 0}
@@ -1096,7 +1096,7 @@ BOOL CDbNsTmp::DeleteRec(long id)
 
 BOOL CDbAcParam::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"IMPULSEID", 'I', LEN_ID,    0},
 		{"CONDSIZE",  'I', LEN_SIZE,  0},
 		{"DATASIZE",  'I', LEN_SIZE,  0},
@@ -1271,7 +1271,7 @@ BOOL CDbAcParam::UpdateRec(DbAcParamRec *pDbRec)
 
 BOOL CDbAcfFactor::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"ACFID",     'I', LEN_ID,       0},
 		{"CONDSIZE",  'I', LEN_SIZE,     0},
 		{"FACTSIZE",  'I', LEN_SIZE,     0},
@@ -1441,7 +1441,7 @@ BOOL CDbAcfFactor::UpdateRec(DbAcfFactorRec *pDbRec)
 
 BOOL CDbAcfMarker::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"MARKERID",   'I', LEN_ID,         0},
 		{"ACFID",      'I', LEN_ID,         0},
 		{"TIME",	   'N', LEN_FLOAT,      5},
@@ -1624,7 +1624,7 @@ BOOL CDbAcfMarker::ReadRecAcfID(long id, DbAcfMarkerRec **pDbRec, int &nDataNum)
 
 BOOL CDbIFilter::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"IFILTERID", 'I', LEN_ID,       0},
 		{"TITLE",     'C', LEN_TITLE,    0},
 		{"COMMENT",   'C', LEN_COMMENT,  0},
@@ -1770,7 +1770,7 @@ BOOL CDbIFilter::DeleteID(long id)
 
 BOOL CDbMicCal::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"MICCALID",   'I', LEN_ID,      0},
 		{"MICINFO",    'C', LEN_MICINFO, 0},
 		{"MICAMPINFO", 'C', LEN_MICAMPINFO, 0},
@@ -2003,7 +2003,7 @@ BOOL CDbMicCal::SearchRecID(long id)
 
 BOOL CDbPreset::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"PRESETID",   'I', LEN_ID,    0},
 		{"TITLE",      'C', LEN_TITLE, 0},
 		{"OPENWINDOW", 'I', LEN_SHORT, 0},
@@ -2191,7 +2191,7 @@ BOOL CDbPreset::DeleteID(long id)
 
 BOOL CDbWaveForm::Open(LPCSTR dir)
 {
-	static DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[] = {
 		{"WAVEFORMID", 'I', LEN_ID,    0},
 		{"SMOOTHFLAG", 'I', LEN_BOOL,  0},
 		{"DATANUM",    'I', LEN_WAVEFORMNUM, 0},
