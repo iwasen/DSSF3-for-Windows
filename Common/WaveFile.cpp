@@ -11,7 +11,7 @@ CWaveFile::~CWaveFile(void)
 	Close();
 }
 
-BOOL CWaveFile::Create(LPCTSTR pFileName, const PCMWAVEFORMAT *pWaveFormat)
+BOOL CWaveFile::Create(LPCSTR pFileName, const PCMWAVEFORMAT *pWaveFormat)
 {
 	if (!m_oWaveFile.Open(pFileName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyWrite))
 		return FALSE;
@@ -38,7 +38,7 @@ BOOL CWaveFile::Create(LPCTSTR pFileName, const PCMWAVEFORMAT *pWaveFormat)
 void CWaveFile::Write(const double *pData, int nSamplesNum)
 {
 	if (m_oWaveFile.m_hFile != CFile::hFileNull) {
-		int nDataSize = (m_oPcmWaveFormat.wBitsPerSample / 8) * nSamplesNum;
+		const int nDataSize = (m_oPcmWaveFormat.wBitsPerSample / 8) * nSamplesNum;
 		BYTE *pWaveBuf = new BYTE[nDataSize];
 		CopyWaveFromDouble(pWaveBuf, pData, NULL, nSamplesNum, m_oPcmWaveFormat.wBitsPerSample);
 
@@ -63,7 +63,7 @@ void CWaveFile::Close()
 	}
 }
 
-BOOL CWaveFile::Open(LPCTSTR pFileName, PCMWAVEFORMAT *pWaveFormat, DWORD *pDataSize)
+BOOL CWaveFile::Open(LPCSTR pFileName, PCMWAVEFORMAT *pWaveFormat, DWORD *pDataSize)
 {
 	if (!m_oWaveFile.Open(pFileName, CFile::modeRead | CFile::shareDenyNone))
 		return FALSE;
@@ -125,7 +125,7 @@ BOOL CWaveFile::ReadChunk(DWORD ckID, void *pData, DWORD nSize)
 	if (!SearchChunk(ckID, &ckSize))
 		return FALSE;
 
-	DWORD nRead = min(ckSize, nSize);
+	const DWORD nRead = min(ckSize, nSize);
 
 	if (m_oWaveFile.Read(pData, nRead) != nRead)
 		return FALSE;
@@ -163,7 +163,7 @@ BOOL CWaveFile::SearchChunk(DWORD ckID, DWORD *ckSize)
 void CWaveFile::Read(double *pData, int nSamplesNum)
 {
 	if (m_oWaveFile.m_hFile != CFile::hFileNull) {
-		DWORD nDataSize = (m_oPcmWaveFormat.wBitsPerSample / 8) * nSamplesNum;
+		const DWORD nDataSize = (m_oPcmWaveFormat.wBitsPerSample / 8) * nSamplesNum;
 		BYTE *pWaveBuf = new BYTE[nDataSize];
 		m_oWaveFile.Read(pWaveBuf, nDataSize);
 		CopyWaveToDouble(pWaveBuf, pData, NULL, nSamplesNum, m_oPcmWaveFormat.wBitsPerSample);

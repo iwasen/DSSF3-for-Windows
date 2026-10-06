@@ -30,7 +30,7 @@ void CAsioDriver::Initialize(void)
 
 	cr = RegOpenKey(HKEY_LOCAL_MACHINE,ASIO_PATH,&hkEnum);
 	while (cr == ERROR_SUCCESS) {
-		if ((cr = RegEnumKey(hkEnum,index++,(LPTSTR)keyname,MAXDRVNAMELEN))== ERROR_SUCCESS) {
+		if ((cr = RegEnumKey(hkEnum,index++,(LPSTR)keyname,MAXDRVNAMELEN))== ERROR_SUCCESS) {
 			m_pDrvList = newDrvStruct (hkEnum,keyname,0,m_pDrvList);
 		}
 		else fin = TRUE;
@@ -54,7 +54,7 @@ void CAsioDriver::UnInitialize(void)
 	}
 }
 
-LONG CAsioDriver::findDrvPath (char *clsidstr,char *dllpath,int dllpathsize)
+LONG CAsioDriver::findDrvPath (LPSTR clsidstr, LPCSTR dllpath, int dllpathsize)
 {
 	HKEY			hkEnum,hksub,hkpath;
 	char			databuf[512];
@@ -69,7 +69,7 @@ LONG CAsioDriver::findDrvPath (char *clsidstr,char *dllpath,int dllpathsize)
 	if ((cr = RegOpenKey(HKEY_CLASSES_ROOT,COM_CLSID,&hkEnum)) == ERROR_SUCCESS) {
 		index = 0;
 		while (cr == ERROR_SUCCESS && !found) {
-			cr = RegEnumKey(hkEnum,index++,(LPTSTR)databuf,512);
+			cr = RegEnumKey(hkEnum,index++,(LPSTR)databuf,512);
 			if (cr == ERROR_SUCCESS) {
 				CharLowerBuff(databuf, (DWORD)strlen(databuf));
 				if (!(strcmp(databuf,clsidstr))) {
@@ -96,7 +96,7 @@ LONG CAsioDriver::findDrvPath (char *clsidstr,char *dllpath,int dllpathsize)
 	return rc;
 }
 
-LPASIODRVSTRUCT CAsioDriver::newDrvStruct (HKEY hkey,char *keyname,int drvID,LPASIODRVSTRUCT lpdrv)
+LPASIODRVSTRUCT CAsioDriver::newDrvStruct (HKEY hkey, LPCSTR keyname,int drvID, LPASIODRVSTRUCT lpdrv)
 {
 	HKEY	hksub;
 	char	databuf[256];

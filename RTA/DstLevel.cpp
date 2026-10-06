@@ -313,7 +313,7 @@ void CDstLevel::FreeBuffers()
 
 void CDstLevel::OnEnChangeLevelStart()
 {
-	int nLevelStart = -(int)m_cLevelStart;
+	const int nLevelStart = -(int)m_cLevelStart;
 
 	if (nLevelStart != g_oSetData.Dst.nLevelStart) {
 		g_oSetData.Dst.nLevelStart = nLevelStart;
@@ -323,7 +323,7 @@ void CDstLevel::OnEnChangeLevelStart()
 
 void CDstLevel::OnEnChangeLevelEnd()
 {
-	int nLevelEnd = -(int)m_cLevelEnd;
+	const int nLevelEnd = -(int)m_cLevelEnd;
 
 	if (nLevelEnd != g_oSetData.Dst.nLevelEnd) {
 		g_oSetData.Dst.nLevelEnd = nLevelEnd;
@@ -357,7 +357,7 @@ void CDstLevel::OnCancel()
 {
 }
 
-void CDstLevel::CsvOutput(LPCTSTR pFileName)
+void CDstLevel::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -377,7 +377,7 @@ HBITMAP CDstLevel::GetBitmap()
 
 BOOL CDstLevel::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_HARM_GRAPH, IDH_DST_LEVEL_HARM_GRAPH,
 		IDC_FREQ_SLIDER, IDH_DST_LEVEL_FREQ_SLIDER,
 		IDC_FREQ_EDIT, IDH_DST_LEVEL_FREQ_EDIT,
@@ -393,7 +393,7 @@ BOOL CDstLevel::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -450,7 +450,7 @@ BOOL CDstLevel::CheckDataHold()
 
 void CDstLevel::SaveHoldData(CFile &oFile)
 {
-	INT32 count = (INT32)m_oHoldDataList.GetCount();
+	const INT32 count = (INT32)m_oHoldDataList.GetCount();
 
 	oFile.Write(&count, sizeof(count));
 

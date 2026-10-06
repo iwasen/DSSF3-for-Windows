@@ -52,7 +52,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CImpWnd メッセージ ハンドラ
 
-void CImpWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF rgbWaveColor, PFNGRAPH pCallBackFunc, LPARAM nCallBackData)
+void CImpWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF rgbWaveColor, PFNGRAPH pCallBackFunc, LPARAM nCallBackData)
 {
 	if (m_bInitialized)
 		return;
@@ -78,9 +78,10 @@ void CImpWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF rg
 	m_brushSelectArea.CreateSolidBrush(RGB(255, 255, 128));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_fontNormal.CreatePointFontIndirect(&font, &m_dcMem);
@@ -200,9 +201,9 @@ void CImpWnd::SetBitmap(double startTime, double dispTime)
 		m_dcMem.TextOut(m_nScaleLeft - size.cx - 2, y - size.cy / 2, sText);
 	}
 
-	double t1 = dispTime / m_nScaleWidth * 75;
+	const double t1 = dispTime / m_nScaleWidth * 75;
 	double step = pow(10.0, floor(log10(t1)));
-	double t2 = t1 / step;
+	const double t2 = t1 / step;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -319,7 +320,7 @@ void CImpWnd::DispImpulse(double totalTime, double startTime, double dispTime, c
 		return;
 	}
 
-	double fMaxVal = GetMaxData(pData, nData);
+	const double fMaxVal = GetMaxData(pData, nData);
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penWave);
@@ -404,7 +405,7 @@ void CImpWnd::SetSelectArea(double startTime, double endTime, BOOL bErase)
 
 	m_dcMem.SelectClipRgn(&m_rgnScale);
 
-	int ropModeOrg = m_dcMem.SetROP2(R2_NOTXORPEN);
+	const int ropModeOrg = m_dcMem.SetROP2(R2_NOTXORPEN);
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushSelectArea);
@@ -456,8 +457,8 @@ void CImpWnd::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if (point.y > m_nScaleTop && point.y < m_nScaleBottom) {
 		if (m_fStartSelectTime >= 0) {
-			int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
-			int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
 			if (abs(point.x - x2) < 2) {
 				m_nMouseMode = MOUSE_SELECT_END;
@@ -473,8 +474,8 @@ void CImpWnd::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 
 		if (m_fT0 >= 0) {
-			int x1 = (int)((m_fT0 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
-			int x2 = (int)((m_fT1 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x1 = (int)((m_fT0 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x2 = (int)((m_fT1 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
 			if (abs(point.x - x2) < 2) {
 				m_nMouseMode = MOUSE_T1;
@@ -536,7 +537,7 @@ void CImpWnd::OnMouseMove(UINT nFlags, CPoint point)
 	if (x > m_nScaleWidth)
 		x = m_nScaleWidth;
 
-	double t = x * m_fDispTime / m_nScaleWidth + m_fStartTime;
+	const double t = x * m_fDispTime / m_nScaleWidth + m_fStartTime;
 
 	switch (m_nMouseMode) {
 	case MOUSE_SELECT_START:
@@ -603,14 +604,14 @@ void CImpWnd::SetMouseCursor(CPoint point) const
 		break;
 	default:
 		if (m_fStartSelectTime >= 0) {
-			int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
-			int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 			if ((abs(point.x - x2) < 2 || abs(point.x - x1) < 2) && point.y > m_nScaleTop && point.y < m_nScaleBottom)
 				hCursor = m_hCursorHMove;
 		}
 		if (m_fT0 >= 0) {
-			int x1 = (int)((m_fT0 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
-			int x2 = (int)((m_fT1 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x1 = (int)((m_fT0 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x2 = (int)((m_fT1 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 			if ((abs(point.x - x2) < 2 || abs(point.x - x1) < 2) && point.y > m_nScaleTop && point.y < m_nScaleBottom)
 				hCursor = m_hCursorHMove;
 		}

@@ -16,7 +16,7 @@ public:
 	CWaveWnd();
 	virtual ~CWaveWnd();
 
-	void Initialize(int nChannel, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd = NULL);
+	void Initialize(int nChannel, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd = NULL);
 	void SetSize(int nFontSize);
 	void DispGraph(double fTotalTime, double fStartTime, double fDispTime, const double *pData, int nData, int nChannel, double fMaxValue, double fMinValue, BOOL bHScroll, BOOL bVScroll, double fSelStart, double fSelEnd, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec);
 	void DispMarkerCursor(double fStartTime, double fDispTime, double fOffsetTime);

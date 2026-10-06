@@ -36,9 +36,10 @@ BOOL CSplWnd::OnInitDialog()
 	CDialogAF::OnInitDialog();
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = 180;
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = 180,
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font);
@@ -98,13 +99,13 @@ void CSplWnd::Clear()
 
 BOOL CSplWnd::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDCANCEL, IDH_SPL_CANCEL,
 		IDC_SPL, IDH_SPL,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

@@ -123,9 +123,9 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 			}
 
 			if (dwAvail == 0) {
-				int nChannels = 2;
-				int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
-				int nBitsPerSample = 16;
+				const int nChannels = 2;
+				const int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
+				const int nBitsPerSample = 16;
 
 				WAVEFORMATEX waveFormat{
 					.wFormatTag = WAVE_FORMAT_PCM,
@@ -181,9 +181,9 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 			}
 
 			if (dwAvail == 0) {
-				int nChannels = 2;
-				int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
-				int nBitsPerSample = 16;
+				const int nChannels = 2;
+				const int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
+				const int nBitsPerSample = 16;
 
 				WAVEFORMATEX waveFormat{
 					.wFormatTag = WAVE_FORMAT_PCM,
@@ -235,7 +235,7 @@ int GetSamplingRateIndex(int nSamplingRate)
 
 void SetFilterNameList(CComboBox &combo)
 {
-	static const int tFilterName[] = {
+	static constexpr int tFilterName[] = {
 	//	"Flat", "A特性", "B特性", "C特性"
 		IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING
 	};
@@ -289,7 +289,7 @@ BOOL ExecMMLib(CWnd *pWnd)
 	PROCESS_INFORMATION pi{};
 	CString sCommandLine;
 	sCommandLine.Format("%s /C", g_DssData.m_sMmlibPath);
-	if (!::CreateProcess(NULL, (LPTSTR)(LPCSTR)sCommandLine, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi)) {
+	if (!::CreateProcess(NULL, (LPSTR)(LPCSTR)sCommandLine, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi)) {
 		MessageBoxID(pWnd, IDS_ERR_EXEC_MMLIB, MB_OK | MB_ICONEXCLAMATION);
 		return FALSE;
 	}
@@ -404,7 +404,7 @@ BOOL CheckMMLib()
 	return TRUE;
 }
 
-BOOL SendMMLib(CWnd *pWnd, LPCTSTR pFolderTitle, LPCTSTR pFolderComment, LPCTSTR pDataTitle, LPCTSTR pDataComment, LPCTSTR pText, HANDLE hDIB)
+BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pDataTitle, LPCSTR pDataComment, LPCSTR pText, HANDLE hDIB)
 {
 	UINT	err;
 
@@ -450,8 +450,8 @@ BOOL SendMMLib(CWnd *pWnd, LPCTSTR pFolderTitle, LPCTSTR pFolderComment, LPCTSTR
 		}
 	}
 
-	DWORD nDibSize = (DWORD)::GlobalSize(hDIB);
-	DWORD nDataSize = sizeof(MMLIBDATA) + nDibSize;
+	const DWORD nDibSize = (DWORD)::GlobalSize(hDIB);
+	const DWORD nDataSize = sizeof(MMLIBDATA) + nDibSize;
 	pMmlibData = (MMLIBDATA *)new char[nDataSize];
 
 	strcpy_s(pMmlibData->folder.title, pFolderTitle);
@@ -465,7 +465,7 @@ BOOL SendMMLib(CWnd *pWnd, LPCTSTR pFolderTitle, LPCTSTR pFolderComment, LPCTSTR
 	memcpy(pMmlibData->dib, pDib, nDibSize);
 	::GlobalUnlock(hDIB);
 
-	UINT uFmt = ::RegisterClipboardFormat("MMLIB_DATA");
+	const UINT uFmt = ::RegisterClipboardFormat("MMLIB_DATA");
 	HDDEDATA hMmlibData = ::DdeCreateDataHandle(idInst, (LPBYTE)pMmlibData, nDataSize, 0, 0, uFmt, 0);
 
 	HDDEDATA hData = ::DdeClientTransaction((LPBYTE)hMmlibData, (DWORD)-1, hConv, NULL, uFmt, XTYP_EXECUTE, 10000, NULL);
@@ -523,16 +523,16 @@ int ReadWaveData(HWAVEDATA hWaveData, double *pLeftData, double *pRightData, int
 		return 0;
 
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-	int nBytesPerSample = pWaveData->nChannels * (pWaveData->nBitsPerSample / 8);
-	int nWaveSize = pWaveData->dataSize / nBytesPerSample;
-	int nReadSize = min(nWaveSize - nOffset, nData);
+	const int nBytesPerSample = pWaveData->nChannels * (pWaveData->nBitsPerSample / 8);
+	const int nWaveSize = pWaveData->dataSize / nBytesPerSample;
+	const int nReadSize = min(nWaveSize - nOffset, nData);
 
 	CopyWaveToDouble((BYTE *)pWaveData->waveData + nOffset * nBytesPerSample, pLeftData, pWaveData->nChannels == 2 ? pRightData : NULL, nReadSize, pWaveData->nBitsPerSample);
 
 	::GlobalUnlock(hWaveData);
 
 	if (nReadSize < nData) {
-		int nClear = nData - nReadSize;
+		const int nClear = nData - nReadSize;
 
 		memset(pLeftData + nReadSize, 0, sizeof(double) * nClear);
 		if (pRightData != NULL)
@@ -544,7 +544,7 @@ int ReadWaveData(HWAVEDATA hWaveData, double *pLeftData, double *pRightData, int
 
 HWAVEDATA MakeWaveDataHandle(int nSamplesPerSec, int nBitsPerSample, int nChannel, int nDataNum, const double *pLeftData, const double *pRightData, BOOL bNormalize)
 {
-	int nBytes = nDataNum * (nBitsPerSample / 8) * (pRightData == NULL ? 1 : nChannel);
+	const int nBytes = nDataNum * (nBitsPerSample / 8) * (pRightData == NULL ? 1 : nChannel);
 	HWAVEDATA hWaveData = ::GlobalAlloc(GHND, sizeof(WAVEDATA) + nBytes);
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
 	pWaveData->nChannels = (WORD)nChannel;
@@ -554,7 +554,7 @@ HWAVEDATA MakeWaveDataHandle(int nSamplesPerSec, int nBitsPerSample, int nChanne
 
 	double fMul;
 	if (bNormalize) {
-		double fMaxData = GetMaxData(pLeftData, pRightData, nDataNum);
+		const double fMaxData = GetMaxData(pLeftData, pRightData, nDataNum);
 		fMul = fMaxData == 0 ? 0 : 1 / fMaxData;
 	} else
 		fMul = 1.0;
@@ -574,7 +574,7 @@ void OpenURL(UINT nID)
 	::ShellExecute(NULL, "open", str, NULL, NULL, SW_SHOWNORMAL);
 }
 
-void OpenURL(LPCTSTR pUrl)
+void OpenURL(LPCSTR pUrl)
 {
 	::ShellExecute(NULL, "open", pUrl, NULL, NULL, SW_SHOWNORMAL);
 }
@@ -646,7 +646,7 @@ void MakeWindowFunc(int type, int size, double *data, double fMul)
 		break;
 	}
 
-	int size1 = size - 1;
+	const int size1 = size - 1;
 
 	for (int i = 0; i < size; i++) {
 		switch (type) {
@@ -692,8 +692,8 @@ void ScreenShot(HWND hWnd)
 
 	CRect rect;
 	pWnd->GetWindowRect(&rect);
-	int nWidth = rect.Width();
-	int nHeight = rect.Height();
+	const int nWidth = rect.Width();
+	const int nHeight = rect.Height();
 
 	CDC *pDC = pWnd->GetWindowDC();
 	CDC DCMem;
@@ -717,7 +717,7 @@ void ScreenShot(HWND hWnd)
 	title.LoadString(IDS_SAVE_IMAGE_FILE);
 	dlg.m_ofn.lpstrTitle = title;
 	if (dlg.DoModal() == IDOK)
-		MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)dlg.GetPathName());
+		MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
 
 	::GlobalFree(hDIB);
 }
@@ -749,21 +749,25 @@ void DispContextHelp(const HELPINFO* pHelpInfo, const UINT *pIDs)
 	if (nHelpId != 0) {
 		CString sHelpFile;
 
-		HH_POPUP hp{};
-		hp.cbStruct = sizeof(HH_POPUP);
-		hp.pt.x = pHelpInfo->MousePos.x;
-		hp.pt.y = pHelpInfo->MousePos.y;
-		hp.clrForeground = RGB(0, 0, 0);
-		hp.clrBackground = (COLORREF)-1;
-		hp.rcMargins.left = -1;
-		hp.rcMargins.right = -1;
-		hp.rcMargins.top = -1;
-		hp.rcMargins.bottom = -1;
-		hp.idString = nHelpId;
+		HH_POPUP hp{
+			.cbStruct = sizeof(HH_POPUP),
+			.idString = nHelpId,
+			.pt{
+				.x = pHelpInfo->MousePos.x,
+				.y = pHelpInfo->MousePos.y
+			},
+			.clrForeground = RGB(0, 0, 0),
+			.clrBackground = (COLORREF)-1,
+			.rcMargins{
+				.left = -1,
+				.top = -1,
+				.right = -1,
+				.bottom = -1
+			},
 #ifdef _LANG_JPN
-		hp.pszFont = "メイリオ,9";
+			.pszFont = "メイリオ,9"
 #endif
-
+		};
 		sHelpFile.LoadString(9000/*IDS_HELP_FILE*/);
 		if (!sHelpFile.IsEmpty()) {
 			CString sHelpPath;
@@ -775,7 +779,7 @@ void DispContextHelp(const HELPINFO* pHelpInfo, const UINT *pIDs)
 
 int ConvertToInt(double fData, int nBits)
 {
-	double fMax = PowDouble(nBits);
+	const double fMax = PowDouble(nBits);
 	fData *= fMax - 1;
 
 	if (fData > fMax - 1)
@@ -904,7 +908,7 @@ double GetMaxData(const double *pData, int nData, int nAlign)
 
 	if (pData != NULL) {
 		for (int i = 0; i < nData; i++) {
-			double fAbs = fabs(*pData);
+			const double fAbs = fabs(*pData);
 			pData += nAlign;
 
 			if (fAbs > fMaxData)
@@ -917,8 +921,8 @@ double GetMaxData(const double *pData, int nData, int nAlign)
 
 double GetMaxData(const double *pLeftData, const double *pRightData, int nData)
 {
-	double fLeftMaxData = GetMaxData(pLeftData, nData, 1);
-	double fRightMaxData = GetMaxData(pRightData, nData, 1);
+	const double fLeftMaxData = GetMaxData(pLeftData, nData, 1);
+	const double fRightMaxData = GetMaxData(pRightData, nData, 1);
 
 	return max(fLeftMaxData, fRightMaxData);
 }
@@ -932,7 +936,7 @@ CString GetExeDir()
 	return szExePath;
 }
 
-void SetFileType(LPCTSTR ext, LPCTSTR docname, LPCTSTR doctype, LPCTSTR exepath)
+void SetFileType(LPCSTR ext, LPCSTR docname, LPCSTR doctype, LPCSTR exepath)
 {
 	CRegKey reg;
 

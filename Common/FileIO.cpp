@@ -28,18 +28,19 @@ void CMyPcserve::Initialize()
 		::PathAppend(szSrcDir, "DataBase");
 		szSrcDir[strlen(szSrcDir) + 1] = '\0';
 
-		SHFILEOPSTRUCT shfs{};
-		shfs.wFunc = FO_COPY;
-		shfs.pFrom = szSrcDir;
-		shfs.pTo = g_szDefaultDir;
-		shfs.fFlags = FOF_NOCONFIRMMKDIR;
+		SHFILEOPSTRUCT shfs{
+			.wFunc = FO_COPY,
+			.pFrom = szSrcDir,
+			.pTo = g_szDefaultDir,
+			.fFlags = FOF_NOCONFIRMMKDIR
+		};
 		SHFileOperation(&shfs);
 	}
 
 	Connect(0, NULL, "");
 }
 
-BOOL CDbFolder::Open(LPCTSTR dir)
+BOOL CDbFolder::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"FOLDERID", 'I', LEN_ID,      0},
@@ -200,7 +201,7 @@ BOOL CDbFolder::UpdateRec(DbFolderRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbImpulse::Open(LPCTSTR dir)
+BOOL CDbImpulse::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"FOLDERID",   'I', LEN_ID,         0},
@@ -406,7 +407,7 @@ BOOL CDbImpulse::UpdateRec(DbImpulseRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcf::Open(LPCTSTR dir)
+BOOL CDbAcf::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"FOLDERID",   'I', LEN_ID,         0},
@@ -588,7 +589,7 @@ BOOL CDbAcf::UpdateRec(DbAcfRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbNms::Open(LPCTSTR dir)
+BOOL CDbNms::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"FOLDERID",  'I', LEN_ID,        0},
@@ -868,7 +869,7 @@ BOOL CDbNms::UpdateRec(DbNmsRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbNsTmp::Open(LPCTSTR dir)
+BOOL CDbNsTmp::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"NSTMPID",   'I', LEN_ID,        0},
@@ -1093,7 +1094,7 @@ BOOL CDbNsTmp::DeleteRec(long id)
 	return TRUE;
 }
 
-BOOL CDbAcParam::Open(LPCTSTR dir)
+BOOL CDbAcParam::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"IMPULSEID", 'I', LEN_ID,    0},
@@ -1268,7 +1269,7 @@ BOOL CDbAcParam::UpdateRec(DbAcParamRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcfFactor::Open(LPCTSTR dir)
+BOOL CDbAcfFactor::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"ACFID",     'I', LEN_ID,       0},
@@ -1438,7 +1439,7 @@ BOOL CDbAcfFactor::UpdateRec(DbAcfFactorRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcfMarker::Open(LPCTSTR dir)
+BOOL CDbAcfMarker::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"MARKERID",   'I', LEN_ID,         0},
@@ -1621,7 +1622,7 @@ BOOL CDbAcfMarker::ReadRecAcfID(long id, DbAcfMarkerRec **pDbRec, int &nDataNum)
 	return TRUE;
 }
 
-BOOL CDbIFilter::Open(LPCTSTR dir)
+BOOL CDbIFilter::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"IFILTERID", 'I', LEN_ID,       0},
@@ -1767,7 +1768,7 @@ BOOL CDbIFilter::DeleteID(long id)
 	return TRUE;
 }
 
-BOOL CDbMicCal::Open(LPCTSTR dir)
+BOOL CDbMicCal::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"MICCALID",   'I', LEN_ID,      0},
@@ -2000,7 +2001,7 @@ BOOL CDbMicCal::SearchRecID(long id)
 	return TRUE;
 }
 
-BOOL CDbPreset::Open(LPCTSTR dir)
+BOOL CDbPreset::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"PRESETID",   'I', LEN_ID,    0},
@@ -2188,7 +2189,7 @@ BOOL CDbPreset::DeleteID(long id)
 	return TRUE;
 }
 
-BOOL CDbWaveForm::Open(LPCTSTR dir)
+BOOL CDbWaveForm::Open(LPCSTR dir)
 {
 	static DBF_I fieldInf[] = {
 		{"WAVEFORMID", 'I', LEN_ID,    0},
@@ -2564,7 +2565,7 @@ void WriteNsWeightData(const NsWeightData *pNsWeightData)
 		file.Write(pNsWeightData, sizeof(NsWeightData));
 }
 
-void ImportIR(LPCTSTR pDir)
+void ImportIR(LPCSTR pDir)
 {
 	CDbFolder dbSrcFolder, dbDstFolder;
 	CDbImpulse dbSrcImpulse, dbDstImpulse;
@@ -2619,7 +2620,7 @@ void ImportIR(LPCTSTR pDir)
 	}
 }
 
-void ImportACF(LPCTSTR pDir)
+void ImportACF(LPCSTR pDir)
 {
 	CDbFolder dbSrcFolder, dbDstFolder;
 	CDbAcf dbSrcAcf, dbDstAcf;

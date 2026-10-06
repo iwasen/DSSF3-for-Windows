@@ -52,7 +52,7 @@ static double innerproduct(int n, vector u, vector v)
 	int i;
 
 	double s = 0;
-	int n5 = n % 5;
+	const int n5 = n % 5;
 	for (i = 0; i < n5; i++) s += u[i]*v[i];
 	for (i = n5; i < n; i += 5)
 		s += u[i]*v[i] + u[i+1]*v[i+1] + u[i+2]*v[i+2] + u[i+3]*v[i+3] + u[i+4]*v[i+4];

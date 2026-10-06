@@ -397,8 +397,8 @@ int CDstDlg::WaveOutData(double *pData)
 		m_pWaveOut->Reset();
 	}
 
-	int nBitsPerSample = m_pWaveOut->GetBitsPerSample();
-	double fTmp = pow(10.0, fLevel / 20.0);
+	const int nBitsPerSample = m_pWaveOut->GetBitsPerSample();
+	const double fTmp = pow(10.0, fLevel / 20.0);
 	for (i = 0; i < m_nBufSize; i++) {
 		*pData++ = m_pSinTable[m_nWaveOutOffset] * fTmp + GetDither(nBitsPerSample);
 		m_nWaveOutOffset = (m_nWaveOutOffset + nFreq) % m_nSample;
@@ -482,7 +482,7 @@ void CDstDlg::CalcTHD()
 double CDstDlg::GetHarmonic(const double *pData, int nHarmonic)
 {
 	int i;
-	int nStep = m_nFreq * nHarmonic;
+	const int nStep = m_nFreq * nHarmonic;
 	int nSinOffset = 0;
 	int nCosOffset = m_nSample / 4;
 	double fSinSum = 0;
@@ -587,7 +587,7 @@ void CDstDlg::OnBnClickedScaleDb()
 
 void CDstDlg::OnCbnSelchangeScaleMax()
 {
-	int nIndex = m_cScaleMax.GetCurSel();
+	const int nIndex = m_cScaleMax.GetCurSel();
 	if (nIndex != CB_ERR) {
 		g_oSetData.Dst.nScaleMax = (int)m_cScaleMax.GetItemData(nIndex);
 		RedrawGraph();
@@ -596,7 +596,7 @@ void CDstDlg::OnCbnSelchangeScaleMax()
 
 void CDstDlg::OnCbnSelchangeScaleMin()
 {
-	int nIndex = m_cScaleMin.GetCurSel();
+	const int nIndex = m_cScaleMin.GetCurSel();
 	if (nIndex != CB_ERR) {
 		g_oSetData.Dst.nScaleMin = (int)m_cScaleMin.GetItemData(nIndex);
 		RedrawGraph();
@@ -634,7 +634,7 @@ void CDstDlg::OnTcnSelchangeDstTab(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 
 void CDstDlg::OnCbnSelchangeGuardTime()
 {
-	int nIndex = m_cGuardTime.GetCurSel();
+	const int nIndex = m_cGuardTime.GetCurSel();
 	if (nIndex != CB_ERR)
 		g_oSetData.Dst.nGuardCnt = (int)m_cGuardTime.GetItemData(nIndex);
 }
@@ -709,7 +709,7 @@ void CDstDlg::OnBnClickedScreenShot()
 	CString sTab;
 	HBITMAP hBmp = NULL;
 	m_cDstTab.GetCurrentTitle(sTab);
-	int nTimeCount = m_nTimeCount / 5;
+	const int nTimeCount = m_nTimeCount / 5;
 	sTitle.Format("%s - %d:%02d:%02d", (LPCSTR)sTab, nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 
 	switch (g_oSetData.Dst.nMode) {
@@ -729,7 +729,7 @@ void CDstDlg::OnBnClickedScreenShot()
 
 BOOL CDstDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_BTN_START, IDH_DST_START,
 		IDC_ELP_TIME, IDH_DST_ELP_TIME,
 		IDC_SAMPLING_RATE, IDH_DST_SAMPLING_RATE,
@@ -749,7 +749,7 @@ BOOL CDstDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

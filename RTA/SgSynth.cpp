@@ -339,7 +339,7 @@ void CSgSynth::OnCbnSelchangeWaveForm()
 
 BOOL CSgSynth::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_COMP_FREQ_1, IDH_SG_SYNTH_COMP_FREQ_1_8,
 		IDC_LEVEL_SLIDER_1, IDH_SG_SYNTH_LEVEL_SLIDER_1_8,
 		IDC_COMP_LEVEL_1, IDH_SG_SYNTH_COMP_LEVEL_1_8,
@@ -370,7 +370,7 @@ BOOL CSgSynth::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

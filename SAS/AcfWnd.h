@@ -7,7 +7,7 @@ class CAcfWnd : public CWnd
 public:
 	CAcfWnd();
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData);
+	void Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData);
 	void DispGraph1(double totalTime, double startTime, double dispTime, const double *pData, int nData, double fTau1, double fPhi1, BOOL bHScroll);
 	void DispGraph2(double totalTime, double startTime, double dispTime, const double *pData, int nData, double fTauE, double fTauE0, int nMaxLevel, int nMinLevel, BOOL bHScroll);
 
@@ -34,7 +34,7 @@ protected:
 	HCURSOR m_hCursorArrow, m_hCursorHScroll;
 	BOOL m_bHScroll;
 
-	void SetBitmap(double startTime, double dispTime, int nMaxLevel, int nMinLevel, int nStep, int nDiv, LPCTSTR pStr);
+	void SetBitmap(double startTime, double dispTime, int nMaxLevel, int nMinLevel, int nStep, int nDiv, LPCSTR pStr);
 	void SetMouseCursor() const;
 
 	DECLARE_MESSAGE_MAP()

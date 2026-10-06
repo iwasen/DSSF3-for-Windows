@@ -280,7 +280,7 @@ BOOL CFreSweep::WaveOutData(double *pData, int nBitsPerSample)
 		if (m_fSweepFreq <= m_fSweepEnd) {
 			*pData++ = sin(2 * M_PI * m_fSweepAngle) * m_fLevel + GetDither(nBitsPerSample);
 
-			double fAngleStep = m_fSweepFreq / m_nSamplingRate;
+			const double fAngleStep = m_fSweepFreq / m_nSamplingRate;
 			m_fSweepAngle += fAngleStep;
 			while (m_fSweepAngle >= 1)
 				m_fSweepAngle -= 1;
@@ -330,7 +330,7 @@ double CFreSweep::CalcFreqResponse(const double *pData, double fFreq, const DbMi
 	int i;
 
 	double fFilter;
-	int nFilterData = oMicCalData.nFreqData;
+	const int nFilterData = oMicCalData.nFreqData;
 	if (nFilterData < 3)
 		fFilter = 1;
 	else {
@@ -362,7 +362,7 @@ double CFreSweep::CalcFreqResponse(const double *pData, double fFreq, const DbMi
 
 	double fSum = 0;
 	for (i = 0; i < m_nWaveBufSize; i++) {
-		double fData = (*pData++ - fOffset) * fFilter;
+		const double fData = (*pData++ - fOffset) * fFilter;
 		fSum += fData * fData;
 	}
 
@@ -374,7 +374,7 @@ BOOL CFreSweep::CheckDataExist() const
 	return m_bValidData && m_nFreqCount != 0;
 }
 
-void CFreSweep::CsvOutput(LPCTSTR pFileName)
+void CFreSweep::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -454,7 +454,7 @@ HBITMAP CFreSweep::GetBitmap()
 
 BOOL CFreSweep::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH, IDH_FRE_SWEEP_GRAPH,
 		IDC_FREQ_START, IDH_FRE_SWEEP_FREQ_START,
 		IDC_FREQ_END, IDH_FRE_SWEEP_FREQ_END,
@@ -465,7 +465,7 @@ BOOL CFreSweep::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -512,7 +512,7 @@ BOOL CFreSweep::CheckDataHold()
 
 void CFreSweep::SaveHoldData(CFile &oFile)
 {
-	INT32 count = (INT32)m_oHoldDataList.GetCount();
+	const INT32 count = (INT32)m_oHoldDataList.GetCount();
 
 	oFile.Write(&count, sizeof(count));
 

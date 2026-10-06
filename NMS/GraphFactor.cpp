@@ -391,11 +391,8 @@ void CGraphFactor::DispGraphWindow()
 
 void CGraphFactor::SetHScroll()
 {
-	int nScrollSize;
-	int nScrollPos;
-
-	nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nHScrollSize || nScrollPos != m_nHScrollPos) {
 		m_nHScrollSize = nScrollSize;
@@ -430,11 +427,8 @@ void CGraphFactor::SetHScroll()
 
 void CGraphFactor::SetVScroll()
 {
-	int nScrollSize;
-	int nScrollPos;
-
-	nScrollSize = (int)(m_fDispValue / m_fTotalValue * SCROLL_RANGE);
-	nScrollPos = (int)((m_fStartValue - m_fMinValue) / m_fTotalValue * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispValue / m_fTotalValue * SCROLL_RANGE);
+	const int nScrollPos = (int)((m_fStartValue - m_fMinValue) / m_fTotalValue * SCROLL_RANGE);
 
 	if (nScrollSize != m_nVScrollSize || nScrollPos != m_nVScrollPos) {
 		m_nVScrollSize = nScrollSize;
@@ -504,7 +498,7 @@ void CALLBACK CGraphFactor::GraphCallBack(WPARAM code, LPARAM data, double param
 		pWnd->DispGraphWindow();
 		break;
 	case CC_DBLCLK:
-		double fTime = (double)(pWnd->m_fStartTime + param1 * pWnd->m_fDispTime);
+		const double fTime = (double)(pWnd->m_fStartTime + param1 * pWnd->m_fDispTime);
 		pWnd->GetParent()->SendMessage(WM_SELECT_DATA, (WPARAM)&fTime, 0);
 		break;
 	}
@@ -522,7 +516,7 @@ void CGraphFactor::OnDestroy()
 
 BOOL CGraphFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_FACTOR, IDH_GRAPH_FACTOR,
 		IDC_ZOOM_V, IDH_GRAPH_FACTOR_ZOOM_V,
 		IDC_SCROLL_V, IDH_GRAPH_FACTOR_SCROLL_V,
@@ -537,7 +531,7 @@ BOOL CGraphFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

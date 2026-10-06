@@ -239,14 +239,14 @@ BOOL CFftDlg::OnInitDialog()
 	m_cRlSplit = g_oSetData.Fft.bRlSplit;
 
 	// 平滑化
-	static const int tTimeConstant[] = {35, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
+	static constexpr int tTimeConstant[] = {35, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
 	// 平滑化の旧バージョンからのコンバージョン
 	if (g_oSetData.Fft.nSmoothing != 0 && g_oSetData.Fft.nSmoothing <= 10)
 		g_oSetData.Fft.nSmoothing = 125;
 	str.LoadString(IDS_NONE);
 	m_cFftSmoothing.AddString(str);
 	for (i = 0; i < ARRAY_SIZE(tTimeConstant); i++) {
-		int nTimeConstant = tTimeConstant[i];
+		const int nTimeConstant = tTimeConstant[i];
 		if (nTimeConstant < 1000)
 			str.Format("%dms", nTimeConstant);
 		else
@@ -255,7 +255,7 @@ BOOL CFftDlg::OnInitDialog()
 			str += " (fast)";
 		else if (nTimeConstant == 1000)
 			str += " (slow)";
-		int n = m_cFftSmoothing.AddString(str);
+		const int n = m_cFftSmoothing.AddString(str);
 		m_cFftSmoothing.SetItemData(n, nTimeConstant);
 	}
 	SelectListBox(m_cFftSmoothing, g_oSetData.Fft.nSmoothing);
@@ -285,7 +285,7 @@ BOOL CFftDlg::OnInitDialog()
 	str.Format("%d", g_oSetData.Fft.nTimeDataNum);
 	m_cFftTimeDataNum.SelectString(-1, str);
 
-	static const int TimeResTbl[] = {1, 2, 4, 8};
+	static constexpr int TimeResTbl[] = {1, 2, 4, 8};
 	for (i = 0; i < ARRAY_SIZE(TimeResTbl); i++) {
 		str.Format("%dx", TimeResTbl[i]);
 		m_cFftTimeRes.InsertString(i, str);
@@ -323,7 +323,7 @@ BOOL CFftDlg::OnInitDialog()
 	}
 	SelectListBox(m_cFftTimeRange, g_oSetData.Fft.nTimeRange);
 
-	static const int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
+	static constexpr int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
 	for (i = 0; i < ARRAY_SIZE(tChannel); i++) {
 		str.LoadString(tChannel[i]);
 		m_cFftChannel.AddString(str);
@@ -451,7 +451,7 @@ int CFftDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 		break;
 	case WAVEIN_DATA:
 		m_fTimeCount += m_fBlockTime;
-		int nTimeCount = (int)m_fTimeCount;
+		const int nTimeCount = (int)m_fTimeCount;
 		BOOL bRecordData = FALSE;
 		if (m_nTimeCount != nTimeCount) {
 			m_cFftTime.Format("%d:%02d:%02d", nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
@@ -480,8 +480,8 @@ int CFftDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 		if (bRecordData && m_fTimeCount != 0)
 			RecordData();
 
-		int nSize1 = m_nBufSize / g_oSetData.Fft.nTimeRes;
-		int nSize2 = m_nBufSize - nSize1;
+		const int nSize1 = m_nBufSize / g_oSetData.Fft.nTimeRes;
+		const int nSize2 = m_nBufSize - nSize1;
 		memmove(m_pWaveBuf, m_pWaveBuf + nSize1, nSize2 * sizeof(double));
 		memcpy(m_pWaveBuf + nSize2, pWaveNotify->pSamplesData, nSize1 * sizeof(double));
 		m_wndFft.GetWaveData(m_pWaveBuf);
@@ -514,7 +514,7 @@ LRESULT CFftDlg::OnTabDrag(WPARAM wParam, LPARAM lParam)
 
 LRESULT CFftDlg::OnTabDblClick(WPARAM wParam, LPARAM /*lParam*/)
 {
-	int nMode = (int)wParam;
+	const int nMode = (int)wParam;
 
 	if (g_oSetData.Fft.bSeparateWindow[nMode]) {
 		FFTWINDOW *pFftWindow = m_wndFft.GetFftWindow(nMode);
@@ -595,7 +595,7 @@ void CFftDlg::OnSelchangeFftTab(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 void CFftDlg::SelchangeFftTab()
 {
-	int n = m_cFftTab.GetCurSel();
+	const int n = m_cFftTab.GetCurSel();
 	if (n != -1) {
 		g_oSetData.Fft.nMode = n;
 
@@ -736,7 +736,7 @@ void CFftDlg::OnChangeFftMinLevel()
 
 void CFftDlg::OnSelchangeFftChannel()
 {
-	int nChannel = m_cFftChannel.GetCurSel();
+	const int nChannel = m_cFftChannel.GetCurSel();
 
 	if (g_oSetData.Fft.nChannel != nChannel) {
 		g_oSetData.Fft.nChannel = nChannel;
@@ -1144,7 +1144,7 @@ void CFftDlg::OnSelchangeFftTimeDataNum()
 
 BOOL CFftDlg::Start()
 {
-	int nBufSize = g_oSetData.Fft.nFftSize * 2;
+	const int nBufSize = g_oSetData.Fft.nFftSize * 2;
 
 	m_fBlockTime = (double)g_oSetData.Fft.nFftSize / g_oSetData.Fft.nSamplingRate / g_oSetData.Fft.nTimeRes;
 
@@ -1376,7 +1376,7 @@ void CFftDlg::OnSelchangeFftAverage()
 
 void CFftDlg::OnSelchangeFftOctBand()
 {
-	int nOctaveBand = m_cFftOctBand.GetCurSel();
+	const int nOctaveBand = m_cFftOctBand.GetCurSel();
 
 	if (g_oSetData.Fft.nOctaveBand != nOctaveBand) {
 		g_oSetData.Fft.nOctaveBand = nOctaveBand;
@@ -1399,7 +1399,7 @@ void CFftDlg::ChangeWaveDevice(int nInOut)
 void CFftDlg::ChangeSamplingRate(int nSamplingRate)
 {
 	if (g_oSetData.Fft.nSamplingRate != nSamplingRate) {
-		int n = m_cSamplingRate.GetCount();
+		const int n = m_cSamplingRate.GetCount();
 		for (int i = 0; i < n; i++) {
 			if ((int)m_cSamplingRate.GetItemData(i) == nSamplingRate) {
 				m_cSamplingRate.SetCurSel(i);
@@ -1472,7 +1472,7 @@ void CFftDlg::OnBnClickedScreenShot()
 	sMode.LoadString(g_tFftModeId[g_oSetData.Fft.nMode]);
 
 	CString sTitle;
-	int nTimeCount = (int)m_fTimeCount;
+	const int nTimeCount = (int)m_fTimeCount;
 	sTitle.Format("%s - %d:%02d:%02d", (LPCSTR)sMode, nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 
 	HBITMAP hBmp = m_wndFft.GetBitmap();
@@ -1571,7 +1571,7 @@ void CFftDlg::FullScreen()
 
 BOOL CFftDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FFT_TAB, IDH_FFT_TAB,
 		ID_FFT_WINDOW, IDH_FFT_TAB,
 		IDC_BTN_START, IDH_FFT_START,
@@ -1626,7 +1626,7 @@ BOOL CFftDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

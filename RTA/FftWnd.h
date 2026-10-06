@@ -115,8 +115,8 @@ public:
 	void SaveFftWindow();
 	void SetDispFreq(const FFTWINDOW *pFftWindow, CPoint point);
 	void ResetDispFreq(const FFTWINDOW *pFftWindow);
-	void CsvOutput(LPCTSTR pFileName);
-	void CsvInput(LPCTSTR pFileName);
+	void CsvOutput(LPCSTR pFileName);
+	void CsvInput(LPCSTR pFileName);
 	void RedrawSpg(const FFTWINDOW *pFftWindow);
 
 protected:
@@ -219,14 +219,14 @@ protected:
 	void FreeBuffer();
 	void FreeBuffer2(const FFTWINDOW *pFftWindow);
 	void SetViewMode(const FFTWINDOW *pFftWindow);
-	void DrawNote(LPCTSTR pText, int nTop, int nRight);
-	int DrawNoteSub(LPCTSTR pText, int x, int y, int nColor);
+	void DrawNote(LPCSTR pText, int nTop, int nRight);
+	int DrawNoteSub(LPCSTR pText, int x, int y, int nColor);
 	void DeleteFftWindow(FFTWINDOW *pFftWindow);
 	void RemoveFftWindowAll();
 	void SetMinMax(const FFTWINDOW *pFftWindow);
 
 	void SetBitmapPws(FFTWINDOW *pFftWindow);
-	void DrawScalePws(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
+	void DrawScalePws(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText);
 	void GetWaveDataPws(const FFTWINDOW *pFftWindow);
 	void CalcPws(const FFTWINDOW *pFftWindow, FFTDATA *pFftWork);
 	int CalcPwsSub(const FFTWINDOW *pFftWindow, const double *pBuf, POINT *pPoint);
@@ -240,7 +240,7 @@ protected:
 	void CsvInputPws(CCsvFile &oCsvFile);
 
 	void SetBitmapOct(FFTWINDOW *pFftWindow);
-	void DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, TEXTMETRIC &tm, LPCTSTR pText);
+	void DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, TEXTMETRIC &tm, LPCSTR pText);
 	void GetWaveDataOct(const FFTWINDOW *pFftWindow);
 	void CalcOct(FFTDATA *pFftData) const;
 	void DispOctInfo(const FFTWINDOW *pFftWindow);
@@ -252,7 +252,7 @@ protected:
 	void CsvInputOct(CCsvFile &oCsvFile);
 
 	void SetBitmap3dd(FFTWINDOW *pFftWindow);
-	void DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
+	void DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText);
 	void GetWaveData3dd(const FFTWINDOW *pFftWindow);
 	void Calc3dd(const FFTWINDOW *pFftWindow, FFTDATA *pFftData);
 	void Disp3ddInfo(const FFTWINDOW *pFftWindow);
@@ -261,7 +261,7 @@ protected:
 	void Paint3ddSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData);
 
 	void SetBitmapCrf(FFTWINDOW *pFftWindow);
-	void DrawScaleCrf(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
+	void DrawScaleCrf(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText);
 	void SetBitmapCrfSub(int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, double step, int zero, int width, int dir, int ns);
 	void GetWaveDataCrf(const FFTWINDOW *pFftWindow);
 	void CalcAutoCorrelation(const double *pFftBuf, double *pCrfBuf);
@@ -289,7 +289,7 @@ protected:
 	void CsvInputPhs(CCsvFile &oCsvFile);
 
 	void SetBitmapSpg(FFTWINDOW *pFftWindow);
-	void DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
+	void DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText);
 	void DrawLevelScale(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom);
 	COLORREF GetLevelColor(double fLevel) const;
 	void GetWaveDataSpg(const FFTWINDOW *pFftWindow);
@@ -324,7 +324,7 @@ protected:
 	void CsvInputCoh(CCsvFile &oCsvFile);
 
 	void SetBitmapCep(FFTWINDOW *pFftWindow);
-	void DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText);
+	void DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText);
 	void GetWaveDataCep(const FFTWINDOW *pFftWindow);
 	void CalcCep(const FFTWINDOW *pFftWindow, FFTDATA *pFftWork);
 	int CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPoint) const;

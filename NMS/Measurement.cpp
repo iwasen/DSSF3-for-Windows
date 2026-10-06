@@ -97,7 +97,7 @@ BOOL CMeasurement::Start(int nMeasurementMode)
 	double *pCalibration = new double[m_nSamplePerBlock];
 	MakeFilterTbl3(pCalibration, m_nSamplePerBlock, m_nSamplingRate, (FilterData *)m_oMicCalData.aFreq, m_oMicCalData.nFreqData, 20);
 	pCalibration[0] = 1;
-	double sens = pow(10.0, -m_oMicCalData.fInputSens / 20);
+	const double sens = pow(10.0, -m_oMicCalData.fInputSens / 20);
 
 	m_pFilter = new double[m_nSamplePerBlock];
 	::MakeFilterTbl2(m_pFilter, m_nSamplePerBlock, m_nSamplingRate, g_oSetData.Measurement.AcfCondition.nFreqWeighting, 20);
@@ -132,7 +132,7 @@ LRESULT CMeasurement::OnWaveInData(WPARAM /*wParam*/, LPARAM lParam)
 {
 	LPWAVEHDR pWaveHdr = (LPWAVEHDR)lParam;
 
-	int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
+	const int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
 	WAVENOTIFY waveNotify{
 		.pSamplesData = m_pSamplesBuffer,
 		.nSamplesNum = (int)pWaveHdr->dwBufferLength / nBytesPerSample,
@@ -371,7 +371,7 @@ BOOL CMeasurement::SaveSampleData()
 			return FALSE;
 	}
 
-	int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
+	const int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
 	nDataSize = m_bRingBufFill ? m_nRingBufSize : m_nRingBufPtr;
 	if ((hWaveData = ::GlobalAlloc(GHND, sizeof(WAVEDATA) + nDataSize * nBytesPerSample)) == NULL)
 		return FALSE;
@@ -484,7 +484,7 @@ void CMeasurement::Recalclation()
 	m_cCalcEvent.SetEvent();
 }
 
-void CMeasurement::WaveFileMeasuring(LPCTSTR pWaveFileName)
+void CMeasurement::WaveFileMeasuring(LPCSTR pWaveFileName)
 {
 	CFileStatus status;
 	CString tempFileName;
@@ -498,7 +498,7 @@ void CMeasurement::WaveFileMeasuring(LPCTSTR pWaveFileName)
 		::CopyFile(pWaveFileName, tempFileName, FALSE);
 
 		if (waveFile.Open(tempFileName, &waveFormat, &dwDataSize)) {
-			double fSamplingTime = dwDataSize / (waveFormat.wBitsPerSample / 8) / waveFormat.wf.nChannels / (double)waveFormat.wf.nSamplesPerSec;
+			const double fSamplingTime = dwDataSize / (waveFormat.wBitsPerSample / 8) / waveFormat.wf.nChannels / (double)waveFormat.wf.nSamplesPerSec;
 			AddItem(fSamplingTime, &status.m_mtime);
 		}
 	}

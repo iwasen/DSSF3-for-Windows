@@ -28,9 +28,10 @@ void CDstFreqWnd::Initialize()
 	m_penLightGray.CreatePen(PS_SOLID, 0, COLOR_LIGHTGRAY);
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(90, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(90, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -94,8 +95,8 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 {
 	int x, y;
 	int i;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CPen *pPenOrg;
 	CSize size;
 	CString sText;
@@ -115,14 +116,14 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 
 	m_dcMem.SelectObject(&m_Font);
 
-	int nFreqMin = min(nFreqStart, nFreqEnd);
-	int nFreqMax = max(nFreqStart, nFreqEnd);
-	double fLogFreqMin = log((double)nFreqMin);
-	double fLogFreqMax = log((double)nFreqMax);
+	const int nFreqMin = min(nFreqStart, nFreqEnd);
+	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const double fLogFreqMin = log((double)nFreqMin);
+	const double fLogFreqMax = log((double)nFreqMax);
 
-	double fDist = fLogFreqMax - fLogFreqMin;
+	const double fDist = fLogFreqMax - fLogFreqMin;
 	if (fDist != 0) {
-		int step = GetLogScaleStep(nFreqMin);
+		const int step = GetLogScaleStep(nFreqMin);
 		for (int nFreq = GetScaleStartValue(nFreqMin, step); nFreq <= nFreqMax; nFreq += GetLogScaleStep(nFreq)) {
 			x =  (int)((log((double)nFreq) - fLogFreqMin) * m_nScaleWidth / fDist + m_nScaleLeft + 0.5);
 
@@ -149,9 +150,9 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 	m_dcMem.TextOut(nLeft + (nWidth - size.cx) / 2, m_nHeight - size.cy - 2, sText);
 
 	if (g_oSetData.Dst.nScaleMode == 0) {
-		double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
-		double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
-		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
+		const double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
+		const double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
+		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
 			double fStep;
 			for (fTHD = fMinTHD, i = 0; fTHD <= fMaxTHD * 1.0001; fTHD += fStep, i++) {
@@ -175,9 +176,9 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 		}
 		sUnit = "[%]";
 	} else {
-		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
+		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
-			int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
+			const int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
 			for (nTHD = g_oSetData.Dst.nScaleMin, i = 0; nTHD <= g_oSetData.Dst.nScaleMax; nTHD += nStep, i++) {
 				y = m_nScaleBottom - (int)((nTHD - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
 
@@ -234,9 +235,6 @@ void CDstFreqWnd::DispGraph(const double *pLeftDst, const double *pRightDst, con
 		brushLeft.CreateSolidBrush(colorLeft);
 		pBrushOrg = m_dcMem.SelectObject(&brushLeft);
 
-		pPenOrg = m_dcMem.SelectObject(&penLeft);
-		pBrushOrg = m_dcMem.SelectObject(&brushLeft);
-
 		DrawLine(pLeftDst, pFreq, nFreqCount, nFreqStart, nFreqEnd, nFreqPoint);
 
 		m_dcMem.SelectObject(pBrushOrg);
@@ -250,9 +248,6 @@ void CDstFreqWnd::DispGraph(const double *pLeftDst, const double *pRightDst, con
 
 		CBrush brushRight;
 		brushRight.CreateSolidBrush(colorRight);
-		pBrushOrg = m_dcMem.SelectObject(&brushRight);
-
-		pPenOrg = m_dcMem.SelectObject(&penRight);
 		pBrushOrg = m_dcMem.SelectObject(&brushRight);
 
 		DrawLine(pRightDst, pFreq, nFreqCount, nFreqStart, nFreqEnd, nFreqPoint);
@@ -273,11 +268,11 @@ void CDstFreqWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCo
 	int i;
 	int x, y;
 	int nDotSize;
-	int nFreqMin = min(nFreqStart, nFreqEnd);
-	int nFreqMax = max(nFreqStart, nFreqEnd);
-	double fLogFreqMin = log((double)nFreqMin);
-	double fLogFreqMax = log((double)nFreqMax);
-	double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
+	const int nFreqMin = min(nFreqStart, nFreqEnd);
+	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const double fLogFreqMin = log((double)nFreqMin);
+	const double fLogFreqMax = log((double)nFreqMax);
+	const double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
 	POINT *pPoint = new POINT[nFreqCount];
 
 	nDotSize = (m_nScaleWidth / nFreqPoint < 10) ? 2 : 3;
@@ -325,9 +320,9 @@ void CDstFreqWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCo
 		delete [] yp;
 		delete [] xp;
 
-		int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
-		int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
-		int nSpline = x2 - x1;
+		const int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int nSpline = x2 - x1;
 
 		POINT *pSpline = new POINT[nSpline];
 		for (i = 0; i < nSpline; i++) {

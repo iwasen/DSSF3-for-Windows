@@ -63,7 +63,7 @@ BOOL CSaveDlg::OnInitDialog()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_LEFT,
 			.cx = CDpi::AdjustDpi(tColumn[i].width, 95),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cFolderList.InsertColumn(i, &lvc);
 	}
@@ -112,13 +112,13 @@ int CALLBACK CSaveDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lPara
 		.flags = LVFI_PARAM,
 		.lParam = lParam1
 	};
-	int index1 = dataList.FindItem(&findInfo1);
+	const int index1 = dataList.FindItem(&findInfo1);
 
 	LV_FINDINFO findInfo2{
 		.flags = LVFI_PARAM,
 		.lParam = lParam2
 	};
-	int index2 = dataList.FindItem(&findInfo2);
+	const int index2 = dataList.FindItem(&findInfo2);
 
 	return dataList.GetItemText(index1, pDlg->m_nSortItem).Compare(dataList.GetItemText(index2, pDlg->m_nSortItem)) * pDlg->m_nSortDir;
 }
@@ -178,7 +178,6 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 		return FALSE;
 
 	DbNmsRec dbNmsRec;
-	CNmsItem *pNmsItem;
 	CString tempFileName;
 	HWAVEDATA hWaveData;
 	PWAVEDATA pWaveData;
@@ -186,7 +185,7 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 	POSITION pos = m_pItemList->GetHeadPosition();
 
 	while (pos != NULL) {
-		pNmsItem = (CNmsItem *)m_pItemList->GetNext(pos);
+		CNmsItem *pNmsItem = (CNmsItem *)m_pItemList->GetNext(pos);
 
 		if (pNmsItem->m_bSaved)
 			continue;
@@ -237,7 +236,7 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 
 BOOL CSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_SAVE_OK,
 		IDCANCEL, IDH_SAVE_CANCEL,
 		IDC_FOLDER_LIST, IDH_SAVE_FOLDER_LIST,
@@ -251,7 +250,7 @@ BOOL CSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

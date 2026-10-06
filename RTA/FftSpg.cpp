@@ -46,13 +46,13 @@ void CFftWnd::SetBitmapSpg(FFTWINDOW *pFftWindow)
 	}
 }
 
-void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText)
+void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText)
 {
 	int	nFreq;
 	int time;
 	int x, y;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CString sText;
 	CSize size;
 
@@ -83,8 +83,8 @@ void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	}
 
 	if (g_oSetData.Fft.nFftScale == 0) {
-		int step = GetLogScaleStep(m_nMinFreq);
-		double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
+		const int step = GetLogScaleStep(m_nMinFreq);
+		const double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += GetLogScaleStep(nFreq)) {
 			y = nTop + (int)((m_fLogMaxFreq - log((double)nFreq)) * nHeight / fSpanFreq + 0.5);
 
@@ -101,8 +101,8 @@ void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	} else {
 		m_dcMem.SelectObject(m_penLightGray);
 
-		int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, nHeight);
-		double fSpanFreq = m_nMaxFreq - m_nMinFreq;
+		const int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, nHeight);
+		const double fSpanFreq = m_nMaxFreq - m_nMinFreq;
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += step) {
 			y = nTop + (int)((m_nMaxFreq - nFreq) * nHeight / fSpanFreq + 0.5);
 			if (nFreq < 1000)
@@ -138,8 +138,8 @@ void CFftWnd::DrawLevelScale(const FFTWINDOW *pFftWindow, int /*nLeft*/, int nTo
 {
 	int y;
 	int nLevel;
-	int nHeight = nBottom - nTop;
-	int nLevelRange = m_nMaxLevel - m_nMinLevel;
+	const int nHeight = nBottom - nTop;
+	const int nLevelRange = m_nMaxLevel - m_nMinLevel;
 	CString sText;
 	CSize size;
 
@@ -152,7 +152,7 @@ void CFftWnd::DrawLevelScale(const FFTWINDOW *pFftWindow, int /*nLeft*/, int nTo
 	m_dcMem.SetBkMode(TRANSPARENT);
 	m_dcMem.SetTextColor(COLOR_TEXT);
 
-	int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight * 3 / 5);
+	const int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight * 3 / 5);
 	for (nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
 		y = nTop - (nLevel - m_nMaxLevel) * nHeight / nLevelRange;
 
@@ -225,9 +225,9 @@ COLORREF CFftWnd::GetLevelColor(double fLevel) const
 
 void CFftWnd::GetWaveDataSpg(const FFTWINDOW *pFftWindow)
 {
-	double fTimeStep = pFftWindow->m_nScaleWidth * m_fTimeStep2 / g_oSetData.Fft.nTimeRange;
+	const double fTimeStep = pFftWindow->m_nScaleWidth * m_fTimeStep2 / g_oSetData.Fft.nTimeRange;
 	m_fSpgTimeStep += fTimeStep;
-	int nTimeStep = (int)m_fSpgTimeStep;
+	const int nTimeStep = (int)m_fSpgTimeStep;
 	m_fSpgTimeStep -= nTimeStep;
 
 	if (m_nViewMode == VM_OVERLAY) {
@@ -253,11 +253,11 @@ void CFftWnd::CalcSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBitma
 	int i;
 	int x, y;
 	int y2 = 0;
-	double fTmp1 = (double)pFftWindow->m_nScaleHeight / (m_fLogMaxFreq - m_fLogMinFreq);
-	double fTmp2 = (double)pFftWindow->m_nScaleHeight / (m_nMaxFreq - m_nMinFreq);
-	double fTmp3 = exp(0.5 / fTmp1);
+	const double fTmp1 = (double)pFftWindow->m_nScaleHeight / (m_fLogMaxFreq - m_fLogMinFreq);
+	const double fTmp2 = (double)pFftWindow->m_nScaleHeight / (m_nMaxFreq - m_nMinFreq);
+	const double fTmp3 = exp(0.5 / fTmp1);
 	double nLevel = 0;
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	int nCount = 0;
 	int t1, t2, t3;
 
@@ -378,9 +378,9 @@ void CFftWnd::PaintSpg(const FFTWINDOW *pFftWindow, int nChannel)
 
 void CFftWnd::RedrawSpg(const FFTWINDOW *pFftWindow)
 {
-	int nTimeStep = (int)ceil(pFftWindow->m_nScaleWidth * m_fTimeStep2 / g_oSetData.Fft.nTimeRange);
+	const int nTimeStep = (int)ceil(pFftWindow->m_nScaleWidth * m_fTimeStep2 / g_oSetData.Fft.nTimeRange);
 
-	int nSize = m_bSpectrogramRingBufRound ? m_nSpectrogramRingBufNum : m_nSpectrogramRingBufPtr;
+	const int nSize = m_bSpectrogramRingBufRound ? m_nSpectrogramRingBufNum : m_nSpectrogramRingBufPtr;
 	int index = m_bSpectrogramRingBufRound ? m_nSpectrogramRingBufPtr : 0;
 	double fTime = m_bSpectrogramRingBufRound ? 0 : (double)(m_nSpectrogramRingBufNum - m_nSpectrogramRingBufPtr) / m_nSpectrogramRingBufNum;
 	for (int i = 0; i < nSize; i++) {
@@ -409,11 +409,11 @@ void CFftWnd::RedrawSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBit
 	int i;
 	int x, y;
 	int y2 = 0;
-	double fTmp1 = (double)pFftWindow->m_nScaleHeight / (m_fLogMaxFreq - m_fLogMinFreq);
-	double fTmp2 = (double)pFftWindow->m_nScaleHeight / (m_nMaxFreq - m_nMinFreq);
-	double fTmp3 = exp(0.5 / fTmp1);
+	const double fTmp1 = (double)pFftWindow->m_nScaleHeight / (m_fLogMaxFreq - m_fLogMinFreq);
+	const double fTmp2 = (double)pFftWindow->m_nScaleHeight / (m_nMaxFreq - m_nMinFreq);
+	const double fTmp3 = exp(0.5 / fTmp1);
 	double nLevel = 0;
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	int nCount = 0;
 	int t1, t2, t3;
 

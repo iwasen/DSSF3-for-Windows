@@ -198,7 +198,7 @@ void CSgWave::OnBnClickedWaveform()
 
 BOOL CSgWave::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_WAVE_WND, IDH_SG_WAVE_WND,
 		IDC_WAVEFORM1, IDH_SG_WAVE_WAVEFORM1_5,
 		IDC_WAVEFORM2, IDH_SG_WAVE_WAVEFORM1_5,
@@ -211,7 +211,7 @@ BOOL CSgWave::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

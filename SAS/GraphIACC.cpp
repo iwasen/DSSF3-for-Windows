@@ -121,13 +121,13 @@ void CGraphIACC::OnChangeWiacc()
 
 BOOL CGraphIACC::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_IACC, IDH_GRAPH_IACC,
 		IDC_CHANGE_WIACC, IDH_GRAPH_IACC_CHANGE_WIACC,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -156,14 +156,14 @@ END_MESSAGE_MAP()
 
 BOOL CChangeWIACCDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_CHANGE_WIACC_OK,
 		IDCANCEL, IDH_CHANGE_WIACC_CANCEL,
 		IDC_IACC_WLEVEL, IDH_CHANGE_WIACC_WLEVEL,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

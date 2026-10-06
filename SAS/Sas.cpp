@@ -260,13 +260,13 @@ void SasApp::OnOnlineUpdate()
 void SasApp::AdjustDialogSize()
 {
 	HDC dc = ::GetDC(NULL);
-	int nLogPixel = GetDeviceCaps(dc, LOGPIXELSX);
+	const int nLogPixel = GetDeviceCaps(dc, LOGPIXELSX);
 	::ReleaseDC(NULL, dc);
 
 	if (nLogPixel <= 96)
 		return;
 
-	int nFontSize = 9 * 96 / nLogPixel;
+	const int nFontSize = 9 * 96 / nLogPixel;
 
 	SetDialogFontSize(IDD_ACF_FACTOR, nFontSize);
 	SetDialogFontSize(IDD_NMS_FACTOR, nFontSize);

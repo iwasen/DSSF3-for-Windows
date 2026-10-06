@@ -143,7 +143,7 @@ void CImpScDlg::OnMmlib()
 
 BOOL CImpScDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_IMP_SC_OK,
 		IDC_MMLIB, IDH_IMP_SC_MMLIB,
 		IDCANCEL, IDH_IMP_SC_CANCEL,
@@ -164,7 +164,7 @@ BOOL CImpScDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

@@ -264,7 +264,7 @@ int CSgDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 		break;
 	case WAVEOUT_DATA:
 		m_fTimeCount += m_fBlockTime;
-		int nTimeCount = (int)m_fTimeCount;
+		const int nTimeCount = (int)m_fTimeCount;
 		if (m_nTimeCount != nTimeCount) {
 			m_cSgTime.Format("%d:%02d:%02d", nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 			m_nTimeCount = nTimeCount;
@@ -409,7 +409,7 @@ void CSgDlg::ChangeWaveDevice(int nInOut)
 
 BOOL CSgDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_BTN_START, IDH_SG_START,
 		IDC_SG_TIME, IDH_SG_TIME,
 		IDC_SAMPLING_RATE, IDH_SG_SAMPLING_RATE,
@@ -424,7 +424,7 @@ BOOL CSgDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

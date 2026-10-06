@@ -26,7 +26,8 @@ void CNoise::GeneratePinkNoise(double *pData, int nStep, int nSize, double fLeve
 
 double CNoise::GeneratePinkNoiseSub()
 {
-	double white = nrnd1(), pink;
+	const double white = nrnd1();
+	double pink;
 
 	m_aPinkBuf[0] = 0.99886 * m_aPinkBuf[0] + white * 0.0555179;
 	m_aPinkBuf[1] = 0.99332 * m_aPinkBuf[1] + white * 0.0750759;

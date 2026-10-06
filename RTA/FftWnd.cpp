@@ -191,7 +191,7 @@ void CFftWnd::InitFFT()
 	m_fTimeStep = 1.0 / m_fFreqStep;
 	m_fTimeStep2 = m_fTimeStep / g_oSetData.Fft.nTimeRes;
 
-	int nFftBufSize = m_nFftSize / 2 + 1;
+	const int nFftBufSize = m_nFftSize / 2 + 1;
 
 	m_pLogFreqTbl = new double[nFftBufSize];
 	m_pLogFreqTbl[0] = 0;
@@ -210,7 +210,7 @@ void CFftWnd::InitFFT()
 
 	m_pCoherenceBuf = new double[nFftBufSize]();
 
-	int nAverageNum = (g_oSetData.Fft.nAverage >= 0) ? g_oSetData.Fft.nAverage * m_nSamplingRate * g_oSetData.Fft.nTimeRes / m_nFftSize : -1;
+	const int nAverageNum = (g_oSetData.Fft.nAverage >= 0) ? g_oSetData.Fft.nAverage * m_nSamplingRate * g_oSetData.Fft.nTimeRes / m_nFftSize : -1;
 
 	m_oCrossBufRe.Alloc(nFftBufSize, nAverageNum);
 	m_oCrossBufIm.Alloc(nFftBufSize, nAverageNum);
@@ -249,8 +249,8 @@ void CFftWnd::InitFFT()
 	m_pFilterTblR = new double[m_nFftSize];
 	MakeFilterTbl3(m_pFilterTblL, m_nFftSize, m_nSamplingRate, (FilterData *)m_oMicCalDataL.aFreq, m_oMicCalDataL.nFreqData, 20);
 	MakeFilterTbl3(m_pFilterTblR, m_nFftSize, m_nSamplingRate, (FilterData *)m_oMicCalDataR.aFreq, m_oMicCalDataR.nFreqData, 20);
-	double sensL = pow(10.0, -m_oMicCalDataL.fInputSens / 20);
-	double sensR = pow(10.0, -m_oMicCalDataR.fInputSens / 20);
+	const double sensL = pow(10.0, -m_oMicCalDataL.fInputSens / 20);
+	const double sensR = pow(10.0, -m_oMicCalDataR.fInputSens / 20);
 	m_pFilterTblL[0] = 0;
 	m_pFilterTblR[0] = 0;
 	for (i = 1; i < m_nFftSize; i++) {
@@ -566,8 +566,8 @@ void CFftWnd::GetWaveData(double *pData)
 	m_fLeftOffset = (m_fLeftOffset * 9 + fLeftOffset / m_nFftSize) / 10;
 	m_fRightOffset = (m_fRightOffset * 9 + fRightOffset / m_nFftSize) / 10;
 
-	int nLeftOffset = (int)m_fLeftOffset;
-	int nRightOffset = (int)m_fRightOffset;
+	const int nLeftOffset = (int)m_fLeftOffset;
+	const int nRightOffset = (int)m_fRightOffset;
 
 	for (POSITION pos = m_oFftWindow.GetHeadPosition(); pos != NULL; ) {
 		FFTWINDOW *pFftWindow = (FFTWINDOW *)m_oFftWindow.GetNext(pos);
@@ -734,7 +734,7 @@ void CFftWnd::CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const dou
 	int i, j;
 	double xt, yt;
 	double *pPowerSpecBuf1 = pFftData->m_pPowerSpecBuf;
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 
 	for (i = 1, j = 2; i < nFftSize2; i++) {
 		xt = pBuf[j++] * pFilterTbl[i];
@@ -757,7 +757,7 @@ void CFftWnd::CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const dou
 void CFftWnd::CalcCrossSpectrum(const double *pBufL, const double *pBufR)
 {
 	double xt1, yt1, xt2, yt2;
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 
 	for (int i = 1, j = 2; i < nFftSize2; i++) {
 		xt1 = pBufL[j] * m_pFilterTblL[i];
@@ -1119,7 +1119,7 @@ void CFftWnd::SetViewMode(const FFTWINDOW *pFftWindow)
 	}
 }
 
-void CFftWnd::DrawNote(LPCTSTR pText, int nTop, int nRight)
+void CFftWnd::DrawNote(LPCSTR pText, int nTop, int nRight)
 {
 	CSize size;
 	int x, y;
@@ -1171,7 +1171,7 @@ void CFftWnd::DrawNote(LPCTSTR pText, int nTop, int nRight)
 		x = DrawNoteSub(pDrawText, x, y, COLOR_LEFT);
 }
 
-int CFftWnd::DrawNoteSub(LPCTSTR pText, int x, int y, int nColor)
+int CFftWnd::DrawNoteSub(LPCSTR pText, int x, int y, int nColor)
 {
 	CSize size;
 
@@ -1339,7 +1339,7 @@ void CFftWnd::CloseFftWindow(CWnd *pWnd, int nMode)
 		m_pFftDlg->RestorePage(nMode);
 }
 
-void CFftWnd::CsvOutput(LPCTSTR pFileName)
+void CFftWnd::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -1370,7 +1370,7 @@ void CFftWnd::CsvOutput(LPCTSTR pFileName)
 	}
 }
 
-void CFftWnd::CsvInput(LPCTSTR pFileName)
+void CFftWnd::CsvInput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 

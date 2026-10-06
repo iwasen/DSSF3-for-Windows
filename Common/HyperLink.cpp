@@ -43,7 +43,7 @@ BOOL CHyperLink::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/
     return TRUE;
 }
 
-void CHyperLink::SetHyperLinkURL(LPCTSTR pLinkURL, LPCTSTR pFontName, int nFontSize)
+void CHyperLink::SetHyperLinkURL(LPCSTR pLinkURL, LPCSTR pFontName, int nFontSize)
 {
 	LOGFONT font{};
 

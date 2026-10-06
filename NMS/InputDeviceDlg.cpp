@@ -150,13 +150,14 @@ BOOL CInputDeviceDlg::OnInitDialog()
 	m_cLevelBar.SetScrollPos((int)(m_fInputSens * 10), FALSE);
 
 	CString str;
-	LOGFONT font{};
+	LOGFONT font{
 #ifdef LANG_JPN
-	font.lfHeight = 160;
+		.lfHeight = 160,
 #else
-	font.lfHeight = 140;
+		.lfHeight = 140,
 #endif
-	font.lfCharSet = DEFAULT_CHARSET;
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font);
@@ -182,12 +183,10 @@ BOOL CInputDeviceDlg::OnInitDialog()
 
 void CInputDeviceDlg::InitInputDevice()
 {
-	int nInputDevice;
 	WAVEINCAPS waveInCaps;
-	int i;
 
-	nInputDevice = waveInGetNumDevs();
-	for (i = 0; i < nInputDevice; i++) {
+	const int nInputDevice = waveInGetNumDevs();
+	for (int i = 0; i < nInputDevice; i++) {
 		waveInGetDevCaps(i, &waveInCaps, sizeof(waveInCaps));
 		m_cInputDevice.AddString(waveInCaps.szPname);
 	}
@@ -201,16 +200,16 @@ void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 	MIXERCONTROL mxc;
 	MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 	MIXERCONTROLDETAILS_LISTTEXT mxcdl[MAX_CONTROL_ID];
-	DWORD i, dst, src;
 
 	m_cInputSelector.ResetContent();
 
 	MixerInitialize(nInputDevice, 0);
 
 	// 録音マスターの LineID を取得
-	MIXERLINE mxl{};
-	mxl.cbStruct = sizeof(mxl);
-	mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
+	MIXERLINE mxl{
+		.cbStruct = sizeof(mxl),
+		.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_WAVEIN
+	};
 	if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
 		return;
 
@@ -232,7 +231,7 @@ void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 			return;
 
 		// 入力機器のボリュームの ControlID 取得
-		for (i = 0; i < m_cMultipleItems; i++) {
+		for (DWORD i = 0; i < m_cMultipleItems; i++) {
 			m_dwSrcRecVolID[i] = MixerGetControlID(dwMixerInDevice, mxcdl[i].dwParam1, MIXERCONTROL_CONTROLTYPE_VOLUME);
 			m_dwSrcRecMuteID[i] = (DWORD)-1;
 
@@ -247,14 +246,15 @@ void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 		m_cSrcItems = mxl.cConnections;
 		if (m_cSrcItems > MAX_CONTROL_ID)
 			m_cSrcItems = MAX_CONTROL_ID;
-		dst = mxl.dwDestination;
+		const DWORD dst = mxl.dwDestination;
 		m_nSelectInput = 0;
-		for (src = 0; src < m_cSrcItems; src++) {
+		for (DWORD src = 0; src < m_cSrcItems; src++) {
 			// 入力機器の LineID 取得
-			MIXERLINE mxl{};
-			mxl.cbStruct = sizeof(mxl);
-			mxl.dwDestination = dst;
-			mxl.dwSource = src;
+			MIXERLINE mxl{
+				mxl.cbStruct = sizeof(mxl),
+				mxl.dwDestination = dst,
+				mxl.dwSource = src
+			};
 			if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_SOURCE) != MMSYSERR_NOERROR)
 				return;
 
@@ -405,7 +405,7 @@ void CInputDeviceDlg::InitMicCalList()
 		UINT textID;
 		int width;
 	};
-	static const LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[] = {
 		{IDS_MICINFO, 147},
 		{IDS_MICAMPINFO, 147},
 		{IDS_COMMENT, 147}
@@ -419,7 +419,7 @@ void CInputDeviceDlg::InitMicCalList()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_LEFT,
 			.cx = CDpi::AdjustDpi(tColumn[i].width, 90),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cMicCalList.InsertColumn(i, &lvc);
 	}
@@ -431,20 +431,19 @@ void CInputDeviceDlg::InitFreqList()
 		UINT textID;
 		int width;
 	};
-	static const LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[] = {
 		{IDS_FREQUENCY, 55},
 		{IDS_LEVEL, 55}
 	};
-	int i;
 	CString str;
 
-	for (i = 0; i < ARRAY_SIZE(tColumn); i++) {
+	for (int i = 0; i < ARRAY_SIZE(tColumn); i++) {
 		str.LoadString(tColumn[i].textID);
 		LV_COLUMN lvc{
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_LEFT,
 			.cx = CDpi::AdjustDpi(tColumn[i].width, 90),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cFreqList.InsertColumn(i, &lvc);
 	}
@@ -466,14 +465,13 @@ void CInputDeviceDlg::InitFreqList()
 void CInputDeviceDlg::SetMicCalList()
 {
 	CDbMicCal dbMicCal;
-	DbMicCalRec dbMicCalRec;
-	int nItem = 0;
-
 	if (!dbMicCal.Open())
 		return;
 
 	m_cMicCalList.DeleteAllItems();
 
+	DbMicCalRec dbMicCalRec;
+	int nItem = 0;
 	while (dbMicCal.ReadRecNext(&dbMicCalRec)) {
 		if (dbMicCalRec.nMicCalID >= 0) {
 			m_cMicCalList.InsertItem(nItem, dbMicCalRec.sMicInfo);
@@ -493,13 +491,10 @@ void CInputDeviceDlg::OnItemchangedMiccalList(NMHDR* pNMHDR, LRESULT* pResult)
 
 	if (pNMListView->uNewState & LVIS_SELECTED) {
 		CDbMicCal dbMicCal;
-		DbMicCalRec dbMicCalRec;
-		CString str;
-		int i;
-
 		if (!dbMicCal.Open())
 			return;
 
+		DbMicCalRec dbMicCalRec;
 		if (!dbMicCal.ReadRecID((long)pNMListView->lParam, &dbMicCalRec))
 			return;
 
@@ -511,8 +506,9 @@ void CInputDeviceDlg::OnItemchangedMiccalList(NMHDR* pNMHDR, LRESULT* pResult)
 
 		m_cLevelBar.SetScrollPos((int)(m_fInputSens * 10), TRUE);
 
+		CString str;
 		m_cFreqList.DeleteAllItems();
-		for (i = 0; i < dbMicCalRec.nFreqData; i++) {
+		for (int i = 0; i < dbMicCalRec.nFreqData; i++) {
 			str.Format("%g", dbMicCalRec.aFreq[i].freq);
 			m_cFreqList.InsertItem(i, str);
 			str.Format("%g", dbMicCalRec.aFreq[i].level);
@@ -688,7 +684,7 @@ void CInputDeviceDlg::OnFreqDelete()
 
 int CInputDeviceDlg::GetCurSel()
 {
-	int itemCount = m_cMicCalList.GetItemCount();
+	const int itemCount = m_cMicCalList.GetItemCount();
 	int i;
 
 	for (i = 0; i < itemCount; i++) {
@@ -740,13 +736,13 @@ int CALLBACK CInputDeviceDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARA
 		.flags = LVFI_PARAM,
 		.lParam = lParam1
 	};
-	int index1 = dataList.FindItem(&findInfo1);
+	const int index1 = dataList.FindItem(&findInfo1);
 
 	LV_FINDINFO findInfo2{
 		.flags = LVFI_PARAM,
 		.lParam = lParam2
 	};
-	int index2 = dataList.FindItem(&findInfo2);
+	const int index2 = dataList.FindItem(&findInfo2);
 
 	return dataList.GetItemText(index1, pDlg->m_nSortItem).Compare(dataList.GetItemText(index2, pDlg->m_nSortItem)) * pDlg->m_nSortDir;
 }
@@ -766,7 +762,7 @@ void CInputDeviceDlg::MakeFreqData()
 	FilterData micCalData[MICCAL_NFREQ];
 	int i;
 
-	int nItem = m_cFreqList.GetItemCount();
+	const int nItem = m_cFreqList.GetItemCount();
 	for (i = 0; i < nItem; i++) {
 		micCalData[i].fFreq = atof(m_cFreqList.GetItemText(i, 0));
 		micCalData[i].fLevel = atof(m_cFreqList.GetItemText(i, 1));
@@ -942,7 +938,7 @@ int CInputDeviceDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 void CInputDeviceDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 {
-	double fAngleStep = 1000.0 * M_PI * 2 / SAMPLING_RATE;
+	const double fAngleStep = 1000.0 * M_PI * 2 / SAMPLING_RATE;
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 	int i;
 
@@ -1002,7 +998,7 @@ void CInputDeviceDlg::SetFilter(FilterData *pFilterData, int nFilterData)
 	for (i = 1; i < WAVEBUF_SIZE; i++)
 		m_pFilterTbl[i] = 1 / (m_pFilterTbl[i] * WAVEBUF_SIZE);
 
-	int nFilter = m_cFilter.GetCurSel();
+	const int nFilter = m_cFilter.GetCurSel();
 	if (nFilter != 0) {
 		double *pFilter = new double[WAVEBUF_SIZE];
 		MakeFilterTbl2(pFilter, WAVEBUF_SIZE, SAMPLING_RATE, nFilter, 20);
@@ -1019,7 +1015,7 @@ void CInputDeviceDlg::OnSelchangeFilter()
 
 BOOL CInputDeviceDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_READ, IDH_INPUT_DEVICE_READ,
 		IDC_RESET, IDH_INPUT_DEVICE_RESET,
 		IDCANCEL, IDH_INPUT_DEVICE_CANCEL,
@@ -1047,7 +1043,7 @@ BOOL CInputDeviceDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

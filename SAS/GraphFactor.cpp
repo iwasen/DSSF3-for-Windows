@@ -404,8 +404,8 @@ void CGraphFactor::DispGraphWindow()
 
 void CGraphFactor::SetHScroll()
 {
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nHScrollSize || nScrollPos != m_nHScrollPos) {
 		m_nHScrollSize = nScrollSize;
@@ -540,7 +540,7 @@ void CGraphFactor::OnDestroy()
 
 BOOL CGraphFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_FACTOR, IDH_GRAPH_FACTOR,
 		IDC_ZOOM_V, IDH_GRAPH_FACTOR_ZOOM_V,
 		IDC_SCROLL_V, IDH_GRAPH_FACTOR_SCROLL_V,
@@ -555,7 +555,7 @@ BOOL CGraphFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -659,10 +659,10 @@ void CGraphFactor::CloseZoomWnd()
 void CGraphFactor::SetZoomArea()
 {
 	if (m_pZoomGraph != NULL) {
-		double fLeft = (m_fZoomStartTime - m_fStartTime) / m_fDispTime;
-		double fTop = 1 - (m_fZoomMaxValue - m_fStartValue) / m_fDispValue;
-		double fRight = (m_fZoomStartTime + m_fZoomDispTime - m_fStartTime) / m_fDispTime;
-		double fBottom = 1 - (m_fZoomMinValue - m_fStartValue) / m_fDispValue;
+		const double fLeft = (m_fZoomStartTime - m_fStartTime) / m_fDispTime;
+		const double fTop = 1 - (m_fZoomMaxValue - m_fStartValue) / m_fDispValue;
+		const double fRight = (m_fZoomStartTime + m_fZoomDispTime - m_fStartTime) / m_fDispTime;
+		const double fBottom = 1 - (m_fZoomMinValue - m_fStartValue) / m_fDispValue;
 
 		m_cGraphFactor.SetZoomRect(fLeft, fTop, fRight, fBottom);
 	} else

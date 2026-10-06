@@ -20,7 +20,7 @@ public:
 	void SetMaximunControl(HWND hMaximunCtrl);
 	void CreateStatusBar();
 	void SetStatusBar(UINT nID);
-	void SetStatusBar(LPCTSTR pText);
+	void SetStatusBar(LPCSTR pText);
 
 protected:
 	CStatusBar  m_wndStatusBar;

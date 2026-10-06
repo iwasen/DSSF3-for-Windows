@@ -123,7 +123,7 @@ protected:
 	void DispImpWindow();
 	void StartStopButton(BOOL bStart);
 	void LoadImpulseData(long nImpulseID);
-	void LoadWaveFile(LPCTSTR pFileName);
+	void LoadWaveFile(LPCSTR pFileName);
 	void DispMeasureParam();
 	void ValidData(BOOL bValid);
 	void InverseConvolution(double *pWaveData, int nWaveData, const double *pImpulseData, int nImpulseData);

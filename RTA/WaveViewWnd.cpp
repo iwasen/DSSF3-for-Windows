@@ -109,7 +109,7 @@ void CWaveViewWnd::DispGraphManual(const WaveFormManual *pWaveForm)
 	double fDispX = 1;
 	double fMaxY = 1;
 	double fMinY = -1;
-	double fLevelRange = (fMaxY - fMinY);
+	const double fLevelRange = (fMaxY - fMinY);
 
 	SetBitmap();
 
@@ -125,7 +125,7 @@ void CWaveViewWnd::DispGraphManual(const WaveFormManual *pWaveForm)
 	}
 
 	if (pWaveForm->bSmoothing) {
-		int nPoint = pWaveForm->nDataNum;
+		const int nPoint = pWaveForm->nDataNum;
 		CSpline spl;
 		double *xp = new double[nPoint];
 		double *yp = new double[nPoint];
@@ -177,8 +177,8 @@ void CWaveViewWnd::DispGraphFM(const WaveFormFM *pWaveForm)
 	POINT *pPoint = new POINT[m_nScaleWidth];
 
 	for (int i = 0; i < m_nScaleWidth; i++) {
-		double fAngle = 8 * M_PI * i / m_nScaleWidth;
-		double fAmp = sin(fAngle + pWaveForm->fModAmp * sin(pWaveForm->fModFreq * fAngle));
+		const double fAngle = 8 * M_PI * i / m_nScaleWidth;
+		const double fAmp = sin(fAngle + pWaveForm->fModAmp * sin(pWaveForm->fModFreq * fAngle));
 
 		pPoint[i].x = m_nScaleLeft + i;
 		pPoint[i].y = (int)(m_nScaleCenter - fAmp * (m_nScaleHeight - 10) / 2 + 0.5);

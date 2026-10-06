@@ -332,5 +332,5 @@ private:
 	BOOL bAutoRecInputOrg;
 	BOOL bAutoRecOutputOrg;
 
-	void WritePrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, int nData, LPCTSTR lpFileName);
+	void WritePrivateProfileInt(LPCSTR lpAppName, LPCSTR lpKeyName, int nData, LPCSTR lpFileName);
 };

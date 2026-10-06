@@ -113,7 +113,7 @@ CString &CMyEdit::operator=(CString &param)
 	return param;
 }
 
-LPCTSTR CMyEdit::operator=(LPCTSTR param)
+LPCSTR CMyEdit::operator=(LPCSTR param)
 {
 	CString str2;
 
@@ -135,7 +135,7 @@ CMyEdit &CMyEdit::operator=(CMyEdit &param)
 	return param;
 }
 
-int CMyEdit::operator==(LPCTSTR param)
+int CMyEdit::operator==(LPCSTR param)
 {
 	GetWindowText(m_str);
 	return m_str == param;
@@ -177,7 +177,7 @@ CMyEdit::operator CString()
 	return m_str;
 }
 
-void CMyEdit::Format(LPCTSTR lpszFormat, ...)
+void CMyEdit::Format(LPCSTR lpszFormat, ...)
 {
 	va_list vl;
 	char str[256];
@@ -359,7 +359,7 @@ BOOL CMyTab::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* 
 	return CTabCtrl::OnChildNotify(message, wParam, lParam, pLResult);
 }
 
-int CMyTab::AddPage(CDialog *pDialog, UINT id, LPCTSTR title, BOOL bCreate, BOOL bSort)
+int CMyTab::AddPage(CDialog *pDialog, UINT id, LPCSTR title, BOOL bCreate, BOOL bSort)
 {
 	int n = (int)m_TabData.GetSize();
 	if (bSort) {
@@ -432,7 +432,7 @@ void CMyTab::SetPage(int n)
 
 void CMyTab::DisplayChildDlg(int n)
 {
-	int nTab = (int)m_TabData.GetSize();
+	const int nTab = (int)m_TabData.GetSize();
 
 	for (int i = 0; i < nTab; i++) {
 		if (m_TabData[i].pDialog != NULL) {
@@ -503,7 +503,7 @@ void CMyTab::NotifyChildDlg(WPARAM nCode)
 
 CDialog *CMyTab::GetCurrentDlg()
 {
-	int n = GetCurSel();
+	const int n = GetCurSel();
 	if (n != -1)
 		return m_TabData[n].pDialog;
 	else
@@ -571,7 +571,7 @@ void CMyTab::OnMouseMove(UINT nFlags, CPoint point)
 
 void CMyTab::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	int n = GetCurSel();
+	const int n = GetCurSel();
 	if (n != -1) {
 		CRect rect;
 		GetItemRect(n, rect);
@@ -627,7 +627,7 @@ void CMyTab::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 void CMyTab::GetCurrentTitle(CString &sTitle)
 {
-	int n = GetCurSel();
+	const int n = GetCurSel();
 	if (n != -1) {
 		TCITEM tci{
 			.mask = TCIF_TEXT,
@@ -669,7 +669,7 @@ void CMySliderString::OnPaint()
 	dc.SelectObject(pFont);
 }
 
-void CMySliderString::AddTicString(int x, LPCTSTR pText)
+void CMySliderString::AddTicString(int x, LPCSTR pText)
 {
 	CTicString *pTicString = new CTicString;
 	pTicString->x = x;
@@ -699,7 +699,7 @@ void CMySliderString::RemoveAll()
 BEGIN_MESSAGE_MAP(CMySliderCtrl, CSliderCtrl)
 END_MESSAGE_MAP()
 
-void CMySliderCtrl::AddTicString(int nTic, LPCTSTR pStr)
+void CMySliderCtrl::AddTicString(int nTic, LPCSTR pStr)
 {
 	if (m_MySliderString.m_hWnd == NULL) {
 		WINDOWPLACEMENT wp;
@@ -707,8 +707,8 @@ void CMySliderCtrl::AddTicString(int nTic, LPCTSTR pStr)
 
 		LOGFONT logFont;
 		GetParent()->GetFont()->GetLogFont(&logFont);
-		int nTop = wp.rcNormalPosition.top + 25 + abs(logFont.lfHeight) / 2;
-		int nBottom = nTop + abs(logFont.lfHeight);
+		const int nTop = wp.rcNormalPosition.top + 25 + abs(logFont.lfHeight) / 2;
+		const int nBottom = nTop + abs(logFont.lfHeight);
 
 		CRect rect;
 		rect.SetRect(wp.rcNormalPosition.left - TS_MARGIN, nTop, wp.rcNormalPosition.right + TS_MARGIN, nBottom);

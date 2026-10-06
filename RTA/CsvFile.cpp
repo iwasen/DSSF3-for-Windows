@@ -6,19 +6,19 @@ CCsvFile::CCsvFile()
 	m_sSeparator = ",";
 }
 
-void CCsvFile::SetData(LPCTSTR pData)
+void CCsvFile::SetData(LPCSTR pData)
 {
 	m_aCsvData.Add(pData);
 }
 
-void CCsvFile::SetData(double fData, LPCTSTR pFormat)
+void CCsvFile::SetData(double fData, LPCSTR pFormat)
 {
 	CString sData;
 	sData.Format(pFormat, fData);
 	m_aCsvData.Add(sData);
 }
 
-void CCsvFile::SetData(int nData, LPCTSTR pFormat)
+void CCsvFile::SetData(int nData, LPCSTR pFormat)
 {
 	CString sData;
 	sData.Format(pFormat, nData);
@@ -27,7 +27,7 @@ void CCsvFile::SetData(int nData, LPCTSTR pFormat)
 
 void CCsvFile::Output()
 {
-	int nSize = (int)m_aCsvData.GetSize();
+	const int nSize = (int)m_aCsvData.GetSize();
 	for (int i = 0; i < nSize; i++) {
 		if (i != 0)
 			WriteString(m_sSeparator);

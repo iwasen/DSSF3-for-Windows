@@ -4,7 +4,7 @@ struct REMARK_INFO {
 	int nRemark;
 	struct {
 		CPen *pen;
-		LPCTSTR text;
+		LPCSTR text;
 	} remarks[10];
 };
 

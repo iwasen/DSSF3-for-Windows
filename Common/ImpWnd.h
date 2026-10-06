@@ -10,7 +10,7 @@ public:
 
 	CRemarkWnd m_wndRemark;
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF rgbWaveColor, PFNGRAPH pCallBackFunc, LPARAM nCallBackData);
+	void Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF rgbWaveColor, PFNGRAPH pCallBackFunc, LPARAM nCallBackData);
 	void Resize();
 	void DispImpulse(double totalTime, double startTime, double dispTime, const double *pData, int nData, BOOL bHScroll);
 	void SetSelectArea(double startTime, double endTime, BOOL bErase = TRUE);

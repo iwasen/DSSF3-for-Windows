@@ -14,8 +14,8 @@ END_MESSAGE_MAP()
 
 void CFilterWnd::DispGraph(const CDigitalFilter &cDigitalFilter, int minFreq, int maxFreq, int minLevel, int maxLevel)
 {
-	double fMaxFreqLog = log((double)maxFreq);
-	double fMinFreqLog = log((double)minFreq);
+	const double fMaxFreqLog = log((double)maxFreq);
+	const double fMinFreqLog = log((double)minFreq);
 	CRgn rgn;
 	double fLevel;
 	int x, y;
@@ -28,7 +28,7 @@ void CFilterWnd::DispGraph(const CDigitalFilter &cDigitalFilter, int minFreq, in
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penFreq);
 
-	double fStepY = (double)m_nScaleHeight / (minLevel - maxLevel);
+	const double fStepY = (double)m_nScaleHeight / (minLevel - maxLevel);
 
 	for (int i = 0; i < m_nScaleWidth; i++) {
 		x = m_nScaleLeft + i;

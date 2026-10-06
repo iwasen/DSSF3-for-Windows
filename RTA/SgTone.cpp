@@ -412,7 +412,7 @@ void CSgTone::SetFreqRange(BOOL bSetSlider)
 {
 	CString str;
 
-	int nMaxFreq = (int)(g_oSetData.Sg.nSamplingRate / 2);
+	const int nMaxFreq = (int)(g_oSetData.Sg.nSamplingRate / 2);
 
 	tFreqRange[0].nMaxFreq = nMaxFreq;
 
@@ -444,7 +444,7 @@ void CSgTone::SetFreqRange(BOOL bSetSlider)
 
 BOOL CSgTone::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_SFREQ_L, IDH_SG_TONE_SFREQ_L,
 		IDC_EFREQ_L, IDH_SG_TONE_EFREQ_L,
 		IDC_SFREQ_R, IDH_SG_TONE_SFREQ_R,
@@ -463,7 +463,7 @@ BOOL CSgTone::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

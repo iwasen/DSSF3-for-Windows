@@ -278,7 +278,7 @@ CSetData2::~CSetData2()
 		WritePrivateProfileInt(SECTION_AUTO_REC, "Output", bAutoRecOutput, sPathName);
 }
 
-void CSetData2::WritePrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, int nData, LPCTSTR lpFileName)
+void CSetData2::WritePrivateProfileInt(LPCSTR lpAppName, LPCSTR lpKeyName, int nData, LPCSTR lpFileName)
 {
 	CString str;
 

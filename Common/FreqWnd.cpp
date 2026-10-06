@@ -23,7 +23,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFreqWnd メッセージ ハンドラ
 
-void CFreqWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF freqColor, COLORREF phaseColor)
+void CFreqWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF freqColor, COLORREF phaseColor)
 {
 	if (m_bInitialized)
 		return;
@@ -49,9 +49,10 @@ void CFreqWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF f
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -123,9 +124,9 @@ void CFreqWnd::SetBitmap(int nScale, int nMinFreq, int nMaxFreq, int nMinLevel, 
 	m_dcMem.SelectObject(&m_penGray);
 
 	if (nScale == 0) {
-		double fMaxFreqLog = log((double)nMaxFreq);
-		double fMinFreqLog = log((double)nMinFreq);
-		double fSpanFreq = fMaxFreqLog - fMinFreqLog;
+		const double fMaxFreqLog = log((double)nMaxFreq);
+		const double fMinFreqLog = log((double)nMinFreq);
+		const double fSpanFreq = fMaxFreqLog - fMinFreqLog;
 		for (nFreq = nMinFreq; nFreq <= nMaxFreq; ) {
 			x =  m_nScaleLeft + (int)((log((double)nFreq) - fMinFreqLog) * m_nScaleWidth / fSpanFreq + 0.5);
 
@@ -167,8 +168,8 @@ void CFreqWnd::SetBitmap(int nScale, int nMinFreq, int nMaxFreq, int nMinLevel, 
 		else
 			step = 10000;
 
-		int start = (nMinFreq + step - 1) / step * step;
-		double fSpanFreq = nMaxFreq - nMinFreq;
+		const int start = (nMinFreq + step - 1) / step * step;
+		const double fSpanFreq = nMaxFreq - nMinFreq;
 		for (nFreq = start; nFreq <= nMaxFreq; nFreq += step) {
 			x = m_nScaleLeft + (int)((nFreq - nMinFreq) * m_nScaleWidth / fSpanFreq);
 
@@ -198,8 +199,8 @@ void CFreqWnd::SetBitmap(int nScale, int nMinFreq, int nMaxFreq, int nMinLevel, 
 		}
 	}
 
-	int step = ((nMaxLevel - nMinLevel) / 120 + 1) * 10;
-	double fSpanLevel = nMaxLevel - nMinLevel;
+	const int step = ((nMaxLevel - nMinLevel) / 120 + 1) * 10;
+	const double fSpanLevel = nMaxLevel - nMinLevel;
 	for (nLevel = nMaxLevel; nLevel >= nMinLevel; nLevel -= step) {
 		y = m_nScaleBottom - (int)((nLevel - nMinLevel) * m_nScaleHeight / fSpanLevel);
 
@@ -239,9 +240,9 @@ void CFreqWnd::SetBitmap(int nScale, int nMinFreq, int nMaxFreq, int nMinLevel, 
 
 void CFreqWnd::DispGraph(const double *pFreqData, int nData, double fRate, int nMinFreq, int nMaxFreq, int nMinLevel, int nMaxLevel, const double *pPhaseData, BOOL bMean)
 {
+	const double fMaxFreqLog = log((double)nMaxFreq);
+	const double fMinFreqLog = log((double)nMinFreq);
 	int nScale = 0;
-	double fMaxFreqLog = log((double)nMaxFreq);
-	double fMinFreqLog = log((double)nMinFreq);
 	int i;
 	int x, x2 = 0;
 	int y, y2 = 0;
@@ -255,10 +256,10 @@ void CFreqWnd::DispGraph(const double *pFreqData, int nData, double fRate, int n
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
-	double fFreqStep = fRate / nData;
-	double fStepY = (double)m_nScaleHeight / (nMinLevel - nMaxLevel);
-	double fTmp1 = (double)m_nScaleWidth / (fMaxFreqLog - fMinFreqLog);
-	double fTmp2 = (double)m_nScaleWidth / (nMaxFreq - nMinFreq);
+	const double fFreqStep = fRate / nData;
+	const double fStepY = (double)m_nScaleHeight / (nMinLevel - nMaxLevel);
+	const double fTmp1 = (double)m_nScaleWidth / (fMaxFreqLog - fMinFreqLog);
+	const double fTmp2 = (double)m_nScaleWidth / (nMaxFreq - nMinFreq);
 
 	if (pPhaseData != NULL) {
 		m_dcMem.SelectObject(&m_penPhase);

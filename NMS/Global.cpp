@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Nms.h"
 #include "mixer.h"
-#include "SetData.h"
 
 CSetData g_oSetData;
 HICON g_hIcon;
@@ -27,9 +26,10 @@ void SetInputDevice(int nInputDevice, int nInputSelector, int nInputVolume)
 	MixerInitialize(nInputDevice, 0);
 
 	// 録音マスターの LineID を取得
-	MIXERLINE mxl{};
-	mxl.cbStruct = sizeof(mxl);
-	mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
+	MIXERLINE mxl{
+		.cbStruct = sizeof(mxl),
+		.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_WAVEIN
+	};
 	if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
 		return;
 
@@ -63,10 +63,11 @@ void SetInputDevice(int nInputDevice, int nInputSelector, int nInputVolume)
 		dst = mxl.dwDestination;
 		for (src = 0; src < dwSrcItems; src++) {
 			// 入力機器の LineID 取得
-			MIXERLINE mxl{};
-			mxl.cbStruct = sizeof(mxl);
-			mxl.dwDestination = dst;
-			mxl.dwSource = src;
+			MIXERLINE mxl{
+				.cbStruct = sizeof(mxl),
+				.dwDestination = dst,
+				.dwSource = src
+			};
 			if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_SOURCE) != MMSYSERR_NOERROR)
 				return;
 

@@ -148,8 +148,8 @@ void CFftWndEx::InitStatusPane()
 
 void CFftWndEx::SetStatusPane()
 {
-	static const int widthsLR[] = { 15, 50, 25, 50, 25, -1, 15, 50, 25, 50, 25};
-	static const int widths[] = { 15, 50, 25, 50, 25 };
+	static constexpr int widthsLR[] = { 15, 50, 25, 50, 25, -1, 15, 50, 25, 50, 25};
+	static constexpr int widths[] = { 15, 50, 25, 50, 25 };
 	int parts[ARRAY_SIZE(widthsLR)];
 	CRect rect;
 	int size;

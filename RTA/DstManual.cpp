@@ -127,11 +127,9 @@ void CDstManual::InitFreqSlider()
 
 void CDstManual::InitLevelSlider()
 {
-	int nLevel;
-
 	m_cLevelSlider.SetRange(MIN_LEVEL_POS, MAX_LEVEL_POS);
 
-	for (nLevel = MIN_LEVEL_POS; nLevel <= MAX_LEVEL_POS; nLevel += 10)
+	for (int nLevel = MIN_LEVEL_POS; nLevel <= MAX_LEVEL_POS; nLevel += 10)
 		m_cLevelSlider.SetTic(nLevel);
 }
 
@@ -153,11 +151,6 @@ void CDstManual::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 void CDstManual::SetFreq(int nFreq)
 {
-//	if (nFreq < MIN_FREQ_VAL)
-//		nFreq = MIN_FREQ_VAL;
-//	else if (nFreq > MAX_FREQ_VAL)
-//		nFreq = MAX_FREQ_VAL;
-
 	if (nFreq <= 0)
 		nFreq = 1;
 
@@ -315,7 +308,7 @@ void CDstManual::OnBnClickedAverage()
 	g_oSetData.Dst.bManualAverage = m_cAverage;
 }
 
-void CDstManual::CsvOutput(LPCTSTR pFileName)
+void CDstManual::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -335,7 +328,7 @@ HBITMAP CDstManual::GetBitmap()
 
 BOOL CDstManual::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_HARM_GRAPH, IDH_DST_MANUAL_HARM_GRAPH,
 		IDC_FREQ_SLIDER, IDH_DST_MANUAL_FREQ_SLIDER,
 		IDC_FREQ_EDIT, IDH_DST_MANUAL_FREQ_EDIT,
@@ -347,7 +340,7 @@ BOOL CDstManual::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

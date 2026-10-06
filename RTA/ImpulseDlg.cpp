@@ -511,9 +511,9 @@ void CImpulseDlg::EndProcess()
 	}
 
 	if (g_oSetData.Imp.bAutoRetry) {
-		int nCheckDataNum = min(m_nData, CHECK_DATA_NUM);
-		double *pCheck1 = m_pLeftInputData + (m_nData - nCheckDataNum);
-		double *pCheck2 = m_pCheckBuf + (m_nData - nCheckDataNum);
+		const int nCheckDataNum = min(m_nData, CHECK_DATA_NUM);
+		const double *pCheck1 = m_pLeftInputData + (m_nData - nCheckDataNum);
+		const double *pCheck2 = m_pCheckBuf + (m_nData - nCheckDataNum);
 
 		if (m_nCheckCount == 0 || TimingCheck(pCheck1, pCheck2, nCheckDataNum) > 5) {
 			m_nRetryCounter += m_nCheckCount % 2;
@@ -523,7 +523,7 @@ void CImpulseDlg::EndProcess()
 		}
 	}
 
-	int nTimeOffset = (int)(g_oSetData.Imp.fOffsetTime / 1000 * m_nRate);
+	const int nTimeOffset = (int)(g_oSetData.Imp.fOffsetTime / 1000 * m_nRate);
 	//memcpy(m_pLeftImpulseData, m_pLeftInputData, m_nData * sizeof(double));
 	ShiftCopy(m_pLeftImpulseData, m_pLeftInputData, m_nData, nTimeOffset);
 	m_pMethod->CalcImpulse(m_pLeftImpulseData);
@@ -616,7 +616,7 @@ BOOL CImpulseDlg::LevelCheck(const double *pData)
 {
 	double fMaxData = 0;
 	for (int i = 0; i < m_nData; i++) {
-		double fAbsData = fabs(*pData++);
+		const double fAbsData = fabs(*pData++);
 		if (fAbsData > fMaxData)
 			fMaxData = fAbsData;
 	}
@@ -673,7 +673,7 @@ void CImpulseDlg::SetTimeList()
 	CString strBuf;
 
 	m_cMeasureTime.ResetContent();
-	double sps = g_oSetData.Imp.nSamplingRate;
+	const double sps = g_oSetData.Imp.nSamplingRate;
 	for (int i = 0; i < STAGE_NUM; i++) {
 		strBuf.Format("%.3f s", (1 << (i + STAGE_OFFSET)) / sps);
 		m_cMeasureTime.AddString(strBuf);
@@ -900,11 +900,11 @@ void CImpulseDlg::LoadImpulseData(long nImpulseID)
 
 	m_bImpulseData = dbImpulseRec.bImpulseData;
 
-	int nBit = dbImpulseRec.nBit & 0xfc;
-	int nMethod = dbImpulseRec.nBit & 0x03;
+	const int nBit = dbImpulseRec.nBit & 0xfc;
+	const int nMethod = dbImpulseRec.nBit & 0x03;
 
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-	int nData = pWaveData->dataSize / pWaveData->nChannels / (pWaveData->nBitsPerSample / 8);
+	const int nData = pWaveData->dataSize / pWaveData->nChannels / (pWaveData->nBitsPerSample / 8);
 	GlobalUnlock(hWaveData);
 
 	SetMeasuringParameters(dbImpulseRec.nSampling, dbImpulseRec.nMeasTime, dbImpulseRec.nMeasNum, dbImpulseRec.nChannel, nBit, dbImpulseRec.sTime, nMethod, nData);
@@ -937,7 +937,7 @@ void CImpulseDlg::LoadImpulseData(long nImpulseID)
 	ValidData(TRUE);
 }
 
-void CImpulseDlg::LoadWaveFile(LPCTSTR pFileName)
+void CImpulseDlg::LoadWaveFile(LPCSTR pFileName)
 {
 	CFileStatus st;
 	if (!CFile::GetStatus(pFileName, st))
@@ -948,7 +948,7 @@ void CImpulseDlg::LoadWaveFile(LPCTSTR pFileName)
 					st.m_mtime.GetHour(), st.m_mtime.GetMinute(), st.m_mtime.GetSecond());
 
 	HWAVEDATA hWaveData;
-	if (MMWaveReadFile(&hWaveData, (LPTSTR)pFileName) != 0) {
+	if (MMWaveReadFile(&hWaveData, (LPSTR)pFileName) != 0) {
 		::AfxMessageBox(IDS_ERR_READWAVEFILE, MB_OK | MB_ICONEXCLAMATION);
 		return;
 	}
@@ -957,7 +957,7 @@ void CImpulseDlg::LoadWaveFile(LPCTSTR pFileName)
 
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
 	m_nBitsPerSample = pWaveData->nBitsPerSample;
-	int nData = pWaveData->dataSize / pWaveData->nChannels / (pWaveData->nBitsPerSample / 8);
+	const int nData = pWaveData->dataSize / pWaveData->nChannels / (pWaveData->nBitsPerSample / 8);
 	int nStage = 0;
 	while (true) {
 		if ((nData >> nStage) == 0)
@@ -1050,7 +1050,7 @@ void CImpulseDlg::WaveFileOut()
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
-	int nBitsPerSample = fileDlg.m_pOFN->nFilterIndex == 1 ? 16 : 24;
+	const int nBitsPerSample = fileDlg.m_pOFN->nFilterIndex == 1 ? 16 : 24;
 
 	HWAVEDATA hWaveData;
 
@@ -1129,14 +1129,16 @@ void CImpulseDlg::InverseConvolution(double *pWaveData, int nWaveData, const dou
 	int i, j;
 	double t;
 	double xt1, yt1, xt2, yt2;
-	int nData = min(nWaveData, nImpulseData);
-	int nLoop = nWaveData / 2;
+	const int nData = min(nWaveData, nImpulseData);
+	const int nLoop = nWaveData / 2;
 
 	double *pFilterData = new double[nWaveData];
-	for (i = 0; i < nData; i++)
-		pFilterData[i] = pImpulseData[i];
-	for ( ; i < nWaveData; i++)
-		pFilterData[i] = 0;
+	memcpy(pFilterData, pImpulseData, nData * sizeof(double));
+//#	for (i = 0; i < nData; i++)
+//#		pFilterData[i] = pImpulseData[i];
+	memset(&pFilterData[nData], 0, (nWaveData - nData) * sizeof(double));
+//#	for ( ; i < nWaveData; i++)
+//#		pFilterData[i] = 0;
 
 	m_oRFFT.fft(nWaveData, pWaveData);
 	m_oRFFT.fft(nWaveData, pFilterData);
@@ -1153,7 +1155,7 @@ void CImpulseDlg::InverseConvolution(double *pWaveData, int nWaveData, const dou
 			dmax = t;
 	}
 
-	double limit = dmax / pow(10.0, (double)m_nMaxAdjLevel / 20);
+	const double limit = dmax / pow(10.0, (double)m_nMaxAdjLevel / 20);
 	pWaveData[0] = pWaveData[1] = 0;
 	for (i = 1; i < nLoop; i++) {
 		j = i * 2;
@@ -1199,8 +1201,6 @@ void CImpulseDlg::OnIfaSet()
 
 	IfaSetDlg.m_nIFilterID = m_nIFilterID;
 	if (IfaSetDlg.DoModal() == IDOK) {
-		int i;
-
 		if (m_pIFilter != NULL)
 			delete [] m_pIFilter;
 
@@ -1211,8 +1211,9 @@ void CImpulseDlg::OnIfaSet()
 		m_nIfaSampling = IfaSetDlg.m_iSampling;
 		m_pIFilter  = new double[m_nIFilter];
 
-		for (i = 0; i < m_nIFilter; i++)
-			m_pIFilter[i] = IfaSetDlg.m_pIRData[IfaSetDlg.m_nStartPos + i];
+		memcpy(m_pIFilter, &IfaSetDlg.m_pIRData[IfaSetDlg.m_nStartPos], m_nIFilter * sizeof(double));
+//#		for (int i = 0; i < m_nIFilter; i++)
+//#			m_pIFilter[i] = IfaSetDlg.m_pIRData[IfaSetDlg.m_nStartPos + i];
 
 		m_cIfaMessage = IfaSetDlg.m_sTitle;
 		m_cIfaCancel.EnableWindow(TRUE);
@@ -1374,7 +1375,7 @@ void CImpulseDlg::ChangeWaveDevice(int /*nInOut*/)
 
 BOOL CImpulseDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_IMPALSE_L, IDH_IMP_IMPALSE_L,
 		IDC_IMPALSE_R, IDH_IMP_IMPALSE_R,
 		IDC_ZOOM_H, IDH_IMP_ZOOM_H,
@@ -1419,7 +1420,7 @@ BOOL CImpulseDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

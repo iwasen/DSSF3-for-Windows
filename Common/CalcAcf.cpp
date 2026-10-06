@@ -34,7 +34,7 @@ NmsFactorData *CalcNmsFactor(HWAVEDATA hWaveData, const NmsConditionData *pNmsCo
 AcfFactorData *CalcAcfFactor(HWAVEDATA hWaveData, const AcfConditionData *pAcfConditionData, double fSamplingRate, int *nFactor, AbortCheckFunc AbortCheck, TaunPhinData **pTaunPhinData)
 {
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-	int nChannels = pWaveData->nChannels;
+	const int nChannels = pWaveData->nChannels;
 	::GlobalUnlock(hWaveData);
 
 	if (nChannels == 1) {
@@ -55,15 +55,15 @@ AllFactorData *CalcAcfFactor1(HWAVEDATA hWaveData, int nWaveData, const AcfCondi
 
 	// Wave データ取得
 	double *pWaveBuf = new double[nWaveData];
-	int nSampleNum = ReadWaveData(hWaveData, pWaveBuf, NULL, nWaveData);
+	const int nSampleNum = ReadWaveData(hWaveData, pWaveBuf, NULL, nWaveData);
 
 	// 積分データサイズ取得
-	int nMaxDelaySize = (int)(pAcfCondition->fMaxDelayTime * fSamplingRate);
-	int nIntegrationSize1 = (int)(pAcfCondition->fIntegrationTime * fSamplingRate);
-	int nIntegrationSize2 = nIntegrationSize1 + nMaxDelaySize;
+	const int nMaxDelaySize = (int)(pAcfCondition->fMaxDelayTime * fSamplingRate);
+	const int nIntegrationSize1 = (int)(pAcfCondition->fIntegrationTime * fSamplingRate);
+	const int nIntegrationSize2 = nIntegrationSize1 + nMaxDelaySize;
 
 	// 積分実行回数取得
-	double fStepSize = pAcfCondition->fRunningStep * fSamplingRate;
+	const double fStepSize = pAcfCondition->fRunningStep * fSamplingRate;
 	int nStepCount = (int)((nSampleNum - nIntegrationSize2) / fStepSize);
 	if (nStepCount < 0)
 		nStepCount = 0;
@@ -122,15 +122,15 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 	// Wave データ取得
 	double *pWaveBuf1 = new double[nWaveData];
 	double *pWaveBuf2 = new double[nWaveData];
-	int nSampleNum = ReadWaveData(hWaveData, pWaveBuf1, pWaveBuf2, nWaveData);
+	const int nSampleNum = ReadWaveData(hWaveData, pWaveBuf1, pWaveBuf2, nWaveData);
 
 	// 積分データサイズ取得
-	int nMaxDelaySize = (int)(pAcfCondition->fMaxDelayTime * fSamplingRate);
-	int nIntegrationSize1 = (int)(pAcfCondition->fIntegrationTime * fSamplingRate);
-	int nIntegrationSize2 = nIntegrationSize1 + nMaxDelaySize;
+	const int nMaxDelaySize = (int)(pAcfCondition->fMaxDelayTime * fSamplingRate);
+	const int nIntegrationSize1 = (int)(pAcfCondition->fIntegrationTime * fSamplingRate);
+	const int nIntegrationSize2 = nIntegrationSize1 + nMaxDelaySize;
 
 	// 積分実行回数取得
-	double fStepSize = pAcfCondition->fRunningStep * fSamplingRate;
+	const double fStepSize = pAcfCondition->fRunningStep * fSamplingRate;
 	int nStepCount = (int)((nSampleNum - nIntegrationSize2) / fStepSize);
 	if (nStepCount < 0)
 		nStepCount = 0;
@@ -146,7 +146,7 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 		double *pCalibration = new double[nFftSize];
 		MakeFilterTbl3(pCalibration, nFftSize, fSamplingRate, (FilterData *)pNmsMicCal->freq, pNmsMicCal->nFreqData, 20);
 		pCalibration[0] = 1;
-		double sens = pow(10.0, -pNmsMicCal->fInputSens / 20);
+		const double sens = pow(10.0, -pNmsMicCal->fInputSens / 20);
 		MakeFilterTbl2(pFilterTbl, nFftSize, fSamplingRate, pAcfCondition->nFreqWeighting, 20);
 		for (i = 0; i < nFftSize; i++)
 			pFilterTbl[i] *= sens / pCalibration[i];
@@ -155,7 +155,7 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 		MakeFilterTbl2(pFilterTbl, nFftSize, fSamplingRate, pAcfCondition->nFreqWeighting, 20);
 
 	// IACF テンポラリバッファ確保
-	int nIAcfData = (int)(fSamplingRate * 0.002);		// ±1ms
+	const int nIAcfData = (int)(fSamplingRate * 0.002);		// ±1ms
 	double *pIAcfData = new double[nIAcfData];
 
 	// 計算結果格納エリア確保
@@ -178,13 +178,13 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 			}
 		}
 
-		int nOffset = (int)(i * fStepSize);
+		const int nOffset = (int)(i * fStepSize);
 
 		// ACF計算
 		double *pFft = CalcAcf1(pWaveBuf1 + nOffset, nIntegrationSize1, nIntegrationSize2, nFftSize, pFilterTbl);
 
 		// SPL計算
-		double fSPL = CalcSPL(pWaveBuf1 + nOffset, pWaveBuf2 + nOffset, nIntegrationSize1, nFftSize, pFilterTbl);
+		const double fSPL = CalcSPL(pWaveBuf1 + nOffset, pWaveBuf2 + nOffset, nIntegrationSize1, nFftSize, pFilterTbl);
 
 		// ACFファクタ計算
 		GetAcfFactor(pAcfCondition, &pAllFactorData[i].Acf, &(*pTaunPhinData)[i], fSamplingRate, pFft, nMaxDelaySize);
@@ -280,7 +280,6 @@ double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, i
 	g_oRFFT.fft(nFftSize, pAcfBuf2);
 
 	// ACF 計算
-//	pAcfBuf1[0] = (pAcfBuf1[0] * pAcfBuf1[0] + pAcfBuf2[0] * pAcfBuf2[0]) / 2;
 	pAcfBuf1[0] = 0;
 	pAcfBuf1[1] = 0;
 	double fSPL = 0;
@@ -299,7 +298,7 @@ double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, i
 		fSPL += xt2 * xt2 + yt2 * yt2;
 	}
 
-	fSPL = fSPL * nDataNum / nFftSize * 2;
+	fSPL *= nDataNum / nFftSize * 2;
 
 	delete [] pAcfBuf1;
 	delete [] pAcfBuf2;
@@ -322,14 +321,14 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 	int nIntervalPos;
 
 	// Φ(0) 保存
-	double fPhi0 = pData[0];
+	const double fPhi0 = pData[0];
 
 	// 正規化
 	for (i = 0; i < nData; i++)
 		pData[i] /= fPhi0;
 
 	// Φ(0)取得
-	pAcfFactor->fPhi0 = /*@*/(float)dB10(fPhi0);
+	pAcfFactor->fPhi0 = (float)dB10(fPhi0);
 
 	// τn φn 取得
 	memset(pTaunPhinData, 0, sizeof(TaunPhinData));
@@ -344,8 +343,8 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 				nPeakPos = i;
 		}
 		if (nPeakPos != 0) {
-			pTaunPhinData->fTaun[n] = /*@*/(float)(nPeakPos / fSamplingRate);
-			pTaunPhinData->fPhin[n] = /*@*/(float)pData[nPeakPos];
+			pTaunPhinData->fTaun[n] = (float)(nPeakPos / fSamplingRate);
+			pTaunPhinData->fPhin[n] = (float)pData[nPeakPos];
 			n++;
 		}
 	}
@@ -355,8 +354,8 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 	pAcfFactor->fPhi1 = pTaunPhinData->fPhin[0];
 
 	// τe取得
-	int nInterval = (int)(pAcfCondition->fTaueInterval / 1000 * fSamplingRate);
-	int nEndTime = (int)(min(pAcfCondition->fTaueEndTime / 1000, pAcfCondition->fIntegrationTime) * fSamplingRate);
+	const int nInterval = (int)(pAcfCondition->fTaueInterval / 1000 * fSamplingRate);
+	const int nEndTime = (int)(min(pAcfCondition->fTaueEndTime / 1000, pAcfCondition->fIntegrationTime) * fSamplingRate);
 	if (pAcfCondition->bTaueOrigin)
 		nIntervalPos = 0;
 	else {
@@ -392,8 +391,8 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 		}
 	}
 	Regress2x(peakTime, peakData, n, &reg0, &reg1);
-	pAcfFactor->fTauE = /*@*/(float)((-10 - reg0) / reg1);
-	pAcfFactor->fTauE0 = /*@*/(float)reg0;
+	pAcfFactor->fTauE = (float)((-10 - reg0) / reg1);
+	pAcfFactor->fTauE0 = (float)reg0;
 }
 
 double *CalcIAcf(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, int nFftSize, const double *pFilterTbl)
@@ -417,7 +416,6 @@ double *CalcIAcf(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum,
 	g_oRFFT.fft(nFftSize, pAcfBuf2);
 
 	// IACF 計算
-//	pAcfBuf1[0] = (pAcfBuf1[0] * pAcfBuf1[0] + pAcfBuf2[0] * pAcfBuf2[0]) / 2;
 	pAcfBuf1[0] = 0;
 	pAcfBuf1[1] = 0;
 	for (i = 1; i < nFftSize / 2; i++) {
@@ -458,15 +456,15 @@ void GetIAcfFactor(const IAcfCondition *pIAcfCondition, IAcfFactor *pIAcfFactor,
 		}
 	}
 
-	pIAcfFactor->fSPL = /*@*/(float)dB10(fSPL);
+	pIAcfFactor->fSPL = (float)dB10(fSPL);
 
-	pIAcfFactor->fIACC = /*@*/(float)(fIACC / fSPL);
+	pIAcfFactor->fIACC = (float)(fIACC / fSPL);
 	if (pIAcfFactor->fIACC > 1.0)
 		pIAcfFactor->fIACC = 1.0;
 
-	pIAcfFactor->fTauIACC = /*@*/(float)((nIACCPos - nData / 2) / fSamplingRate);
+	pIAcfFactor->fTauIACC = (float)((nIACCPos - nData / 2) / fSamplingRate);
 
-	double wLevel = (1 - pIAcfCondition->fIACCWLevel) * fIACC;
+	const double wLevel = (1 - pIAcfCondition->fIACCWLevel) * fIACC;
 	int wPos1 = 0;
 	for (i = nIACCPos; i >= 0; i--) {
 		if (pData[i] < wLevel) {
@@ -474,7 +472,7 @@ void GetIAcfFactor(const IAcfCondition *pIAcfCondition, IAcfFactor *pIAcfFactor,
 			break;
 		}
 	}
-	double wt1 = (nIACCPos - wPos1 - (wLevel - pData[wPos1]) / (pData[wPos1 + 1] - pData[wPos1])) / fSamplingRate;
+	const double wt1 = (nIACCPos - wPos1 - (wLevel - pData[wPos1]) / (pData[wPos1 + 1] - pData[wPos1])) / fSamplingRate;
 
 	int wPos2 = nData;
 	for (i = nIACCPos; i < nData; i++) {
@@ -483,10 +481,10 @@ void GetIAcfFactor(const IAcfCondition *pIAcfCondition, IAcfFactor *pIAcfFactor,
 			break;
 		}
 	}
-	double wt2 = (wPos2 - nIACCPos - (wLevel - pData[wPos2]) / (pData[wPos2 - 1] - pData[wPos2])) / fSamplingRate;
+	const double wt2 = (wPos2 - nIACCPos - (wLevel - pData[wPos2]) / (pData[wPos2 - 1] - pData[wPos2])) / fSamplingRate;
 
-	pIAcfFactor->fWIACC = /*@*/(float)(wt1 + wt2);
-	pIAcfFactor->fWIACC1 = /*@*/(float)wt1;
+	pIAcfFactor->fWIACC = (float)(wt1 + wt2);
+	pIAcfFactor->fWIACC1 = (float)wt1;
 }
 
 double GetAdjustPhi0(long folderID, long nPhi0RefData, double fPhi0RefLevel)
@@ -566,7 +564,7 @@ long CalcNoiseSource(const NmsFactorData *pNmsFactorData, int nNmsFactorData, No
 	NsWeightData nsWeightData;
 	ReadNsWeightData(&nsWeightData);
 
-	int nIdentPos = GetIdentPos(pNmsFactorData, nNmsFactorData, pIdentCondition);
+	const int nIdentPos = GetIdentPos(pNmsFactorData, nNmsFactorData, pIdentCondition);
 	AcfFactor acfFactorData = pNmsFactorData[nIdentPos].Acf;
 	IAcfFactor iacfFactorData = pNmsFactorData[nIdentPos].IAcf;
 
@@ -606,13 +604,13 @@ long CalcNoiseSource(const NmsFactorData *pNmsFactorData, int nNmsFactorData, No
 			fdTotal = fdPhi0 + fdTaue + fdTau1 + fdPhi1 + fdIACC + fdTIACC + fdWIACC;
 			if (fdTotal < fdMin) {
 				fdMin = fdTotal;
-				pNoiseSrcData->fdPhi0 = /*@*/(float)fdPhi0;
-				pNoiseSrcData->fdTauE = /*@*/(float)fdTaue;
-				pNoiseSrcData->fdTau1 = /*@*/(float)fdTau1;
-				pNoiseSrcData->fdPhi1 = /*@*/(float)fdPhi1;
-				pNoiseSrcData->fdIACC = /*@*/(float)fdIACC;
-				pNoiseSrcData->fdTIACC = /*@*/(float)fdTIACC;
-				pNoiseSrcData->fdWIACC = /*@*/(float)fdWIACC;
+				pNoiseSrcData->fdPhi0 = (float)fdPhi0;
+				pNoiseSrcData->fdTauE = (float)fdTaue;
+				pNoiseSrcData->fdTau1 = (float)fdTau1;
+				pNoiseSrcData->fdPhi1 = (float)fdPhi1;
+				pNoiseSrcData->fdIACC = (float)fdIACC;
+				pNoiseSrcData->fdTIACC = (float)fdTIACC;
+				pNoiseSrcData->fdWIACC = (float)fdWIACC;
 				strcpy_s(pNoiseSrcData->aName, dbNsTmpRec.sName);
 				nNoiseTmpID = dbNsTmpRec.nNsTmpID;
 			}

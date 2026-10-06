@@ -287,7 +287,7 @@ void CPresetDlg::OnBnClickedMakeShortcut()
 
 BOOL CPresetDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_PRESET_LIST, IDH_PRESET_LIST,
 		IDOK, IDH_PRESET_SET,
 		IDCANCEL, IDH_PRESET_CLOSE,
@@ -298,7 +298,7 @@ BOOL CPresetDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -337,14 +337,14 @@ void CPresetSaveDlg::OnOK()
 
 BOOL CPresetSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_TITLE, IDH_PRESET_SAVE_TITLE,
 		IDOK, IDH_PRESET_SAVE_SET,
 		IDCANCEL, IDH_PRESET_SAVE_CANCEL,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

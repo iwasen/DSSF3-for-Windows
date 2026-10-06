@@ -34,16 +34,16 @@ public:
 	float operator=(float param);
 	double operator=(double param);
 	CString &operator=(CString &param);
-	LPCTSTR operator=(LPCTSTR param);
+	LPCSTR operator=(LPCSTR param);
 	CMyEdit &operator=(CMyEdit &param);
-	int operator==(LPCTSTR param);
+	int operator==(LPCSTR param);
 	int operator==(int param);
 	int operator!=(int param);
 	operator int();
 	operator float();
 	operator double();
 	operator CString();
-	void Format(LPCTSTR lpszFormat, ...);
+	void Format(LPCSTR lpszFormat, ...);
 	void Blank();
 	void LoadString(UINT nStringID);
 	void FormatMessage(UINT nStringID, ...);
@@ -76,7 +76,7 @@ class CMyTab : public CTabCtrl
 public:
 	CMyTab();
 
-	int AddPage(CDialog *pDialog, UINT id, LPCTSTR title, BOOL bCreate = FALSE, BOOL bSort = FALSE);
+	int AddPage(CDialog *pDialog, UINT id, LPCSTR title, BOOL bCreate = FALSE, BOOL bSort = FALSE);
 	int AddPage(CDialog *pDialog, UINT id, UINT titleID, BOOL bCreate = FALSE, BOOL bSort = FALSE);
 	void DeleteAllPages();
 	void DeletePage(int n);
@@ -131,7 +131,7 @@ class CMySliderString : public CWnd
 public:
 	virtual ~CMySliderString();
 
-	void AddTicString(int x, LPCTSTR pText);
+	void AddTicString(int x, LPCSTR pText);
 	void RemoveAll();
 
 protected:
@@ -147,7 +147,7 @@ protected:
 class CMySliderCtrl : public CSliderCtrl
 {
 public:
-	void AddTicString(int nTic, LPCTSTR pStr);
+	void AddTicString(int nTic, LPCSTR pStr);
 	void ClearTics(BOOL bRedraw = FALSE);
 
 protected:

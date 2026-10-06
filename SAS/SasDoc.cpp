@@ -113,7 +113,7 @@ void CSasDoc::CalcIR(int nCalcData)
 	if (!dbFolder.ReadRecID(m_nFolderID, &dbFolderRec))
 		return;
 
-	double fScale = (dbFolderRec.fScale != 0) ? dbFolderRec.fScale : 1.0;
+	const double fScale = (dbFolderRec.fScale != 0) ? dbFolderRec.fScale : 1.0;
 	dbFolder.DBClose();
 
 	CDbImpulse dbImpulse;
@@ -135,7 +135,7 @@ void CSasDoc::CalcIR(int nCalcData)
 	dbImpulse.DBSelect(str, &nRec);
 	progressDlg.SetRange(nRec);
 #ifdef CALC_TIME
-DWORD s = GetTickCount();
+const DWORD s = GetTickCount();
 #endif
 
 	CSasView* pView = (CSasView *)pMainWnd->GetListView();
@@ -180,7 +180,7 @@ DWORD s = GetTickCount();
 			dbAcParam.StoreRec(&dbAcParamRec);
 	}
 #ifdef CALC_TIME
-DWORD e = GetTickCount();
+const DWORD e = GetTickCount();
 CString ss;
 ss.Format("%d", e - s);
 AfxMessageBox(ss);
@@ -210,7 +210,7 @@ void CSasDoc::CalcAcf(int nCalcData)
 	if (!dbFolder.ReadRecID(m_nFolderID, &dbFolderRec))
 		return;
 
-	double fScale = (dbFolderRec.fScale != 0) ? dbFolderRec.fScale : 1.0;
+	const double fScale = (dbFolderRec.fScale != 0) ? dbFolderRec.fScale : 1.0;
 	dbFolder.DBClose();
 
 	CDbAcf dbAcf;
@@ -327,7 +327,7 @@ void CSasDoc::CalcNms(int nCalcData)
 	if (!dbFolder.ReadRecID(m_nFolderID, &dbFolderRec))
 		return;
 
-	double fScale = (dbFolderRec.fScale != 0) ? dbFolderRec.fScale : 1.0;
+	const double fScale = (dbFolderRec.fScale != 0) ? dbFolderRec.fScale : 1.0;
 	dbFolder.DBClose();
 
 	CDbNms dbNms;
@@ -549,9 +549,9 @@ void CSasDoc::DeleteData(long nDataID)
 	}
 }
 
-void CSasDoc::ChangeTitle(long nItemID, LPCTSTR pTitle)
+void CSasDoc::ChangeTitle(long nItemID, LPCSTR pTitle)
 {
-	long nID = nItemID & ID_VALUE;
+	const long nID = nItemID & ID_VALUE;
 	BOOL bOK = FALSE;
 
 	switch (nItemID & ID_KIND) {
@@ -610,7 +610,7 @@ void CSasDoc::ChangeTitle(long nItemID, LPCTSTR pTitle)
 		UpdateAllViews(NULL, nItemID, (CObject *)pTitle);
 }
 
-void CSasDoc::Export(long *pIDs, int nItem, LPCTSTR pItemName) const
+void CSasDoc::Export(long *pIDs, int nItem, LPCSTR pItemName) const
 {
 	CFileDialog fileDlg(FALSE, "dssf", pItemName,
 			OFN_OVERWRITEPROMPT, "DSSF3 File (*.dssf)|*.dssf|All Files (*.*)|*.*||", ::AfxGetApp()->m_pMainWnd, 0);
@@ -633,6 +633,6 @@ void CSasDoc::Import(long nID)
 
 	CWaitCursor oWaitCursor;
 	CImportExport oImportExport;
-	long nImportID = oImportExport.Import(fileDlg.GetPathName(), nID);
+	const long nImportID = oImportExport.Import(fileDlg.GetPathName(), nID);
 	UpdateAllViews(NULL, nImportID);
 }

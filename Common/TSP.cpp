@@ -22,7 +22,7 @@ CTSP::~CTSP()
 
 void CTSP::InitMethod(int nStage)
 {
-	static const int tMParam[] = {10, 12, 13, 14, 15, 15, 15, 15, 15, 15};
+	static constexpr int tMParam[] = {10, 12, 13, 14, 15, 15, 15, 15, 15, 15};
 
 	if (nStage == m_nStage)
 		return;
@@ -38,7 +38,7 @@ void CTSP::GenerateSequence(double *pData, int nAtt)
 {
 	int i, j;
 	double e;
-	int nLevel = 1 / nAtt;
+	const int nLevel = 1 / nAtt;
 
 	if (m_pSignal == NULL) {
 		double *f1 = new double[m_nN];
@@ -67,7 +67,7 @@ void CTSP::GenerateSequence(double *pData, int nAtt)
 
 		m_pSignal = new double[m_nN];
 
-		int nShift = m_nN / 2 - m_nM;
+		const int nShift = m_nN / 2 - m_nM;
 		for (i = 0; i < m_nN - nShift; i++)
 			m_pSignal[i] = f1[i + nShift] * nLevel;
 		for ( ; i < m_nN; i++)
@@ -113,7 +113,7 @@ void CTSP::CalcImpulse(double *pData)
 
 	m_oRFFT.ifft(m_nN, f1);
 
-	int nShift = m_nN / 2 - m_nM;
+	const int nShift = m_nN / 2 - m_nM;
 	memcpy(pData, f1 + (m_nN - nShift), sizeof(double) * nShift);
 	memcpy(pData + nShift, f1, sizeof(double) * (m_nN - nShift));
 

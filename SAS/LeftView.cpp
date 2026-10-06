@@ -11,7 +11,7 @@
 class CTreeCtrlEx : public CTreeCtrl
 {
 public:
-	HTREEITEM InsertItem(UINT nMask, LPCTSTR lpszItem, int nImage,
+	HTREEITEM InsertItem(UINT nMask, LPCSTR lpszItem, int nImage,
 		int nSelectedImage, UINT nState, UINT nStateMask, LPARAM lParam,
 		HTREEITEM hParent, HTREEITEM hInsertAfter)
 	{
@@ -22,7 +22,7 @@ public:
 				.mask = nMask,
 				.state = nState,
 				.stateMask = nStateMask,
-				.pszText = (LPTSTR)lpszItem,
+				.pszText = (LPSTR)lpszItem,
 				.iImage = nImage,
 				.iSelectedImage = nSelectedImage,
 				.cChildren = 1,
@@ -181,7 +181,7 @@ void CLeftView::OnSelchanged(NMHDR* pNMHDR, LRESULT* pResult)
 	HTREEITEM hItem = pNMTreeView->itemNew.hItem;
 	CTreeCtrl &tc = GetTreeCtrl();
 	CSasDoc *pDoc = GetDocument();
-	DWORD nItemData = (DWORD)tc.GetItemData(hItem);
+	const DWORD nItemData = (DWORD)tc.GetItemData(hItem);
 
 	switch (nItemData & ID_KIND) {
 	case ID_SYSTEM:
@@ -321,7 +321,7 @@ void CLeftView::OnUpdateFileDelete(CCmdUI *pCmdUI)
 	pCmdUI->Enable(bEnable);
 }
 
-BOOL CLeftView::ChangeTitle(long nItemID, HTREEITEM hTreeItem, LPCTSTR pTitle)
+BOOL CLeftView::ChangeTitle(long nItemID, HTREEITEM hTreeItem, LPCSTR pTitle)
 {
 	CTreeCtrl &tc = GetTreeCtrl();
 

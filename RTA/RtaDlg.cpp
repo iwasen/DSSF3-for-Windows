@@ -24,6 +24,7 @@
 #include "DataBackupDlg.h"
 #include "DataRestoreDlg.h"
 #include "AutoRecDlg.h"
+#include "AsioManager.h"
 #include "WasapiManager.h"
 #include "Help\ContextHelp.h"
 #include <dwmapi.h>
@@ -147,7 +148,6 @@ BEGIN_MESSAGE_MAP(CRtaDlg, CDialogAF)
 	ON_BN_CLICKED(IDC_RA_IMP, OnRaImp)
 	ON_BN_CLICKED(IDC_RA_ACF, OnRaAcf)
 	ON_BN_CLICKED(IDC_RA_REC, OnRaRec)
-//	ON_BN_CLICKED(IDC_RA_FILTER, OnRaFilter)
 	ON_BN_CLICKED(IDC_RA_PRESET, OnRaPreset)
 	ON_CBN_SELCHANGE(IDC_RA_INPUT_SELECT, OnSelchangeRaInputSelect)
 	ON_WM_HSCROLL()
@@ -187,8 +187,6 @@ BEGIN_MESSAGE_MAP(CRtaDlg, CDialogAF)
 	ON_COMMAND(IDM_TRANSFER_MMLIB, &CRtaDlg::OnTransferMmlib)
 	ON_BN_CLICKED(IDC_RA_AUTOREC, &CRtaDlg::OnBnClickedRaAutorec)
 	ON_MESSAGE(WM_AUTO_REC_FILE, OnAutoRecFile)
-//	ON_MESSAGE(MM_MIXM_LINE_CHANGE, OnMixmLineChange)
-//	ON_MESSAGE(MM_MIXM_CONTROL_CHANGE , OnMixmControlChange)
 	ON_MESSAGE(WM_NOTIFY_DEVICE_CHANGE, OnNotifyDeviceChange)
 END_MESSAGE_MAP()
 
@@ -258,10 +256,6 @@ BOOL CRtaDlg::OnInitDialog()
 	if (pWinApp->m_nPresetID != -1)
 		OpenPreset(pWinApp->m_nPresetID);
 
-//	HMIXER hMixer;
-//	MMRESULT result = mixerOpen(&hMixer, dwMixerInDevice, (DWORD_PTR)m_hWnd, 0, CALLBACK_WINDOW);
-//	result = 0;
-
 	g_cWasapiManager.SetNorifyDeviceChange(m_hWnd);
 
 	return TRUE;
@@ -301,12 +295,12 @@ void CRtaDlg::OnPaint()
 		SendMessage(WM_ICONERASEBKGND, (WPARAM) dc.GetSafeHdc(), 0);
 
 		// クライアントの矩形領域内の中央
-		int cxIcon = GetSystemMetrics(SM_CXICON);
-		int cyIcon = GetSystemMetrics(SM_CYICON);
+		const int cxIcon = GetSystemMetrics(SM_CXICON);
+		const int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
 		GetClientRect(&rect);
-		int x = (rect.Width() - cxIcon + 1) / 2;
-		int y = (rect.Height() - cyIcon + 1) / 2;
+		const int x = (rect.Width() - cxIcon + 1) / 2;
+		const int y = (rect.Height() - cyIcon + 1) / 2;
 
 		// アイコンを描画します。
 		dc.DrawIcon(x, y, m_hIcon);
@@ -314,23 +308,19 @@ void CRtaDlg::OnPaint()
 	else
 	{
 		CPaintDC dc(this); // 描画用のデバイス コンテキスト
-		CFont *pFont;
 		CString sText;
 		CSize size;
 		CRect rect;
-		int x;
-		int i;
 		CPen pen1(PS_SOLID, 0, RGB(128, 128, 128));
-		CPen *pPen;
 
 		WINDOWPLACEMENT wp;
 		m_cOutputLevel.GetWindowPlacement(&wp);
 		m_cOutputLevel.GetClientRect(rect);
-		pFont = dc.SelectObject(GetFont());
-		pPen = dc.SelectObject(&pen1);
+		CFont *pFont = dc.SelectObject(GetFont());
+		CPen *pPen = dc.SelectObject(&pen1);
 		dc.SetBkMode(TRANSPARENT);
-		for (i = 0; i <= 8; i++) {
-			x = wp.rcNormalPosition.left + rect.Width() * i / 8;
+		for (int i = 0; i <= 8; i++) {
+			const int x = wp.rcNormalPosition.left + rect.Width() * i / 8;
 			dc.MoveTo(x, wp.rcNormalPosition.bottom);
 			dc.LineTo(x, wp.rcNormalPosition.bottom + 4);
 			sText.Format("%d", i * 10 - 80);
@@ -442,43 +432,35 @@ void CRtaDlg::InitialPreset()
 void CRtaDlg::OpenPreset(int nPresetID)
 {
 	CDbPreset dbPreset;
-	DbPresetRec dbPresetRec;
-	long dataSize;
-
 	if (!dbPreset.Open())
 		return;
 
+	DbPresetRec dbPresetRec;
 	if (!dbPreset.ReadRecID(nPresetID, &dbPresetRec))
 		return;
 
 	CloseRaWindow(WINDOW_ALL);
 
+	long dataSize;
 	if (dbPresetRec.nOpenWindow & WINDOW_SG) {
-//		memset(&g_oSetData.Sg, 0, sizeof(g_oSetData.Sg));
 		dbPreset.DBReadBinary("SG", &g_oSetData.Sg, sizeof(g_oSetData.Sg), &dataSize);
 	}
 	if (dbPresetRec.nOpenWindow & WINDOW_FFT) {
-//		memset(&g_oSetData.Fft, 0, sizeof(g_oSetData.Fft));
 		dbPreset.DBReadBinary("FFT", &g_oSetData.Fft, sizeof(g_oSetData.Fft), &dataSize);
 	}
 	if (dbPresetRec.nOpenWindow & WINDOW_OS) {
-//		memset(&g_oSetData.Os, 0, sizeof(g_oSetData.Os));
 		dbPreset.DBReadBinary("OS", &g_oSetData.Os, sizeof(g_oSetData.Os), &dataSize);
 	}
 	if (dbPresetRec.nOpenWindow & WINDOW_FRE) {
-//		memset(&g_oSetData.Fre, 0, sizeof(g_oSetData.Fre));
 		dbPreset.DBReadBinary("FRE", &g_oSetData.Fre, sizeof(g_oSetData.Fre), &dataSize);
 	}
 	if (dbPresetRec.nOpenWindow & WINDOW_DST) {
-//		memset(&g_oSetData.Dst, 0, sizeof(g_oSetData.Dst));
 		dbPreset.DBReadBinary("DST", &g_oSetData.Dst, sizeof(g_oSetData.Dst), &dataSize);
 	}
 	if (dbPresetRec.nOpenWindow & WINDOW_IMP) {
-//		memset(&g_oSetData.Imp, 0, sizeof(g_oSetData.Imp));
 		dbPreset.DBReadBinary("IMP", &g_oSetData.Imp, sizeof(g_oSetData.Imp), &dataSize);
 	}
 	if (dbPresetRec.nOpenWindow & WINDOW_ACF) {
-//		memset(&g_oSetData.Acf, 0, sizeof(g_oSetData.Acf));
 		dbPreset.DBReadBinary("ACF", &g_oSetData.Acf, sizeof(g_oSetData.Acf), &dataSize);
 	}
 
@@ -516,8 +498,6 @@ void CRtaDlg::SetSoundDevice()
 	int nDevice;
 
 	// Wave入力デバイス
-//	n = m_cInputDevice.AddString("Wave Mapper");
-//	m_cInputDevice.SetItemData(n, WAVE_MAPPER);
 	nDevice = waveInGetNumDevs();
 	for (i = 0; i < nDevice; i++) {
 		waveInGetDevCaps(i, &wic, sizeof(wic));
@@ -526,8 +506,6 @@ void CRtaDlg::SetSoundDevice()
 	}
 
 	// Wave出力デバイス
-//	n = m_cOutputDevice.AddString("Wave Mapper");
-//	m_cOutputDevice.SetItemData(n, WAVE_MAPPER);
 	nDevice = waveOutGetNumDevs();
 	for (i = 0; i < nDevice; i++) {
 		waveOutGetDevCaps(i, &woc, sizeof(woc));
@@ -539,7 +517,7 @@ void CRtaDlg::SetSoundDevice()
 	CStringArray aDriverNames;
 	nDevice = CAsioDriver::getDriverNames(aDriverNames);
 	for (i = 0; i < nDevice; i++) {
-		int nId = -(i + 1);
+		const int nId = -(i + 1);
 		CString sDriverNames("[ASIO]" + aDriverNames[i]);
 
 		n = m_cInputDevice.AddString(sDriverNames);
@@ -553,7 +531,7 @@ void CRtaDlg::SetSoundDevice()
 	CStringArray aWasapiDevices;
 	if (g_cWasapiManager.GetDevicesIn(aWasapiDevices)) {
 		for (i = 0; i < aWasapiDevices.GetCount(); i++) {
-			int nId = -(i + 100);
+			const int nId = -(i + 100);
 			CString sWasapiDevice("[WASAPI]" + aWasapiDevices[i]);
 
 			n = m_cInputDevice.AddString(sWasapiDevice);
@@ -564,7 +542,7 @@ void CRtaDlg::SetSoundDevice()
 	// WASAPI出力デバイス
 	if (g_cWasapiManager.GetDevicesOut(aWasapiDevices)) {
 		for (i = 0; i < aWasapiDevices.GetCount(); i++) {
-			int nId = -(i + 100);
+			const int nId = -(i + 100);
 			CString sWasapiDevice("[WASAPI]" + aWasapiDevices[i]);
 
 			n = m_cOutputDevice.AddString(sWasapiDevice);
@@ -592,7 +570,6 @@ BOOL CRtaDlg::SetInputSelect()
 		MIXERCONTROL mxc;
 		MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 		MIXERCONTROLDETAILS_LISTTEXT mxcdl[MAX_CONTROL_ID];
-		DWORD i, dst, src;
 
 		m_cInputSelect.EnableWindow(TRUE);
 		m_cInputVolume.EnableWindow(FALSE);
@@ -600,9 +577,10 @@ BOOL CRtaDlg::SetInputSelect()
 		m_cInputSelect.ResetContent();
 
 		// 録音マスターの LineID を取得
-		MIXERLINE mxl{};
-		mxl.cbStruct = sizeof(mxl);
-		mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
+		MIXERLINE mxl{
+			.cbStruct = sizeof(mxl),
+			.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_WAVEIN
+		};
 		if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
 			return FALSE;
 
@@ -624,7 +602,7 @@ BOOL CRtaDlg::SetInputSelect()
 				return FALSE;
 
 			// 入力機器のボリュームの ControlID 取得
-			for (i = 0; i < m_dwMultipleItems; i++) {
+			for (DWORD i = 0; i < m_dwMultipleItems; i++) {
 				if ((m_dwSrcRecVolID[i] = MixerGetControlID(dwMixerInDevice, mxcdl[i].dwParam1, MIXERCONTROL_CONTROLTYPE_VOLUME)) == -1) {
 					m_dwSrcRecVolID[i] = MixerGetControlID(dwMixerInDevice, dwMixerInMasterLineID, MIXERCONTROL_CONTROLTYPE_VOLUME);
 					DisableInputMasterVolume();
@@ -642,14 +620,15 @@ BOOL CRtaDlg::SetInputSelect()
 			m_dwSrcItems = mxl.cConnections;
 			if (m_dwSrcItems > MAX_CONTROL_ID)
 				m_dwSrcItems = MAX_CONTROL_ID;
-			dst = mxl.dwDestination;
+			const DWORD dst = mxl.dwDestination;
 			m_nSelectInput = 0;
-			for (src = 0; src < m_dwSrcItems; src++) {
+			for (DWORD src = 0; src < m_dwSrcItems; src++) {
 				// 入力機器の LineID 取得
-				MIXERLINE mxl{};
-				mxl.cbStruct = sizeof(mxl);
-				mxl.dwDestination = dst;
-				mxl.dwSource = src;
+				MIXERLINE mxl{
+					.cbStruct = sizeof(mxl),
+					.dwDestination = dst,
+					.dwSource = src
+				};
 				if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_SOURCE) != MMSYSERR_NOERROR)
 					return FALSE;
 
@@ -690,53 +669,7 @@ BOOL CRtaDlg::SetInputSelect()
 
 	return TRUE;
 }
-/*
-void CRtaDlg::MuteMicAndLineIn()
-{
-	DWORD dst, src;
-	DWORD cSrcItems;
-	DWORD dwSrcRecMuteID;
-	static char *name[] = {"ﾏｲｸ", "マイク", "ﾗｲﾝ", "ライン", "Mic", "Line", NULL};
-	char **pName;
 
-	if (g_nWaveOutDevice < 0)
-		return;
-
-	// 再生マスターの LineID を取得
-	MIXERLINE mxl{};
-	mxl.cbStruct = sizeof(mxl);
-	mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
-	if (mixerGetLineInfo((HMIXEROBJ)dwMixerOutDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
-		return;
-
-	// 再生入力セレクタ
-	cSrcItems = mxl.cConnections;
-	dst = mxl.dwDestination;
-	for (src = 0; src < cSrcItems; src++) {
-		// 出力機器の LineID 取得
-		MIXERLINE mxl{};
-		mxl.cbStruct = sizeof(mxl);
-		mxl.dwDestination = dst;
-		mxl.dwSource = src;
-		if (mixerGetLineInfo((HMIXEROBJ)g_nWaveOutDevice, &mxl, MIXER_GETLINEINFOF_SOURCE) != MMSYSERR_NOERROR)
-			return;
-
-		// 出力機器のミュートの ControlID 取得
-		dwSrcRecMuteID = MixerGetControlID(dwMixerOutDevice, mxl.dwLineID, MIXERCONTROL_CONTROLTYPE_MUTE);
-
-		// 出力機器のミュート状態取得
-		if (dwSrcRecMuteID != -1) {
-			for (pName = name; *pName != NULL; pName++) {
-				if (_strnicmp(mxl.szName, *pName, strlen(*pName)) == 0) {
-					if (MixerGetBoolControl(dwMixerOutDevice, dwSrcRecMuteID) == 0)
-						MixerSetBoolControl(dwMixerOutDevice, dwSrcRecMuteID, 1);
-					break;
-				}
-			}
-		}
-	}
-}
-*/
 DWORD CRtaDlg::GetInputVolume(DWORD dwControlID)
 {
 	return MixerGetUnsignedControl(dwMixerInDevice, dwControlID);
@@ -851,7 +784,7 @@ void CRtaDlg::PostNcDestroy()
 
 void CRtaDlg::OnCbnSelchangeRaInputDevice()
 {
-	int nIndex = m_cInputDevice.GetCurSel();
+	const int nIndex = m_cInputDevice.GetCurSel();
 	if (nIndex != CB_ERR) {
 		int nInOut = WAVE_IN;
 
@@ -873,7 +806,7 @@ void CRtaDlg::OnCbnSelchangeRaInputDevice()
 
 void CRtaDlg::OnCbnSelchangeRaOutputDevice()
 {
-	int nIndex = m_cOutputDevice.GetCurSel();
+	const int nIndex = m_cOutputDevice.GetCurSel();
 	if (nIndex != CB_ERR) {
 		int nInOut = WAVE_OUT;
 
@@ -899,7 +832,6 @@ void CRtaDlg::SelectSoundDevice()
 	g_nWaveOutDevice = g_oSetData.Pc.nOutputDevice;
 
 	MixerInitialize(g_nWaveInDevice, g_nWaveOutDevice);
-//	MuteMicAndLineIn();
 	SetInputSelect();
 	ResetSamplingRate();
 }
@@ -1006,7 +938,6 @@ void CRtaDlg::OpenRaWindow(int nWindow)
 
 	if (nWindow & WINDOW_FLT) {
 		if (m_pWndFilter == NULL) {
-//			m_cRaFilter.SetCheck(1);
 			pMenu->CheckMenuItem(IDM_RA_FILTER, MF_BYCOMMAND | MF_CHECKED);
 			m_pWndFilter = new CFilterDlg;
 		} else
@@ -1077,7 +1008,7 @@ void CRtaDlg::CloseRaWindow(int nWindow)
 
 void CRtaDlg::CloseRaWindow(CWnd *pWnd)
 {
-	CMenu* pMenu = GetMenu()->GetSubMenu(2);
+	CMenu *pMenu = GetMenu()->GetSubMenu(2);
 
 	if (pWnd == m_pWndSg) {
 		m_cRaSg.SetCheck(0);
@@ -1128,7 +1059,6 @@ void CRtaDlg::CloseRaWindow(CWnd *pWnd)
 	}
 
 	if (pWnd == m_pWndFilter) {
-//		m_cRaFilter.SetCheck(0);
 		pMenu->CheckMenuItem(IDM_RA_FILTER, MF_BYCOMMAND | MF_UNCHECKED);
 		m_pWndFilter = NULL;
 	}
@@ -1194,7 +1124,7 @@ void CRtaDlg::OnInitMenu(CMenu* pMenu)
 
 	CMenu *pHelpMenu = pMenu->GetSubMenu(3);
 	if (pHelpMenu != NULL) {
-		UINT nState = CHECK_LICENSE2(APP_RA) == LICENSE_REGIST ? MF_GRAYED : MF_ENABLED;
+		const UINT nState = CHECK_LICENSE2(APP_RA) == LICENSE_REGIST ? MF_GRAYED : MF_ENABLED;
 		pHelpMenu->EnableMenuItem(IDM_LICENSE_REGIST, MF_BYCOMMAND | nState);
 	}
 }
@@ -1258,7 +1188,7 @@ BOOL CRtaDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 BOOL CRtaDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_RA_SG, IDH_RTA_SG,
 		IDC_RA_FFT, IDH_RTA_FFT,
 		IDC_RA_OS, IDH_RTA_OS,
@@ -1279,7 +1209,7 @@ BOOL CRtaDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -1316,8 +1246,8 @@ void CRtaDlg::OnDataRestore()
 
 LRESULT CRtaDlg::OnChangeFontSize(WPARAM wParam, LPARAM lParam)
 {
-	int nWindowKind = (int)wParam;
-	int nFontSize = (int)lParam;
+	const int nWindowKind = (int)wParam;
+	const int nFontSize = (int)lParam;
 
 	CloseRaWindow(nWindowKind);
 
@@ -1390,52 +1320,10 @@ void CRtaDlg::TransferToMmlib(CWnd *pWnd, const CString &sFolderTitle, const CSt
 	::GlobalFree(hDIB);
 }
 
-// Source - https://stackoverflow.com/a/76957105
-// Posted by gil123, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-08-25, License - CC BY-SA 4.0
-/*
-BOOL CRtaDlg::GetWindowRectNoInvisibleBorders(HWND hWnd, RECT* rect)
-{
-    // Get the physical coordinates of the window (this is without the additional offsets)
-    RECT dwmRect;
-    HRESULT hresult = DwmGetWindowAttribute(hWnd, DWMWA_EXTENDED_FRAME_BOUNDS, &dwmRect, sizeof(RECT));
-    // Return false in such case. error handling was done only here because after this check, the rest of the code
-    // use the API correctly so error is unlikely 
-    if (hresult != S_OK)
-        return FALSE;
-
-    // Get information from the monitor where the window located.
-    // We need it for getting its RECT in logical coordinates (rcMonitor.*)
-    HMONITOR monitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
-    MONITORINFOEX monInfo;
-    monInfo.cbSize = sizeof(MONITORINFOEX);
-    GetMonitorInfo(monitor, &monInfo);
-
-    // Get additional information from this monitor. we need it for getting the physical
-    // coordinates of its position (dmPosition.x and dmPosition.y) and its physical coordinates
-    // of its size (dmPelsWidth)
-    DEVMODE monDeviceConfig;
-    monDeviceConfig.dmSize = sizeof(DEVMODE);
-    EnumDisplaySettings(monInfo.szDevice, ENUM_CURRENT_SETTINGS, &monDeviceConfig);
-
-    // Calculate the ratio between the logical size and the physical size of the monitor (part of math to handle DPI changes)
-    double scalingRatio = (monInfo.rcMonitor.right - monInfo.rcMonitor.left) / (double)monDeviceConfig.dmPelsWidth;
-
-    // Calculate the final answer in logical coordinates
-    rect->left = (LONG)((dwmRect.left - monDeviceConfig.dmPosition.x) * scalingRatio + monInfo.rcMonitor.left);
-    rect->right = (LONG)((dwmRect.right - monDeviceConfig.dmPosition.x) * scalingRatio + monInfo.rcMonitor.left);
-    rect->top = (LONG)((dwmRect.top - monDeviceConfig.dmPosition.y) * scalingRatio + monInfo.rcMonitor.top);
-    rect->bottom = (LONG)((dwmRect.bottom - monDeviceConfig.dmPosition.y) * scalingRatio + monInfo.rcMonitor.top);
-
-    return TRUE; // success
-}
-*/
-
 HDIB CRtaDlg::CreateDIB(CWnd *pWnd)
 {
 	pWnd->SetForegroundWindow();
 	pWnd->SetFocus();
-//	RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_FRAME | RDW_UPDATENOW);	// 非クライアント領域を再描画（特に効果なし）
 	pWnd->UpdateWindow();
 	::Sleep(1000);		// ウィンドウが重なっていると下のウィンドウが透けてしまうので、それが消えるまで待つ
 
@@ -1456,14 +1344,15 @@ HDIB CRtaDlg::CreateDIB(CWnd *pWnd)
 	CRect rect2;
 	pWnd->GetWindowRect(rect2);
 
-	int nOffsetX = rect.left - rect2.left;
-	int nOffsetY = rect.top - rect2.top;
-	int nWidth = rect.Width();
-	int nHeight = rect.Height();
+	const int nOffsetX = rect.left - rect2.left;
+	const int nOffsetY = rect.top - rect2.top;
+	const int nWidth = rect.Width();
+	const int nHeight = rect.Height();
 
 	HMONITOR monitor = MonitorFromWindow(pWnd->GetSafeHwnd(), MONITOR_DEFAULTTONEAREST);
-	MONITORINFOEX monInfo;
-	monInfo.cbSize = sizeof(MONITORINFOEX);
+	MONITORINFOEX monInfo{
+		{.cbSize = sizeof(MONITORINFOEX)}
+	};
 	GetMonitorInfo(monitor, &monInfo);
 
 	DEVMODE monDeviceConfig{
@@ -1504,7 +1393,7 @@ void CRtaDlg::OnBnClickedRaAutorec()
 	dlg.DoModal();
 }
 
-void CRtaDlg::OpenAutoStartFile(LPCTSTR pAutoRecFile)
+void CRtaDlg::OpenAutoStartFile(LPCSTR pAutoRecFile)
 {
 	OpenRaWindow(WINDOW_REC);
 	((CRecDlg *)m_pWndRec)->LoadWavDssfFile(pAutoRecFile);
@@ -1513,11 +1402,11 @@ void CRtaDlg::OpenAutoStartFile(LPCTSTR pAutoRecFile)
 LRESULT CRtaDlg::OnAutoRecFile(WPARAM, LPARAM)
 {
 	HANDLE hMem;
-	LPCTSTR pMem;
+	LPCSTR pMem;
 
 	if (OpenClipboard()) {
 		if ((hMem = GetClipboardData(CF_TEXT)) != NULL) {
-			if ((pMem = (LPTSTR)::GlobalLock(hMem)) != NULL) {
+			if ((pMem = (LPSTR)::GlobalLock(hMem)) != NULL) {
 				OpenAutoStartFile(pMem);
 				::GlobalUnlock(hMem);
 			}
@@ -1527,17 +1416,6 @@ LRESULT CRtaDlg::OnAutoRecFile(WPARAM, LPARAM)
 
 	return 0;
 }
-/*
-LRESULT CRtaDlg::OnMixmLineChange(WPARAM, LPARAM)
-{
-	return 0;
-}
-
-LRESULT CRtaDlg::OnMixmControlChange(WPARAM, LPARAM)
-{
-	return 0;
-}
-*/
 
 LRESULT CRtaDlg::OnNotifyDeviceChange(WPARAM, LPARAM)
 {

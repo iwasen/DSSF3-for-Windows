@@ -29,7 +29,7 @@ protected:
 	void WriteDataACF(long nID);
 	void WriteDataNMS(long nID);
 	void WriteRecord(int nRecordType, void *pData, int nSize);
-	void WriteBinary(CPSDB &db, LPCTSTR pFieldName, int nRecordType);
+	void WriteBinary(CPSDB &db, LPCSTR pFieldName, int nRecordType);
 
 	BOOL ReadHeader();
 	void ReadRecord(void *pData);
@@ -38,6 +38,6 @@ protected:
 	void ReadIR(long nFolderID);
 	void ReadACF(long nFolderID);
 	void ReadNMS(long nFolderID);
-	void ReadBinary(CPSDB &db, LPCTSTR pFieldName);
+	void ReadBinary(CPSDB &db, LPCSTR pFieldName);
 	void GetMaxIndex(int &nIndex, const CString &sTitle1, const CString &sTitle2);
 };

@@ -80,9 +80,10 @@ void CWaveEditWnd::Initialize(CWaveEditManual *pWaveEditManual)
 	m_brushSel.CreateSolidBrush(COLOR_SEL);
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(90, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(90, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -117,7 +118,7 @@ void CWaveEditWnd::SetBitmap(double fStartX, double fDispX, double fMaxY, double
 	double step, t, t1, t2;
 	double fValue;
 	int ns;
-	double fRangeY = fMaxY - fMinY;
+	const double fRangeY = fMaxY - fMinY;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
@@ -225,7 +226,7 @@ void CWaveEditWnd::DispGraph(double fStartX, double fDispX, const WaveFormManual
 {
 	int i;
 	int x, y;
-	double fLevelRange = (fMaxY - fMinY);
+	const double fLevelRange = (fMaxY - fMinY);
 
 	m_fStartX = fStartX;
 	m_fDispX = fDispX;
@@ -254,7 +255,7 @@ void CWaveEditWnd::DispGraph(double fStartX, double fDispX, const WaveFormManual
 	}
 
 	if (pWaveForm->bSmoothing) {
-		int nPoint = pWaveForm->nDataNum;
+		const int nPoint = pWaveForm->nDataNum;
 		CSpline spl;
 		double *xp = new double[nPoint];
 		double *yp = new double[nPoint];

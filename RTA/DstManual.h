@@ -11,10 +11,10 @@ public:
 	virtual ~CDstManual();
 
 	void Initialize();
-	BOOL WaveOutData(int &nFreq, double &fLevel);
+	static BOOL WaveOutData(int &nFreq, double &fLevel);
 	BOOL NotifyTHD(const double *pLeftDst, const double *pRightDst);
 	void Redraw();
-	void CsvOutput(LPCTSTR pFileName);
+	void CsvOutput(LPCSTR pFileName);
 	BOOL CheckDataExist() const;
 	HBITMAP GetBitmap();
 
@@ -43,8 +43,8 @@ protected:
 	void InitLevelSlider();
 	void SetFreq(int nFreq);
 	void SetLevel(int nLevel);
-	int GetPosFromFreq(int nFreq);
-	int GetFreqFromPos(int nPos);
+	static int GetPosFromFreq(int nFreq);
+	static int GetFreqFromPos(int nPos);
 	void FreeBuffers();
 	void DispTHD();
 

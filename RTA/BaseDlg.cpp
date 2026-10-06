@@ -202,7 +202,7 @@ void CBaseDlg::OnInitMenu(CMenu* pMenu)
 {
 	CDialogExt::OnInitMenu(pMenu);
 
-	int nFontIndex = GetFontIndex();
+	const int nFontIndex = GetFontIndex();
 
 	pMenu->EnableMenuItem(IDM_FONT_ENLARGE, g_tFontSize[nFontIndex + 1] != 0 ? MF_BYCOMMAND : (MF_BYCOMMAND | MF_GRAYED));
 	pMenu->EnableMenuItem(IDM_FONT_REDUCE, nFontIndex != 0 ? MF_BYCOMMAND : (MF_BYCOMMAND | MF_GRAYED));

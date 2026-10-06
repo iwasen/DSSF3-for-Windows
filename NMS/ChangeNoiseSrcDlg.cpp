@@ -61,13 +61,11 @@ void CChangeNoiseSrcDlg::OnOK()
 
 void CChangeNoiseSrcDlg::SetNsTmpList(long nID)
 {
-	CDbNsTmp dbNsTmp;
-	DbNsTmpRec dbNsTmpRec;
-	int i, nIndex;
-	CString str;
+	int nIndex;
 
 	m_cNoiseSrcList.ResetContent();
 
+	CString str;
 	str.LoadString(IDS_UNKNOWN);
 	str = "(" + str + ")";
 	nIndex = m_cNoiseSrcList.AddString(str);
@@ -75,10 +73,12 @@ void CChangeNoiseSrcDlg::SetNsTmpList(long nID)
 	if (nID == -1)
 		m_cNoiseSrcList.SetCurSel(-1);
 
+	CDbNsTmp dbNsTmp;
 	if (!dbNsTmp.Open())
 		return;
 
-	for (i = 0; ; i++) {
+	DbNsTmpRec dbNsTmpRec;
+	for (int i = 0; ; i++) {
 		if (!dbNsTmp.ReadRecNext(&dbNsTmpRec, NULL))
 			break;
 
@@ -106,7 +106,7 @@ void CChangeNoiseSrcDlg::OnDblclkNoiseSrcList()
 
 BOOL CChangeNoiseSrcDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_CHANGE_NOISE_OK,
 		IDCANCEL, IDH_CHANGE_NOISE_CANCEL,
 		IDC_ADD_NEW, IDH_CHANGE_NOISE_ADD_NEW,
@@ -114,7 +114,7 @@ BOOL CChangeNoiseSrcDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

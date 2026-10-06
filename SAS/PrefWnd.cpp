@@ -63,9 +63,10 @@ void CPrefWnd::Initialize(int nFontSize)
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = nFontSize;
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = nFontSize,
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);

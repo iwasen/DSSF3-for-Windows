@@ -15,7 +15,7 @@ public:
 	BOOL WaveOutData(int &nFreq, double &fLevel);
 	BOOL NotifyTHD(const double *pLeftDst, const double *pRightDst);
 	void Redraw();
-	void CsvOutput(LPCTSTR pFileName);
+	void CsvOutput(LPCSTR pFileName);
 	BOOL CheckDataExist() const;
 	BOOL CheckDataHold();
 	HBITMAP GetBitmap();

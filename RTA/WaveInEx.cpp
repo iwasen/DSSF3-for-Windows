@@ -481,14 +481,13 @@ void CWaveInEx::WriteWasapiSaveFile(LPWAVENOTIFY pWaveNotify)
 	}
 
 	if (m_pWaveFile16 != NULL || m_pWaveFile24 != NULL) {
-		static double fMinLevel = pow(2.0, -14);
-		int nDataNum = pWaveNotify->nSamplesRecorded * pWaveNotify->nChannels;
+		const double fMinLevel = pow(2.0, -14);
+		const int nDataNum = pWaveNotify->nSamplesRecorded * pWaveNotify->nChannels;
 		for (int i = 0; i < nDataNum; i++) {
 			if (pWaveNotify->pSamplesData[i] > fMinLevel) {
 				if (m_nWaveFileCounter == 0) {
-					int nBlankSize = (int)(44100 * 0.8) * pWaveNotify->nChannels;
-					double *pBlankBuf = new double[nBlankSize];
-					memset(pBlankBuf, 0, nBlankSize * sizeof(double));
+					const int nBlankSize = (int)(44100 * 0.8) * pWaveNotify->nChannels;
+					double *pBlankBuf = new double[nBlankSize]();
 					if (m_pWaveFile16 != NULL) {
 						m_pWaveFile16->Write(pBlankBuf, nBlankSize);
 					}
@@ -512,9 +511,8 @@ void CWaveInEx::WriteWasapiSaveFile(LPWAVENOTIFY pWaveNotify)
 
 			m_nWaveFileCounter--;
 			if (m_nWaveFileCounter == 0) {
-				int nBlankSize = (int)(44100 * 0.8) * pWaveNotify->nChannels;
-				double *pBlankBuf = new double[nBlankSize];
-				memset(pBlankBuf, 0, nBlankSize * sizeof(double));
+				const int nBlankSize = (int)(44100 * 0.8) * pWaveNotify->nChannels;
+				double *pBlankBuf = new double[nBlankSize]();
 				if (m_pWaveFile16 != NULL) {
 					m_pWaveFile16->Write(pBlankBuf, nBlankSize);
 				}

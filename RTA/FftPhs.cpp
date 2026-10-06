@@ -32,8 +32,8 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 {
 	int	fFreq, fPhase;
 	int x, y;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CString sText;
 	CSize size;
 
@@ -48,8 +48,8 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	m_dcMem.SelectObject(&m_Font);
 
 	if (g_oSetData.Fft.nFftScale == 0) {
-		int step = GetLogScaleStep(m_nMinFreq);
-		double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
+		const int step = GetLogScaleStep(m_nMinFreq);
+		const double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
 		for (fFreq = GetScaleStartValue(m_nMinFreq, step); fFreq <= m_nMaxFreq; fFreq += GetLogScaleStep(fFreq)) {
 			x = nLeft + (int)((log((double)fFreq) - m_fLogMinFreq) * nWidth / fSpanFreq + 0.5);
 
@@ -72,8 +72,8 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	} else {
 		m_dcMem.SelectObject(m_penGray);
 
-		int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, nWidth);
-		double fSpanFreq = m_nMaxFreq - m_nMinFreq;
+		const int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, nWidth);
+		const double fSpanFreq = m_nMaxFreq - m_nMinFreq;
 		for (fFreq = GetScaleStartValue(m_nMinFreq, step); fFreq <= m_nMaxFreq; fFreq += step) {
 			x = nLeft + (int)((fFreq - m_nMinFreq) * nWidth / fSpanFreq + 0.5);
 
@@ -95,7 +95,7 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(m_penGray);
 
-	int nCenter = (nTop + nBottom) / 2;
+	const int nCenter = (nTop + nBottom) / 2;
 	for (fPhase = 180; fPhase >= -180; fPhase -= 45) {
 		y = nCenter - fPhase * nHeight / 2 / 180;
 		if (fPhase != 180 && fPhase != -180) {
@@ -135,7 +135,7 @@ void CFftWnd::GetWaveDataPhs(const FFTWINDOW *pFftWindow)
 	if (m_bValidFftData) {
 		int i, j;
 		double xt1, yt1, xt2, yt2;
-		int nFftSize2 = m_nFftSize / 2;
+		const int nFftSize2 = m_nFftSize / 2;
 
 		m_pPhaseBuf[0] = 0;
 		for (i = 1; i < nFftSize2; i++) {
@@ -179,14 +179,14 @@ int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *p
 {
 	int x;
 	int x2 = 0;
-	double fTmp1 = (double)pFftWindow->m_nScaleWidth / (m_fLogMaxFreq - m_fLogMinFreq);
-	double fTmp2 = (double)pFftWindow->m_nScaleWidth / (m_nMaxFreq - m_nMinFreq);
+	const double fTmp1 = (double)pFftWindow->m_nScaleWidth / (m_fLogMaxFreq - m_fLogMinFreq);
+	const double fTmp2 = (double)pFftWindow->m_nScaleWidth / (m_nMaxFreq - m_nMinFreq);
 	double fPhase;
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	int nPointCount = 0;
 	double ymin = pPhaseBuf[0];
 	double ymax = pPhaseBuf[0];
-	int nCenter = pFftWindow->m_nScaleHeight / 2;
+	const int nCenter = pFftWindow->m_nScaleHeight / 2;
 
 	for (int i = 0; i < nFftSize2; i++) {
 		if (g_oSetData.Fft.nFftScale == 0)
@@ -302,7 +302,7 @@ void CFftWnd::CsvOutputPhs(CCsvFile &oCsvFile)
 	oCsvFile.SetData("Phase[deg]");
 	oCsvFile.Output();
 
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	for (int i = 1; i < nFftSize2; i++) {
 		oCsvFile.SetData(m_fFreqStep * i);
 
@@ -336,15 +336,15 @@ void CFftWnd::CsvInputPhs(CCsvFile &oCsvFile)
 		oCsvDataList.AddTail(oCsvData);
 	}
 
-	int nDataNum = (int)oCsvDataList.GetCount();
-	double fLastFreq = oCsvDataList.GetTail().fData[0];
-	int nFFtSizeIndex = (int)floor(log((double)nDataNum) / log(2.0) + 0.5) - 9;
-	int nSamplingRateIndex = GetSamplingRateIndex((int)fLastFreq * 2);
+	const int nDataNum = (int)oCsvDataList.GetCount();
+	const double fLastFreq = oCsvDataList.GetTail().fData[0];
+	const int nFFtSizeIndex = (int)floor(log((double)nDataNum) / log(2.0) + 0.5) - 9;
+	const int nSamplingRateIndex = GetSamplingRateIndex((int)fLastFreq * 2);
 
 	m_pFftDlg->SetCsvConditions(FFT_MODE_PHS, -1, nFFtSizeIndex, nSamplingRateIndex, -1, -1);
 
 	double *pBuf1 = m_pPhaseBuf;
-	int nBufSize = m_nFftSize / 2;
+	const int nBufSize = m_nFftSize / 2;
 
 	for (int i = 0; i < nBufSize && !oCsvDataList.IsEmpty(); i++) {
 		oCsvData = oCsvDataList.RemoveHead();

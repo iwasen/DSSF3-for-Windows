@@ -102,7 +102,7 @@ void CFilterDlg::OnMove(int x, int y)
 void CFilterDlg::OnCbnSelchangeComboFilterBand()
 {
 	if (m_bInit) {
-		int nIndex = m_cComboFilterBand.GetCurSel();
+		const int nIndex = m_cComboFilterBand.GetCurSel();
 		g_oSetData.Flt.nBand = (int)m_cComboFilterBand.GetItemData(nIndex);
 		SetFilter();
 	}
@@ -111,7 +111,7 @@ void CFilterDlg::OnCbnSelchangeComboFilterBand()
 void CFilterDlg::OnCbnSelchangeComboFilterShape()
 {
 	if (m_bInit) {
-		int nIndex = m_cComboFilterShape.GetCurSel();
+		const int nIndex = m_cComboFilterShape.GetCurSel();
 		g_oSetData.Flt.nShape = (int)m_cComboFilterShape.GetItemData(nIndex);
 		SetFilter();
 	}
@@ -120,7 +120,7 @@ void CFilterDlg::OnCbnSelchangeComboFilterShape()
 void CFilterDlg::OnCbnSelchangeComboFilterOrder()
 {
 	if (m_bInit) {
-		int nIndex = m_ComboFilterOrder.GetCurSel();
+		const int nIndex = m_ComboFilterOrder.GetCurSel();
 		g_oSetData.Flt.nOrder = (int)m_ComboFilterOrder.GetItemData(nIndex);
 		SetFilter();
 	}
@@ -129,7 +129,7 @@ void CFilterDlg::OnCbnSelchangeComboFilterOrder()
 void CFilterDlg::OnEnChangeEditFilterCutoff1()
 {
 	if (m_bInit) {
-		double fCutoff1 = m_cEditFilterCutoff1;
+		const double fCutoff1 = m_cEditFilterCutoff1;
 		if (fCutoff1 > 0 && fCutoff1 < m_fSamplingFreq / 2) {
 			g_oSetData.Flt.fCutoff1 = fCutoff1;
 			SetFilter();
@@ -140,7 +140,7 @@ void CFilterDlg::OnEnChangeEditFilterCutoff1()
 void CFilterDlg::OnEnChangeEditFilterCutoff2()
 {
 	if (m_bInit) {
-		double fCutoff2 = m_cEditFilterCutoff2;
+		const double fCutoff2 = m_cEditFilterCutoff2;
 		if (fCutoff2 > 0 && fCutoff2 < m_fSamplingFreq / 2) {
 			g_oSetData.Flt.fCutoff2 = fCutoff2;
 			SetFilter();
@@ -151,7 +151,7 @@ void CFilterDlg::OnEnChangeEditFilterCutoff2()
 void CFilterDlg::OnEnChangeEditFilterRipple1()
 {
 	if (m_bInit) {
-		double fRipple1 = m_cEditFilterRipple1;
+		const double fRipple1 = m_cEditFilterRipple1;
 		if (fRipple1 > 0) {
 			g_oSetData.Flt.fRipple1 = fRipple1;
 			SetFilter();

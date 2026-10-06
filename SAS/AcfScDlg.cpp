@@ -148,7 +148,7 @@ void CAcfScDlg::OnMmlib()
 
 BOOL CAcfScDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_ACF_SC_OK,
 		IDC_MMLIB, IDH_ACF_SC_MMLIB,
 		IDCANCEL, IDH_ACF_SC_CANCEL,
@@ -171,7 +171,7 @@ BOOL CAcfScDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

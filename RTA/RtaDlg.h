@@ -18,7 +18,7 @@ public:
 	void GetInputDevice(int *pInputDevice, int *pInputVolume);
 	void SetInputDevice(int nInputDevice, int nInputVolume);
 	void UpdownInputVolume(int nUpdown);
-	void OpenAutoStartFile(LPCTSTR pAutoRecFile);
+	void OpenAutoStartFile(LPCSTR pAutoRecFile);
 
 	CBaseDlg *m_pWndSg;
 	CBaseDlg *m_pWndFft;
@@ -72,7 +72,6 @@ protected:
 	int OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify);
 	HDIB CreateDIB(CWnd *pWnd);
 	void TransferToMmlib(CWnd *pWnd, const CString &sFolderTitle, const CString &sDataTitle);
-//	BOOL GetWindowRectNoInvisibleBorders(HWND hWnd, RECT* rect);
 
 	DECLARE_MESSAGE_MAP()
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV のサポート

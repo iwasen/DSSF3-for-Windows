@@ -74,14 +74,14 @@ void CDataRestoreDlg::OnOK()
 
 BOOL CDataRestoreDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_LIST_BACKUP, IDH_RESTORE_LIST_BACKUP,
 		IDOK, IDH_RESTORE_EXEC,
 		IDCANCEL, IDH_RESTORE_CLOSE,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

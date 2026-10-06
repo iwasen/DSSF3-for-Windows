@@ -153,13 +153,13 @@ void CGraphSpec::ReDraw(int nSel)
 
 BOOL CGraphSpec::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_LEFT, IDH_GRAPH_SPEC_LEFT,
 		IDC_GRAPH_RIGHT, IDH_GRAPH_SPEC_RIGHT,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

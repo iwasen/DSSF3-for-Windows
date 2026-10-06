@@ -240,7 +240,7 @@ void CMeasureSetDlg::OnEndCurrentTime()
 
 BOOL CMeasureSetDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_MEASURE_SET_OK,
 		IDCANCEL, IDH_MEASURE_SET_CANCEL,
 		IDC_SAMPLING_RATE, IDH_MEASURE_SET_SAMPLING_RATE,
@@ -274,7 +274,7 @@ BOOL CMeasureSetDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

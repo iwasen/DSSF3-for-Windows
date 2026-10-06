@@ -35,8 +35,8 @@ IDR_MAINFRAME           ICON                    "res\\Dss.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 5,2,0,7
- PRODUCTVERSION 5,2,0,7
+ FILEVERSION 5,2,0,8
+ PRODUCTVERSION 5,2,0,8
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -54,13 +54,13 @@ BEGIN
             VALUE "Comments", "Written by Shinichi Aizawa"
             VALUE "CompanyName", "Yoshimasa Electronic Inc."
             VALUE "FileDescription", "Diagnostic System for Sound Fields Version 5"
-            VALUE "FileVersion", "5.2.0.7"
+            VALUE "FileVersion", "5.2.0.8"
             VALUE "InternalName", "DSS"
             VALUE "LegalCopyright", "Copyright (C) 2000-2026 Yoshimasa Electronic Inc."
             VALUE "LegalTrademarks", "YMEC"
             VALUE "OriginalFilename", "DSS.EXE"
             VALUE "ProductName", "Setting Utility"
-            VALUE "ProductVersion", "5.2.0.7"
+            VALUE "ProductVersion", "5.2.0.8"
         END
     END
     BLOCK "VarFileInfo"

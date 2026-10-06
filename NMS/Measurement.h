@@ -19,7 +19,7 @@ public:
 	BOOL InCalculating() const;
 	void ResetCounter();
 	void Recalclation();
-	void WaveFileMeasuring(LPCTSTR pWaveFileName);
+	void WaveFileMeasuring(LPCSTR pWaveFileName);
 
 protected:
 	struct WaveData {

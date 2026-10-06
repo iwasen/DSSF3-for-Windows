@@ -5,7 +5,7 @@ class CHyperLink : public CStatic
 public:
 	CHyperLink();
 
-	void SetHyperLinkURL(LPCTSTR pLinkURL, LPCTSTR pFontName = NULL, int nFontSize = 0);
+	void SetHyperLinkURL(LPCSTR pLinkURL, LPCSTR pFontName = NULL, int nFontSize = 0);
 
 protected:
 	CString m_sLinkURL;

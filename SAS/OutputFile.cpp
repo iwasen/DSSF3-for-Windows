@@ -928,8 +928,8 @@ void OutputCsvFileNms(long nFolderID, const CString &pathName)
 void OutputListToCsv(CListCtrl &lc, const CString &pathName)
 {
 	CHeaderCtrl &hc = *lc.GetHeaderCtrl();
-	int nCol = hc.GetItemCount();
-	int nRow = lc.GetItemCount();
+	const int nCol = hc.GetItemCount();
+	const int nRow = lc.GetItemCount();
 	int i, j;
 	TCHAR  buf[256];
 

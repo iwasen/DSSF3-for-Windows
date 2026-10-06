@@ -254,7 +254,7 @@ BOOL COsDlg::OnInitDialog()
 
 	SetSamplingRateList(m_cSamplingRate, WAVE_IN, g_oSetData.Pc.nInputDevice, 0, g_oSetData.Os.nSamplingRate);
 
-	static const int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
+	static constexpr int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
 	for (i = 0; i < ARRAY_SIZE(tChannel); i++) {
 		str.LoadString(tChannel[i]);
 		m_cOsChannel.AddString(str);
@@ -598,7 +598,7 @@ int COsDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 		break;
 	case WAVEIN_DATA:
 		m_fTimeCount += m_fBlockTime;
-		int nTimeCount = (int)m_fTimeCount;
+		const int nTimeCount = (int)m_fTimeCount;
 		if (m_nTimeCount != nTimeCount) {
 			m_cOsTime.Format("%d:%02d:%02d", nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 			m_nTimeCount = nTimeCount;
@@ -718,7 +718,7 @@ void COsDlg::GetWaveData(double *pInData)
 
 BOOL COsDlg::CheckTrigger(int nOffset, double *pOffset)
 {
-	double fTrigWork = m_fTrigWork;
+	const double fTrigWork = m_fTrigWork;
 	double fDataWork = (g_oSetData.Os.nTrigChannel == 0) ? m_pLeftData[nOffset] : m_pRightData[nOffset];
 
 	if (g_oSetData.Os.bTrigHighCut)
@@ -767,7 +767,7 @@ void COsDlg::GetTriggerLevel()
 	if (!g_oSetData.Os.bTrigPos)
 		m_fTrigLevel -= (g_oSetData.Os.nTrigChannel == 0) ? g_oSetData.Os.nPosL : g_oSetData.Os.nPosR;
 
-	double fLevel = (g_oSetData.Os.nTrigChannel == 0) ? m_fLevelL : m_fLevelR;
+	const double fLevel = (g_oSetData.Os.nTrigChannel == 0) ? m_fLevelL : m_fLevelR;
 	m_fTrigLevel = m_fTrigLevel * fLevel * m_fLevelMul / 10;
 }
 
@@ -1039,13 +1039,13 @@ void COsDlg::MakeInterpolationFilter(int n)
 	if (n == 1)
 		return;
 
-	int kn = (N_INTERPOLATION - 1) * n + 1;
+	const int kn = (N_INTERPOLATION - 1) * n + 1;
 	m_pInterpolationFilter = new double[kn];
 
 	double h;
 	for (int i = 0; i < kn; i++) {
-		int k = i - kn / 2;
-		double a = k * M_PI / n;
+		const int k = i - kn / 2;
+		const double a = k * M_PI / n;
 		if (a == 0)
 			h = 1;
 		else
@@ -1059,7 +1059,7 @@ void COsDlg::MakeInterpolationFilter(int n)
 
 int COsDlg::Interpolation(const double *pInData)
 {
-	int n = tInterpolation[g_oSetData.Os.nSweep];
+	const int n = tInterpolation[g_oSetData.Os.nSweep];
 
 	for (int i = 0; i < m_nBlockSize; i++) {
 		if (n == 1) {
@@ -1081,13 +1081,13 @@ void COsDlg::Convolution(double in, double *out, double *pInterpolationBuf)
 {
 	pInterpolationBuf[m_nInterpolationPtr] = in;
 
-	int n = tInterpolation[g_oSetData.Os.nSweep];
-	int kn = (N_INTERPOLATION - 1) * n + 1;
+	const int n = tInterpolation[g_oSetData.Os.nSweep];
+	const int kn = (N_INTERPOLATION - 1) * n + 1;
 	for (int i = 0; i < n; i++) {
 		double s = 0;
 		int offset = m_nInterpolationPtr;
 		for (int j = 0; j < N_INTERPOLATION; j++) {
-			int k = j * n + i;
+			const int k = j * n + i;
 			if (k < kn)
 				s += pInterpolationBuf[offset] * m_pInterpolationFilter[k];
 			if (--offset < 0)
@@ -1139,7 +1139,7 @@ void COsDlg::ChangeWaveDevice(int nInOut)
 void COsDlg::ChangeSamplingRate(int nSamplingRate)
 {
 	if (g_oSetData.Os.nSamplingRate != nSamplingRate) {
-		int n = m_cSamplingRate.GetCount();
+		const int n = m_cSamplingRate.GetCount();
 		for (int i = 0; i < n; i++) {
 			if ((int)m_cSamplingRate.GetItemData(i) == nSamplingRate) {
 				m_cSamplingRate.SetCurSel(i);
@@ -1156,7 +1156,7 @@ void COsDlg::OnBnClickedScreenShot()
 	CString sText;
 	GetWindowText(sText);
 	CString title;
-	int nTimeCount = (int)m_fTimeCount;
+	const int nTimeCount = (int)m_fTimeCount;
 	title.Format("%s - %d:%02d:%02d", (LPCSTR)sText, nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 	m_oScreenShot.ShowScreenShot(title, hBmp, FALSE);
 }
@@ -1174,7 +1174,7 @@ void COsDlg::OnBnClickedOsZeroLevel()
 
 void COsDlg::OnCbnSelchangeOsChannel()
 {
-	int nChannel = m_cOsChannel.GetCurSel();
+	const int nChannel = m_cOsChannel.GetCurSel();
 
 	if (g_oSetData.Os.nChannel != nChannel) {
 		g_oSetData.Os.nChannel = nChannel;
@@ -1241,7 +1241,7 @@ void COsDlg::OnStnDblclickOsScreen()
 
 BOOL COsDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_OS_SCREEN, IDH_OS_SCREEN,
 		IDC_BTN_START, IDH_OS_START,
 		IDC_OS_TIME, IDH_OS_TIME,
@@ -1289,7 +1289,7 @@ BOOL COsDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -1309,7 +1309,7 @@ void COsDlg::OnBnClickedOsCalibration()
 
 void COsDlg::SetLevelRange()
 {
-	double fCalFactor = (g_oSetData.Os.fCalValue == 0) ? 1 : g_oSetData.Os.fCalValue / g_oSetData.Os.fCalLevel;
+	const double fCalFactor = (g_oSetData.Os.fCalValue == 0) ? 1 : g_oSetData.Os.fCalValue / g_oSetData.Os.fCalLevel;
 
 	m_fLevelRangeMul = pow(10, floor(log10(fCalFactor * 2)));
 	m_fLevelMul = m_fLevelRangeMul / fCalFactor;

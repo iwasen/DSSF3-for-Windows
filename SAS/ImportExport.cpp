@@ -255,7 +255,7 @@ void CImportExport::WriteRecord(int nRecordType, void *pData, int nSize)
 	m_oFile.Write(pData, oRecordHeader.nSize);
 }
 
-void CImportExport::WriteBinary(CPSDB &db, LPCTSTR pFieldName, int nRecordType)
+void CImportExport::WriteBinary(CPSDB &db, LPCSTR pFieldName, int nRecordType)
 {
 	long nBinarySize;
 	db.DBGetBinarySize(pFieldName, &nBinarySize);
@@ -577,9 +577,9 @@ void CImportExport::ReadNMS(long nFolderID)
 	}
 }
 
-void CImportExport::ReadBinary(CPSDB &db, LPCTSTR pFieldName)
+void CImportExport::ReadBinary(CPSDB &db, LPCSTR pFieldName)
 {
-	int nSize = m_oRecordHeader.nSize;
+	const int nSize = m_oRecordHeader.nSize;
 	BYTE *pBuf = new BYTE[nSize];
 	ReadRecord(pBuf);
 	db.DBWriteBinary(pFieldName, pBuf, nSize);
@@ -593,10 +593,10 @@ void CImportExport::GetMaxIndex(int &nIndex, const CString &sTitle1, const CStri
 	if (sTitle1 == sTitle2) {
 		nIndex2 = 1;
 	} else {
-		int len = sTitle1.GetLength();
+		const int len = sTitle1.GetLength();
 		if (sTitle1 == sTitle2.Left(len)) {
 			if (sTitle2.Mid(len, 1) == "(" && sTitle2.Right(1) == ")") {
-				int len2 = sTitle2.GetLength();
+				const int len2 = sTitle2.GetLength();
 				nIndex2 = atoi(sTitle2.Mid(len + 1, len2 - len - 2));
 				if (nIndex2 != 0)
 					nIndex2++;

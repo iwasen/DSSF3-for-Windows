@@ -56,7 +56,7 @@ void CNmsItem::LearningNoiseSrc()
 		nsTmpData.fWIACCSum2 = 0;
 	}
 
-	int IdentPos = GetIdentPos(m_pNmsFactorData, m_nNmsFactorData, &g_oSetData.Measurement.IdentCondition);
+	const int IdentPos = GetIdentPos(m_pNmsFactorData, m_nNmsFactorData, &g_oSetData.Measurement.IdentCondition);
 	AcfFactor acfFactor = m_pNmsFactorData[IdentPos].Acf;
 	IAcfFactor iacfFactor = m_pNmsFactorData[IdentPos].IAcf;
 
@@ -124,7 +124,7 @@ void CNmsItem::UnLearningNoiseSrc()
 		nsTmpData.fTIACCSum2 = 0;
 		nsTmpData.fWIACCSum2 = 0;
 	} else {
-		int IdentPos = GetIdentPos(m_pNmsFactorData, m_nNmsFactorData, &g_oSetData.Measurement.IdentCondition);
+		const int IdentPos = GetIdentPos(m_pNmsFactorData, m_nNmsFactorData, &g_oSetData.Measurement.IdentCondition);
 		AcfFactor acfFactor = m_pNmsFactorData[IdentPos].Acf;
 		IAcfFactor iacfFactor = m_pNmsFactorData[IdentPos].IAcf;
 

@@ -110,7 +110,7 @@ void CManualMode::NotifyElpseTime(double fTime)
 
 BOOL CManualMode::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_START_STOP, IDH_MANUAL_MODE_START_STOP,
 		IDCANCEL, IDH_MANUAL_MODE_CANCEL,
 		IDC_SAMPLING_TIME, IDH_MANUAL_MODE_SAMPLING_TIME,
@@ -118,7 +118,7 @@ BOOL CManualMode::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

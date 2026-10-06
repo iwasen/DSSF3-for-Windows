@@ -116,7 +116,7 @@ BOOL CIfaSet::OnInitDialog()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_LEFT,
 			.cx = CDpi::AdjustDpi(tColumn[i].width, 98),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cIRList.InsertColumn(i, &lvc);
 	}
@@ -264,8 +264,8 @@ void CIfaSet::DispIRWindow()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -352,8 +352,8 @@ void CIfaSet::ReadIRData()
 	m_cImpulse.EnableWindow(TRUE);
 	DispIRWindow();
 
-	double start = dbIFilterRec.fStartPos / 1000;
-	double end = dbIFilterRec.fEndPos / 1000;
+	const double start = dbIFilterRec.fStartPos / 1000;
+	const double end = dbIFilterRec.fEndPos / 1000;
 	m_cImpulse.SetSelectArea(start, end);
 
 	if (m_pFreqData != NULL)
@@ -399,13 +399,13 @@ void CIfaSet::SetIRList()
 void CIfaSet::CalcPowerSpectrum(double start, double end)
 {
 	int i, j;
-	int nLoop = m_nData / 2;
+	const int nLoop = m_nData / 2;
 	double max;
 	double min;
 
-	int nStartPos = (int)(start / m_fTotalTime * m_nData);
-	int nEndPos = (int)(end / m_fTotalTime * m_nData);
-	int nData = nEndPos - nStartPos;
+	const int nStartPos = (int)(start / m_fTotalTime * m_nData);
+	const int nEndPos = (int)(end / m_fTotalTime * m_nData);
+	const int nData = nEndPos - nStartPos;
 
 	memcpy(m_pFreqData, m_pIRData + nStartPos + 1, nData * sizeof(double));
 	memset(m_pFreqData + nData, 0, (m_nData - nData) * sizeof(double));
@@ -418,8 +418,9 @@ void CIfaSet::CalcPowerSpectrum(double start, double end)
 			m_pPhaseData[i] = atan2(m_pFreqData[j + 1], m_pFreqData[j]);
 		}
 	} else {
-		for (i = 0; i < nLoop; i++)
-			m_pPhaseData[i] = 0;
+		memset(m_pPhaseData, 0, nLoop * sizeof(double));
+//#		for (i = 0; i < nLoop; i++)
+//#			m_pPhaseData[i] = 0;
 	}
 
 	max = 0;
@@ -431,7 +432,7 @@ void CIfaSet::CalcPowerSpectrum(double start, double end)
 			max = m_pFreqData[i];
 	}
 
-	double limit = max / pow(10.0, (double)m_cMaxAdjLevel / 10);
+	const double limit = max / pow(10.0, (double)m_cMaxAdjLevel / 10);
 	max = 0;
 	for (i = 1; i < nLoop; i++) {
 		if (m_pFreqData[i] < limit)
@@ -540,13 +541,13 @@ int CALLBACK CIfaSet::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lParam
 		.flags = LVFI_PARAM,
 		.lParam = lParam1
 	};
-	int index1 = dataList.FindItem(&findInfo1);
+	const int index1 = dataList.FindItem(&findInfo1);
 
 	LV_FINDINFO findInfo2{
 		.flags = LVFI_PARAM,
 		.lParam = lParam2
 	};
-	int index2 = dataList.FindItem(&findInfo2);
+	const int index2 = dataList.FindItem(&findInfo2);
 
 	return dataList.GetItemText(index1, pDlg->m_nSortItem).Compare(dataList.GetItemText(index2, pDlg->m_nSortItem)) * pDlg->m_nSortDir;
 }
@@ -560,7 +561,7 @@ void CIfaSet::OnDblclkIrList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 BOOL CIfaSet::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_IR_LIST, IDH_IMP_IFSET_LIST,
 		IDC_IMPALSE, IDH_IMP_IFSET_IMPALSE,
 		IDC_FREQ, IDH_IMP_IFSET_FREQ,
@@ -582,7 +583,7 @@ BOOL CIfaSet::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

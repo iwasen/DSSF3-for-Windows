@@ -6,9 +6,9 @@
 class CSasView : public CListView
 {
 public:
-	BOOL CheckSelect(long impulseID);
-	long GetNextItem(long impulseID);
-	long GetPrevItem(long impulseID);
+	BOOL CheckSelect(long impulseID) const;
+	long GetNextItem(long impulseID) const;
+	long GetPrevItem(long impulseID) const;
 
 protected: // シリアライズ機能のみから作成します。
 	CSasView();

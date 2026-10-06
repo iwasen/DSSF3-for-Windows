@@ -7,7 +7,7 @@
 
 // CScreenShot
 
-void CScreenShot::ShowScreenShot(LPCTSTR pTitle, HBITMAP hBmp, BOOL bCopy)
+void CScreenShot::ShowScreenShot(LPCSTR pTitle, HBITMAP hBmp, BOOL bCopy)
 {
 	CScreenShotWnd *pWnd = new CScreenShotWnd;
 
@@ -64,7 +64,7 @@ void CScreenShot::OutputImageFile(CWnd *pWnd, CBitmap &bitmap)
 	if (dlg.DoModal() == IDOK) {
 		HANDLE hDIB;
 		MMPictureGetBitmap(&hDIB, (HBITMAP)bitmap.m_hObject);
-		MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)dlg.GetPathName());
+		MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
 	}
 }
 
@@ -78,11 +78,11 @@ END_MESSAGE_MAP()
 
 // CScreenShotWnd メッセージ ハンドラ
 
-void CScreenShotWnd::ShowBitmap(LPCTSTR pTitle, HBITMAP hBmp, CScreenShot *pScreenShot)
+void CScreenShotWnd::ShowBitmap(LPCSTR pTitle, HBITMAP hBmp, CScreenShot *pScreenShot)
 {
 	CRect rect;
-	DWORD dwStyle = WS_TILED | WS_VISIBLE | WS_CAPTION | WS_SYSMENU;
-	DWORD dwExStyle = 0;
+	const DWORD dwStyle = WS_TILED | WS_VISIBLE | WS_CAPTION | WS_SYSMENU;
+	const DWORD dwExStyle = 0;
 	BITMAP bm;
 
 	m_pScreenShot = pScreenShot;

@@ -102,13 +102,13 @@ void CPeakLevelWnd::OnPaint()
 
 BOOL CPeakLevelWnd::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDCANCEL, IDH_PEAK_LEVEL_CANCEL,
 		IDC_PEAK_METER, IDH_PEAK_LEVEL_METER,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

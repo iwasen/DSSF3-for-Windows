@@ -154,7 +154,7 @@ void CGraphPref::OnShowWindow(BOOL bShow, UINT nStatus)
 
 BOOL CGraphPref::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_PREF, IDH_GRAPH_PREF,
 		IDC_BESTSPL, IDH_GRAPH_PREF_BESTSPL,
 		IDC_TAUE, IDH_GRAPH_PREF_TAUE,
@@ -168,7 +168,7 @@ BOOL CGraphPref::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

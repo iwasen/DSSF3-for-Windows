@@ -252,8 +252,8 @@ void CIfaSave::DispIRWindow()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -298,13 +298,13 @@ void CIfaSave::DispFreqWindow()
 void CIfaSave::CalcPowerSpectrum(double start, double end)
 {
 	int i, j;
-	int nLoop = m_nData / 2;
+	const int nLoop = m_nData / 2;
 	double max;
 	double min;
 
-	int nStartPos = (int)(start / m_fTotalTime * m_nData);
-	int nEndPos = (int)(end / m_fTotalTime * m_nData);
-	int nData = nEndPos - nStartPos;
+	const int nStartPos = (int)(start / m_fTotalTime * m_nData);
+	const int nEndPos = (int)(end / m_fTotalTime * m_nData);
+	const int nData = nEndPos - nStartPos;
 
 	memcpy(m_pFreqData, m_pIRData + nStartPos + 1, nData * sizeof(double));
 	memset(m_pFreqData + nData, 0, (m_nData - nData) * sizeof(double));
@@ -317,8 +317,9 @@ void CIfaSave::CalcPowerSpectrum(double start, double end)
 			m_pPhaseData[i] = atan2(m_pFreqData[j + 1], m_pFreqData[j]);
 		}
 	} else {
-		for (i = 0; i < nLoop; i++)
-			m_pPhaseData[i] = 0;
+		memset(m_pPhaseData, 0, nLoop * sizeof(double));
+//#		for (i = 0; i < nLoop; i++)
+//#			m_pPhaseData[i] = 0;
 	}
 
 	max = 0;
@@ -330,7 +331,7 @@ void CIfaSave::CalcPowerSpectrum(double start, double end)
 			max = m_pFreqData[i];
 	}
 
-	double limit = max / pow(10.0, (double)m_cMaxAdjLevel / 10);
+	const double limit = max / pow(10.0, (double)m_cMaxAdjLevel / 10);
 	max = 0;
 	for (i = 1; i < nLoop; i++) {
 		if (m_pFreqData[i] < limit)
@@ -403,7 +404,7 @@ void CIfaSave::OnPhaseAdj()
 
 BOOL CIfaSave::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_IMPALSE, IDH_IMP_IFSAVE_IMPALSE,
 		IDC_FREQ, IDH_IMP_IFSAVE_FREQ,
 		IDC_TITLE, IDH_IMP_IFSAVE_TITLE,
@@ -422,7 +423,7 @@ BOOL CIfaSave::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

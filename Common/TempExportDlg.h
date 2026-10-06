@@ -15,7 +15,7 @@ protected:
 	CListBox	m_cTemplateList;
 
 	void SetNsTmpList(long nID);
-	BOOL ExportTemplate(LPCTSTR pFileName);
+	BOOL ExportTemplate(LPCSTR pFileName);
 	BOOL CheckSelect(long nID);
 
 	DECLARE_MESSAGE_MAP()

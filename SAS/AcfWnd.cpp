@@ -48,7 +48,7 @@ BOOL CAcfWnd::OnEraseBkgnd(CDC* /*pDC*/)
 	return TRUE;
 }
 
-void CAcfWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData)
+void CAcfWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData)
 {
 	if (m_bInitialize)
 		return;
@@ -79,9 +79,10 @@ void CAcfWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, 
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -113,13 +114,13 @@ void CAcfWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, 
 	m_hCursorHScroll = pWinApp->LoadStandardCursor(IDC_SIZEWE);
 }
 
-void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nMinLevel, int nStep, int nDiv, LPCTSTR pStr)
+void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nMinLevel, int nStep, int nDiv, LPCSTR pStr)
 {
 	CString sText;
 	CSize size;
 	int x, y;
 	int ns;
-	int nLevelRange = nMaxLevel - nMinLevel;
+	const int nLevelRange = nMaxLevel - nMinLevel;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
@@ -151,9 +152,9 @@ void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nM
 		m_dcMem.TextOut(m_nScaleLeft - size.cx - 2, y - size.cy / 2, sText);
 	}
 
-	double t1 = dispTime / 7;
+	const double t1 = dispTime / 7;
 	double step = pow(10.0, floor(log10(t1)));
-	double t2 = t1 / step;
+	const double t2 = t1 / step;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -210,8 +211,8 @@ void CAcfWnd::DispGraph1(double totalTime, double startTime, double dispTime, co
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penData);
 
-	double fOffset = startTime / totalTime * nData;
-	int i2 = int(fOffset);
+	const double fOffset = startTime / totalTime * nData;
+	const int i2 = int(fOffset);
 
 	int x, y;
 	for (int i = i2; i < nData - 1; i++) {
@@ -274,7 +275,7 @@ void CAcfWnd::DispGraph1(double totalTime, double startTime, double dispTime, co
 
 void CAcfWnd::DispGraph2(double totalTime, double startTime, double dispTime, const double *pData, int nData, double fTauE, double fTauE0, int nMaxLevel, int nMinLevel, BOOL bHScroll)
 {
-	int nLevelRange = nMaxLevel - nMinLevel;
+	const int nLevelRange = nMaxLevel - nMinLevel;
 
 	m_bHScroll = bHScroll;
 
@@ -286,7 +287,7 @@ void CAcfWnd::DispGraph2(double totalTime, double startTime, double dispTime, co
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penData);
 
-	int i2 = int(startTime / totalTime * nData);
+	const int i2 = int(startTime / totalTime * nData);
 	int x, y;
 	for (int i = i2; i < nData - 1; i++) {
 		x = m_nScaleLeft + int((i - i2) * totalTime / dispTime * m_nScaleWidth / nData + 0.5);
@@ -301,7 +302,7 @@ void CAcfWnd::DispGraph2(double totalTime, double startTime, double dispTime, co
 	}
 
 	if (fTauE != 0) {
-		double dev = (-10 - fTauE0) / fTauE;
+		const double dev = (-10 - fTauE0) / fTauE;
 		m_dcMem.SelectObject(&m_penLine1);
 		x = m_nScaleLeft + (int)(-startTime / dispTime * m_nScaleWidth);
 		y = m_nScaleZero - (int)(fTauE0 * m_nScaleHeight / nLevelRange + 0.5);

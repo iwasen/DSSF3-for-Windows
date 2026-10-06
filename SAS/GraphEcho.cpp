@@ -230,7 +230,7 @@ void CGraphEcho::CalcGraphWindow()
 			m_pEchoEnergy[i] = power;
 	}
 
-	double max = GetMaxData(m_pEchoEnergy, m_nData);
+	const double max = GetMaxData(m_pEchoEnergy, m_nData);
 	for (i = 0; i < m_nData; i++)
 		m_pEchoEnergy[i] /= max;
 
@@ -253,8 +253,8 @@ void CGraphEcho::DispGraphWindow()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -392,7 +392,7 @@ void CALLBACK CGraphEcho::GraphCallBack(WPARAM code, LPARAM data, double param1,
 
 BOOL CGraphEcho::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_IR, IDH_GRAPH_ECHO_GRAPH_IR,
 		IDC_GRAPH_EE, IDH_GRAPH_ECHO_GRAPH_EE,
 		IDC_ZOOM_H, IDH_GRAPH_ECHO_ZOOM_H,
@@ -408,7 +408,7 @@ BOOL CGraphEcho::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -463,7 +463,7 @@ void CChangeTsubDlg::EnableControls()
 
 BOOL CChangeTsubDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_CHANGE_TSUB_OK,
 		IDCANCEL, IDH_CHANGE_TSUB_CANCEL,
 		IDC_TSUB_END, IDH_CHANGE_TSUB_END,
@@ -472,7 +472,7 @@ BOOL CChangeTsubDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

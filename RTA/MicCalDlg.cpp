@@ -125,7 +125,7 @@ void CMicCalDlg::InitMicCalList()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_LEFT,
 			.cx = CDpi::AdjustDpi(tColumn[i].width, 91),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cMicCalList.InsertColumn(i, &lvc);
 	}
@@ -186,7 +186,7 @@ void CMicCalDlg::OnRegist()
 		return;
 	}
 
-	int nMicCalID = m_pMicCalL->RegistMicCalData();
+	const int nMicCalID = m_pMicCalL->RegistMicCalData();
 	if (m_pMicCalR != NULL && nMicCalID >= 0)
 		m_pMicCalR->RegistMicCalData(MICCAL_RIGHT(nMicCalID));
 
@@ -211,7 +211,7 @@ void CMicCalDlg::OnChange()
 		return;
 	}
 
-	int nMicCalID = (int)m_cMicCalList.GetItemData(index);
+	const int nMicCalID = (int)m_cMicCalList.GetItemData(index);
 
 	m_pMicCalL->ChangeMicCalData(nMicCalID);
 	if (m_pMicCalR != NULL)
@@ -243,7 +243,7 @@ void CMicCalDlg::OnDelete()
 	if (!dbMicCal.Open())
 		return;
 
-	int nMicCalID = (int)m_cMicCalList.GetItemData(index);
+	const int nMicCalID = (int)m_cMicCalList.GetItemData(index);
 
 	dbMicCal.DeleteID(nMicCalID);
 	dbMicCal.DeleteID(MICCAL_RIGHT(nMicCalID));
@@ -270,7 +270,7 @@ void CMicCalDlg::OnSetting()
 
 int CMicCalDlg::GetCurSel()
 {
-	int itemCount = m_cMicCalList.GetItemCount();
+	const int itemCount = m_cMicCalList.GetItemCount();
 
 	for (int i = 0; i < itemCount; i++) {
 		if (m_cMicCalList.GetItemState(i, LVIS_SELECTED) != 0)
@@ -315,13 +315,13 @@ int CALLBACK CMicCalDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lPa
 		.flags = LVFI_PARAM,
 		.lParam = lParam1
 	};
-	int index1 = dataList.FindItem(&findInfo1);
+	const int index1 = dataList.FindItem(&findInfo1);
 
 	LV_FINDINFO findInfo2{
 		.flags = LVFI_PARAM,
 		.lParam = lParam2
 	};
-	int index2 = dataList.FindItem(&findInfo2);
+	const int index2 = dataList.FindItem(&findInfo2);
 
 	return dataList.GetItemText(index1, pDlg->m_nSortItem).Compare(dataList.GetItemText(index2, pDlg->m_nSortItem)) * pDlg->m_nSortDir;
 }
@@ -394,7 +394,7 @@ int CMicCalDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 void CMicCalDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 {
-	double fAngleStep = 1000.0 / SAMPLING_RATE;
+	const double fAngleStep = 1000.0 / SAMPLING_RATE;
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 	double s;
 
@@ -415,7 +415,7 @@ void CMicCalDlg::SaveCheck()
 	if ((index = GetCurSel()) == -1)
 		return;
 
-	int nMicCalID = (int)m_cMicCalList.GetItemData(index);
+	const int nMicCalID = (int)m_cMicCalList.GetItemData(index);
 
 	if ((m_pMicCalL != NULL && m_pMicCalL->m_bUpdate) || (m_pMicCalR != NULL && m_pMicCalR->m_bUpdate)) {
 		if (::AfxMessageBox(IDS_MSG_CHANGEDATA, MB_OKCANCEL | MB_ICONQUESTION) == IDOK) {
@@ -490,7 +490,7 @@ void CMicCalDlg::OnBnClickedSeparateRl()
 
 BOOL CMicCalDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_MICCAL_LIST, IDH_MICCAL_LIST,
 		IDC_READ, IDH_MICCAL_READ,
 		IDC_RESET, IDH_MICCAL_RESET,
@@ -517,7 +517,7 @@ BOOL CMicCalDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

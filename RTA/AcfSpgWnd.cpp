@@ -48,9 +48,10 @@ void CAcfSpgWnd::Initialize()
 	m_bmpGraph.CreateCompatibleBitmap(pDC, m_rectView.Width(), m_rectView.Height());
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(90, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(90, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_fontGraph.CreatePointFontIndirect(&font, &m_dcGraph);
@@ -132,15 +133,14 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 {
 	int	nFreq;
 	double fTime;
-	double fStep;
 	int x, y;
 	CString sText;
 	CSize sizeText;
-	double fTimeSpan = fTimeMax - fTimeMin;
+	const double fTimeSpan = fTimeMax - fTimeMin;
 	int ns;
-	double fLevelRange = nLevelMax - nLevelMin;
+	const double fLevelRange = nLevelMax - nLevelMin;
 	double fLevel;
-	int nHeight = m_rectScale.Height();
+	const int nHeight = m_rectScale.Height();
 
 	// 描画オブジェクトをセット
 	CPen *pPenOrg = dc.SelectObject(&m_penMidGray);
@@ -152,7 +152,7 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 	dc.GetTextMetrics(&tm);
 
 	// 横軸を描画
-	fStep = GetLinearScaleStep(fTimeSpan, 8, &ns);
+	double fStep = GetLinearScaleStep(fTimeSpan, 8, &ns);
 	for (fTime = GetScaleStartValue(fTimeMin, fStep); fTime <= fTimeMin + fTimeSpan; fTime += fStep) {
 		x = m_rectScale.left + int((fTime - fTimeMin) * m_rectScale.Width() / fTimeSpan);
 		if (x >= m_rectScale.left && x <= m_rectScale.right) {
@@ -170,10 +170,10 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 
 	// 縦軸を描画
 	if (bFreqLog) {
-		int step = GetLogScaleStep(nFreqMin);
-		double fLogFreqMax = log((double)nFreqMax);
-		double fLogFreqMin = log((double)nFreqMin);
-		double fSpanFreq = fLogFreqMax - fLogFreqMin;
+		const int step = GetLogScaleStep(nFreqMin);
+		const double fLogFreqMax = log((double)nFreqMax);
+		const double fLogFreqMin = log((double)nFreqMin);
+		const double fSpanFreq = fLogFreqMax - fLogFreqMin;
 		for (nFreq = GetScaleStartValue(nFreqMin, step); nFreq <= nFreqMax; nFreq += GetLogScaleStep(nFreq)) {
 			y = m_rectScale.top + (int)((fLogFreqMax - log((double)nFreq)) * nHeight / fSpanFreq + 0.5);
 
@@ -188,8 +188,8 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 			}
 		}
 	} else {
-		int step = GetLinearScaleStep(nFreqMax, nFreqMin, nHeight);
-		double fSpanFreq = nFreqMax - nFreqMin;
+		const int step = GetLinearScaleStep(nFreqMax, nFreqMin, nHeight);
+		const double fSpanFreq = nFreqMax - nFreqMin;
 		for (nFreq = GetScaleStartValue(nFreqMin, step); nFreq <= nFreqMax; nFreq += step) {
 			y = m_rectScale.top + (int)((nFreqMax - nFreq) * nHeight / fSpanFreq + 0.5);
 
@@ -294,18 +294,18 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 	int i;
 	int x, y;
 	int y2 = 0;
-	int nScaleWidth = m_rectScale.Width();
-	int nScaleHeight = m_rectScale.Height();
-	double fLogFreqMax = log((double)nFreqMax);
-	double fLogFreqMin = log((double)nFreqMin);
-	double fTmp1 = (double)nScaleHeight / (fLogFreqMax - fLogFreqMin);
-	double fTmp2 = (double)nScaleHeight / (nFreqMax - nFreqMin);
-	double fTmp3 = exp(0.5 / fTmp1);
+	const int nScaleWidth = m_rectScale.Width();
+	const int nScaleHeight = m_rectScale.Height();
+	const double fLogFreqMax = log((double)nFreqMax);
+	const double fLogFreqMin = log((double)nFreqMin);
+	const double fTmp1 = (double)nScaleHeight / (fLogFreqMax - fLogFreqMin);
+	const double fTmp2 = (double)nScaleHeight / (nFreqMax - nFreqMin);
+	const double fTmp3 = exp(0.5 / fTmp1);
 	double nLevel = 0;
 	int nCount = 0;
 	int t1, t2, t3;
-	double fFreqStep = (double)nSampleRate / nFreqData / 2;
-	int nTimeStep = (int)ceil((double)nScaleWidth / nTimeData);
+	const double fFreqStep = (double)nSampleRate / nFreqData / 2;
+	const int nTimeStep = (int)ceil((double)nScaleWidth / nTimeData);
 
 	memset(m_pSpgLevel, 0, sizeof(double) * nScaleHeight);
 

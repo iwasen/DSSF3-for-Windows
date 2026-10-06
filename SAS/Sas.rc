@@ -105,8 +105,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 5,2,0,17
- PRODUCTVERSION 5,2,0,17
+ FILEVERSION 5,2,0,18
+ PRODUCTVERSION 5,2,0,18
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -124,13 +124,13 @@ BEGIN
             VALUE "Comments", "Written by Shinichi Aizawa"
             VALUE "CompanyName", "Yoshimasa Electronic Inc."
             VALUE "FileDescription", "Diagnostic System for Sound Fields Version 5"
-            VALUE "FileVersion", "5.2.0.17"
+            VALUE "FileVersion", "5.2.0.18"
             VALUE "InternalName", "SA"
             VALUE "LegalCopyright", "Copyright (C) 2000-2026 Yoshimasa Electronic Inc."
             VALUE "LegalTrademarks", "YMEC"
             VALUE "OriginalFilename", "SAS.EXE"
             VALUE "ProductName", "Sound Analyzer [SA]"
-            VALUE "ProductVersion", "5.2.0.17"
+            VALUE "ProductVersion", "5.2.0.18"
         END
     END
     BLOCK "VarFileInfo"

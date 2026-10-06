@@ -326,7 +326,7 @@ int CRecDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 		break;
 	case WAVEIN_DATA:
 		if (m_nRecMode == REC_MODE_IN) {
-			int dwRecCount = m_dwRecCount;
+			const int dwRecCount = m_dwRecCount;
 			nData = RecordData(pWaveNotify);
 			DispCurrentWave(dwRecCount, nData);
 			SetCurrentStatus(STATUS_RECORD);
@@ -375,7 +375,7 @@ int CRecDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 			if (m_nRecMode == REC_MODE_OUT) {
 				if (pWaveNotify->nFlags & WHDR_DONE) {
 					pWaveNotify->nSamplesRecorded = pWaveNotify->nSamplesNum;
-					int nRecCount = m_dwRecCount;
+					const int nRecCount = m_dwRecCount;
 					nData = RecordData(pWaveNotify);
 					DispCurrentWave(nRecCount, nData);
 					SetCurrentStatus(STATUS_RECORD);
@@ -390,7 +390,7 @@ int CRecDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 int CRecDlg::RecordData(LPWAVENOTIFY pWaveNotify)
 {
-	DWORD nData = pWaveNotify->nSamplesRecorded * m_nRecChannel;
+	const DWORD nData = pWaveNotify->nSamplesRecorded * m_nRecChannel;
 	double *pData = pWaveNotify->pSamplesData;
 	DWORD i;
 
@@ -407,7 +407,7 @@ int CRecDlg::RecordData(LPWAVENOTIFY pWaveNotify)
 
 int CRecDlg::PlayData(LPWAVENOTIFY pWaveNotify)
 {
-	int nData = pWaveNotify->nSamplesNum;
+	const int nData = pWaveNotify->nSamplesNum;
 	double *pData = pWaveNotify->pSamplesData;
 	int i;
 	double fLeftData, fRightData;
@@ -535,8 +535,8 @@ void CRecDlg::DispWaveGraph()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -616,9 +616,9 @@ void CRecDlg::OnBnClickedFileLoad()
 		LoadFile(fileDlg.GetPathName());
 }
 
-void CRecDlg::LoadFile(LPCTSTR pPathName)
+void CRecDlg::LoadFile(LPCSTR pPathName)
 {
-	char *pExt = ::PathFindExtension(pPathName);
+	LPCSTR pExt = ::PathFindExtension(pPathName);
 
 	if (_stricmp(pExt, ".wav") == 0)
 		LoadWavFile(pPathName);
@@ -626,7 +626,7 @@ void CRecDlg::LoadFile(LPCTSTR pPathName)
 		LoadWavDssfFile(pPathName);
 }
 
-void CRecDlg::LoadWavFile(LPCTSTR pPathName)
+void CRecDlg::LoadWavFile(LPCSTR pPathName)
 {
 	CWaveFile waveFile;
 	PCMWAVEFORMAT waveFormat;
@@ -677,7 +677,7 @@ void CRecDlg::LoadWavFile(LPCTSTR pPathName)
 		OnBnClickedPlay();
 }
 
-void CRecDlg::LoadWavDssfFile(LPCTSTR pPathName)
+void CRecDlg::LoadWavDssfFile(LPCSTR pPathName)
 {
 	LoadWavFile(pPathName);
 
@@ -737,8 +737,8 @@ void CRecDlg::OnBnClickedFileSave()
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
-	int nBitsPerSample = fileDlg.m_pOFN->nFilterIndex == 1 ? 16 : 24;
-	int nBytesPerSample = (nBitsPerSample / 8) * m_nRecChannel;
+	const int nBitsPerSample = fileDlg.m_pOFN->nFilterIndex == 1 ? 16 : 24;
+	const int nBytesPerSample = (nBitsPerSample / 8) * m_nRecChannel;
 
 	PCMWAVEFORMAT waveFormat{
 		.wf{
@@ -759,7 +759,7 @@ void CRecDlg::OnBnClickedFileSave()
 			cFilterLeft.InitIIR((EDFShape)g_oSetData.Flt.nShape, (EDFBand)g_oSetData.Flt.nBand, g_oSetData.Flt.nOrder, m_nSamplingRate, g_oSetData.Flt.fCutoff1, g_oSetData.Flt.fCutoff2, g_oSetData.Flt.fRipple1);
 			cFilterRight.InitIIR((EDFShape)g_oSetData.Flt.nShape, (EDFBand)g_oSetData.Flt.nBand, g_oSetData.Flt.nOrder, m_nSamplingRate, g_oSetData.Flt.fCutoff1, g_oSetData.Flt.fCutoff2, g_oSetData.Flt.fRipple1);
 
-			int nData = m_dwRecCount / m_nRecChannel;
+			const int nData = m_dwRecCount / m_nRecChannel;
 			double *pData = m_pWaveBuf;
 			for (int i = 0; i < nData; i++) {
 				*pData++ = cFilterLeft.ExecIIR(*pData);
@@ -804,9 +804,9 @@ void CRecDlg::OnBnClickedCut()
 	if (m_pWaveBuf == NULL)
 		return;
 
-	int nSelectStart = min((DWORD)(m_fSelectStart * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
-	int nSelectEnd = min((DWORD)(m_fSelectEnd * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
-	int nSample = (nSelectEnd - nSelectStart) * m_nRecChannel;
+	const int nSelectStart = min((DWORD)(m_fSelectStart * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
+	const int nSelectEnd = min((DWORD)(m_fSelectEnd * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
+	const int nSample = (nSelectEnd - nSelectStart) * m_nRecChannel;
 
 	if (nSample <= 0)
 		return;
@@ -865,16 +865,16 @@ void CRecDlg::OnBnClickedGraphNorm()
 
 void CRecDlg::DispRecInfo()
 {
-	int nDataTime = (int)m_fDataTime;
+	const int nDataTime = (int)m_fDataTime;
 
 	m_cRecordTime.Format("%d:%02d:%02d", nDataTime / 3600, nDataTime / 60 % 60, nDataTime % 60);
 }
 
 void CRecDlg::DispCurrentWave(int nRecCount, int nData)
 {
-	int nSpan = INIT_TIME * m_nSamplingRate * m_nRecChannel;
-	int nCount = nRecCount / nSpan;
-	int nOffset = nRecCount % nSpan;
+	const int nSpan = INIT_TIME * m_nSamplingRate * m_nRecChannel;
+	const int nCount = nRecCount / nSpan;
+	const int nOffset = nRecCount % nSpan;
 
 	if (nOffset < nData)
 		m_cRecWnd.DispGraph((nCount + 1) * INIT_TIME, nCount * INIT_TIME, INIT_TIME, NULL, 0, m_nRecChannel, 0, 0);
@@ -914,7 +914,7 @@ void CRecDlg::OnDropFiles(HDROP hDropInfo)
 
 BOOL CRecDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_WAVE, IDH_REC_GRAPH_WAVE,
 		IDC_ZOOM_H, IDH_REC_ZOOM_H,
 		IDC_SCROLL_H, IDH_REC_SCROLL_H,
@@ -938,7 +938,7 @@ BOOL CRecDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

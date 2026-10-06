@@ -92,8 +92,8 @@ void CDataRecordDlg::OnBnClickedFileSave()
 	if (fopen_s(&fp, fileDlg.GetPathName(), "w") == 0) {
 		int i, j;
 		CHeaderCtrl *pHeaderCtrl = m_cDataList.GetHeaderCtrl();
-		int nItem = m_cDataList.GetItemCount();
-		int nColumn = pHeaderCtrl->GetItemCount();
+		const int nItem = m_cDataList.GetItemCount();
+		const int nColumn = pHeaderCtrl->GetItemCount();
 		char textBuf[32];
 
 		for (j = 0; j < nColumn; j++) {
@@ -236,7 +236,7 @@ void CDataRecordDlg::RecordData(int sec, FFTDATA *pFftData)
 {
 	CString str;
 	int i;
-	int nItem = m_cDataList.GetItemCount();
+	const int nItem = m_cDataList.GetItemCount();
 
 	if (nItem == 0)
 		m_cFileSave.EnableWindow(TRUE);
@@ -333,17 +333,17 @@ int CALLBACK CDataRecordDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM
 		.flags = LVFI_PARAM,
 		.lParam = lParam1
 	};
-	int index1 = dataList.FindItem(&findInfo1);
-	double fData1 = atof(dataList.GetItemText(index1, pDlg->m_nSortItem));
+	const int index1 = dataList.FindItem(&findInfo1);
+	const double fData1 = atof(dataList.GetItemText(index1, pDlg->m_nSortItem));
 
 	LV_FINDINFO findInfo2{
 		.flags = LVFI_PARAM,
 		.lParam = lParam2
 	};
-	int index2 = dataList.FindItem(&findInfo2);
-	double fData2 = atof(dataList.GetItemText(index2, pDlg->m_nSortItem));
+	const int index2 = dataList.FindItem(&findInfo2);
+	const double fData2 = atof(dataList.GetItemText(index2, pDlg->m_nSortItem));
 
-	double fComp = (fData1 - fData2) * pDlg->m_nSortDir;
+	const double fComp = (fData1 - fData2) * pDlg->m_nSortDir;
 	if (fComp > 0)
 		return 1;
 	else if (fComp < 0)
@@ -354,7 +354,7 @@ int CALLBACK CDataRecordDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM
 
 BOOL CDataRecordDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_DATA_LIST, IDH_FFT_REC_DATA_LIST,
 		IDC_TIMING_CYCLE, IDH_FFT_REC_TIMING_CYCLE,
 		IDC_TIMING_INTERVAL, IDH_FFT_REC_TIMING_INTERVAL,
@@ -368,7 +368,7 @@ BOOL CDataRecordDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

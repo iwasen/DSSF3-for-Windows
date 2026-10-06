@@ -15,7 +15,7 @@ public:
 	void DispXY(const double *pData, int nData, double fLevelL, double fLevelR, int nPosL, int nPosR);
 	void ClearScreen();
 	void DispTriggerLevel(int nTrigLevel, int nChannel, BOOL bDraw);
-	void DispText(LPCTSTR text, int nLine);
+	void DispText(LPCSTR text, int nLine);
 	HBITMAP GetBitmap();
 
 protected:

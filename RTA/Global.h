@@ -2,7 +2,6 @@
 
 #include "SetData.h"
 #include "WaveForm.h"
-#include "AsioManager.h"
 #include "WaveInEx.h"
 #include "WaveOutEx.h"
 
@@ -126,11 +125,11 @@ extern BOOL SelectListBox(CComboBox &ctl, DWORD_PTR dwData);
 extern BOOL SelectListBox(CListBox &ctl, DWORD_PTR dwData);
 extern CString GetNumberString(int nNumber);
 extern CString GetNumberString(double fNumber);
-extern BOOL CreateShortCut(LPCTSTR lpszShortcutFile, LPCTSTR lpszDescription, LPCTSTR lpszTargetFile, LPCTSTR pszParameter);
+extern BOOL CreateShortCut(LPCSTR lpszShortcutFile, LPCSTR lpszDescription, LPCSTR lpszTargetFile, LPCSTR pszParameter);
 extern void CheckFileName(CString &fileName);
 extern void GetAxisName(int nMode, CString &sNameX, CString &sNameY);
 extern void GetAxisUnit(int nMode, CString &sUnitX, CString &sUnitY);
-extern LPCTSTR GetRunningStatus(int nStringId, int nInputBits, int nOutputBits, int nRecordBits);
+extern LPCSTR GetRunningStatus(int nStringId, int nInputBits, int nOutputBits, int nRecordBits);
 extern double GetDither(int nBitsPerSample);
 extern void SetBackupList(CListCtrl &cListBackup, CStringArray &oBackupList);
 extern CString Hankaku2Zenkaku(const char *str);

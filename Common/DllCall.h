@@ -3,7 +3,7 @@
 class CDllCall
 {
 public:
-	CDllCall(LPCTSTR pDllFile);
+	CDllCall(LPCSTR pDllFile);
 	virtual ~CDllCall();
 
 	BOOL IsLoaded() const { return m_hLibModule != NULL; }
@@ -11,5 +11,5 @@ public:
 protected:
 	HMODULE m_hLibModule;
 
-	FARPROC LoadFunction(LPCTSTR pFuncName) const;
+	FARPROC LoadFunction(LPCSTR pFuncName) const;
 };

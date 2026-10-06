@@ -21,7 +21,7 @@ public:
 	BOOL WaveInData(const double *pData);
 	BOOL CheckDataExist() const;
 	BOOL CheckDataHold();
-	void CsvOutput(LPCTSTR pFileName);
+	void CsvOutput(LPCSTR pFileName);
 	HBITMAP GetBitmap();
 	void AddDataHold(COLORREF colorLeft, COLORREF colorRight);
 	void DelDataHold(BOOL bRedraw = TRUE);

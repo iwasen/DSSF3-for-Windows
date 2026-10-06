@@ -213,8 +213,8 @@ void CWaveEditManual::InitData()
 
 void CWaveEditManual::SetHScroll()
 {
-	int nScrollSize = (int)(m_fDispX / m_fTotalX * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartX / m_fTotalX * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispX / m_fTotalX * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartX / m_fTotalX * SCROLL_RANGE);
 
 	if (nScrollSize != m_nHScrollSize || nScrollPos != m_nHScrollPos) {
 		m_nHScrollSize = nScrollSize;
@@ -249,8 +249,8 @@ void CWaveEditManual::SetHScroll()
 
 void CWaveEditManual::SetVScroll()
 {
-	int nScrollSize = (int)(m_fDispY / m_fTotalY * SCROLL_RANGE);
-	int nScrollPos = (int)((m_fStartY - m_fMinY) / m_fTotalY * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispY / m_fTotalY * SCROLL_RANGE);
+	const int nScrollPos = (int)((m_fStartY - m_fMinY) / m_fTotalY * SCROLL_RANGE);
 
 	if (nScrollSize != m_nVScrollSize || nScrollPos != m_nVScrollPos) {
 		m_nVScrollSize = nScrollSize;
@@ -530,7 +530,7 @@ void CWaveEditManual::OnBnClickedTest()
 
 BOOL CWaveEditManual::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_WAVE_WND, IDH_SG_EDIT_WAVE_WND,
 		IDC_ZOOM_V, IDH_SG_EDIT_ZOOM_V,
 		IDC_SCROLL_V, IDH_SG_EDIT_SCROLL_V,
@@ -553,7 +553,7 @@ BOOL CWaveEditManual::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

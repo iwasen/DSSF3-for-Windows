@@ -41,9 +41,10 @@ void CAcf3dd::Initialize(int nFontSize)
 	ReleaseDC(pDC);
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -93,9 +94,6 @@ void CAcf3dd::SetBitmap()
 	int i, j;
 	CString sText;
 	CSize size;
-	CBitmap *pBitmapOrg;
-	CPen *pPenOrg;
-	CFont *pFontOrg;
 	CRect rect;
 	double t;
 	int ns;
@@ -131,14 +129,14 @@ void CAcf3dd::SetBitmap()
 	m_nScaleWidth2 = m_nScaleRight2 - m_nScaleLeft2;
 	m_nScaleHeight2 = m_nScaleBottom2 - m_nScaleTop2;
 
-	pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
-	pFontOrg = m_dcMem.SelectObject(&m_Font);
-	pPenOrg = m_dcMem.SelectObject(&penBlack);
+	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
+	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
+	CPen *pPenOrg = m_dcMem.SelectObject(&penBlack);
 
 	rect.SetRect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &brushBkGrnd);
 
-	POINT point[6]{
+	const POINT point[]{
 		{
 			.x = m_nScaleRight2,
 			.y = m_nScaleBottom2
@@ -159,7 +157,7 @@ void CAcf3dd::SetBitmap()
 			.y = m_nScaleBottom2
 		}
 	};
-	m_dcMem.Polygon(point, 6);
+	m_dcMem.Polygon(point, ARRAY_SIZE(point));
 
 	m_dcMem.SelectObject(&penGray);
 
@@ -356,14 +354,14 @@ void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, d
 	int x, y;
 	int x2 = 0;
 	double fStepY;
-	double fTmp2 = double(m_nScaleWidth2) / g_oSetData.Acf.fMaxTau;
-	int nDispSize = nDataSize / 2;
+	const double fTmp2 = double(m_nScaleWidth2) / g_oSetData.Acf.fMaxTau;
+	const int nDispSize = nDataSize / 2;
 	int nPointCount = 0;
 	int xOffset = 0;
-	int yOffset = m_nScaleBottom2 - m_nScaleBottom;
+	const int yOffset = m_nScaleBottom2 - m_nScaleBottom;
 	int dx, xj;
 	double dl;
-	double fTimeStep = 1 / fSamplingRate * 1000;
+	const double fTimeStep = 1 / fSamplingRate * 1000;
 	double fLevel, level2;
 	int nMaxLevel;
 

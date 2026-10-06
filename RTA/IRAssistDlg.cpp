@@ -86,13 +86,14 @@ BOOL CIRAssistDlg::OnInitDialog()
 	m_nTimeSave = g_oSetData.Imp.nTime;
 
 	CString str;
-	LOGFONT font{};
+	LOGFONT font{
 #ifdef _LANG_JPN
-	font.lfHeight = 200;
+		.lfHeight = 200,
 #else
-	font.lfHeight = 160;
+		.lfHeight = 160,
 #endif
-	font.lfCharSet = DEFAULT_CHARSET;
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font);
@@ -101,12 +102,12 @@ BOOL CIRAssistDlg::OnInitDialog()
 	m_cResult2.SetFont(&m_Font);
 	m_cResult3.SetFont(&m_Font);
 
-	static const RANGE_COLOR rangeColor[3] = {
+	static constexpr RANGE_COLOR rangeColor[] = {
 		{-0.2, COLOR_LEFT},
 		{0.2, COLOR_GREEN},
 		{1.0, COLOR_RIGHT}
 	};
-	m_cLevelWnd.SetRangeColor(rangeColor, 3);
+	m_cLevelWnd.SetRangeColor(rangeColor, ARRAY_SIZE(rangeColor));
 
 	return TRUE;
 }
@@ -265,13 +266,13 @@ void CIRAssistDlg::WaveAdjustLevel(LPWAVENOTIFY pWaveNotify)
 			fMaxValue = fAbsValue;
 	}
 
-	double fLevel = dB20(fMaxValue) + 6;
+	const double fLevel = dB20(fMaxValue) + 6;
 	if (m_fLevel == 0)
 		m_fLevel = fLevel;
 	else
 		m_fLevel = fLevel * 0.2 + m_fLevel * 0.8;
 
-	double fMarkerPos = m_fLevel / RANGE_LEVEL;
+	const double fMarkerPos = m_fLevel / RANGE_LEVEL;
 
 	if (fMarkerPos < -0.2) {
 		m_cResult1.SetTextColor(COLOR_BLUE);
@@ -295,16 +296,12 @@ void CIRAssistDlg::WaveAdjustLevel(LPWAVENOTIFY pWaveNotify)
 
 void CIRAssistDlg::WaveAdjustPosition(LPWAVENOTIFY pWaveNotify)
 {
-	double *pData;
-	int i, j;
-	double xt1, yt1, xt2, yt2;
-	double fMaxValue;
-	int nMaxPos;
+	int i;
 
 	memset(m_pCcfBuf1, 0, m_nData * sizeof(double));
 	memset(m_pCcfBuf2, 0, m_nData * sizeof(double));
 
-	pData = pWaveNotify->pSamplesData;
+	double *pData = pWaveNotify->pSamplesData;
 	for (i = 0; i < m_nData / OVERSAMPLING; i++) {
 		m_pCcfBuf1[i * OVERSAMPLING] = *pData++;
 		m_pCcfBuf2[i * OVERSAMPLING] = *pData++;
@@ -320,13 +317,13 @@ void CIRAssistDlg::WaveAdjustPosition(LPWAVENOTIFY pWaveNotify)
 	m_pCcfBuf2[0] = 0;
 
 	for (i = 1; i < m_nData / 2; i++) {
-		j = i * 2;
+		int j = i * 2;
 
-		xt1 = m_pCcfBuf1[j];
-		yt1 = m_pCcfBuf1[j + 1];
+		double xt1 = m_pCcfBuf1[j];
+		double yt1 = m_pCcfBuf1[j + 1];
 
-		xt2 = m_pCcfBuf2[j];
-		yt2 = m_pCcfBuf2[j + 1];
+		double xt2 = m_pCcfBuf2[j];
+		double yt2 = m_pCcfBuf2[j + 1];
 
 		m_pCcfBuf1[j] = xt1 * xt2 + yt1 * yt2;
 		m_pCcfBuf1[j + 1] = xt2 * yt1 - xt1 * yt2;
@@ -334,8 +331,8 @@ void CIRAssistDlg::WaveAdjustPosition(LPWAVENOTIFY pWaveNotify)
 
 	m_oRFFT.ifft(m_nData, m_pCcfBuf1);
 
-	fMaxValue = m_pCcfBuf1[0];
-	nMaxPos = 0;
+	double fMaxValue = m_pCcfBuf1[0];
+	int nMaxPos = 0;
 	for (i = 1; i < m_nData; i++) {
 		if (m_pCcfBuf1[i] > fMaxValue) {
 			fMaxValue = m_pCcfBuf1[i];
@@ -346,7 +343,7 @@ void CIRAssistDlg::WaveAdjustPosition(LPWAVENOTIFY pWaveNotify)
 	if (nMaxPos > m_nData / 2)
 		nMaxPos -= m_nData;
 
-	double fMarkerPos = (double)nMaxPos * 340 * 20 / (N_SAMPLING_RATE * OVERSAMPLING);
+	const double fMarkerPos = (double)nMaxPos * 340 * 20 / (N_SAMPLING_RATE * OVERSAMPLING);
 
 	if (fabs(m_fPosition - fMarkerPos) > 1.0) {
 		if (++m_nPosition < 3)
@@ -376,17 +373,14 @@ void CIRAssistDlg::WaveAdjustPosition(LPWAVENOTIFY pWaveNotify)
 
 void CIRAssistDlg::EndIR()
 {
-	double *pData;
-	double fData[N_DATA];
-	double fPower;
+	double fData[N_DATA]{};
 	int i;
 
 	double fMax = 0;
-	memset(fData, 0, sizeof(fData));
 
-	pData = m_pImpulseDlg->m_pLeftImpulseData;
+	double *pData = m_pImpulseDlg->m_pLeftImpulseData;
 	for (i = 0; i < m_pImpulseDlg->m_nData; i++) {
-		fPower = *pData * *pData;
+		double fPower = *pData * *pData;
 		if (fPower > fMax)
 			fMax = fPower;
 		fData[i * N_DATA / m_pImpulseDlg->m_nData] += fPower;
@@ -544,7 +538,7 @@ void CIRAssistDlg::OnSwitch3()
 
 BOOL CIRAssistDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_SWITCH1, IDH_IMP_ASSIST_SWITCH1,
 		IDC_RESULT1, IDH_IMP_ASSIST_RESULT1,
 		IDC_LEVEL_WND, IDH_IMP_ASSIST_LEVEL_WND,
@@ -562,7 +556,7 @@ BOOL CIRAssistDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

@@ -107,7 +107,7 @@ void CFftFreqDlg::SetFreqScale(CSliderCtrl &oSliderCtrl)
 {
 	oSliderCtrl.ClearTics();
 	for (int nFreq = m_nMinRange, nTic = 0; nFreq <= m_nMaxRange; nTic++) {
-		int pos = CalcSliderPos(nFreq);
+		const int pos = CalcSliderPos(nFreq);
 		oSliderCtrl.SetTic(pos);
 
 //		if (nTic % 9 == 0)

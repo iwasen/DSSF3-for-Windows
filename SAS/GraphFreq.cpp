@@ -125,14 +125,14 @@ void CGraphFreq::OnMean()
 
 BOOL CGraphFreq::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FREQ_LEFT, IDH_GRAPH_FREQ_LEFT,
 		IDC_FREQ_RIGHT, IDH_GRAPH_FREQ_RIGHT,
 		IDC_MEAN, IDH_GRAPH_FREQ_MEAN,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

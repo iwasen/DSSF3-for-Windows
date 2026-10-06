@@ -50,15 +50,15 @@ void CMSeq::InitMethod(int nStage)
 		i = 0;
 
 	FreeBuffers();
-	int nData = 1 << nStage;
+	const int nData = 1 << nStage;
 	m_pMSequence = new char[nData];
 	m_pPermut = new int[nData];
 
-	int ntap = tMSeqParam[i].ntap;
+	const int ntap = tMSeqParam[i].ntap;
 	const int *taps = tMSeqParam[i].taps;
 	const int *tob = tMSeqParam[i].tob;
 
-	int p = (1 << nStage) - 1;
+	const int p = (1 << nStage) - 1;
 
 	/* generate idempotent shift or ml-sequence */
 	int s = nStage;
@@ -90,8 +90,8 @@ void CMSeq::InitMethod(int nStage)
 
 void CMSeq::GenerateSequence(double *pData, int nAtt)
 {
-	int nData = 1 << m_nStage;
-	double fWave = 0.5 / nAtt;
+	const int nData = 1 << m_nStage;
+	const double fWave = 0.5 / nAtt;
 
 	for (int i = 0; i < nData; i++)
 		*pData++ = m_pMSequence[i] ? -fWave : fWave;
@@ -102,7 +102,7 @@ void CMSeq::CalcImpulse(double *pData)
 	if (m_nStage == 0)
 		return;
 
-	int nData = 1 << m_nStage;
+	const int nData = 1 << m_nStage;
 	int i, j, k, l;
 	int ni, nj;
 	double a, b;

@@ -44,16 +44,16 @@ void CFftWnd::SetBitmapCep(FFTWINDOW *pFftWindow)
 	}
 }
 
-void CFftWnd::DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText)
+void CFftWnd::DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText)
 {
 	double t;
 	int	nLevel;
 	int x, y;
-	int nHeight = nBottom - nTop;
+	const int nHeight = nBottom - nTop;
 	CString sText;
 	CSize size;
 	int ns;
-	double fTime = m_fTimeStep / (g_oSetData.Fft.nCrfZoom * 2);
+	const double fTime = m_fTimeStep / (g_oSetData.Fft.nCrfZoom * 2);
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushGraph);
@@ -68,7 +68,7 @@ void CFftWnd::DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	double t1 = m_fTimeStep / (10 * g_oSetData.Fft.nCrfZoom);
 	t1 *= 500.0 / pFftWindow->m_nScaleWidth;
 	double fStep = pow(10.0, floor(log10(t1)));
-	double t2 = t1 / fStep;
+	const double t2 = t1 / fStep;
 	if (t2 < 3) {
 		fStep *= 0.5;
 		ns = 2;
@@ -107,8 +107,8 @@ void CFftWnd::DrawScaleCep(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(m_penGray);
 
-	int nStep = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
-	double fSpanLevel = m_nMaxLevel - m_nMinLevel;
+	const int nStep = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
+	const double fSpanLevel = m_nMaxLevel - m_nMinLevel;
 	for (nLevel = GetScaleStartValue(m_nMinLevel, nStep); nLevel <= m_nMaxLevel; nLevel += nStep) {
 		y = nBottom - (int)((nLevel - m_nMinLevel) * nHeight / fSpanLevel + 0.5);
 
@@ -158,8 +158,8 @@ void CFftWnd::CalcCep(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 	double fLevel = 0;
 	double *pPowerSpecBuf = pFftData->m_oPowerSpecBuf.GetBuf();
 	double *pCepBuf = pFftData->m_pCepBuf;
-	int nFftSize2 = m_nFftSize / 2;
-	int nDataSize = nFftSize2 / g_oSetData.Fft.nCrfZoom;
+	const int nFftSize2 = m_nFftSize / 2;
+	const int nDataSize = nFftSize2 / g_oSetData.Fft.nCrfZoom;
 
 	if (m_bValidFftData) {
 		for (i = 0; i < nFftSize2; i++) {
@@ -180,7 +180,7 @@ void CFftWnd::CalcCep(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 
 		pCepBuf[0] = 0;
 
-		double fMul = (double)50 / m_nFftSize;
+		const double fMul = (double)50 / m_nFftSize;
 		for (i = 0; i < nFftSize2; i++)
 			pCepBuf[i] *= fMul;
 	}
@@ -204,14 +204,14 @@ void CFftWnd::CalcCep(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 int CFftWnd::CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPoint) const
 {
 	int x2 = 0;
-	double fStepY = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
-	int nDataSize = m_nFftSize / (2 * g_oSetData.Fft.nCrfZoom);
+	const double fStepY = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
+	const int nDataSize = m_nFftSize / (2 * g_oSetData.Fft.nCrfZoom);
 	int nPointCount = 0;
 	double ymin = pCepBuf[0];
 	double ymax = pCepBuf[0];
 
 	for (int i = 0; i < nDataSize; i++) {
-		int x = (i * pFftWindow->m_nScaleWidth) / nDataSize;
+		const int x = (i * pFftWindow->m_nScaleWidth) / nDataSize;
 
 		if (x != x2) {
 			if (x >= 0) {
@@ -232,7 +232,7 @@ int CFftWnd::CalcCepSub(const FFTWINDOW *pFftWindow, double *pCepBuf, POINT *pPo
 			ymax = 0;
 		}
 
-		double fLevel = pCepBuf[i];
+		const double fLevel = pCepBuf[i];
 		if (fLevel < ymin)
 			ymin = fLevel;
 		if (fLevel > ymax)
@@ -255,7 +255,7 @@ void CFftWnd::DispCepInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int
 {
 	CString sTime, sLevel;
 	double *pCepBuf = pFftData->m_pCepBuf;
-	int nDataSize = m_nFftSize / (2 * g_oSetData.Fft.nCrfZoom);
+	const int nDataSize = m_nFftSize / (2 * g_oSetData.Fft.nCrfZoom);
 
 	if (g_oSetData.Fft.bPeakDisp) {
 		double fPeakLevel = pCepBuf[1];
@@ -318,7 +318,7 @@ void CFftWnd::SetDispFreqCep(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	if (!g_oSetData.Fft.bPeakDisp) {
 		int n;
-		int nDataSize = m_nFftSize / (2 * g_oSetData.Fft.nCrfZoom);
+		const int nDataSize = m_nFftSize / (2 * g_oSetData.Fft.nCrfZoom);
 
 		n = (point.x - pFftWindow->m_nFrameLeft) * nDataSize / pFftWindow->m_nScaleWidth;
 		m_aFftData[0].m_nCepDispTime = m_aFftData[1].m_nCepDispTime = (n > 1 && n < nDataSize) ? n : 0;
@@ -402,7 +402,7 @@ void CFftWnd::CsvOutputCep(CCsvFile &oCsvFile) const
 			pBuf4 = m_aFftData[1].m_pCepPeakLevel;
 	}
 
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	for (int i = 1; i < nFftSize2; i++) {
 		oCsvFile.SetData(1000.0 * i / m_nSamplingRate);
 
@@ -460,16 +460,16 @@ void CFftWnd::CsvInputCep(CCsvFile &oCsvFile)
 		oCsvDataList.AddTail(oCsvData);
 	}
 
-	int nDataNum = (int)oCsvDataList.GetCount();
-	int nFFtSizeIndex = (int)floor(log((double)nDataNum) / log(2.0) + 0.5) - 9;
-	double fSamplingRate = 1 / oCsvDataList.GetHead().fData[0];
-	int nSamplingRateIndex = GetSamplingRateIndex((int)fSamplingRate);
+	const int nDataNum = (int)oCsvDataList.GetCount();
+	const int nFFtSizeIndex = (int)floor(log((double)nDataNum) / log(2.0) + 0.5) - 9;
+	const double fSamplingRate = 1 / oCsvDataList.GetHead().fData[0];
+	const int nSamplingRateIndex = GetSamplingRateIndex((int)fSamplingRate);
 
 	m_pFftDlg->SetCsvConditions(FFT_MODE_CEP, nChannel, nFFtSizeIndex, nSamplingRateIndex, -1, -1);
 
 	double *pBuf1 = NULL;
 	double *pBuf2 = NULL;
-	int nBufSize = m_nFftSize / 2;
+	const int nBufSize = m_nFftSize / 2;
 
 	if (m_bLch)
 		pBuf1 = m_aFftData[0].m_pCepBuf;

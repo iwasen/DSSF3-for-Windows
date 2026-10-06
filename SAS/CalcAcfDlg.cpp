@@ -154,13 +154,13 @@ long CCalcAcfDlg::GetPhi0RefData()
 
 void CCalcAcfDlg::OnSelchangePhi0Refdata()
 {
-	int index = m_cPhi0RefData.GetCurSel();
+	const int index = m_cPhi0RefData.GetCurSel();
 	m_cPhi0RefLevel.EnableWindow(m_cPhi0RefData.GetItemData(index) != SPL_ABSOLUTE);
 }
 
 BOOL CCalcAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_CALC_ACF_IDOK,
 		IDCANCEL, IDH_CALC_ACF_IDCANCEL,
 		IDC_CALC_NO, IDH_CALC_ACF_CALC_NO,
@@ -181,7 +181,7 @@ BOOL CCalcAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

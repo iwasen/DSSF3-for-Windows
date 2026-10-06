@@ -15,7 +15,7 @@ protected: // シリアライズ機能のみから作成します。
 	BOOL SelectItem(HTREEITEM hItem, DWORD dwItemData);
 	void DeleteItem(long nItemID);
 	BOOL DeleteItemSub(long nItemID, HTREEITEM hTreeItem);
-	BOOL ChangeTitle(long nItemID, HTREEITEM hTreeItem, LPCTSTR pTitle);
+	BOOL ChangeTitle(long nItemID, HTREEITEM hTreeItem, LPCSTR pTitle);
 
 protected:
 	CMyEdit m_cEditTitle;

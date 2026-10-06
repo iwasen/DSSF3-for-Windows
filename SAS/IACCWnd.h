@@ -7,7 +7,7 @@ class CIACCWnd : public CWnd
 public:
 	CIACCWnd();
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, int nRemark);
+	void Initialize(int nFontSize, LPCSTR pTitle, int nRemark);
 	void DispGraph(const double *pData, int nData, double fRate, double IACC, double TIACC, double WIACC1, double WIACC2);
 
 protected:

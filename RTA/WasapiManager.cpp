@@ -240,7 +240,7 @@ BOOL CWasapiManager::OpenIn(INT_PTR nWaveDevice, IWaveNotify *pWaveNotify, int n
 	m_pWaveInNotify = pWaveNotify;
 	m_nChannelsIn = nChannels;
 
-	int nBitsPerSample = g_oSetData2.bInput16BitOnly ? 16 : 24;
+	const int nBitsPerSample = g_oSetData2.bInput16BitOnly ? 16 : 24;
 	HRESULT ret = OpenSub(m_pDeviceCollectionIn, m_pDeviceIn, m_pAudioClientIn, (LPVOID *)&m_pCaptureClient, IID_IAudioCaptureClient, m_hEventIn, nWaveDevice, nBitsPerSample, nSamplesPerSec, nSamplesPerBuffer, m_oWaveFormatIn);
 	if (FAILED(ret)) {
 		SAFE_RELEASE(m_pCaptureClient);
@@ -343,7 +343,7 @@ BOOL CWasapiManager::OpenOut(INT_PTR nWaveDevice, IWaveNotify *pWaveNotify, int 
 	m_pWaveOutNotify = pWaveNotify;
 	m_nChannelsOut = nChannels;
 
-	int nBitsPerSample = g_oSetData2.bOutput16BitOnly ? 16 : 24;
+	const int nBitsPerSample = g_oSetData2.bOutput16BitOnly ? 16 : 24;
 	HRESULT ret = OpenSub(m_pDeviceCollectionOut, m_pDeviceOut, m_pAudioClientOut, (LPVOID *)&m_pRenderClient, IID_IAudioRenderClient, m_hEventOut, nWaveDevice, nBitsPerSample, nSamplesPerSec, nSamplesPerBuffer, m_oWaveFormatOut);
 	if (FAILED(ret)) {
 		SAFE_RELEASE(m_pRenderClient);
@@ -543,7 +543,7 @@ void CWasapiManager::AudioThread()
 
 	BOOL bLoop = TRUE;
 	while (bLoop) {
-		DWORD dwResult = WaitForMultipleObjects(3, aWaitEvents, FALSE, INFINITE);
+		const DWORD dwResult = WaitForMultipleObjects(3, aWaitEvents, FALSE, INFINITE);
 		switch (dwResult) {
 		case WAIT_OBJECT_0 + 0:	// In
 			PostMessage(WM_WASAPI_NOTIFY_IN);
@@ -641,7 +641,7 @@ CString CWasapiManager::HrToStr(HRESULT hr)
                   NULL,
                   hr,
                   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-                  (LPTSTR)&string,
+                  (LPSTR)&string,
                   0,
                   NULL);
     if (string != NULL) {
@@ -656,7 +656,7 @@ CString CWasapiManager::HrToStr(HRESULT hr)
 void CWasapiManager::ConvertDoubleToWave(LPVOID pWaveData, int nSize)
 {
 	double *pSamplesData = m_pSamplesBufferOut;
-	int nDataNum = nSize * m_nChannelsOut;
+	const int nDataNum = nSize * m_nChannelsOut;
 	BYTE *bp;
 	short *sp;
 	long *lp;
@@ -694,7 +694,7 @@ void CWasapiManager::ConvertDoubleToWave(LPVOID pWaveData, int nSize)
 		lp = (long *)pWaveData;
 		long mask = 0xffffffff << (32 - m_oWaveFormatOut.Samples.wValidBitsPerSample);
 		for (i = 0; i < nDataNum; i++) {
-			long l = ConvertToInt(*pSamplesData++, 32) & mask;
+			const long l = ConvertToInt(*pSamplesData++, 32) & mask;
 			*lp++ = l;
 			if (m_nChannelsOut == 1)
 				*lp++ = l;
@@ -706,7 +706,7 @@ void CWasapiManager::ConvertDoubleToWave(LPVOID pWaveData, int nSize)
 void CWasapiManager::ConvertWaveToDouble(LPVOID pWaveData, int nSize)
 {
 	double *pSamplesData = m_pSamplesBufferIn;
-	int nDataNum = nSize * m_nChannelsIn;
+	const int nDataNum = nSize * m_nChannelsIn;
 	BYTE *bp;
 	short *sp;
 	long *lp;

@@ -243,13 +243,13 @@ void COsWin::DispCenterLine(CDC &dc)
 	CPen *pPenOrg = dc.SelectObject(&m_penLeftZero);
 
 	if (m_bLch) {
-		int nLeftPos = m_nScaleVCenter - (g_oSetData.Os.nPosL * m_nScaleHeight / 100);
+		const int nLeftPos = m_nScaleVCenter - (g_oSetData.Os.nPosL * m_nScaleHeight / 100);
 		dc.MoveTo(m_nScaleLeft, nLeftPos);
 		dc.LineTo(m_nScaleRight, nLeftPos);
 	}
 
 	if (m_bRch) {
-		int nRightPos = m_nScaleVCenter - (g_oSetData.Os.nPosR * m_nScaleHeight / 100);
+		const int nRightPos = m_nScaleVCenter - (g_oSetData.Os.nPosR * m_nScaleHeight / 100);
 		dc.SelectObject(&m_penRightZero);
 		dc.MoveTo(m_nScaleLeft, nRightPos);
 		dc.LineTo(m_nScaleRight, nRightPos);
@@ -280,8 +280,8 @@ void COsWin::DispScreen(const double *pLeftData, const double *pRightData, doubl
 		ResetOverlay();
 	}
 
-	int xMin = m_nScaleLeft + (int)((nStart + fOffset) * m_nScaleWidth / fTotal + 0.5);
-	int xMax = m_nScaleLeft + (int)((nStart + nData + fOffset) * m_nScaleWidth / fTotal + 0.5);
+	const int xMin = m_nScaleLeft + (int)((nStart + fOffset) * m_nScaleWidth / fTotal + 0.5);
+	const int xMax = m_nScaleLeft + (int)((nStart + nData + fOffset) * m_nScaleWidth / fTotal + 0.5);
 	int yMin = m_nHeight;
 	int yMax = 0;
 
@@ -591,13 +591,13 @@ void COsWin::DispTriggerLevel(int nTrigLevel, int nChannel, BOOL bDraw)
 	m_bTrigLevel = bDraw;
 }
 
-void COsWin::DispText(LPCTSTR text, int nLine)
+void COsWin::DispText(LPCSTR text, int nLine)
 {
 	CRect rect;
 	CSize size;
 
 	size = m_dcMem.GetOutputTextExtent(text);
-	int y = (size.cy + 2) * nLine + 6;
+	const int y = (size.cy + 2) * nLine + 6;
 
 	rect.SetRect(m_nScaleLeft, y, m_nWidth, y + size.cy);
 	m_dcMem.FillRect(rect, &m_brushWhite);

@@ -293,7 +293,7 @@ BOOL CNmsDoc::SetCondition(int nCalcCounter)
 	if (!waveFile.Open(tempFileName, &wf, &dwSize))
 		return FALSE;
 
-	int nSampleNum = dwSize / (wf.wf.nChannels * wf.wBitsPerSample / 8);
+	const int nSampleNum = dwSize / (wf.wf.nChannels * wf.wBitsPerSample / 8);
 
 	NmsConditionData nmsConditionData{
 		.nStartPos = 0,
@@ -333,7 +333,7 @@ BOOL CNmsDoc::CalcFactor(int nCalcCounter)
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
 	if (pWaveData == NULL)
 		return FALSE;
-	int nSamplingRate = pWaveData->nSamplesPerSec;
+	const int nSamplingRate = pWaveData->nSamplesPerSec;
 	::GlobalUnlock(hWaveData);
 
 	pNmsItem->m_NmsConditionData.AcfCondition = g_oSetData.Measurement.AcfCondition;

@@ -48,7 +48,7 @@ BOOL CEchoWnd::OnEraseBkgnd(CDC* /*pDC*/)
 	return TRUE;
 }
 
-void CEchoWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData)
+void CEchoWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData)
 {
 	if (m_bInitialize)
 		return;
@@ -83,9 +83,10 @@ void CEchoWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc,
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -123,7 +124,7 @@ void CEchoWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int n
 	CSize size;
 	int x, y;
 	int ns;
-	int nLevelRange = nMaxLevel - nMinLevel;
+	const int nLevelRange = nMaxLevel - nMinLevel;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
@@ -155,9 +156,9 @@ void CEchoWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int n
 		m_dcMem.TextOut(m_nScaleLeft - size.cx - 2, y - size.cy / 2, sText);
 	}
 
-	double t1 = dispTime / 7;
+	const double t1 = dispTime / 7;
 	double step = pow(10.0, floor(log10(t1)));
-	double t2 = t1 / step;
+	const double t2 = t1 / step;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -209,7 +210,7 @@ void CEchoWnd::DispGraph(double totalTime, double startTime, double dispTime, co
 	int i, i2;
 	int x, x2 = 0;
 	int y, y2 = 0;
-	int nLevelRange = nMaxLevel - nMinLevel;
+	const int nLevelRange = nMaxLevel - nMinLevel;
 	double fOffset;
 
 	m_bHScroll = bHScroll;
@@ -225,7 +226,7 @@ void CEchoWnd::DispGraph(double totalTime, double startTime, double dispTime, co
 	m_dcMem.LineTo(m_nScaleRight, y);
 
 	if (dev != 0) {
-		double t1s = t1 / 1000;
+		const double t1s = t1 / 1000;
 		m_dcMem.SelectObject(&m_penTsub);
 		x = m_nScaleLeft + (int)((t1s - startTime) / dispTime * m_nScaleWidth);
 		y = m_nScaleZero;
@@ -243,8 +244,8 @@ void CEchoWnd::DispGraph(double totalTime, double startTime, double dispTime, co
 		m_dcMem.LineTo(x, m_nScaleBottom);
 	}
 
-	int nT0Pos = (int)(t0 / 1000 * fRate);
-	int nT1Pos = (int)(t1 / 1000 * fRate);
+	const int nT0Pos = (int)(t0 / 1000 * fRate);
+	const int nT1Pos = (int)(t1 / 1000 * fRate);
 	if (fT20Reg1 != 0) {
 		fOffset = -(fT20Reg0 + pData[nT0Pos] - pData[nT1Pos]) / fT20Reg1;
 		m_dcMem.SelectObject(&m_penT20);
@@ -380,7 +381,7 @@ void CEchoWnd::DispEnergy(double totalTime, double startTime, double dispTime, c
 	int i, i2;
 	int x, x2 = 0;
 	int y;
-	int nLevelRange = nMaxLevel - nMinLevel;
+	const int nLevelRange = nMaxLevel - nMinLevel;
 	double data;
 	int nCount;
 	BOOL bFirst = TRUE;

@@ -9,8 +9,8 @@ public:
 	CParamWnd();
 
 	void Initialize(int nFontSize);
-	void DispGraph(const int *pDataFreq, int nFreqBand, const double *pDataAll, const double *pDataLeft, const double *pDataRight, int nData, double scaleMin, double scaleMax, double scaleStep, LPCTSTR vAxis);
-	void DispRemark(LPCTSTR pTitle, int nChannel);
+	void DispGraph(const int *pDataFreq, int nFreqBand, const double *pDataAll, const double *pDataLeft, const double *pDataRight, int nData, double scaleMin, double scaleMax, double scaleStep, LPCSTR vAxis);
+	void DispRemark(LPCSTR pTitle, int nChannel);
 
 protected:
 	BOOL m_bInitialize;
@@ -26,7 +26,7 @@ protected:
 	CFont m_Font, m_Font2;
 	CRemarkWnd m_wndRemark;
 
-	void SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double scaleMin, double scaleMax, double scaleStep, LPCTSTR vAxis);
+	void SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double scaleMin, double scaleMax, double scaleStep, LPCSTR vAxis);
 	void DispGraphSub(const int *pDataFreq, const double *pData, int nData, double scaleMin, double scaleMax, int channel);
 
 	DECLARE_MESSAGE_MAP()

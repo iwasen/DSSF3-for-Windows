@@ -34,7 +34,7 @@ protected:
 	void EnableScaleCtrl();
 	void SetMeasureParam();
 	void LoadACFData(long nAcfID);
-	void LoadWaveFile(LPCTSTR pFileName);
+	void LoadWaveFile(LPCSTR pFileName);
 	void EnableRedraw();
 	void EnableButton(BOOL bEnable = TRUE);
 	void SetTimeDataNum(double fTime);

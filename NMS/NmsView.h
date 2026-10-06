@@ -14,7 +14,7 @@ protected: // シリアライズ機能のみから作成します。
 	void AddItem(const CNmsItem *pNmsItem);
 	void UpdateItem(const CNmsItem *pNmsItem);
 	void SetNmsItem(const CNmsItem *pNmsItem);
-	CNmsItem *GetSelectedItem();
+	CNmsItem *GetSelectedItem() const;
 
 	DECLARE_MESSAGE_MAP()
 	virtual void OnInitialUpdate(); // 構築後の最初の１度だけ呼び出されます。

@@ -171,7 +171,7 @@ void CTempIAcf::GetData(NsTmpData &nsTmpData)
 
 BOOL CTempIAcf::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_IACC_STANDARD, IDH_TEMP_IACF_IACC_STANDARD,
 		IDC_IACC_UPPER_CHECK, IDH_TEMP_IACF_IACC_UPPER_CHECK,
 		IDC_IACC_UPPER_LIMIT, IDH_TEMP_IACF_IACC_UPPER_LIMIT,
@@ -194,7 +194,7 @@ BOOL CTempIAcf::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

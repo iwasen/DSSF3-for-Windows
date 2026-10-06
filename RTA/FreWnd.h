@@ -9,7 +9,7 @@ public:
 	void Resize();
 	void SetBitmap(int nFreqStart, int nFreqEnd);
 	void DispGraph(const double *pLeftFre, const double *pRightFre, const double *pFreq, int nFreqCount, int nFreqStart, int nFreqEnd, int nFreqPoint, BOOL bSetBitmap = TRUE, COLORREF colorGraph = COLOR_LEFT, COLORREF colorRight = COLOR_RIGHT);
-	void CsvOutput(CCsvFile &oCsvFile, const double *pLeftData, const double *pRightData, const double *pFreq, int nFreqCount, LPCTSTR pTitle);
+	void CsvOutput(CCsvFile &oCsvFile, const double *pLeftData, const double *pRightData, const double *pFreq, int nFreqCount, LPCSTR pTitle);
 	HBITMAP GetBitmap();
 	void AddDataHold(COLORREF color);
 	void DelDataHold();

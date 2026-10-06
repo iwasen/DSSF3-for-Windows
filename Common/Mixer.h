@@ -6,7 +6,7 @@ extern DWORD_PTR dwMixerInDevice;
 extern DWORD_PTR dwMixerOutDevice;
 extern DWORD dwMixerOutMasterLineID;
 extern DWORD dwMixerInMasterLineID;
-extern DWORD dwMixerDefaultOutputVol;
+extern const DWORD dwMixerDefaultOutputVol;
 
 extern BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice);
 extern void MixerSetOutput();

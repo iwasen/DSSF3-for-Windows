@@ -133,7 +133,7 @@ void CSasView::SetHeader(int nHeader)
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = pColumn->fmt,
 			.cx = CDpi::AdjustDpi(pColumn->width),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		lc.InsertColumn(i, &lvc);
 		pColumn++;
@@ -189,7 +189,7 @@ void CSasView::OnUpdate(CView* /*pSender*/, LPARAM lHint, CObject* pHint)
 		return;
 	} else if (pHint != NULL) {
 		CListCtrl &lc = GetListCtrl();
-		int nCount = lc.GetItemCount();
+		const int nCount = lc.GetItemCount();
 		for (int i = 0; i < nCount; i++) {
 			if ((long)lc.GetItemData(i) == (long)lHint) {
 				lc.SetItemText(i, 0, (LPCSTR)pHint);
@@ -276,7 +276,7 @@ void CSasView::DrawFolder()
 
 void CSasView::DrawIR()
 {
-	long folderID = GetDocument()->m_nFolderID;
+	const long folderID = GetDocument()->m_nFolderID;
 	if (folderID == -1)
 		return;
 
@@ -317,7 +317,7 @@ void CSasView::DrawIR()
 
 void CSasView::DrawACF()
 {
-	long folderID = GetDocument()->m_nFolderID;
+	const long folderID = GetDocument()->m_nFolderID;
 	if (folderID == -1)
 		return;
 
@@ -359,7 +359,7 @@ void CSasView::DrawACF()
 
 void CSasView::DrawNMS()
 {
-	long folderID = GetDocument()->m_nFolderID;
+	const long folderID = GetDocument()->m_nFolderID;
 	if (folderID == -1)
 		return;
 
@@ -408,7 +408,7 @@ void CSasView::DrawNMS()
 
 void CSasView::OnDblclk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	int nItem;
 	DWORD_PTR dwItemData;
 
@@ -452,7 +452,7 @@ void CSasView::OnParamDisp()
 
 void CSasView::OnUpdateParamDisp(CCmdUI* pCmdUI)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	BOOL bEnable = FALSE;
 	int nItem;
 
@@ -466,9 +466,9 @@ void CSasView::OnUpdateParamDisp(CCmdUI* pCmdUI)
 
 int CSasView::GetSelectedItem()
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemState(i, LVIS_SELECTED) != 0)
 			return i;
@@ -480,7 +480,7 @@ int CSasView::GetSelectedItem()
 void CSasView::DispIR(int nItem)
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 
 	if (pDoc->m_nType != FOLDER_TYPE_IR)
 		return;
@@ -495,7 +495,7 @@ void CSasView::DispIR(int nItem)
 void CSasView::DispACF(int nItem)
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 
 	if (pDoc->m_nType != FOLDER_TYPE_ACF)
 		return;
@@ -510,7 +510,7 @@ void CSasView::DispACF(int nItem)
 void CSasView::DispNMS(int nItem)
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 
 	if (pDoc->m_nType != FOLDER_TYPE_NMS)
 		return;
@@ -522,11 +522,11 @@ void CSasView::DispNMS(int nItem)
 	pDlg->Create();
 }
 
-BOOL CSasView::CheckSelect(long impulseID)
+BOOL CSasView::CheckSelect(long impulseID) const
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemData(i) == (DWORD)(ID_DATA | impulseID)) {
 			if (lc.GetItemState(i, LVIS_SELECTED) != 0)
@@ -556,26 +556,26 @@ void CSasView::OnColumnclick(NMHDR* pNMHDR, LRESULT* pResult)
 int CALLBACK CSasView::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
 	CSasView *pView = (CSasView *)lParamSort;
-	CListCtrl &lc = pView->GetListCtrl();
+	const CListCtrl &lc = pView->GetListCtrl();
 
 	LV_FINDINFO findInfo1{
 		.flags = LVFI_PARAM,
 		.lParam = lParam1
 	};
-	int index1 = lc.FindItem(&findInfo1);
+	const int index1 = lc.FindItem(&findInfo1);
 
 	LV_FINDINFO findInfo2{
 		.flags = LVFI_PARAM,
 		.lParam = lParam2
 	};
-	int index2 = lc.FindItem(&findInfo2);
+	const int index2 = lc.FindItem(&findInfo2);
 
 	return lc.GetItemText(index1, pView->m_nSortItem).Compare(lc.GetItemText(index2, pView->m_nSortItem)) * pView->m_nSortDir;
 }
 
-long CSasView::GetNextItem(long impulseID)
+long CSasView::GetNextItem(long impulseID) const
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	int index;
 
 	LV_FINDINFO findInfo{
@@ -591,9 +591,9 @@ long CSasView::GetNextItem(long impulseID)
 	return (long)lc.GetItemData(index) & ID_VALUE;
 }
 
-long CSasView::GetPrevItem(long impulseID)
+long CSasView::GetPrevItem(long impulseID) const
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	int index;
 
 	LV_FINDINFO findInfo{
@@ -612,7 +612,7 @@ long CSasView::GetPrevItem(long impulseID)
 void CSasView::OnFileOpen()
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	int nItem;
 
 	if ((nItem = GetSelectedItem()) != -1)
@@ -622,7 +622,7 @@ void CSasView::OnFileOpen()
 void CSasView::OnUpdateFileOpen(CCmdUI* pCmdUI)
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 
 	pCmdUI->Enable(pDoc->m_nFolderID == -1 && lc.GetSelectedCount() != 0);
 }
@@ -630,10 +630,10 @@ void CSasView::OnUpdateFileOpen(CCmdUI* pCmdUI)
 void CSasView::OnFileDelete()
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	int i;
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	if (nItem != 0) {
 		long *nIDs = new long[nItem];
 		int count = 0;
@@ -654,10 +654,10 @@ void CSasView::OnFileDelete()
 
 void CSasView::OnUpdateFileDelete(CCmdUI *pCmdUI)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	BOOL bEnable = FALSE;
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemState(i, LVIS_SELECTED) != 0) {
 			bEnable = TRUE;
@@ -672,7 +672,7 @@ void CSasView::DeleteItem(long nDataID)
 {
 	CListCtrl &lc = GetListCtrl();
 
-	int nCount = lc.GetItemCount();
+	const int nCount = lc.GetItemCount();
 	for (int i = 0; i < nCount; i++) {
 		if ((long)lc.GetItemData(i) == nDataID) {
 			lc.DeleteItem(i);
@@ -698,7 +698,7 @@ void CSasView::OnFileChangeTitle()
 {
 	CListCtrl &lc = GetListCtrl();
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemState(i, LVIS_SELECTED) != 0) {
 			ModifyStyle(0, LVS_EDITLABELS);
@@ -710,14 +710,14 @@ void CSasView::OnFileChangeTitle()
 
 void CSasView::OnUpdateFileChangeTitle(CCmdUI *pCmdUI)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	CSasDoc *pDoc = GetDocument();
 	BOOL bEnable = FALSE;
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemState(i, LVIS_SELECTED) != 0) {
-			long nKind = (long)lc.GetItemData(i) & ID_KIND;
+			const long nKind = (long)lc.GetItemData(i) & ID_KIND;
 			if (nKind == ID_FOLDER || nKind == ID_DATA && (pDoc->m_nType == FOLDER_TYPE_IR || pDoc->m_nType == FOLDER_TYPE_ACF))
 				bEnable = TRUE;
 			break;
@@ -730,10 +730,10 @@ void CSasView::OnUpdateFileChangeTitle(CCmdUI *pCmdUI)
 void CSasView::OnLvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	CSasDoc *pDoc = GetDocument();
 
-	long nKind = (long)lc.GetItemData(pDispInfo->item.iItem) & ID_KIND;
+	const long nKind = (long)lc.GetItemData(pDispInfo->item.iItem) & ID_KIND;
 	if (nKind == ID_FOLDER || nKind == ID_DATA && (pDoc->m_nType == FOLDER_TYPE_IR || pDoc->m_nType == FOLDER_TYPE_ACF)) {
 		m_cEditTitle.SetMaxLength(LEN_TITLE);
 		m_cEditTitle.SubclassWindow(lc.GetEditControl()->GetSafeHwnd());
@@ -746,7 +746,7 @@ void CSasView::OnLvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 void CSasView::OnLvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	CSasDoc *pDoc = GetDocument();
 
 	CString sTitle = m_cEditTitle;
@@ -762,10 +762,10 @@ void CSasView::OnLvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 void CSasView::OnFileExport()
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	int nSelectedItem = -1;
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	if (nItem != 0) {
 		long *nIDs = new long[nItem];
 		int count = 0;
@@ -785,10 +785,10 @@ void CSasView::OnFileExport()
 
 void CSasView::OnUpdateFileExport(CCmdUI *pCmdUI)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	BOOL bEnable = FALSE;
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemState(i, LVIS_SELECTED) != 0) {
 			bEnable = TRUE;
@@ -802,13 +802,13 @@ void CSasView::OnUpdateFileExport(CCmdUI *pCmdUI)
 void CSasView::OnFileImport()
 {
 	CSasDoc *pDoc = GetDocument();
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	long nID = 0;
 
 	if (pDoc->m_nFolderID != -1)
 		nID = pDoc->m_nFolderID | ID_FOLDER;
 	else {
-		int nItem = lc.GetItemCount();
+		const int nItem = lc.GetItemCount();
 		for (int i = 0; i < nItem; i++) {
 			if (lc.GetItemState(i, LVIS_SELECTED) != 0) {
 				nID = (long)lc.GetItemData(i);
@@ -822,13 +822,13 @@ void CSasView::OnFileImport()
 
 void CSasView::OnUpdateFileImport(CCmdUI *pCmdUI)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	BOOL bEnable = TRUE;
 
-	int nItem = lc.GetItemCount();
+	const int nItem = lc.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		if (lc.GetItemState(i, LVIS_SELECTED) != 0) {
-			long nKind = (long)lc.GetItemData(i) & ID_KIND;
+			const long nKind = (long)lc.GetItemData(i) & ID_KIND;
 			if (nKind == ID_DATA) {
 				bEnable = FALSE;
 				break;

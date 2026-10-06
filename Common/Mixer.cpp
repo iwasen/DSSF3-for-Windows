@@ -9,7 +9,7 @@ DWORD_PTR dwMixerOutDevice;
 DWORD dwMixerInMasterLineID;
 DWORD dwMixerOutMasterLineID;
 
-DWORD dwMixerDefaultOutputVol = 32768 + 16384;
+const DWORD dwMixerDefaultOutputVol = 32768 + 16384;
 
 static DWORD dwInMuteID = (DWORD)-1;
 static DWORD dwInVolumeID = (DWORD)-1;
@@ -30,7 +30,7 @@ BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 	MIXERLINE mxl{};
 	int i;
 	MIXERCAPS mxcaps;
-	int nMixerNum = mixerGetNumDevs();
+	const int nMixerNum = mixerGetNumDevs();
 
 	if (nWaveOutDevice >= 0) {
 		dwMixerOutDevice = nWaveOutDevice;
@@ -163,83 +163,82 @@ UINT MixerGetControlsByType(DWORD_PTR dwMixerDevice, DWORD dwLineID, DWORD dwCon
 {
 	mxc = {};
 
-	MIXERLINECONTROLS mxlc{};
-	mxlc.cbStruct = sizeof(mxlc);
-	mxlc.dwLineID = dwLineID;
-	mxlc.dwControlType = dwControlType;
-	mxlc.cbmxctrl = sizeof(MIXERCONTROL);
-	mxlc.pamxctrl = &mxc;
+	MIXERLINECONTROLS mxlc{
+		.cbStruct = sizeof(mxlc),
+		.dwLineID = dwLineID,
+		.dwControlType = dwControlType,
+		.cbmxctrl = sizeof(MIXERCONTROL),
+		.pamxctrl = &mxc
+	};
 	return mixerGetLineControls((HMIXEROBJ)dwMixerDevice, &mxlc, MIXER_GETLINECONTROLSF_ONEBYTYPE);
 }
 
 LONG MixerGetBoolControl(DWORD_PTR dwMixerDevice, DWORD dwControlID)
 {
-	MIXERCONTROLDETAILS_BOOLEAN mxcdb;
-
+	MIXERCONTROLDETAILS_BOOLEAN mxcdb{};
 	MixerGetControlValue(dwMixerDevice, dwControlID, 0, &mxcdb, sizeof(MIXERCONTROLDETAILS_BOOLEAN));
 	return mxcdb.fValue;
 }
 
 LONG MixerGetUnsignedControl(DWORD_PTR dwMixerDevice, DWORD dwControlID)
 {
-	MIXERCONTROLDETAILS_UNSIGNED mxcdu;
-
+	MIXERCONTROLDETAILS_UNSIGNED mxcdu{};
 	MixerGetControlValue(dwMixerDevice, dwControlID, 0, &mxcdu, sizeof(MIXER_GETCONTROLDETAILSF_VALUE));
 	return mxcdu.dwValue;
 }
 
 void MixerSetBoolControl(DWORD_PTR dwMixerDevice, DWORD dwControlID, LONG value)
 {
-	MIXERCONTROLDETAILS_BOOLEAN mxcdb;
-
-	mxcdb.fValue = value;
+	MIXERCONTROLDETAILS_BOOLEAN mxcdb{
+		.fValue = value
+	};
 	MixerSetControlValue(dwMixerDevice, dwControlID, 0, &mxcdb, sizeof(MIXERCONTROLDETAILS_BOOLEAN));
 }
 
 void MixerSetUnsignedControl(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD value)
 {
-	MIXERCONTROLDETAILS_UNSIGNED mxcdu;
-
-	mxcdu.dwValue = value;
+	MIXERCONTROLDETAILS_UNSIGNED mxcdu{
+		.dwValue = value
+	};
 	MixerSetControlValue(dwMixerDevice, dwControlID, 0, &mxcdu, sizeof(MIXERCONTROLDETAILS_UNSIGNED));
 }
 
 UINT MixerGetControlValue(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMultipleItems, LPVOID paDetails, DWORD cbDetails)
 {
-	MIXERCONTROLDETAILS mxcd{};
-
-	mxcd.cbStruct = sizeof(mxcd);
-	mxcd.dwControlID = dwControlID;
-	mxcd.cChannels = 1;
-	mxcd.cMultipleItems = cMultipleItems;
-	mxcd.cbDetails = cbDetails;
-	mxcd.paDetails = paDetails;
+	MIXERCONTROLDETAILS mxcd{
+		.cbStruct = sizeof(mxcd),
+		.dwControlID = dwControlID,
+		.cChannels = 1,
+		.cMultipleItems = cMultipleItems,
+		.cbDetails = cbDetails,
+		.paDetails = paDetails
+	};
 	return mixerGetControlDetails((HMIXEROBJ)dwMixerDevice, &mxcd, MIXER_GETCONTROLDETAILSF_VALUE);
 }
 
 UINT MixerGetControlList(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMultipleItems, LPVOID paDetails, DWORD cbDetails)
 {
-	MIXERCONTROLDETAILS mxcd{};
-
-	mxcd.cbStruct = sizeof(mxcd);
-	mxcd.dwControlID = dwControlID;
-	mxcd.cChannels = 1;
-	mxcd.cMultipleItems = cMultipleItems;
-	mxcd.cbDetails = cbDetails;
-	mxcd.paDetails = paDetails;
+	MIXERCONTROLDETAILS mxcd{
+		.cbStruct = sizeof(mxcd),
+		.dwControlID = dwControlID,
+		.cChannels = 1,
+		.cMultipleItems = cMultipleItems,
+		.cbDetails = cbDetails,
+		.paDetails = paDetails
+	};
 	return mixerGetControlDetails((HMIXEROBJ)dwMixerDevice, &mxcd, MIXER_GETCONTROLDETAILSF_LISTTEXT);
 }
 
 UINT MixerSetControlValue(DWORD_PTR dwMixerDevice, DWORD dwControlID, DWORD cMultipleItems, LPVOID paDetails, DWORD cbDetails)
 {
-	MIXERCONTROLDETAILS mxcd{};
-
-	mxcd.cbStruct = sizeof(mxcd);
-	mxcd.dwControlID = dwControlID;
-	mxcd.cChannels = 1;
-	mxcd.cMultipleItems = cMultipleItems;
-	mxcd.cbDetails = cbDetails;
-	mxcd.paDetails = paDetails;
+	MIXERCONTROLDETAILS mxcd{
+		.cbStruct = sizeof(mxcd),
+		.dwControlID = dwControlID,
+		.cChannels = 1,
+		.cMultipleItems = cMultipleItems,
+		.cbDetails = cbDetails,
+		.paDetails = paDetails
+	};
 	return mixerSetControlDetails((HMIXEROBJ)dwMixerDevice, &mxcd, MIXER_GETCONTROLDETAILSF_VALUE);
 }
 

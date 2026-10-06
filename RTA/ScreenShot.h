@@ -5,7 +5,7 @@ class CScreenShot
 public:
 	virtual ~CScreenShot();
 
-	void ShowScreenShot(LPCTSTR pTitle, HBITMAP hBmp, BOOL bCopy);
+	void ShowScreenShot(LPCSTR pTitle, HBITMAP hBmp, BOOL bCopy);
 	void CloseScreenShot(class CScreenShotWnd *pWnd);
 	static void OutputImageFile(CWnd *pWnd, CBitmap &bitmap);
 
@@ -17,7 +17,7 @@ protected:
 class CScreenShotWnd : public CWnd
 {
 public:
-	void ShowBitmap(LPCTSTR pTitle, HBITMAP hBmp, CScreenShot *pScreenShot);
+	void ShowBitmap(LPCSTR pTitle, HBITMAP hBmp, CScreenShot *pScreenShot);
 
 protected:
 	CBitmap m_bitmap;

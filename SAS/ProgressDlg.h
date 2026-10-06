@@ -5,13 +5,13 @@
 class CProgressDlg : public CDialogAF
 {
 public:
-	CProgressDlg(CWnd* pParent = NULL, LPCTSTR title = NULL);   // 標準のコンストラクタ
+	CProgressDlg(CWnd* pParent = NULL, LPCSTR title = NULL);   // 標準のコンストラクタ
 	~CProgressDlg();
 
 	void SetRange(int nMaxValue);
 	void SetProgressBar(int nPos);
 	void SetProgressBarSub(int percent);
-	void SetMessage(LPCTSTR msg);
+	void SetMessage(LPCSTR msg);
 	BOOL CheckAbort();
 
 protected:

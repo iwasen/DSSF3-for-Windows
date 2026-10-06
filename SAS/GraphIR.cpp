@@ -132,8 +132,8 @@ void CGraphIR::DispGraphWindow()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -327,7 +327,7 @@ void CGraphIR::OnChangeRightT1()
 
 BOOL CGraphIR::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_IR_LEFT, IDH_GRAPH_IR_LEFT,
 		IDC_ZOOM_H, IDH_GRAPH_IR_ZOOM_H,
 		IDC_SCROLL_H, IDH_GRAPH_IR_SCROLL_H,
@@ -343,7 +343,7 @@ BOOL CGraphIR::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

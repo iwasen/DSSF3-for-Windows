@@ -126,42 +126,42 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|Win32'">

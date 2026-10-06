@@ -159,7 +159,7 @@ void CFolderDlg::OnDelete()
 
 BOOL CFolderDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FOLDER_LIST, IDH_IMP_FOLDER_FOLDER_LIST,
 		IDC_REGIST, IDH_IMP_FOLDER_REGIST,
 		IDC_CHANGE, IDH_IMP_FOLDER_CHANGE,
@@ -174,7 +174,7 @@ BOOL CFolderDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -304,7 +304,7 @@ void CSaveIR::OnSelchangeFolderList()
 
 BOOL CSaveIR::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FOLDER_LIST, IDH_IMP_SAVE_FOLDER_LIST,
 		IDC_DATA_LIST, IDH_IMP_SAVE_DATA_LIST,
 		IDOK, IDH_IMP_SAVE_SAVE,
@@ -321,7 +321,7 @@ BOOL CSaveIR::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -475,7 +475,7 @@ void CLoadIR::OnImportData()
 
 BOOL CLoadIR::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FOLDER_LIST, IDH_IMP_LOAD_FOLDER_LIST,
 		IDC_FOLER_TITLE, IDH_IMP_LOAD_FOLER_TITLE,
 		IDC_FOLDER_NAME, IDH_IMP_LOAD_FOLDER_NAME,
@@ -495,7 +495,7 @@ BOOL CLoadIR::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -649,7 +649,7 @@ void CLoadACF::OnWaveFile()
 
 BOOL CLoadACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FOLDER_LIST, IDH_IMP_LOAD_FOLDER_LIST,
 		IDC_FOLER_TITLE, IDH_IMP_LOAD_FOLER_TITLE,
 		IDC_FOLDER_NAME, IDH_IMP_LOAD_FOLDER_NAME,
@@ -669,7 +669,7 @@ BOOL CLoadACF::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -801,7 +801,7 @@ void CSaveACF::OnSelchangeFolderList()
 
 BOOL CSaveACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FOLDER_LIST, IDH_ACF_SAVE_FOLDER_LIST,
 		IDC_DATA_LIST, IDH_ACF_SAVE_DATA_LIST,
 		IDOK, IDH_ACF_SAVE_OK,
@@ -817,7 +817,7 @@ BOOL CSaveACF::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

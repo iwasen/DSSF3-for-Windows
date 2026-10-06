@@ -106,7 +106,7 @@ int CSettingFont::GetFontSize(CComboBox &cmb)
 
 BOOL CSettingFont::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_FONT_SIZE_SG, IDH_SETTING_FONT_SIZE_SG,
 		IDC_FONT_SIZE_FFT, IDH_SETTING_FONT_SIZE_FFT,
 		IDC_FONT_SIZE_OS, IDH_SETTING_FONT_SIZE_OS,
@@ -118,7 +118,7 @@ BOOL CSettingFont::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

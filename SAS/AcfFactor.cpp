@@ -683,7 +683,7 @@ void CAcfFactor::DispAcfFactorList3()
 
 void CAcfFactor::ReDispAcfFactorList()
 {
-	int nListKind = GetListKind();
+	const int nListKind = GetListKind();
 	if (nListKind != m_nListKind) {
 		m_nListKind = nListKind;
 
@@ -692,7 +692,7 @@ void CAcfFactor::ReDispAcfFactorList()
 		if ((pos = m_cFactorList.GetFirstSelectedItemPosition()) != NULL)
 			nSel = m_cFactorList.GetNextSelectedItem(pos);
 
-		int nTopIndex = m_cFactorList.GetTopIndex();
+		const int nTopIndex = m_cFactorList.GetTopIndex();
 		m_cFactorList.SetRedraw(FALSE);
 
 		InitAcfFactorList();
@@ -700,7 +700,7 @@ void CAcfFactor::ReDispAcfFactorList()
 
 		CRect rect;
 		m_cFactorList.GetItemRect(0, rect, LVIR_BOUNDS);
-		SIZE size = {0, nTopIndex * rect.Height()};
+		const SIZE size = {0, nTopIndex * rect.Height()};
 		m_cFactorList.SetRedraw(TRUE);
 		m_cFactorList.Scroll(size);
 	}
@@ -708,7 +708,7 @@ void CAcfFactor::ReDispAcfFactorList()
 
 void CAcfFactor::DispCalcParam()
 {
-	static const int tFilterName[] = {IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING};
+	static constexpr int tFilterName[] = {IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING};
 
 	if (m_bCalculated) {
 		AcfCondition *pAcfCondition = &m_AcfConditionData.AcfCondition;
@@ -962,8 +962,8 @@ int CALLBACK CAcfFactor::CompareItems2(LPARAM lParam1, LPARAM lParam2, LPARAM lP
 	if (pWnd->m_nSortItem == 0)
 		return (int)(lParam1 - lParam2) * pWnd->m_nSortDir;
 
-	int n = pWnd->m_nSortItem - 1;
-	double d = (pWnd->m_pTaunPhinData[lParam1].fTaun[n] - pWnd->m_pTaunPhinData[lParam2].fTaun[n]) * pWnd->m_nSortDir;
+	const int n = pWnd->m_nSortItem - 1;
+	const double d = (pWnd->m_pTaunPhinData[lParam1].fTaun[n] - pWnd->m_pTaunPhinData[lParam2].fTaun[n]) * pWnd->m_nSortDir;
 
 	if (d > 0)
 		return 1;
@@ -979,8 +979,8 @@ int CALLBACK CAcfFactor::CompareItems3(LPARAM lParam1, LPARAM lParam2, LPARAM lP
 	if (pWnd->m_nSortItem == 0)
 		return (int)(lParam1 - lParam2) * pWnd->m_nSortDir;
 
-	int n = pWnd->m_nSortItem - 1;
-	double d = (pWnd->m_pTaunPhinData[lParam1].fPhin[n] - pWnd->m_pTaunPhinData[lParam2].fPhin[n]) * pWnd->m_nSortDir;
+	const int n = pWnd->m_nSortItem - 1;
+	const double d = (pWnd->m_pTaunPhinData[lParam1].fPhin[n] - pWnd->m_pTaunPhinData[lParam2].fPhin[n]) * pWnd->m_nSortDir;
 
 	if (d > 0)
 		return 1;
@@ -1102,7 +1102,7 @@ void CAcfFactor::OnScreenCopy()
 			if (dlg.DoModal() == IDOK) {
 				HDIB hDIB = ScreenCopy();
 				if (hDIB != NULL) {
-					MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)dlg.GetPathName());
+					MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
 					::GlobalFree(hDIB);
 				}
 			}
@@ -1125,11 +1125,10 @@ HDIB CAcfFactor::ScreenCopy()
 	} else if (setData.AcfSC.bMulti)
 		return GraphCopy();
 	else {
-		CWnd *pWnd;
-
 		m_cGraph.UpdateWindow();
 		m_cGraph.GetCurrentDlg()->UpdateWindow();
 
+		CWnd *pWnd;
 		if (setData.ImpSC.bFrame)
 			pWnd = &m_cGraph;
 		else
@@ -1142,7 +1141,6 @@ HDIB CAcfFactor::ScreenCopy()
 HDIB CAcfFactor::GraphCopy()
 {
 	int i, nGraph = 0;
-	CWnd *pWnd;
 
 	for (i = 0; i < 9; i++) {
 		if (m_dbAcfRec.nChannel != 2) {
@@ -1179,8 +1177,8 @@ HDIB CAcfFactor::GraphCopy()
 	else
 		m_pGraphPhi0->GetWindowRect(rect);
 
-	int nWidth = (setData.AcfSC.nColSpace + rect.Width()) * nCol + setData.AcfSC.nColSpace;
-	int nHeight = (setData.AcfSC.nRowSpace + rect.Height()) * nRow + setData.AcfSC.nRowSpace;
+	const int nWidth = (setData.AcfSC.nColSpace + rect.Width()) * nCol + setData.AcfSC.nColSpace;
+	const int nHeight = (setData.AcfSC.nRowSpace + rect.Height()) * nRow + setData.AcfSC.nRowSpace;
 
 	CDC *pDC = GetDC();
 	CDC DCMem;
@@ -1192,7 +1190,7 @@ HDIB CAcfFactor::GraphCopy()
 	CGdiObject *pOrg = DCMem.SelectObject(&bmp);
 	DCMem.FillSolidRect(0, 0, nWidth, nHeight, GetSysColor(COLOR_3DFACE));
 
-	int nCurrentPage = m_nCurrentPage;
+	const int nCurrentPage = m_nCurrentPage;
 
 	int nIndex = 0;
 	nCol = nRow = 0;
@@ -1219,13 +1217,15 @@ HDIB CAcfFactor::GraphCopy()
 			m_cGraph.SetPage(nIndex);
 			m_cGraph.UpdateWindow();
 			m_cGraph.GetCurrentDlg()->UpdateWindow();
+
+			CWnd *pWnd;
 			if (setData.AcfSC.bFrame)
 				pWnd = &m_cGraph;
 			else
 				pWnd = m_cGraph.GetCurrentDlg();
 
-			int x = setData.AcfSC.nColSpace + nCol * (rect.Width() + setData.AcfSC.nColSpace);
-			int y = setData.AcfSC.nRowSpace + nRow * (rect.Height() + setData.AcfSC.nRowSpace);
+			const int x = setData.AcfSC.nColSpace + nCol * (rect.Width() + setData.AcfSC.nColSpace);
+			const int y = setData.AcfSC.nRowSpace + nRow * (rect.Height() + setData.AcfSC.nRowSpace);
 			DCMem.BitBlt(x, y, rect.Width(), rect.Height(), pWnd->GetWindowDC(), 0, 0, SRCCOPY);
 
 			if (++nCol == setData.AcfSC.nColumns) {
@@ -1241,7 +1241,7 @@ HDIB CAcfFactor::GraphCopy()
 
 	DCMem.SelectObject(pOrg);
 
-	int nSize = sizeof(BITMAPINFOHEADER) + WIDTHBYTES(nWidth * 24) * nHeight;
+	const int nSize = sizeof(BITMAPINFOHEADER) + WIDTHBYTES(nWidth * 24) * nHeight;
 	HDIB hDIB = ::GlobalAlloc(GMEM_MOVEABLE, nSize);
 	BITMAPINFO *pBmi = (BITMAPINFO *)::GlobalLock(hDIB);
 
@@ -1281,7 +1281,7 @@ CString CAcfFactor::GetDataText()
 	}
 	data += "\r\n";
 
-	int nItem = m_cFactorList.GetItemCount();
+	const int nItem = m_cFactorList.GetItemCount();
 	for (i = 0; i < nItem; i++) {
 		for (j = 0; j < m_nColumn; j++) {
 			if (j != 0)
@@ -1360,7 +1360,7 @@ void CAcfFactor::SaveStartDisp()
 
 LRESULT CAcfFactor::OnSelectData(WPARAM wParam, LPARAM /*lParam*/)
 {
-	int nIndex = (int)(*(double *)wParam / m_AcfConditionData.AcfCondition.fRunningStep + 0.5);
+	const int nIndex = (int)(*(double *)wParam / m_AcfConditionData.AcfCondition.fRunningStep + 0.5);
 
 	if (nIndex >= 0 && nIndex < m_cFactorList.GetItemCount()) {
 		m_cFactorList.SetItemState(nIndex, LVIS_SELECTED, LVIS_SELECTED);
@@ -1381,7 +1381,7 @@ void CAcfFactor::OnBnClickedCsvOutput()
 
 BOOL CAcfFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDCANCEL, IDH_ACF_FACTOR_CANCEL,
 		IDC_SELECT_DATA, IDH_ACF_FACTOR_SELECT_DATA,
 		IDC_PREV_DATA, IDH_ACF_FACTOR_PREV_DATA,
@@ -1414,7 +1414,7 @@ BOOL CAcfFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -1484,7 +1484,7 @@ LRESULT CAcfFactor::OnRightButton(WPARAM wParam, LPARAM /*lParam*/)
 
 		CMenu menu;
 		menu.LoadMenu(IDR_ADD_MARKER);
-		CMenu* pPopup = menu.GetSubMenu(0);
+		CMenu *pPopup = menu.GetSubMenu(0);
 		CPoint point;
 		GetCursorPos(&point);
 		pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);

@@ -336,7 +336,7 @@ void CDstFreq::OnCancel()
 {
 }
 
-void CDstFreq::CsvOutput(LPCTSTR pFileName)
+void CDstFreq::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -356,7 +356,7 @@ HBITMAP CDstFreq::GetBitmap()
 
 BOOL CDstFreq::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_HARM_GRAPH, IDH_DST_FREQ_HARM_GRAPH,
 		IDC_FREQ_START, IDH_DST_FREQ_START,
 		IDC_FREQ_END, IDH_DST_FREQ_END,
@@ -372,7 +372,7 @@ BOOL CDstFreq::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -429,7 +429,7 @@ BOOL CDstFreq::CheckDataHold()
 
 void CDstFreq::SaveHoldData(CFile &oFile)
 {
-	INT32 count = (INT32)m_oHoldDataList.GetCount();
+	const INT32 count = (INT32)m_oHoldDataList.GetCount();
 
 	oFile.Write(&count, sizeof(count));
 

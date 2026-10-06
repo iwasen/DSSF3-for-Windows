@@ -159,9 +159,9 @@ void CGraphACF::CalcGraphWindow()
 	int i;
 
 	// 積分データ数取得
-	int nIntegrationSize1 = (int)(m_pAcfCondition->fIntegrationTime * m_fRate);
-	int nMaxDelaySize = (int)(m_pAcfCondition->fMaxDelayTime * m_fRate);
-	int nIntegrationSize2 = nIntegrationSize1 + nMaxDelaySize;
+	const int nIntegrationSize1 = (int)(m_pAcfCondition->fIntegrationTime * m_fRate);
+	const int nMaxDelaySize = (int)(m_pAcfCondition->fMaxDelayTime * m_fRate);
+	const int nIntegrationSize2 = nIntegrationSize1 + nMaxDelaySize;
 
 	// Wave データ取得
 	double *pWaveBuf = new double[nIntegrationSize2];
@@ -180,7 +180,7 @@ void CGraphACF::CalcGraphWindow()
 		double *pCalibration = new double[nFftSize];
 		MakeFilterTbl3(pCalibration, nFftSize, m_fRate, (FilterData *)m_pNmsMicCal->freq, m_pNmsMicCal->nFreqData, 20);
 		pCalibration[0] = 1;
-		double sens = pow(10.0, -m_pNmsMicCal->fInputSens / 20);
+		const double sens = pow(10.0, -m_pNmsMicCal->fInputSens / 20);
 		MakeFilterTbl2(pFilterTbl, nFftSize, m_fRate, m_pAcfCondition->nFreqWeighting, 20);
 		for (i = 0; i < nFftSize; i++)
 			pFilterTbl[i] *= sens / pCalibration[i];
@@ -196,7 +196,7 @@ void CGraphACF::CalcGraphWindow()
 	delete [] pFilterTbl;
 	delete [] pWaveBuf;
 
-	double fPhi0 = m_pAcfData[0];
+	const double fPhi0 = m_pAcfData[0];
 	for (i = 0; i < m_nData; i++)
 		m_pAcfData[i] /= fPhi0;
 
@@ -218,8 +218,8 @@ void CGraphACF::DispGraphWindow()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -296,7 +296,7 @@ void CALLBACK CGraphACF::GraphCallBack(WPARAM code, LPARAM data, double param1, 
 
 BOOL CGraphACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_ACF, IDH_GRAPH_ACF,
 		IDC_ZOOM_H, IDH_GRAPH_ACF_ZOOM_H,
 		IDC_SCROLL_H, IDH_GRAPH_ACF_SCROLL_H,
@@ -307,7 +307,7 @@ BOOL CGraphACF::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

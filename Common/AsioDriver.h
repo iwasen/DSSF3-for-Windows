@@ -284,7 +284,7 @@ typedef ASIODRVSTRUCT	*LPASIODRVSTRUCT;
 interface IASIO : public IUnknown
 {
 	virtual ASIOBool init(void *sysHandle) = 0;
-	virtual void getDriverName(char *name) = 0;
+	virtual void getDriverName(LPCSTR name) = 0;
 	virtual long getDriverVersion() = 0;
 	virtual void getErrorMessage(char *string) = 0;
 	virtual ASIOError start() = 0;
@@ -349,8 +349,8 @@ protected:
 	IASIO *m_pAsioDriver;
 	INT_PTR m_nCurIndex;
 
-	static LONG findDrvPath(char *clsidstr, char *dllpath, int dllpathsize);
-	static LPASIODRVSTRUCT newDrvStruct(HKEY hkey, char *keyname, int drvID, LPASIODRVSTRUCT lpdrv);
+	static LONG findDrvPath(LPSTR clsidstr, LPCSTR dllpath, int dllpathsize);
+	static LPASIODRVSTRUCT newDrvStruct(HKEY hkey, LPCSTR keyname, int drvID, LPASIODRVSTRUCT lpdrv);
 	static void deleteDrvStruct(LPASIODRVSTRUCT lpdrv);
 	static LPASIODRVSTRUCT getDrvStruct(INT_PTR drvID, LPASIODRVSTRUCT lpdrv);
 };

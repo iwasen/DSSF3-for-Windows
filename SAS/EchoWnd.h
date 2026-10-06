@@ -7,7 +7,7 @@ class CEchoWnd : public CWnd
 public:
 	CEchoWnd();
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData);
+	void Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData);
 	void DispGraph(double totalTime, double startTime, double dispTime, const double *pData, const double *pData2, int nData, double fRate, double t0, double t1, double dev, double fEndTime, int nMaxLevel, int nMinLevel, BOOL bHScroll, double fT20Reg0, double fT20Reg1, double fT30Reg0, double fT30Reg1, double fEDTReg0, double fEDTReg1);
 	void DispEnergy(double totalTime, double startTime, double dispTime, const double *pData, int nData, int nMaxLevel, int nMinLevel, BOOL bHScroll);
 

@@ -635,7 +635,7 @@ public:
 class CDbFolder : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbFolderRec *pDbRec);
 	BOOL ReadRecNext(DbFolderRec *pDbRec);
@@ -647,7 +647,7 @@ public:
 class CDbImpulse : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pImpulseID);
 	BOOL ReadRecID(long id, DbImpulseRec *pDbRec);
 	BOOL ReadRecNext(DbImpulseRec *pDbRec);
@@ -662,7 +662,7 @@ public:
 class CDbAcf : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pAcfID);
 	BOOL ReadRecID(long id, DbAcfRec *pDbRec);
 	BOOL ReadRecNext(DbAcfRec *pDbRec);
@@ -677,7 +677,7 @@ public:
 class CDbNms : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pNmsID);
 	BOOL ReadRecID(long id, DbNmsRec *pDbRec, NmsConditionData *pNmsConditionData, NmsFactorData **pNmsFactorData, NoiseSrcData *pNoiseSrcData);
 	BOOL ReadRecNext(DbNmsRec *pDbRec);
@@ -692,7 +692,7 @@ public:
 class CDbNsTmp : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pNsTmpID);
 	BOOL ReadRecID(long id, DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData);
 	BOOL ReadRecNext(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData);
@@ -708,7 +708,7 @@ public:
 class CDbAcParam : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL ReadRecID(long id, DbAcParamRec *pDbRec);
 	BOOL SearchID(long id, BOOL bDispErr = TRUE);
 	BOOL StoreRec(DbAcParamRec *pDbRec);
@@ -719,7 +719,7 @@ public:
 class CDbAcfFactor : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL ReadRecID(long id, DbAcfFactorRec *pDbRec,
 			AcfConditionData *pAcfConditionData = NULL, AcfFactorData **pAcfFactorData = NULL, TaunPhinData **pTaunPhinData = NULL);
 	BOOL SearchID(long id);
@@ -731,7 +731,7 @@ public:
 class CDbAcfMarker : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbAcfMarkerRec *pDbRec);
 	BOOL ReadRecNext(DbAcfMarkerRec *pDbRec);
@@ -748,7 +748,7 @@ public:
 class CDbIFilter : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbIFilterRec *pDbRec);
 	BOOL ReadRecNext(DbIFilterRec *pDbRec);
@@ -761,7 +761,7 @@ public:
 class CDbMicCal : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbMicCalRec *pDbRec);
 	BOOL ReadRecNext(DbMicCalRec *pDbRec);
@@ -775,7 +775,7 @@ public:
 class CDbPreset : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbPresetRec *pDbRec);
 	BOOL ReadRecNext(DbPresetRec *pDbRec);
@@ -788,7 +788,7 @@ public:
 class CDbWaveForm : public CPSDB
 {
 public:
-	BOOL Open(LPCTSTR dir = g_szDefaultDir);
+	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData);
 	BOOL WriteRec(DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData);
 };
@@ -801,5 +801,5 @@ extern CString FormatTime(const CString &src);
 extern CString UnformatTime(const CString &src);
 extern void ReadNsWeightData(NsWeightData *pNsWeightData);
 extern void WriteNsWeightData(const NsWeightData *pNsWeightData);
-extern void ImportIR(LPCTSTR pDir);
-extern void ImportACF(LPCTSTR pDir);
+extern void ImportIR(LPCSTR pDir);
+extern void ImportACF(LPCSTR pDir);

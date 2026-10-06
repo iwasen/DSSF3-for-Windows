@@ -48,14 +48,14 @@ BOOL CTempImportDlg::OnInitDialog()
 
 void CTempImportDlg::OnAllSelect()
 {
-	int nCount = m_cTemplateList.GetCount();
+	const int nCount = m_cTemplateList.GetCount();
 	for (int i = 0; i < nCount; i++)
 		m_cTemplateList.SetSel(i);
 }
 
 void CTempImportDlg::OnAllRemove()
 {
-	int nCount = m_cTemplateList.GetCount();
+	const int nCount = m_cTemplateList.GetCount();
 	for (int i = 0; i < nCount; i++)
 		m_cTemplateList.SetSel(i, FALSE);
 }
@@ -86,7 +86,7 @@ BOOL CTempImportDlg::ReadTemplateFile()
 	NsTmpData nsTmpData;
 	char name[LEN_NSTMPNAME + 1];
 	while (importFile.Read(name, sizeof(name)) == sizeof(name)) {
-		int nIndex = m_cTemplateList.AddString(name);
+		const int nIndex = m_cTemplateList.AddString(name);
 		m_cTemplateList.SetSel(nIndex);
 		importFile.Read(&nsTmpData, sizeof(nsTmpData));
 	}
@@ -149,7 +149,7 @@ BOOL CTempImportDlg::ImportTemplate()
 
 void CTempImportDlg::MergeTemplate(NsTmpData *pNsTmpData1, const NsTmpData *pNsTmpData2)
 {
-	int nSum = pNsTmpData1->nSum + pNsTmpData2->nSum;
+	const int nSum = pNsTmpData1->nSum + pNsTmpData2->nSum;
 	if (nSum == 0)
 		return;
 
@@ -170,7 +170,7 @@ void CTempImportDlg::MergeTemplate(NsTmpData *pNsTmpData1, const NsTmpData *pNsT
 
 BOOL CTempImportDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_TEMP_IMPORT_OK,
 		IDCANCEL, IDH_TEMP_IMPORT_CANCEL,
 		IDC_TEMPLATE_LIST, IDH_TEMP_IMPORT_TEMPLATE_LIST,
@@ -181,7 +181,7 @@ BOOL CTempImportDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

@@ -232,7 +232,7 @@ long CCalcImpDlg::GetSplRefData()
 
 void CCalcImpDlg::OnSelchangeSplRefdata()
 {
-	int index = m_cSplRefData.GetCurSel();
+	const int index = m_cSplRefData.GetCurSel();
 	m_cSplRefLevel.EnableWindow(m_cSplRefData.GetItemData(index) != SPL_ABSOLUTE);
 }
 
@@ -244,7 +244,7 @@ void CCalcImpDlg::OnTsubAuto()
 
 BOOL CCalcImpDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_CALC_IMP_OK,
 		IDCANCEL, IDH_CALC_IMP_CANCEL,
 		IDC_CALC_NO, IDH_CALC_IMP_CALC_NO,
@@ -271,7 +271,7 @@ BOOL CCalcImpDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

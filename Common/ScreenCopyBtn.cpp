@@ -49,7 +49,7 @@ BOOL CScreenCopyBtn::OnClicked()
 			CWnd *pParentWnd = GetParent();
 			pParentWnd->UpdateWindow();
 			HDIB hDIB = CreateDIB(pParentWnd);
-			MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)dlg.GetPathName());
+			MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
 			::GlobalFree(hDIB);
 		}
 
@@ -77,10 +77,10 @@ void CScreenCopyBtn::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 	GetLocalTime(&st);
 	m_TempFile.Format("%s%02d%02d%02d%02d%02d%02d.png", tempPath, st.wYear % 100, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 	HDIB hDIB = CreateDIB(GetParent());
-	MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)m_TempFile);
+	MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)m_TempFile);
 	::GlobalFree(hDIB);
 
-	int nLength = m_TempFile.GetLength();
+	const int nLength = m_TempFile.GetLength();
 	if ((hGlobal = ::GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, sizeof(DROPFILES) + nLength + 2)) != NULL) {
 		pDropFiles = (DROPFILES *)::GlobalLock(hGlobal);
 		pDropFiles->pFiles = sizeof(DROPFILES);
@@ -102,8 +102,8 @@ HDIB CScreenCopyBtn::CreateDIB(CWnd *pWnd)
 {
 	CRect rect;
 	pWnd->GetWindowRect(&rect);
-	int nWidth = rect.Width();
-	int nHeight = rect.Height();
+	const int nWidth = rect.Width();
+	const int nHeight = rect.Height();
 
 	CDC *pDC = pWnd->GetWindowDC();
 	CDC DCMem;

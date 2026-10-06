@@ -82,8 +82,8 @@ BOOL CGraphWave::OnInitDialog()
 	m_fTotalTime = (double)(pWaveData->dataSize / (pWaveData->nBitsPerSample / 8) / pWaveData->nChannels) / pWaveData->nSamplesPerSec;
 	m_fTotalValue = 2;
 	m_fMinValue = -1;
-	int nBytesPerSample = pWaveData->nBitsPerSample / 8;
-	int nSampleNum = pWaveData->dataSize / nBytesPerSample;
+	const int nBytesPerSample = pWaveData->nBitsPerSample / 8;
+	const int nSampleNum = pWaveData->dataSize / nBytesPerSample;
 	m_pTempBuf = new double[nSampleNum];
 	CopyWaveToDouble(pWaveData->waveData, m_pTempBuf, NULL, nSampleNum, pWaveData->nBitsPerSample);
 	m_nData = nSampleNum / pWaveData->nChannels;
@@ -258,8 +258,8 @@ void CGraphWave::DispGraphWindow()
 	SetHScroll();
 	SetVScroll();
 
-	double fSelStart = m_nSel * m_pAcfCondition->fRunningStep;
-	double fSelEnd = fSelStart + m_pAcfCondition->fIntegrationTime;
+	const double fSelStart = m_nSel * m_pAcfCondition->fRunningStep;
+	const double fSelEnd = fSelStart + m_pAcfCondition->fIntegrationTime;
 
 	SetZoomArea();
 
@@ -277,8 +277,8 @@ void CGraphWave::DispGraphWindow()
 
 void CGraphWave::SetHScroll()
 {
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nHScrollSize || nScrollPos != m_nHScrollPos) {
 		m_nHScrollSize = nScrollSize;
@@ -401,7 +401,7 @@ void CALLBACK CGraphWave::GraphCallBack(WPARAM code, LPARAM data, double param1,
 
 BOOL CGraphWave::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_LEFT, IDH_GRAPH_WAVE_LEFT,
 		IDC_GRAPH_RIGHT, IDH_GRAPH_WAVE_RIGHT,
 		IDC_ZOOM_V, IDH_GRAPH_WAVE_ZOOM_V,
@@ -417,7 +417,7 @@ BOOL CGraphWave::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -501,8 +501,8 @@ LRESULT CGraphWave::OnGraphDrag(WPARAM wParam, LPARAM lParam)
 
 void CGraphWave::DispZoomGraph(CWaveWnd *pWnd) const
 {
-	double fSelStart = m_nSel * m_pAcfCondition->fRunningStep;
-	double fSelEnd = fSelStart + m_pAcfCondition->fIntegrationTime;
+	const double fSelStart = m_nSel * m_pAcfCondition->fRunningStep;
+	const double fSelEnd = fSelStart + m_pAcfCondition->fIntegrationTime;
 
 	pWnd->DispGraph(m_fTotalTime, m_fZoomStartTime, m_fZoomDispTime, m_pTempBuf + m_nZoomChannel, m_nData, m_nChannels, m_fZoomMaxValue, m_fZoomMinValue, FALSE, FALSE, fSelStart, fSelEnd, *m_pAcfMarkerRec, *m_nAcfMarkerRec);
 }
@@ -542,10 +542,10 @@ void CGraphWave::CloseZoomWnd()
 void CGraphWave::SetZoomArea()
 {
 	if (m_pZoomGraph != NULL) {
-		double fLeft = (m_fZoomStartTime - m_fStartTime) / m_fDispTime;
-		double fTop = 1 - (m_fZoomMaxValue - m_fStartValue) / m_fDispValue;
-		double fRight = (m_fZoomStartTime + m_fZoomDispTime - m_fStartTime) / m_fDispTime;
-		double fBottom = 1 - (m_fZoomMinValue - m_fStartValue) / m_fDispValue;
+		const double fLeft = (m_fZoomStartTime - m_fStartTime) / m_fDispTime;
+		const double fTop = 1 - (m_fZoomMaxValue - m_fStartValue) / m_fDispValue;
+		const double fRight = (m_fZoomStartTime + m_fZoomDispTime - m_fStartTime) / m_fDispTime;
+		const double fBottom = 1 - (m_fZoomMinValue - m_fStartValue) / m_fDispValue;
 
 		if (m_nZoomChannel == 0) {
 			m_cGraphLeft.SetZoomRect(fLeft, fTop, fRight, fBottom);

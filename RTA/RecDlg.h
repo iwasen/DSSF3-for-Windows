@@ -12,7 +12,7 @@ public:
 	CRecDlg(CWnd* pParent = NULL);   // 標準コンストラクタ
 	virtual ~CRecDlg();
 
-	void LoadWavDssfFile(LPCTSTR pPathName);
+	void LoadWavDssfFile(LPCSTR pPathName);
 
 protected:
 	enum { IDD = IDD_REC };
@@ -74,8 +74,8 @@ protected:
 	void DispRecInfo();
 	void DispCurrentWave(int nRecCount, int nData);
 	int OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify);
-	void LoadFile(LPCTSTR pPathName);
-	void LoadWavFile(LPCTSTR pPathName);
+	void LoadFile(LPCSTR pPathName);
+	void LoadWavFile(LPCSTR pPathName);
 
 	DECLARE_MESSAGE_MAP()
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート

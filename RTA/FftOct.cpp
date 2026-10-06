@@ -33,8 +33,8 @@ void CFftWnd::SetBitmapOct(FFTWINDOW *pFftWindow)
 		m_fOctTbl[j] = 1000000.0;		// ストッパ
 	} else {
 		// 1/3オクターブ
-		int nOct3 = g_nOctBandTbl[g_oSetData.Fft.nOctaveBand] / 3;
-		int nBandPerDecade = 10 * nOct3;
+		const int nOct3 = g_nOctBandTbl[g_oSetData.Fft.nOctaveBand] / 3;
+		const int nBandPerDecade = 10 * nOct3;
 
 		BOOL bFirstBand = FALSE;
 		m_aFreqScale[0] = g_pFreqScale3[0];
@@ -57,7 +57,7 @@ void CFftWnd::SetBitmapOct(FFTWINDOW *pFftWindow)
 			if (bFirstBand) {
 				m_fOctTbl[j] = fFreqLow;
 				if (i % nOct3 == 0) {
-					int n = i / nOct3 + 1;
+					const int n = i / nOct3 + 1;
 					m_aFreqScale[++j] = g_pFreqScale3[n];
 					m_bOctScaleFlag[j] = 0x01;
 					if (n % 10 == 9)
@@ -125,13 +125,13 @@ void CFftWnd::SetBitmapOct(FFTWINDOW *pFftWindow)
 	m_bPeakReset = TRUE;
 }
 
-void CFftWnd::DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, TEXTMETRIC &tm, LPCTSTR pText)
+void CFftWnd::DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, TEXTMETRIC &tm, LPCSTR pText)
 {
 	int	nLevel;
 	int y;
 	int i, j;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CSize size;
 	CString sText;
 
@@ -173,8 +173,8 @@ void CFftWnd::DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 		}
 	}
 
-	int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
-	double fSpanLevel = m_nMaxLevel - m_nMinLevel;
+	const int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
+	const double fSpanLevel = m_nMaxLevel - m_nMinLevel;
 	for (nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
 		y = nBottom - (int)((nLevel - m_nMinLevel) * nHeight / fSpanLevel + 0.5);
 
@@ -316,8 +316,8 @@ void CFftWnd::PaintOct(const FFTWINDOW *pFftWindow, int nChannel)
 	int i;
 	double *pOctData;
 	double *pPeakLevel;
-	double xStep = m_fOctBarStep;
-	double yStep = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
+	const double xStep = m_fOctBarStep;
+	const double yStep = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
 	FFTDATA *pFftData;
 
 	double xPos = xStep / 2;
@@ -424,7 +424,7 @@ void CFftWnd::PaintOct(const FFTWINDOW *pFftWindow, int nChannel)
 void CFftWnd::SetDispFreqOct(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	if (!g_oSetData.Fft.bPeakDisp) {
-		int nBand = (int)((point.x - pFftWindow->m_nFrameLeft) / m_fOctBarStep);
+		const int nBand = (int)((point.x - pFftWindow->m_nFrameLeft) / m_fOctBarStep);
 		if (nBand >= 0 && nBand < m_nOctBand) {
 			m_aFftData[0].m_nOctDispBand = nBand;
 			m_aFftData[1].m_nOctDispBand = nBand;
@@ -568,9 +568,9 @@ void CFftWnd::CsvInputOct(CCsvFile &oCsvFile)
 		oCsvDataList.AddTail(oCsvData);
 	}
 
-	double fFreq1 = oCsvDataList.GetAt(oCsvDataList.FindIndex(1)).fData[0];
-	double fFreq2 = oCsvDataList.GetAt(oCsvDataList.FindIndex(4)).fData[0];
-	double fStep = fFreq2 / fFreq1;
+	const double fFreq1 = oCsvDataList.GetAt(oCsvDataList.FindIndex(1)).fData[0];
+	const double fFreq2 = oCsvDataList.GetAt(oCsvDataList.FindIndex(4)).fData[0];
+	const double fStep = fFreq2 / fFreq1;
 	int nOctBandIndex;
 	if (fStep > 4) {
 		nOctBandIndex = 0;

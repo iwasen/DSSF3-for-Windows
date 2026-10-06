@@ -216,7 +216,7 @@ void CNmsFactor::InitNmsFactorList()
 	CString str;
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;
-	int size = ARRAY_SIZE(tColumnHeader);
+	const int size = ARRAY_SIZE(tColumnHeader);
 
 	for (int i = 0; i < size; i++, pColumnHeader++) {
 		if (pColumnHeader->nID == 0)
@@ -227,7 +227,7 @@ void CNmsFactor::InitNmsFactorList()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_RIGHT,
 			.cx = CDpi::AdjustDpi(pColumnHeader->width, 92),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cFactorList.InsertColumn(i, &lvc);
 	}
@@ -410,13 +410,13 @@ void CNmsFactor::OnPlayBack()
 
 	CString tempFileName;
 	tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, m_nIndex);
-	if (MMWaveReadFile(&m_hWaveData, (LPTSTR)(LPCSTR)tempFileName) == 0)
+	if (MMWaveReadFile(&m_hWaveData, (LPSTR)(LPCSTR)tempFileName) == 0)
 		m_cPlayBackBtn.Play(m_hWaveData);
 }
 
 LRESULT CNmsFactor::OnSelectData(WPARAM wParam, LPARAM /*lParam*/)
 {
-	int nIndex = (int)(*(double *)wParam / m_pNmsConditionData->AcfCondition.fRunningStep + 0.5);
+	const int nIndex = (int)(*(double *)wParam / m_pNmsConditionData->AcfCondition.fRunningStep + 0.5);
 
 	if (nIndex >= 0 && nIndex < m_cFactorList.GetItemCount()) {
 		m_cFactorList.SetItemState(nIndex, LVIS_SELECTED, LVIS_SELECTED);
@@ -428,7 +428,7 @@ LRESULT CNmsFactor::OnSelectData(WPARAM wParam, LPARAM /*lParam*/)
 
 BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH, IDH_NMS_FACTOR_GRAPH,
 		IDC_FACTOR_LIST, IDH_NMS_FACTOR_LIST,
 		IDC_PLAY_BACK, IDH_NMS_FACTOR_PLAY_BACK,
@@ -436,7 +436,7 @@ BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

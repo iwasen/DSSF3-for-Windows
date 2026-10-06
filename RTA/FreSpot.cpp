@@ -278,7 +278,7 @@ BOOL CFreSpot::WaveOutData(double *pData, int nBitsPerSample)
 		bReset = TRUE;
 	}
 
-	double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * M_PI;
+	const double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * M_PI;
 	for (int i = 0; i < m_nWaveBufSize; i++) {
 		*pData++ = sin(m_fAngle) * m_fLevel + GetDither(nBitsPerSample);
 
@@ -333,7 +333,7 @@ double CFreSpot::CalcFreqResponse(const double *pData, double fFreq, const DbMic
 	int i;
 
 	double fFilter;
-	int nFilterData = oMicCalData.nFreqData;
+	const int nFilterData = oMicCalData.nFreqData;
 	if (nFilterData < 3)
 		fFilter = 1;
 	else {
@@ -360,7 +360,7 @@ double CFreSpot::CalcFreqResponse(const double *pData, double fFreq, const DbMic
 
 	double fSinSum = 0;
 	double fCosSum = 0;
-	double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * M_PI;
+	const double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * M_PI;
 	for (i = 0; i < m_nSamplingRate; i++) {
 		fSinSum += pData[i] * sin(m_fAngle);
 		fCosSum += pData[i] * cos(m_fAngle);
@@ -381,7 +381,7 @@ BOOL CFreSpot::CheckDataExist() const
 	return m_bValidData && m_nFreqCount != 0;
 }
 
-void CFreSpot::CsvOutput(LPCTSTR pFileName)
+void CFreSpot::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -462,7 +462,7 @@ HBITMAP CFreSpot::GetBitmap()
 
 BOOL CFreSpot::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH, IDH_FRE_SPOT_GRAPH,
 		IDC_FREQ_START, IDH_FRE_SPOT_FREQ_START,
 		IDC_FREQ_END, IDH_FRE_SPOT_FREQ_END,
@@ -473,7 +473,7 @@ BOOL CFreSpot::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -520,7 +520,7 @@ BOOL CFreSpot::CheckDataHold()
 
 void CFreSpot::SaveHoldData(CFile &oFile)
 {
-	INT32 count = (INT32)m_oHoldDataList.GetCount();
+	const INT32 count = (INT32)m_oHoldDataList.GetCount();
 
 	oFile.Write(&count, sizeof(count));
 

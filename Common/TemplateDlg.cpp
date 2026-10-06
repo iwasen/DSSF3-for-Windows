@@ -195,7 +195,7 @@ void CTemplateDlg::OnExport()
 
 BOOL CTemplateDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_TEMPLATE_OK,
 		IDC_UPDATE_TEMPLATE, IDH_TEMPLATE_UPDATE_TEMPLATE,
 		IDC_DELETE_TEMPLATE, IDH_TEMPLATE_DELETE_TEMPLATE,
@@ -208,7 +208,7 @@ BOOL CTemplateDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

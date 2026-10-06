@@ -178,7 +178,7 @@ void CSgNoise::OnBnClickedTime0()
 
 void CSgNoise::SetTimeDiffRange()
 {
-	int nTimeRange = tMaxTimeRange[g_oSetData.Sg.nTimeRange];
+	const int nTimeRange = tMaxTimeRange[g_oSetData.Sg.nTimeRange];
 
 	m_cTimeSlider.ClearTics();
 
@@ -202,7 +202,7 @@ void CSgNoise::SetTimeDiff(double fTime)
 
 	if (m_cTimeValue.IsEmpty() || (double)m_cTimeValue != fTime)
 		m_cTimeValue = fTime;
-	int nPos = (int)((fTime + tMaxTimeRange[g_oSetData.Sg.nTimeRange]) / tMaxTimeRange[g_oSetData.Sg.nTimeRange] * 100 + 0.5);
+	const int nPos = (int)((fTime + tMaxTimeRange[g_oSetData.Sg.nTimeRange]) / tMaxTimeRange[g_oSetData.Sg.nTimeRange] * 100 + 0.5);
 	m_cTimeSlider.SetPos(nPos);
 	m_cTimeValueSpin.SetPos(nPos);
 	g_oSetData.Sg.fTimeDiff = fTime;
@@ -219,7 +219,7 @@ void CSgNoise::EnableTimeDiff()
 
 void CSgNoise::OnCbnSelchangeTimeRange()
 {
-	int nOldTimeRange = g_oSetData.Sg.nTimeRange;
+	const int nOldTimeRange = g_oSetData.Sg.nTimeRange;
 
 	g_oSetData.Sg.nTimeRange = m_cTimeRange.GetCurSel();
 
@@ -230,7 +230,7 @@ void CSgNoise::OnCbnSelchangeTimeRange()
 
 BOOL CSgNoise::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_WHITE_NOISE, IDH_SG_NOISE_WHITE_NOISE,
 		IDC_PINK_NOISE, IDH_SG_NOISE_PINK_NOISE,
 		IDC_BROWN_NOISE, IDH_SG_NOISE_BROWN_NOISE,
@@ -244,7 +244,7 @@ BOOL CSgNoise::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

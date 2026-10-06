@@ -83,13 +83,13 @@ void CWaveEditDlg::OnTcnSelchangeTabWaveEdit(NMHDR * /*pNMHDR*/, LRESULT *pResul
 
 BOOL CWaveEditDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		ID_OK, IDH_SG_EDIT_OK,
 		IDCANCEL, IDH_SG_EDIT_CANCEL,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

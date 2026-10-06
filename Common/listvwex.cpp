@@ -98,12 +98,12 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CRect rcItem(lpDrawItemStruct->rcItem);
 	UINT uiFlags = ILD_TRANSPARENT;
 	CImageList* pImageList;
-	int nItem = lpDrawItemStruct->itemID;
+	const int nItem = lpDrawItemStruct->itemID;
 	BOOL bFocus = (GetFocus() == this);
 	COLORREF clrTextSave, clrBkSave = 0;
 	COLORREF clrImage = m_clrBkgnd;
 	static _TCHAR szBuff[MAX_PATH];
-	LPCTSTR pszText;
+	LPCSTR pszText;
 
 // アイテム データを取得します。
 
@@ -164,10 +164,10 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 // 状態アイコンを描画します。
 
-	UINT nStateImageMask = lvi.state & LVIS_STATEIMAGEMASK;
+	const UINT nStateImageMask = lvi.state & LVIS_STATEIMAGEMASK;
 	if (nStateImageMask)
 	{
-		int nImage = (nStateImageMask>>12) - 1;
+		const int nImage = (nStateImageMask>>12) - 1;
 		pImageList = ListCtrl.GetImageList(LVSIL_STATE);
 		if (pImageList)
 		{
@@ -218,13 +218,11 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		rcItem.left = rcItem.right;
 		rcItem.right += lvc.cx;
 
-		int nRetLen = ListCtrl.GetItemText(nItem, nColumn,
-						szBuff, sizeof(szBuff));
+		const int nRetLen = ListCtrl.GetItemText(nItem, nColumn, szBuff, sizeof(szBuff));
 		if (nRetLen == 0)
 			continue;
 
-		pszText = MakeShortString(pDC, szBuff,
-			rcItem.right - rcItem.left, 2*OFFSET_OTHER);
+		pszText = MakeShortString(pDC, szBuff, rcItem.right - rcItem.left, 2*OFFSET_OTHER);
 
 		UINT nJustify = DT_LEFT;
 
@@ -265,11 +263,11 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 }
 
-LPCTSTR CListViewEx::MakeShortString(CDC* pDC, LPCTSTR lpszLong, int nColumnLen, int nOffset)
+LPCSTR CListViewEx::MakeShortString(CDC* pDC, LPCSTR lpszLong, int nColumnLen, int nOffset)
 {
 	static const _TCHAR szThreeDots[] = _T("...");
 
-	int nStringLen = lstrlen(lpszLong);
+	const int nStringLen = lstrlen(lpszLong);
 
 	if(nStringLen == 0 ||
 		(pDC->GetTextExtent(lpszLong, nStringLen).cx + nOffset) <= nColumnLen)
@@ -280,7 +278,7 @@ LPCTSTR CListViewEx::MakeShortString(CDC* pDC, LPCTSTR lpszLong, int nColumnLen,
 	static _TCHAR szShort[MAX_PATH];
 
 	lstrcpy(szShort,lpszLong);
-	int nAddLen = pDC->GetTextExtent(szThreeDots,sizeof(szThreeDots)).cx;
+	const int nAddLen = pDC->GetTextExtent(szThreeDots,sizeof(szThreeDots)).cx;
 
 	for(int i = nStringLen-1; i > 0; i--)
 	{

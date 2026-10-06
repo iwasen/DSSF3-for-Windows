@@ -8,7 +8,7 @@ CString		Get##name(void) const {												\
 	key.Format(_T("\\StringFileInfo\\%04X%04X\\")#name,*m_pLangID,*(m_pLangID+1));						\
 	TCHAR		*p;													\
 	UINT		tmp;													\
-	if (::VerQueryValue(m_pBlock,(LPTSTR)(LPCSTR)key,(void**)&p,&tmp)) {							\
+	if (::VerQueryValue(m_pBlock,(LPSTR)(LPCSTR)key,(void**)&p,&tmp)) {							\
 		CString		rc(p,tmp);											\
 		rc.ReleaseBuffer();												\
 		return rc;													\
@@ -21,11 +21,11 @@ protected:
 	void			*m_pBlock;
 	VS_FIXEDFILEINFO	*m_pFixedFileInfo;
 	WORD			*m_pLangID;
-	BOOL		Create(LPCTSTR lpszFileName) {
-				DWORD		dwSize=::GetFileVersionInfoSize((LPTSTR)lpszFileName,0);
+	BOOL		Create(LPCSTR lpszFileName) {
+				DWORD		dwSize=::GetFileVersionInfoSize((LPSTR)lpszFileName,0);
 				m_pBlock=new char[dwSize];
 				UINT		tmp,tmp2;
-				if (!::GetFileVersionInfo((LPTSTR)lpszFileName,0,dwSize,m_pBlock)||
+				if (!::GetFileVersionInfo((LPSTR)lpszFileName,0,dwSize,m_pBlock)||
 						!::VerQueryValue(m_pBlock,_T("\\"),(void**)&m_pFixedFileInfo,&tmp)||
 						!::VerQueryValue(m_pBlock,_T("\\VarFileInfo\\Translation"),(void**)&m_pLangID,&tmp2)) {
 					delete [] m_pBlock;
@@ -40,7 +40,7 @@ public:
 				::GetModuleFileName(hInstance,lpszFileName,sizeof(lpszFileName));
 				Create(lpszFileName);
 			}
-			CVerRes(LPCTSTR lpszFileName) { Create(lpszFileName); }
+			CVerRes(LPCSTR lpszFileName) { Create(lpszFileName); }
 	virtual		~CVerRes(void) { delete [] m_pBlock; }
 	DefineStringResource(FileVersion);
 	DefineStringResource(ProductVersion);

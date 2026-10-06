@@ -75,9 +75,10 @@ void CRecWnd::Initialize(int nFontSize, PFNGRAPH pCallBackFunc, LPARAM nCallBack
 	m_brushSelectArea.CreateSolidBrush(RGB(192, 255, 255));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -187,9 +188,9 @@ void CRecWnd::SetBitmap(double startTime, double dispTime)
 		m_dcMem.TextOut(m_nScaleLeft - size.cx - 2, y - size.cy / 2, sText);
 	}
 
-	double t1 = dispTime / 5;
+	const double t1 = dispTime / 5;
 	double step = pow(10.0, floor(log10(t1)));
-	double t2 = t1 / step;
+	const double t2 = t1 / step;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -266,9 +267,9 @@ void CRecWnd::DispGraph(double totalTime, double startTime, double dispTime, con
 	int x2 = 0;
 	int ymin = m_nScaleBottom;
 	int ymax = m_nScaleTop;
-	int i2 = int(startTime / totalTime * nData + 0.99);
+	const int i2 = int(startTime / totalTime * nData + 0.99);
 	for (int i = i2; i < nData; i++) {
-		int x = (int)((i * totalTime / nData - startTime) / dispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+		const int x = (int)((i * totalTime / nData - startTime) / dispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
 		if (x2 == 0)
 			x2 = x;
@@ -290,7 +291,7 @@ void CRecWnd::DispGraph(double totalTime, double startTime, double dispTime, con
 				break;
 		}
 
-		int y = (int)(m_nScaleCenter - pData[i * nChannel + nLR] * m_nScaleHeight / 2 / (fMaxData != 0 ? fMaxData : 1));
+		const int y = (int)(m_nScaleCenter - pData[i * nChannel + nLR] * m_nScaleHeight / 2 / (fMaxData != 0 ? fMaxData : 1));
 		if (y < ymin)
 			ymin = y;
 		if (y > ymax)
@@ -324,7 +325,7 @@ void CRecWnd::DispGraph2(const double *pData, int nData, int nChannel, int nLR, 
 	int ymin = m_nScaleBottom;
 	int ymax = m_nScaleTop;
 	for (int i = nOffset; i < nOffset + nLength; i++) {
-		int x = m_nScaleLeft + (int)((double)i * m_nScaleWidth / nData + 0.5);
+		const int x = m_nScaleLeft + (int)((double)i * m_nScaleWidth / nData + 0.5);
 
 		if (x2 == 0)
 			x2 = x;
@@ -346,7 +347,7 @@ void CRecWnd::DispGraph2(const double *pData, int nData, int nChannel, int nLR, 
 				break;
 		}
 
-		int y = (int)(m_nScaleCenter - pData[i * nChannel + nLR] * m_nScaleHeight / 2);
+		const int y = (int)(m_nScaleCenter - pData[i * nChannel + nLR] * m_nScaleHeight / 2);
 		if (y < ymin)
 			ymin = y;
 		if (y > ymax)
@@ -376,7 +377,7 @@ void CRecWnd::SetSelectArea(double startTime, double endTime, BOOL bErase)
 
 	m_dcMem.SelectClipRgn(&m_Rgn);
 
-	int ropModeOrg = m_dcMem.SetROP2(R2_NOTXORPEN);
+	const int ropModeOrg = m_dcMem.SetROP2(R2_NOTXORPEN);
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = (CPen *)m_dcMem.SelectStockObject(NULL_PEN);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushSelectArea);
@@ -429,7 +430,7 @@ void CRecWnd::GetSelectArea(double *startTime, double *endTime) const
 
 void CRecWnd::SetReplayPosition(double fReplayTime)
 {
-	int ropModeOrg = m_dcMem.SetROP2(R2_NOTXORPEN);
+	const int ropModeOrg = m_dcMem.SetROP2(R2_NOTXORPEN);
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = (CPen *)m_dcMem.SelectObject(&m_penReplayBar);
 	int x;
@@ -474,8 +475,8 @@ void CRecWnd::SetMouseCursor(CPoint point) const
 		break;
 	default:
 		if (m_fStartSelectTime >= 0) {
-			int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
-			int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 			if ((abs(point.x - x2) < 2 || abs(point.x - x1) < 2) && point.y > m_nScaleTop && point.y < m_nScaleBottom)
 				hCursor = m_hCursorHMove;
 		}
@@ -505,8 +506,8 @@ void CRecWnd::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if (point.y > m_nScaleTop && point.y < m_nScaleBottom) {
 		if (m_fStartSelectTime >= 0) {
-			int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
-			int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x1 = (int)((m_fStartSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+			const int x2 = (int)((m_fEndSelectTime - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
 			if (abs(point.x - x2) < 2) {
 				m_nMouseMode = MOUSE_SELECT_END;
@@ -563,7 +564,7 @@ void CRecWnd::OnMouseMove(UINT nFlags, CPoint point)
 	if (x > m_nScaleWidth)
 		x = m_nScaleWidth;
 
-	double t = x * m_fDispTime / m_nScaleWidth + m_fStartTime;
+	const double t = x * m_fDispTime / m_nScaleWidth + m_fStartTime;
 	double fStartSelectTime;
 	double fEndSelectTime;
 
@@ -619,7 +620,7 @@ void CRecWnd::OnRButtonDown(UINT nFlags, CPoint point)
 		if (x > m_nScaleWidth)
 			x = m_nScaleWidth;
 
-		double t = x * m_fDispTime / m_nScaleWidth + m_fStartTime;
+		const double t = x * m_fDispTime / m_nScaleWidth + m_fStartTime;
 
 		SetSelectArea(t, t);
 		m_nMouseMode = MOUSE_SELECT_END;

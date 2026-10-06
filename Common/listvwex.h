@@ -45,7 +45,7 @@ protected:
 #endif
 
 	void SetItemColor(int nItem, int nColor);
-	static LPCTSTR MakeShortString(CDC* pDC, LPCTSTR lpszLong, int nColumnLen, int nOffset);
+	static LPCSTR MakeShortString(CDC* pDC, LPCSTR lpszLong, int nColumnLen, int nOffset);
 	void RepaintSelectedItems();
 
 	int m_cxClient;

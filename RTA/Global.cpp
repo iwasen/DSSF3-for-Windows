@@ -103,7 +103,7 @@ int GetLinearScaleStep(int nMaxValue, int nMinvalue, int nScaleSize)
 	if (step == 0)
 		step = 1;
 
-	int scale = (int)log10((double)step);
+	const int scale = (int)log10((double)step);
 	int num = (int)(step / pow(10.0, scale));
 
 	if (num < 2)
@@ -133,9 +133,9 @@ double GetLinearScaleStep(double fRange, int nPixel, int *pStep)
 	if (fRange <= 0)
 		return 1;
 
-	double t1 = fRange / nPixel;
+	const double t1 = fRange / nPixel;
 	double fStep = pow(10.0, floor(log10(t1)));
-	double t2 = t1 / fStep;
+	const double t2 = t1 / fStep;
 	if (t2 < 2) {
 		fStep *= 0.5;
 		nStep = 2;
@@ -165,7 +165,7 @@ double GetScaleStartValue(double fMinValue, double fStep)
 
 CString GetDirName(const CString &filePath)
 {
-	int n = filePath.ReverseFind('\\');
+	const int n = filePath.ReverseFind('\\');
 	if (n < 0)
 		return filePath;
 	else
@@ -174,7 +174,7 @@ CString GetDirName(const CString &filePath)
 
 CString GetFileName(CString &filePath)
 {
-	int n = filePath.ReverseFind('\\');
+	const int n = filePath.ReverseFind('\\');
 	if (n < 0)
 		return filePath;
 	else
@@ -191,7 +191,7 @@ CString &GetString(UINT nID)
 
 BOOL SelectListBox(CComboBox &ctl, DWORD_PTR dwData)
 {
-	int n = ctl.GetCount();
+	const int n = ctl.GetCount();
 
 	for (int i = 0; i < n; i++) {
 		if (ctl.GetItemData(i) == dwData) {
@@ -205,7 +205,7 @@ BOOL SelectListBox(CComboBox &ctl, DWORD_PTR dwData)
 
 BOOL SelectListBox(CListBox &ctl, DWORD_PTR dwData)
 {
-	int n = ctl.GetCount();
+	const int n = ctl.GetCount();
 
 	for (int i = 0; i < n; i++) {
 		if (ctl.GetItemData(i) == dwData) {
@@ -251,10 +251,10 @@ CString GetNumberString(double fNumber)
 }
 
 BOOL CreateShortCut(
-		LPCTSTR pszShortcutFile,	// 作成する[*.lnk]のファイル名
-		LPCTSTR pszDescription,		// ディスクリプション名
-		LPCTSTR pszTargetFile,		// リンク元のファイルのフルパス名
-		LPCTSTR pszParameter)		// 起動パラメータ
+		LPCSTR pszShortcutFile,	// 作成する[*.lnk]のファイル名
+		LPCSTR pszDescription,		// ディスクリプション名
+		LPCSTR pszTargetFile,		// リンク元のファイルのフルパス名
+		LPCSTR pszParameter)		// 起動パラメータ
 {
 	BOOL bRet = FALSE;
 	HRESULT  hResult;
@@ -387,7 +387,7 @@ void GetAxisUnit(int nMode, CString &sUnitX, CString &sUnitY)
 	}
 }
 
-LPCTSTR GetRunningStatus(int nStringId, int nInputBits, int nOutputBits, int nRecordBits)
+LPCSTR GetRunningStatus(int nStringId, int nInputBits, int nOutputBits, int nRecordBits)
 {
 	static CString sStatus;
 	CString sRunning;
@@ -456,11 +456,12 @@ void SetBackupList(CListCtrl &cListBackup, CStringArray &oBackupList)
 				if (::GetPrivateProfileString("backup", "time", "", time, sizeof(time), sIniFileName)) {
 					::GetPrivateProfileString("backup", "comment", "", comment, sizeof(comment), sIniFileName);
 
-					LVITEM lvitem{};
-					lvitem.mask = LVIF_TEXT | LVIF_PARAM;
-					lvitem.iItem = 0;
-					lvitem.pszText = time;
-					lvitem.lParam = oBackupList.Add(find.GetFilePath());
+					LVITEM lvitem{
+						.mask = LVIF_TEXT | LVIF_PARAM,
+						.iItem = 0,
+						.pszText = time,
+						.lParam = oBackupList.Add(find.GetFilePath())
+					};
 					lvitem.iItem = cListBackup.InsertItem(&lvitem);
 
 					lvitem.mask = LVIF_TEXT;

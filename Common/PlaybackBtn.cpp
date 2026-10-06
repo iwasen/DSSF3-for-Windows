@@ -55,8 +55,8 @@ int CPlaybackBtn::ModeHwave(LPWAVENOTIFY pWaveNotify)
 {
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(m_hWaveData);
 
-	int nData = min(WAVEBUF_SIZE, m_nData - m_nOffset);
-	int nBytesPerSample = (pWaveData->nBitsPerSample / 8) * pWaveData->nChannels;
+	const int nData = min(WAVEBUF_SIZE, m_nData - m_nOffset);
+	const int nBytesPerSample = (pWaveData->nBitsPerSample / 8) * pWaveData->nChannels;
 	CopyWaveToDouble((BYTE *)pWaveData->waveData + m_nOffset * nBytesPerSample, pWaveNotify->pSamplesData, NULL, nData * pWaveData->nChannels, pWaveData->nBitsPerSample);
 	m_nOffset += nData;
 
@@ -87,9 +87,9 @@ void CPlaybackBtn::Play(HWAVEDATA hWaveData, DWORD nWaveDevice, double fOffsetTi
 	if (GetCheck()) {
 		if (hWaveData != NULL) {
 			PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-			WORD nChannels = pWaveData->nChannels;
-			DWORD nSamplesPerSec = pWaveData->nSamplesPerSec;
-			int nSampleSize = (pWaveData->nBitsPerSample / 8) * nChannels;
+			const WORD nChannels = pWaveData->nChannels;
+			const DWORD nSamplesPerSec = pWaveData->nSamplesPerSec;
+			const int nSampleSize = (pWaveData->nBitsPerSample / 8) * nChannels;
 
 			m_nMode = MODE_HWAVE;
 			m_hWaveData = hWaveData;
@@ -108,8 +108,8 @@ void CPlaybackBtn::Play(HWAVEDATA hWaveData, DWORD nWaveDevice, double fOffsetTi
 void CPlaybackBtn::Play(const double *pLeftData, const double *pRightData, int nData, int nRate, DWORD nWaveDevice)
 {
 	if (GetCheck()) {
-		WORD nChannels = (pRightData != NULL) ? 2 : 1;
-		DWORD nSamplesPerSec = nRate;
+		const WORD nChannels = (pRightData != NULL) ? 2 : 1;
+		const DWORD nSamplesPerSec = nRate;
 
 		m_nMode = MODE_BUF;
 		m_pLeftData = pLeftData;

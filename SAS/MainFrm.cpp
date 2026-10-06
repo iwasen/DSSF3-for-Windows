@@ -123,7 +123,7 @@ void CMainFrame::OnUpdateViewStyles(CCmdUI* pCmdUI)
 		pCmdUI->Enable(FALSE);
 	else
 	{
-		DWORD dwStyle = pView->GetStyle() & LVS_TYPEMASK;
+		const DWORD dwStyle = pView->GetStyle() & LVS_TYPEMASK;
 
 		pCmdUI->Enable();
 		BOOL bChecked = FALSE;

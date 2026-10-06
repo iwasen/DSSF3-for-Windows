@@ -111,7 +111,7 @@ void CSgPulse::SetPulseWidth()
 {
 	CString strBuf;
 
-	double t = 1000.0 / g_oSetData.Sg.nSamplingRate;
+	const double t = 1000.0 / g_oSetData.Sg.nSamplingRate;
 
 	m_cPulseWidth.ResetContent();
 	for (int i = 1; i < 50; i++) {
@@ -160,7 +160,7 @@ void CSgPulse::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 BOOL CSgPulse::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_PULSE_WIDTH, IDH_SG_PULSE_WIDTH,
 		IDC_PULSE_NUM, IDH_SG_PULSE_NUM,
 		IDC_PULSE_CONTINUE, IDH_SG_PULSE_CONTINUE,
@@ -171,7 +171,7 @@ BOOL CSgPulse::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

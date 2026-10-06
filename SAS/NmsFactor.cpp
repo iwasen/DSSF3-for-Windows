@@ -431,7 +431,7 @@ void CNmsFactor::InitNmsFactorList()
 		LPCSTR text;
 		int width;
 	};
-	static const LISTCOLUMN tColumnHeader[] = {
+	static constexpr LISTCOLUMN tColumnHeader[] = {
 		{0, "Time", 53},
 		{IDS_PHI0, NULL, 53},
 		{IDS_TAUE, NULL, 53},
@@ -515,7 +515,7 @@ void CNmsFactor::DispNmsFactorList()
 
 void CNmsFactor::DispCalcParam()
 {
-	static const int tFilterName[] = {IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING};
+	static constexpr int tFilterName[] = {IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING};
 
 	if (m_bCalculated) {
 		AcfCondition *pAcfCondition = &m_NmsConditionData.AcfCondition;
@@ -828,7 +828,7 @@ void CNmsFactor::OnScreenCopy()
 			if (dlg.DoModal() == IDOK) {
 				HDIB hDIB = ScreenCopy();
 				if (hDIB != NULL) {
-					MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)dlg.GetPathName());
+					MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
 					::GlobalFree(hDIB);
 				}
 			}
@@ -897,8 +897,8 @@ HDIB CNmsFactor::GraphCopy()
 	else
 		m_pGraphPhi0->GetWindowRect(rect);
 
-	int nWidth = (setData.NmsSC.nColSpace + rect.Width()) * nCol + setData.NmsSC.nColSpace;
-	int nHeight = (setData.NmsSC.nRowSpace + rect.Height()) * nRow + setData.NmsSC.nRowSpace;
+	const int nWidth = (setData.NmsSC.nColSpace + rect.Width()) * nCol + setData.NmsSC.nColSpace;
+	const int nHeight = (setData.NmsSC.nRowSpace + rect.Height()) * nRow + setData.NmsSC.nRowSpace;
 
 	CDC *pDC = GetDC();
 	CDC DCMem;
@@ -910,7 +910,7 @@ HDIB CNmsFactor::GraphCopy()
 	CGdiObject *pOrg = DCMem.SelectObject(&bmp);
 	DCMem.FillSolidRect(0, 0, nWidth, nHeight, GetSysColor(COLOR_3DFACE));
 
-	int nCurrentPage = m_nCurrentPage;
+	const int nCurrentPage = m_nCurrentPage;
 
 	nCol = nRow = 0;
 	for (i = 0; i < 10; i++) {
@@ -946,7 +946,7 @@ HDIB CNmsFactor::GraphCopy()
 
 	DCMem.SelectObject(pOrg);
 
-	int nSize = sizeof(BITMAPINFOHEADER) + WIDTHBYTES(nWidth * 24) * nHeight;
+	const int nSize = sizeof(BITMAPINFOHEADER) + WIDTHBYTES(nWidth * 24) * nHeight;
 	HDIB hDIB = ::GlobalAlloc(GMEM_MOVEABLE, nSize);
 	BITMAPINFO *pBmi = (BITMAPINFO *)::GlobalLock(hDIB);
 
@@ -972,10 +972,11 @@ CString CNmsFactor::GetDataText()
 	CString data;
 	char text[32];
 
-	LVCOLUMN lvc{};
-	lvc.mask = LVCF_TEXT;
-	lvc.pszText = text;
-	lvc.cchTextMax = sizeof(text);
+	LVCOLUMN lvc{
+		.mask = LVCF_TEXT,
+		.pszText = text,
+		.cchTextMax = sizeof(text)
+	};
 
 	for (i = 0; i < m_nColumn; i++) {
 		m_cFactorList.GetColumn(i, &lvc);
@@ -985,7 +986,7 @@ CString CNmsFactor::GetDataText()
 	}
 	data += "\r\n";
 
-	int nItem = m_cFactorList.GetItemCount();
+	const int nItem = m_cFactorList.GetItemCount();
 	for (i = 0; i < nItem; i++) {
 		for (j = 0; j < m_nColumn; j++) {
 			if (j != 0)
@@ -1071,7 +1072,7 @@ void CNmsFactor::SaveStartDisp()
 
 LRESULT CNmsFactor::OnSelectData(WPARAM wParam, LPARAM /*lParam*/)
 {
-	int nIndex = (int)(*(double *)wParam / m_NmsConditionData.AcfCondition.fRunningStep + 0.5);
+	const int nIndex = (int)(*(double *)wParam / m_NmsConditionData.AcfCondition.fRunningStep + 0.5);
 
 	if (nIndex >= 0 && nIndex < m_cFactorList.GetItemCount()) {
 		m_cFactorList.SetItemState(nIndex, LVIS_SELECTED, LVIS_SELECTED);
@@ -1092,7 +1093,7 @@ void CNmsFactor::OnBnClickedCsvOutput()
 
 BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDCANCEL, IDH_NMS_FACTOR_CANCEL,
 		IDC_SELECT_DATA, IDH_NMS_FACTOR_SELECT_DATA,
 		IDC_PREV_DATA, IDH_NMS_FACTOR_PREV_DATA,
@@ -1126,7 +1127,7 @@ BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

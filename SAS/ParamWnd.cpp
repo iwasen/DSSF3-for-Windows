@@ -70,9 +70,10 @@ void CParamWnd::Initialize(int nFontSize)
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = nFontSize;
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = nFontSize,
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -85,14 +86,14 @@ void CParamWnd::Initialize(int nFontSize)
 	m_wndRemark.Create(this);
 }
 
-void CParamWnd::SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double scaleMin, double scaleMax, double scaleStep, LPCTSTR vAxis)
+void CParamWnd::SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double scaleMin, double scaleMax, double scaleStep, LPCSTR vAxis)
 {
 	int	i;
 	int x, y;
 	double a;
 	CString text;
 	CSize size;
-	int nLine = (nData > 16) ? 2 : 1;
+	const int nLine = (nData > 16) ? 2 : 1;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penGray);
@@ -156,7 +157,7 @@ void CParamWnd::SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double
 	m_dcMem.SelectObject(pFontOrg);
 }
 
-void CParamWnd::DispGraph(const int *pDataFreq, int nFreqBand, const double *pDataAll, const double *pDataLeft, const double *pDataRight, int nData, double scaleMin, double scaleMax, double scaleStep, LPCTSTR vAxis)
+void CParamWnd::DispGraph(const int *pDataFreq, int nFreqBand, const double *pDataAll, const double *pDataLeft, const double *pDataRight, int nData, double scaleMin, double scaleMax, double scaleStep, LPCSTR vAxis)
 {
 	SetBitmap(pDataFreq, nFreqBand, nData, scaleMin, scaleMax, scaleStep, vAxis);
 
@@ -231,7 +232,7 @@ void CParamWnd::DispGraphSub(const int *pDataFreq, const double *pData, int nDat
 	}
 }
 
-void CParamWnd::DispRemark(LPCTSTR pTitle, int nRemark)
+void CParamWnd::DispRemark(LPCSTR pTitle, int nRemark)
 {
 	CString str1, str2, str3;
 	str1.LoadString(IDS_LRAVERAGE);

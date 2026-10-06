@@ -24,8 +24,8 @@ void CFftWnd::SetBitmap3dd(FFTWINDOW *pFftWindow)
 		m_dx = pFftWindow->m_nFrameWidth / 8 / g_oSetData.Fft.nTimeDataNum;
 		m_dy = m_dx;
 	}
-	int dx = m_dx * g_oSetData.Fft.nTimeDataNum;
-	int dy = m_dy * g_oSetData.Fft.nTimeDataNum;
+	const int dx = m_dx * g_oSetData.Fft.nTimeDataNum;
+	const int dy = m_dy * g_oSetData.Fft.nTimeDataNum;
 
 	m_dcMem.SetBkMode(TRANSPARENT);
 	m_dcMem.SetTextColor(COLOR_TEXT);
@@ -69,18 +69,18 @@ void CFftWnd::SetBitmap3dd(FFTWINDOW *pFftWindow)
 		m_p3ddCheckTbl = new int[pFftWindow->m_nScaleWidth];
 }
 
-void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCTSTR pText)
+void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText)
 {
 	int	nFreq, nLevel;
 	int x, y;
 	CString sText;
 	CSize size;
-	int nLeft1 = nLeft, nTop1 = nTop, nRight1 = nLeft + pFftWindow->m_nScaleWidth2, nBottom1 = nTop + pFftWindow->m_nScaleHeight2;
-	int nLeft2 = nRight - pFftWindow->m_nScaleWidth2, nTop2 = nBottom - pFftWindow->m_nScaleHeight2, nRight2 = nRight, nBottom2 = nBottom;
+	const int nLeft1 = nLeft, nTop1 = nTop, nRight1 = nLeft + pFftWindow->m_nScaleWidth2, nBottom1 = nTop + pFftWindow->m_nScaleHeight2;
+	const int nLeft2 = nRight - pFftWindow->m_nScaleWidth2, nTop2 = nBottom - pFftWindow->m_nScaleHeight2, nRight2 = nRight, nBottom2 = nBottom;
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
-	POINT point[]{
+	const POINT point[]{
 		{
 			.x = nLeft2,
 			.y = nBottom2,
@@ -118,8 +118,8 @@ void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	m_dcMem.SelectObject(&m_Font);
 
 	if (g_oSetData.Fft.nFftScale == 0) {
-		int step = GetLogScaleStep(m_nMinFreq);
-		double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
+		const int step = GetLogScaleStep(m_nMinFreq);
+		const double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += GetLogScaleStep(nFreq)) {
 			x =  nLeft2 + (int)((log((double)nFreq) - m_fLogMinFreq) * pFftWindow->m_nScaleWidth2 / fSpanFreq + 0.5);
 
@@ -140,8 +140,8 @@ void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 			}
 		}
 	} else {
-		int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, (int)(pFftWindow->m_nScaleWidth2 * 0.75));
-		double fSpanFreq = m_nMaxFreq - m_nMinFreq;
+		const int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, (int)(pFftWindow->m_nScaleWidth2 * 0.75));
+		const double fSpanFreq = m_nMaxFreq - m_nMinFreq;
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += step) {
 			x = nLeft2 + (int)((nFreq - m_nMinFreq) * pFftWindow->m_nScaleWidth2 / fSpanFreq + 0.5);
 
@@ -161,8 +161,8 @@ void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 		}
 	}
 
-	int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, pFftWindow->m_nScaleHeight);
-	double fSpanLevel = m_nMaxLevel - m_nMinLevel;
+	const int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, pFftWindow->m_nScaleHeight);
+	const double fSpanLevel = m_nMaxLevel - m_nMinLevel;
 	for (nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
 		sText.Format("%d", nLevel);
 		size = m_dcMem.GetOutputTextExtent(sText);
@@ -189,7 +189,7 @@ void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 		m_dcMem.LineTo(x + 4, y);
 	}
 
-	double t = m_fTimeStep * g_oSetData.Fft.nTimeDataNum / g_oSetData.Fft.nTimeRes;
+	const double t = m_fTimeStep * g_oSetData.Fft.nTimeDataNum / g_oSetData.Fft.nTimeRes;
 	if (t < 1.0)
 		sText.Format("t=%.1fms", t * 1000);
 	else
@@ -233,10 +233,10 @@ void CFftWnd::Calc3dd(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 	double *pFftPBuf = pFftData->m_oPowerSpecBuf.GetBuf();
 	long x, y;
 	long x2 = 0;
-	double fStepY = double(pFftWindow->m_nScaleHeight2) / (m_nMinLevel - m_nMaxLevel);
-	double fTmp1 = double(pFftWindow->m_nScaleWidth2) / (m_fLogMaxFreq - m_fLogMinFreq);
-	double fTmp2 = double(pFftWindow->m_nScaleWidth2) / (m_nMaxFreq - m_nMinFreq);
-	int nFftSize2 = m_nFftSize / 2;
+	const double fStepY = double(pFftWindow->m_nScaleHeight2) / (m_nMinLevel - m_nMaxLevel);
+	const double fTmp1 = double(pFftWindow->m_nScaleWidth2) / (m_fLogMaxFreq - m_fLogMinFreq);
+	const double fTmp2 = double(pFftWindow->m_nScaleWidth2) / (m_nMaxFreq - m_nMinFreq);
+	const int nFftSize2 = m_nFftSize / 2;
 	double fLevel = 0;
 	double fLevel2 = pFftPBuf[0];
 	int nLevelCounter = 0;

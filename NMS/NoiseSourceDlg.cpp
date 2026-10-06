@@ -55,14 +55,14 @@ void CNoiseSourceDlg::OnOK()
 
 BOOL CNoiseSourceDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_NOISE_SOURCE_OK,
 		IDCANCEL, IDH_NOISE_SOURCE_CANCEL,
 		IDC_NOISE_SOURCE_NAME, IDH_NOISE_SOURCE_NAME,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

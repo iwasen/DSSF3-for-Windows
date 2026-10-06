@@ -88,10 +88,10 @@ void CDigitalFilter::InitIIR(EDFShape eShape, EDFBand eBand, int nOrder, double 
 		fa = fFreq1;
 	}
 
-	double wc = tan(ang);
-	double cgam = cos(M_PI * (fa + fFreq2) / fSamplingFreq) / cos(ang);
+	const double wc = tan(ang);
+	const double cgam = cos(M_PI * (fa + fFreq2) / fSamplingFreq) / cos(ang);
 	fa = 2.0 * M_PI * fFreq1 / fSamplingFreq;
-	double cbp = (cgam - cos(fa)) / sin(fa);
+	const double cbp = (cgam - cos(fa)) / sin(fa);
 
 	int np, nz;
 	Plane(nOrder, fDelta, np, nz);
@@ -182,7 +182,7 @@ void CDigitalFilter::Chebyshev(int order, double delta, int np)
 	if (m_eShape == EDF_Chebyshev)
 		x = 1.0 / x;
 
-	double alpha = log(x + sqrt(x * x + 1.0)) / order;
+	const double alpha = log(x + sqrt(x * x + 1.0)) / order;
 
 	ButChe(order, np, sinh(alpha), cosh(alpha));
 }
@@ -371,8 +371,8 @@ void CDigitalFilter::ToCascade(double cgam, double fScale)
 				a = -1.0;
 			else
 				a = 1.0;
-			double an = 1.0 - a * akm[0][j] - akm[1][j];
-			double bn = 1.0 + a * bkm[1][j] + bkm[2][j];
+			const double an = 1.0 - a * akm[0][j] - akm[1][j];
+			const double bn = 1.0 + a * bkm[1][j] + bkm[2][j];
 			gain = an / bn;
 		}
 

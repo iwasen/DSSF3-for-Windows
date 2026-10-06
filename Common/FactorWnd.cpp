@@ -77,7 +77,7 @@ void CFactorWnd::OnPaint()
 		if (m_rectZoom.Width() != 0) {
 			CPen *pPenOrg = m_dcMem2.SelectObject(&m_penZoomArea);
 			CBrush *pBrushOrg = m_dcMem2.SelectObject(&m_brushZoomArea);
-			int ropModeOrg = m_dcMem2.SetROP2(R2_MASKPEN);
+			const int ropModeOrg = m_dcMem2.SetROP2(R2_MASKPEN);
 
 			m_dcMem2.Rectangle(m_rectZoom);
 
@@ -113,7 +113,7 @@ BOOL CFactorWnd::OnEraseBkgnd(CDC* /*pDC*/)
 	return TRUE;
 }
 
-void CFactorWnd::Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd)
+void CFactorWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd)
 {
 	if (m_bInitialize)
 		return;
@@ -186,9 +186,10 @@ void CFactorWnd::SetSize(int nFontSize)
 	ReleaseDC(pDC);
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(nFontSize, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.DeleteObject();
@@ -216,7 +217,7 @@ void CFactorWnd::SetSize(int nFontSize)
 	m_Rgn.CreateRectRgn(m_nScaleLeft, m_nScaleTop, m_nScaleRight + 1, m_nScaleBottom + 1);
 }
 
-void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, double fMinValue, LPCTSTR pAxisStr, BOOL bLogScale)
+void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, double fMinValue, LPCSTR pAxisStr, BOOL bLogScale)
 {
 	CString sText;
 	CSize size;
@@ -224,7 +225,7 @@ void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue
 	double step, t, t1, t2;
 	double fValue;
 	int ns;
-	double fLevelRange = fMaxValue - fMinValue;
+	const double fLevelRange = fMaxValue - fMinValue;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
@@ -242,9 +243,9 @@ void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue
 
 	if (bLogScale) {
 		step = pow(10, floor(log10((fMinValue)) + 1e-3));
-		double fLogMaxValue = log(fMaxValue);
-		double fLogMinValue = log(fMinValue);
-		double fSpan = fLogMaxValue - fLogMinValue;
+		const double fLogMaxValue = log(fMaxValue);
+		const double fLogMinValue = log(fMinValue);
+		const double fSpan = fLogMaxValue - fLogMinValue;
 		for (fValue = floor(fMinValue / step + 1e-3) * step; fValue <= fMaxValue; fValue += pow(10, floor(log10((fValue)) + 1e-3))) {
 			y =  m_nScaleBottom - (int)((log(fValue) - fLogMinValue) * m_nScaleHeight / fSpan + 0.5);
 
@@ -352,12 +353,12 @@ void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue
 	m_dcMem.SelectObject(pFontOrg);
 }
 
-void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime, const double *pData, int nData, double fMaxValue, double fMinValue, LPCTSTR pAxisStr, int nSel, BOOL bHScroll, BOOL bVScroll, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec, double fOffsetTime, BOOL bLogScale)
+void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime, const double *pData, int nData, double fMaxValue, double fMinValue, LPCSTR pAxisStr, int nSel, BOOL bHScroll, BOOL bVScroll, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec, double fOffsetTime, BOOL bLogScale)
 {
 	int i, i2;
 	int x;
 	int y;
-	double fLevelRange = fMaxValue - fMinValue;
+	const double fLevelRange = fMaxValue - fMinValue;
 	BOOL bFirst = TRUE;
 	BOOL bSel = FALSE;
 	int nSelX = 0, nSelY = 0;
@@ -372,10 +373,10 @@ void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penData);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushData);
 
-	int nDotSize1 = min(int(m_nScaleWidth * fStepTime / fDispTime) / 4, 2);
-	int nDotSize2 = nDotSize1 ? nDotSize1 + 1 : 0;
+	const int nDotSize1 = min(int(m_nScaleWidth * fStepTime / fDispTime) / 4, 2);
+	const int nDotSize2 = nDotSize1 ? nDotSize1 + 1 : 0;
 
-	double fOffset = fStartTime / fStepTime;
+	const double fOffset = fStartTime / fStepTime;
 	i2 = int(fOffset);
 	for (i = i2; i < nData; i++) {
 		if (!_isnan(pData[i]) && _finite(pData[i])) {
@@ -426,7 +427,7 @@ void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime
 
 	m_arrayMarker.RemoveAll();
 	if (nAcfMarkerRec != 0) {
-		double fEndTime = fStartTime + fDispTime;
+		const double fEndTime = fStartTime + fDispTime;
 		for (i = 0; i < nAcfMarkerRec; i++) {
 			if (pAcfMarkerRec[i].fTime > fStartTime && pAcfMarkerRec[i].fTime < fEndTime) {
 				x = m_nScaleLeft + (int)((pAcfMarkerRec[i].fTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
@@ -644,7 +645,7 @@ void CFactorWnd::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CFactorWnd::DispMarkerCursor(double fStartTime, double fDispTime, double fOffsetTime)
 {
-	int x = (int)((fOffsetTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
+	const int x = (int)((fOffsetTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
 	if (x >= 0 && x < m_nScaleWidth)
 		m_nMarkerCursorX = x + m_nScaleLeft;
 	else

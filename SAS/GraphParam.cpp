@@ -89,7 +89,7 @@ BOOL CGraphParam::OnInitDialog()
 
 	m_cGraphParam.Initialize(90);
 
-	int nData = m_pDbAcParamRec->nDataNum;
+	const int nData = m_pDbAcParamRec->nDataNum;
 
 	m_pDataFreq = new int[nData];
 	for (int i = 0; i < nData; i++)
@@ -171,9 +171,9 @@ void CGraphParam::DispParamWindow()
 	double *pDataAll = m_pDataAll;
 	double *pDataLeft = m_pDataLeft;
 	double *pDataRight = m_pDataRight;
-	int nData = m_pDbAcParamRec->nDataNum;
+	const int nData = m_pDbAcParamRec->nDataNum;
 	double fScaleMin, fScaleMax, fScaleStep;
-	LPCTSTR pTitle;
+	LPCSTR pTitle;
 	LPCSTR vAxis;
 	int nRemark;
 	int i;
@@ -257,7 +257,7 @@ void CGraphParam::DispParamWindow()
 		pTitle = str;
 		nRemark = 1;
 		str2 = str + " [ms]";
-		vAxis = (LPTSTR)(LPCSTR)str2;
+		vAxis = (LPSTR)(LPCSTR)str2;
 		break;
 	case ITEM_WIACC:
 		if (m_pDbImpulseRec->nChannel == 2) {
@@ -478,7 +478,7 @@ void CGraphParam::DispParamWindow()
 
 BOOL CGraphParam::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_PARAM, IDH_GRAPH_PARAM,
 		IDC_PARAM_SPL, IDH_GRAPH_PARAM_SPL,
 		IDC_PARAM_A, IDH_GRAPH_PARAM_A,
@@ -501,7 +501,7 @@ BOOL CGraphParam::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

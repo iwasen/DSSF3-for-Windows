@@ -7,7 +7,7 @@ class CFreqWnd : public CWnd
 public:
 	CFreqWnd();
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF freqColor, COLORREF phaseColor);
+	void Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF freqColor, COLORREF phaseColor);
 	void DispGraph(const double *pFreqData, int nData, double fRate, int nMinFreq, int nMaxFreq, int nMinLevel, int nMaxLevel, const double *pPhaseData, BOOL bMean);
 
 protected:

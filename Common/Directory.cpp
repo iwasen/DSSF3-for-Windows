@@ -9,7 +9,7 @@
 #define DATA_DIRECTORY	"YMEC\\DSSF3E"
 #endif
 
-BOOL CreateDirectoryAll(LPCTSTR pDirPath)
+BOOL CreateDirectoryAll(LPCSTR pDirPath)
 {
 	DWORD err;
 	char *p;
@@ -36,7 +36,7 @@ BOOL CreateDirectoryAll(LPCTSTR pDirPath)
 	return TRUE;
 }
 
-void DeleteDirectoryAll(LPCTSTR pDirName)
+void DeleteDirectoryAll(LPCSTR pDirName)
 {
 	CString dir = pDirName;
 
@@ -60,9 +60,9 @@ void DeleteDirectoryAll(LPCTSTR pDirName)
 	::RemoveDirectory(pDirName);
 }
 
-static void GetFolder(TCHAR *pPath)
+static void GetFolder(LPSTR pPath)
 {
-	HRESULT	(CALLBACK* pfnSHGetFolderPath)(HWND, int, HANDLE, DWORD, LPTSTR) = NULL;
+	HRESULT	(CALLBACK* pfnSHGetFolderPath)(HWND, int, HANDLE, DWORD, LPSTR) = NULL;
 
 	HMODULE hDLL = ::LoadLibrary("shell32.dll");
 	if (hDLL != NULL)

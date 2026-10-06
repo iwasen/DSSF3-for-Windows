@@ -110,16 +110,16 @@ int CWaveOut::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 	LONG nRc = 0;
 
 	if (m_pWnd != NULL) {
-		WAVENOTIFY waveNotify{};
-
 		if (pWaveHdr != NULL) {
-			int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
-			waveNotify.pSamplesData = m_pSamplesBuffer;
-			waveNotify.nSamplesNum = pWaveHdr->dwBufferLength / nBytesPerSample;
-			waveNotify.nSamplesRecorded = pWaveHdr->dwBytesRecorded / nBytesPerSample;
-			waveNotify.nFlags = pWaveHdr->dwFlags;
-			waveNotify.nChannels = m_oWaveFormat.Format.nChannels;
-			waveNotify.nSamplesPerSec = m_oWaveFormat.Format.nSamplesPerSec;
+			const int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
+			WAVENOTIFY waveNotify{
+				.pSamplesData = m_pSamplesBuffer,
+				.nSamplesNum = (int)(pWaveHdr->dwBufferLength / nBytesPerSample),
+				.nSamplesRecorded = (int)(pWaveHdr->dwBytesRecorded / nBytesPerSample),
+				.nFlags = (int)pWaveHdr->dwFlags,
+				.nChannels = m_oWaveFormat.Format.nChannels,
+				.nSamplesPerSec = (int)m_oWaveFormat.Format.nSamplesPerSec
+			};
 
 			nRc = m_pWnd->OnWaveNotify(nCode, &waveNotify) * nBytesPerSample;
 
@@ -130,8 +130,10 @@ int CWaveOut::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 			pWaveHdr->dwBytesRecorded = waveNotify.nSamplesRecorded * nBytesPerSample;
 			pWaveHdr->dwFlags = waveNotify.nFlags;
 		} else {
-			waveNotify.nChannels = m_oWaveFormat.Format.nChannels;
-			waveNotify.nSamplesPerSec = m_oWaveFormat.Format.nSamplesPerSec;
+			WAVENOTIFY waveNotify{
+				.nChannels = m_oWaveFormat.Format.nChannels,
+				.nSamplesPerSec = (int)m_oWaveFormat.Format.nSamplesPerSec
+			};
 			nRc = m_pWnd->OnWaveNotify(nCode, &waveNotify);
 		}
 	}
@@ -141,7 +143,7 @@ int CWaveOut::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 
 void CWaveOut::ConvertDoubleToWave(LPWAVEHDR pWaveHdr, int rc)
 {
-	int nDataNum = min((int)pWaveHdr->dwBufferLength, rc) / (m_oWaveFormat.Format.wBitsPerSample / 8);
+	const int nDataNum = min((int)pWaveHdr->dwBufferLength, rc) / (m_oWaveFormat.Format.wBitsPerSample / 8);
 	double *pSamplesData = m_pSamplesBuffer;
 	BYTE *bp;
 	short *sp;
@@ -332,7 +334,7 @@ LRESULT CWaveOut::OnWaveOutDone(WPARAM /*wParam*/, LPARAM lParam)
 
 	if (m_hWave != NULL && m_pWnd != NULL) {
 		if (!m_bCloseWait) {
-			DWORD dwBufferLength = NotifyMessage(WAVEOUT_DATA, lpWaveHdr);
+			const DWORD dwBufferLength = NotifyMessage(WAVEOUT_DATA, lpWaveHdr);
 			if (m_hWave == NULL)
 				return 0L;
 

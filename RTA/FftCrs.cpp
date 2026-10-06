@@ -36,8 +36,8 @@ void CFftWnd::DrawScaleCrs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 {
 	int	nFreq, nLevel;
 	int x, y;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CString sText;
 	CSize size;
 
@@ -52,7 +52,7 @@ void CFftWnd::DrawScaleCrs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	m_dcMem.SelectObject(&m_Font);
 
 	if (g_oSetData.Fft.nFftScale == 0) {
-		int step = GetLogScaleStep(m_nMinFreq);
+		const int step = GetLogScaleStep(m_nMinFreq);
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += GetLogScaleStep(nFreq)) {
 			x =  (int)((log((double)nFreq) - m_fLogMinFreq) * nWidth / (m_fLogMaxFreq - m_fLogMinFreq) + 0.5) + nLeft;
 
@@ -75,7 +75,7 @@ void CFftWnd::DrawScaleCrs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	} else {
 		m_dcMem.SelectObject(m_penGray);
 
-		int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, (int)(nWidth * 0.75));
+		const int step = GetLinearScaleStep(m_nMaxFreq, m_nMinFreq, (int)(nWidth * 0.75));
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += step) {
 			x =  (int)((nFreq - m_nMinFreq) * nWidth / (double)(m_nMaxFreq - m_nMinFreq) + 0.5) + nLeft;
 
@@ -97,7 +97,7 @@ void CFftWnd::DrawScaleCrs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(m_penGray);
 
-	int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
+	const int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
 	for (nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
 		y = (int)(nTop - (nLevel - m_nMaxLevel) * nHeight / (double)(m_nMaxLevel - m_nMinLevel) + 0.5);
 
@@ -141,7 +141,7 @@ void CFftWnd::CalcCrs(const FFTWINDOW *pFftWindow)
 	double fLevel;
 	double *pCrossBufRe = m_oCrossBufRe.GetBuf();
 	double *pCrossBufIm = m_oCrossBufIm.GetBuf();
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 
 	m_fCrossAllPower = 0;
 	for (i = 1; i < nFftSize2; i++) {
@@ -171,11 +171,11 @@ int CFftWnd::CalcCrsSub(const FFTWINDOW *pFftWindow, const double *pFftPBuf, POI
 {
 	int x;
 	int x2 = 0;
-	double fStepY = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
-	double fTmp1 = (double)pFftWindow->m_nScaleWidth / (m_fLogMaxFreq - m_fLogMinFreq);
-	double fTmp2 = (double)pFftWindow->m_nScaleWidth / (m_nMaxFreq - m_nMinFreq);
+	const double fStepY = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
+	const double fTmp1 = (double)pFftWindow->m_nScaleWidth / (m_fLogMaxFreq - m_fLogMinFreq);
+	const double fTmp2 = (double)pFftWindow->m_nScaleWidth / (m_nMaxFreq - m_nMinFreq);
 	double fLevel;
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	int nPointCount = 0;
 	double ymin = pFftPBuf[0];
 	double ymax = pFftPBuf[0];
@@ -221,10 +221,10 @@ void CFftWnd::DispCrsInfo(const FFTWINDOW *pFftWindow)
 	double *pBuf = m_pCrsBuf;
 
 	if (g_oSetData.Fft.bPeakDisp) {
-		int nFftSize2 = m_nFftSize / 2;
+		const int nFftSize2 = m_nFftSize / 2;
 		double fPeakLevel = 0;
 		for (int i = 1; i < nFftSize2; i++) {
-			double fFreq = m_fFreqStep * i;
+			const double fFreq = m_fFreqStep * i;
 			if (fFreq >= m_nMinFreq && fFreq <= m_nMaxFreq && pBuf[i] > fPeakLevel) {
 				fPeakLevel = pBuf[i];
 				m_nCrsDispFreq = i;
@@ -322,7 +322,7 @@ void CFftWnd::CsvOutputCrs(CCsvFile &oCsvFile)
 	if (g_oSetData.Fft.bPeakHold)
 		pBuf2 = m_pCrsPeakLevel;
 
-	int nFftSize2 = m_nFftSize / 2;
+	const int nFftSize2 = m_nFftSize / 2;
 	for (int i = 1; i < nFftSize2; i++) {
 		oCsvFile.SetData(m_fFreqStep * i);
 
@@ -360,15 +360,15 @@ void CFftWnd::CsvInputCrs(CCsvFile &oCsvFile)
 		oCsvDataList.AddTail(oCsvData);
 	}
 
-	int nDataNum = (int)oCsvDataList.GetCount();
-	double fLastFreq = oCsvDataList.GetTail().fData[0];
-	int nFFtSizeIndex = (int)floor(log((double)nDataNum) / log(2.0) + 0.5) - 9;
-	int nSamplingRateIndex = GetSamplingRateIndex((int)fLastFreq * 2);
+	const int nDataNum = (int)oCsvDataList.GetCount();
+	const double fLastFreq = oCsvDataList.GetTail().fData[0];
+	const int nFFtSizeIndex = (int)floor(log((double)nDataNum) / log(2.0) + 0.5) - 9;
+	const int nSamplingRateIndex = GetSamplingRateIndex((int)fLastFreq * 2);
 
 	m_pFftDlg->SetCsvConditions(FFT_MODE_CRS, -1, nFFtSizeIndex, nSamplingRateIndex, -1, -1);
 
 	double *pBuf1 = m_pCrsBuf;
-	int nBufSize = m_nFftSize / 2;
+	const int nBufSize = m_nFftSize / 2;
 
 	for (int i = 0; i < nBufSize && !oCsvDataList.IsEmpty(); i++) {
 		oCsvData = oCsvDataList.RemoveHead();

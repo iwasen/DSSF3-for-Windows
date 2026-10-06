@@ -529,7 +529,7 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 		{0, "W_IACC", 55}
 	};
 	const LISTCOLUMN *pColumnHeader;
-	static const char *tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
+	static LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
 	const char **pUnit = NULL;
 	CString str;
 	int nColumn;
@@ -606,7 +606,7 @@ void CAcfRealtimeDlg::OnMove(int x, int y)
 
 BOOL CAcfRealtimeDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_PHI0, IDH_ACF_REALTIME_GRAPH_PHI0,
 		IDC_GRAPH_PHI1, IDH_ACF_REALTIME_GRAPH_PHI1,
 		IDC_GRAPH_TAU_E, IDH_ACF_REALTIME_GRAPH_TAU_E,
@@ -616,7 +616,7 @@ BOOL CAcfRealtimeDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

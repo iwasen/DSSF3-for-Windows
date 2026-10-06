@@ -16,10 +16,10 @@ class CWaveFile
 public:
 	~CWaveFile();
 
-	BOOL Create(LPCTSTR pFileName, const PCMWAVEFORMAT *pWaveFormat);
+	BOOL Create(LPCSTR pFileName, const PCMWAVEFORMAT *pWaveFormat);
 	void Write(const double *pData, int nSamplesNum);
 	void Close();
-	BOOL Open(LPCTSTR pFileName, PCMWAVEFORMAT *pWaveFormat, DWORD *pDataSize);
+	BOOL Open(LPCSTR pFileName, PCMWAVEFORMAT *pWaveFormat, DWORD *pDataSize);
 	void Read(double *pData, int nSamplesNum);
 
 protected:

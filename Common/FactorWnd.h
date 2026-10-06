@@ -15,9 +15,9 @@ class CFactorWnd : public CWnd
 public:
 	CFactorWnd();
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd = NULL);
+	void Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd = NULL);
 	void SetSize(int nFontSize);
-	void DispGraph(double fStepTime, double fStartTime, double fDispTime, const double *pData, int nData, double fMaxValue, double fMinValue, LPCTSTR pAxisStr, int nSel, BOOL bHScroll, BOOL bVScroll, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec, double fOffsetTime, BOOL bLogScale);
+	void DispGraph(double fStepTime, double fStartTime, double fDispTime, const double *pData, int nData, double fMaxValue, double fMinValue, LPCSTR pAxisStr, int nSel, BOOL bHScroll, BOOL bVScroll, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec, double fOffsetTime, BOOL bLogScale);
 	void DispMarkerCursor(double fStartTime, double fDispTime, double fOffsetTime);
 	void HideMarkerCursor();
 	void SetZoomRect(double fLeft, double fTop, double fRight, double fBottom);
@@ -62,7 +62,7 @@ protected:
 	HCURSOR m_hCursor;
 	CWnd *m_pNotifyWnd;
 
-	void SetBitmap(double fStartTime, double fDispTime, double fMaxValue, double fMinValue, LPCTSTR pAxisStr, BOOL bLogScale);
+	void SetBitmap(double fStartTime, double fDispTime, double fMaxValue, double fMinValue, LPCSTR pAxisStr, BOOL bLogScale);
 	void SetMouseCursor();
 
 	DECLARE_MESSAGE_MAP()

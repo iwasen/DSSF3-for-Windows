@@ -94,7 +94,7 @@ void CDataBackupDlg::OnBnClickedDeleteBackup()
 
 BOOL CDataBackupDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_EDIT_COMMENT, IDH_BACKUP_EDIT_COMMENT,
 		IDC_LIST_BACKUP, IDH_BACKUP_LIST_BACKUP,
 		IDOK, IDH_BACKUP_EXEC,
@@ -103,7 +103,7 @@ BOOL CDataBackupDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

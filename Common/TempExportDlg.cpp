@@ -61,13 +61,12 @@ void CTempExportDlg::SetNsTmpList(long nID)
 		return;
 
 	DbNsTmpRec dbNsTmpRec;
-	int nIndex;
 
 	for (int i = 0; ; i++) {
 		if (!dbNsTmp.ReadRecNext(&dbNsTmpRec, NULL))
 			break;
 
-		nIndex = m_cTemplateList.AddString(dbNsTmpRec.sName);
+		const int nIndex = m_cTemplateList.AddString(dbNsTmpRec.sName);
 		m_cTemplateList.SetItemData(nIndex, dbNsTmpRec.nNsTmpID);
 
 		if (nID == -1 || dbNsTmpRec.nNsTmpID == nID)
@@ -77,19 +76,19 @@ void CTempExportDlg::SetNsTmpList(long nID)
 
 void CTempExportDlg::OnAllSelect()
 {
-	int nCount = m_cTemplateList.GetCount();
+	const int nCount = m_cTemplateList.GetCount();
 	for (int i = 0; i < nCount; i++)
 		m_cTemplateList.SetSel(i);
 }
 
 void CTempExportDlg::OnAllRemove()
 {
-	int nCount = m_cTemplateList.GetCount();
+	const int nCount = m_cTemplateList.GetCount();
 	for (int i = 0; i < nCount; i++)
 		m_cTemplateList.SetSel(i, FALSE);
 }
 
-BOOL CTempExportDlg::ExportTemplate(LPCTSTR pFileName)
+BOOL CTempExportDlg::ExportTemplate(LPCSTR pFileName)
 {
 	CDbNsTmp dbNsTmp;
 	if (!dbNsTmp.Open()) {
@@ -118,7 +117,7 @@ BOOL CTempExportDlg::ExportTemplate(LPCTSTR pFileName)
 
 BOOL CTempExportDlg::CheckSelect(long nID)
 {
-	int nCount = m_cTemplateList.GetCount();
+	const int nCount = m_cTemplateList.GetCount();
 	for (int i = 0; i < nCount; i++) {
 		if (m_cTemplateList.GetItemData(i) == (DWORD)nID) {
 			if (m_cTemplateList.GetSel(i) > 0)
@@ -133,7 +132,7 @@ BOOL CTempExportDlg::CheckSelect(long nID)
 
 BOOL CTempExportDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_TEMP_EXPORT_OK,
 		IDCANCEL, IDH_TEMP_EXPORT_CANCEL,
 		IDC_TEMPLATE_LIST, IDH_TEMP_EXPORT_TEMPLATE_LIST,
@@ -142,7 +141,7 @@ BOOL CTempExportDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

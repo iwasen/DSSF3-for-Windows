@@ -118,7 +118,7 @@ void CNmsView::SetListHeader()
 	CString str;
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;
-	int size = ARRAY_SIZE(tColumnHeader);
+	const int size = ARRAY_SIZE(tColumnHeader);
 
 	for (int i = 0; i < size; i++, pColumnHeader++) {
 		if (pColumnHeader->nID == 0)
@@ -129,7 +129,7 @@ void CNmsView::SetListHeader()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = pColumnHeader->fmt,
 			.cx = CDpi::AdjustDpi(pColumnHeader->width),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		GetListCtrl().InsertColumn(i, &lvc);
 	}
@@ -155,7 +155,7 @@ void CNmsView::AddItem(const CNmsItem *pNmsItem)
 	CListCtrl &lc = GetListCtrl();
 	CString str;
 
-	int nItem = pNmsItem->m_nIndex;
+	const int nItem = pNmsItem->m_nIndex;
 	str.Format("%d", nItem + 1);
 	lc.InsertItem(nItem, (LPCSTR)str);
 	lc.SetItemData(nItem, (DWORD_PTR)pNmsItem);
@@ -174,7 +174,7 @@ void CNmsView::SetNmsItem(const CNmsItem *pNmsItem)
 {
 	CListCtrl &lc = GetListCtrl();
 	static const UINT status[] = {NULL, IDS_NOT_CALC, IDS_IN_CALC, IDS_FINISHED};
-	int nItem = pNmsItem->m_nIndex;
+	const int nItem = pNmsItem->m_nIndex;
 	CString str;
 	int nItemColor;
 
@@ -193,7 +193,7 @@ void CNmsView::SetNmsItem(const CNmsItem *pNmsItem)
 		AcfFactor *pAcfFactor = NULL;
 		IAcfFactor *pIAcfFactor = NULL;
 
-		int nIdentPos = GetIdentPos(pNmsItem->m_pNmsFactorData, pNmsItem->m_nNmsFactorData, &g_oSetData.Measurement.IdentCondition);
+		const int nIdentPos = GetIdentPos(pNmsItem->m_pNmsFactorData, pNmsItem->m_nNmsFactorData, &g_oSetData.Measurement.IdentCondition);
 		fMaxSPL = pNmsItem->m_pNmsFactorData[nIdentPos].IAcf.fSPL;
 		pIAcfFactor = &pNmsItem->m_pNmsFactorData[nIdentPos].IAcf;
 		pAcfFactor = &pNmsItem->m_pNmsFactorData[nIdentPos].Acf;
@@ -246,7 +246,7 @@ void CNmsView::SetNmsItem(const CNmsItem *pNmsItem)
 
 void CNmsView::OnViewFactor()
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	POSITION pos;
 	int nIndex;
 	CNmsItem *pNmsItem;
@@ -261,7 +261,7 @@ void CNmsView::OnViewFactor()
 
 void CNmsView::OnUpdateViewFactor(CCmdUI* pCmdUI)
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	POSITION pos;
 	int nIndex;
 	CNmsItem *pNmsItem;
@@ -316,9 +316,9 @@ void CNmsView::OnRclick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 	*pResult = 0;
 }
 
-CNmsItem *CNmsView::GetSelectedItem()
+CNmsItem *CNmsView::GetSelectedItem() const
 {
-	CListCtrl &lc = GetListCtrl();
+	const CListCtrl &lc = GetListCtrl();
 	POSITION pos;
 	int nIndex;
 

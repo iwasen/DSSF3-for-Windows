@@ -123,7 +123,7 @@ void CGraphMTF::OnShowWindow(BOOL bShow, UINT nStatus)
 
 BOOL CGraphMTF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_MTF_LEFT, IDH_GRAPH_MTF_LEFT,
 		IDC_MTF_RIGHT, IDH_GRAPH_MTF_RIGHT,
 		IDC_STI_L, IDH_GRAPH_MTF_STI_L,
@@ -137,7 +137,7 @@ BOOL CGraphMTF::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

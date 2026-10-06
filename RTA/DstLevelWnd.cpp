@@ -28,9 +28,10 @@ void CDstLevelWnd::Initialize()
 	m_penLightGray.CreatePen(PS_SOLID, 0, COLOR_LIGHTGRAY);
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(90, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(90, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -94,8 +95,8 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 {
 	int x, y;
 	int i;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CPen *pPenOrg;
 	CSize size;
 	CString sText;
@@ -115,11 +116,11 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 
 	m_dcMem.SelectObject(&m_Font);
 
-	int nLevelMin = min(nLevelStart, nLevelEnd);
-	int nLevelMax = max(nLevelStart, nLevelEnd);
+	const int nLevelMin = min(nLevelStart, nLevelEnd);
+	const int nLevelMax = max(nLevelStart, nLevelEnd);
 
 	if (nLevelMin != nLevelMax) {
-		int nStep = GetLinearScaleStep(nLevelMax, nLevelMin, (int)(m_nScaleWidth * 0.6));
+		const int nStep = GetLinearScaleStep(nLevelMax, nLevelMin, (int)(m_nScaleWidth * 0.6));
 		for (int nLevel = GetScaleStartValue(nLevelMin, nStep); nLevel <= nLevelMax; nLevel += nStep) {
 			x =  (int)((nLevel - nLevelMin) * m_nScaleWidth / (nLevelMax - nLevelMin) + m_nScaleLeft + 0.5);
 
@@ -141,9 +142,9 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 	m_dcMem.TextOut(nLeft + (nWidth - size.cx) / 2, m_nHeight - size.cy - 2, sText);
 
 	if (g_oSetData.Dst.nScaleMode == 0) {
-		double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
-		double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
-		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
+		const double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
+		const double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
+		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
 			double fStep;
 			for (fTHD = fMinTHD, i = 0; fTHD <= fMaxTHD * 1.0001; fTHD += fStep, i++) {
@@ -167,9 +168,9 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 		}
 		sUnit = "[%]";
 	} else {
-		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
+		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
-			int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
+			const int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
 			for (nTHD = g_oSetData.Dst.nScaleMin, i = 0; nTHD <= g_oSetData.Dst.nScaleMax; nTHD += nStep, i++) {
 				y = m_nScaleBottom - (int)((nTHD - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
 
@@ -226,9 +227,6 @@ void CDstLevelWnd::DispGraph(const double *pLeftDst, const double *pRightDst, co
 		brushLeft.CreateSolidBrush(colorLeft);
 		pBrushOrg = m_dcMem.SelectObject(&brushLeft);
 
-		pPenOrg = m_dcMem.SelectObject(&penLeft);
-		pBrushOrg = m_dcMem.SelectObject(&brushLeft);
-
 		DrawLine(pLeftDst, pLevel, nLevelCount, nLevelStart, nLevelEnd, nLevelPoint);
 
 		m_dcMem.SelectObject(pBrushOrg);
@@ -242,9 +240,6 @@ void CDstLevelWnd::DispGraph(const double *pLeftDst, const double *pRightDst, co
 
 		CBrush brushRight;
 		brushRight.CreateSolidBrush(colorRight);
-		pBrushOrg = m_dcMem.SelectObject(&brushRight);
-
-		pPenOrg = m_dcMem.SelectObject(&penRight);
 		pBrushOrg = m_dcMem.SelectObject(&brushRight);
 
 		DrawLine(pRightDst, pLevel, nLevelCount, nLevelStart, nLevelEnd, nLevelPoint);
@@ -265,9 +260,9 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 	int i;
 	int x, y;
 	int nDotSize;
-	int nLevelMin = min(nLevelStart, nLevelEnd);
-	int nLevelMax = max(nLevelStart, nLevelEnd);
-	double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
+	const int nLevelMin = min(nLevelStart, nLevelEnd);
+	const int nLevelMax = max(nLevelStart, nLevelEnd);
+	const double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
 	POINT *pPoint = new POINT[nLevelCount];
 
 	nDotSize = (m_nScaleWidth / nLevelPoint < 10) ? 2 : 3;
@@ -309,9 +304,9 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 		delete [] yp;
 		delete [] xp;
 
-		int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
-		int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
-		int nSpline = x2 - x1;
+		const int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int nSpline = x2 - x1;
 
 		POINT *pSpline = new POINT[nSpline];
 		for (i = 0; i < nSpline; i++) {

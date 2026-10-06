@@ -119,7 +119,7 @@ void CWaveEditFM::DispGraphWindow()
 
 BOOL CWaveEditFM::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_BTN_TEST, IDH_SG_EDIT_TEST,
 		IDC_SLIDER_MOD_AMP, IDH_SG_EDIT_MOD_AMP,
 		IDC_EDIT_MOD_AMP, IDH_SG_EDIT_MOD_AMP,
@@ -128,7 +128,7 @@ BOOL CWaveEditFM::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

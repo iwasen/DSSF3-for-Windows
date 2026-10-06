@@ -30,7 +30,7 @@ void CIndicator::OnPaint()
 	CRect rect;
 
 	if (m_bStereo) {
-		int nHeight = m_Rect.bottom / 2;
+		const int nHeight = m_Rect.bottom / 2;
 
 		m_dcMem.SelectObject(&m_bitmapLeft);
 		dc.BitBlt(0, 0, m_nLevelLeft, nHeight, &m_dcMem, 0, 0, SRCCOPY);

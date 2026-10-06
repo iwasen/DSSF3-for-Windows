@@ -478,7 +478,7 @@ int CAcfDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 
 	if (pWaveNotify->nFlags & WHDR_DONE) {
 		m_nReplayPos += pWaveNotify->nSamplesNum * m_nChannel;
-		double fReplayTime = (double)m_nReplayPos / (m_nSamplingRate * m_nChannel);
+		const double fReplayTime = (double)m_nReplayPos / (m_nSamplingRate * m_nChannel);
 		m_cGraphWave.SetReplayPosition(fReplayTime);
 	}
 
@@ -542,7 +542,7 @@ void CAcfDlg::CalcAcf()
 
 	m_oRFFT.ifft(m_nAcfBufSize, m_pAcfBuf1);
 
-	double d1 = m_pAcfBuf1[0];
+	const double d1 = m_pAcfBuf1[0];
 	if (d1 != 0) {
 		for (i = 0; i < m_nAcfBufSize; i++)
 			m_pAcfBuf1[i] /= d1;
@@ -573,7 +573,7 @@ void CAcfDlg::RedrawAcfGraph()
 	FreeBuffers();
 	AllocBuffers();
 
-	int nWaveInBufSize = (int)(m_nSamplingRate * g_oSetData.Acf.fCalcCycle) * m_nChannel;
+	const int nWaveInBufSize = (int)(m_nSamplingRate * g_oSetData.Acf.fCalcCycle) * m_nChannel;
 	m_nRingBufPtr = 0;
 	m_bRingBufFull = FALSE;
 
@@ -743,8 +743,8 @@ void CAcfDlg::DispWaveGraph()
 	else if (m_fStartTime > m_fTotalTime - m_fDispTime)
 		m_fStartTime = m_fTotalTime - m_fDispTime;
 
-	int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
-	int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispTime / m_fTotalTime * SCROLL_RANGE);
+	const int nScrollPos = (int)(m_fStartTime / m_fTotalTime * SCROLL_RANGE);
 
 	if (nScrollSize != m_nScrollSize || nScrollPos != m_nScrollPos) {
 		m_nScrollSize = nScrollSize;
@@ -939,7 +939,7 @@ void CAcfDlg::LoadACFData(long nAcfID)
 	EnableButton();
 }
 
-void CAcfDlg::LoadWaveFile(LPCTSTR pFileName)
+void CAcfDlg::LoadWaveFile(LPCSTR pFileName)
 {
 	CFileStatus st;
 	if (!CFile::GetStatus(pFileName, st))
@@ -1197,7 +1197,7 @@ void CAcfDlg::ChangeWaveDevice(int nInOut)
 void CAcfDlg::ChangeSamplingRate(int nSamplingRate)
 {
 	if (g_oSetData.Acf.nSamplingRate != nSamplingRate) {
-		int n = m_cSamplingRate.GetCount();
+		const int n = m_cSamplingRate.GetCount();
 		for (int i = 0; i < n; i++) {
 			if ((int)m_cSamplingRate.GetItemData(i) == nSamplingRate) {
 				m_cSamplingRate.SetCurSel(i);
@@ -1210,7 +1210,7 @@ void CAcfDlg::ChangeSamplingRate(int nSamplingRate)
 
 BOOL CAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_ACF, IDH_ACF_GRAPH,
 		IDC_GRAPH_WAVE, IDH_ACF_GRAPH_WAVE,
 		IDC_ZOOM_H, IDH_ACF_ZOOM_H,
@@ -1256,7 +1256,7 @@ BOOL CAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

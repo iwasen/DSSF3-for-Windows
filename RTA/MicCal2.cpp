@@ -81,9 +81,10 @@ BOOL CMicCal2::OnInitDialog()
 	m_cLevelBar.SetScrollPos((int)(m_fInputSens * 10), FALSE);
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = 140;
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = 140,
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 
@@ -133,7 +134,7 @@ void CMicCal2::InitFreqList()
 			.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT,
 			.fmt = LVCFMT_LEFT,
 			.cx = CDpi::AdjustDpi(tColumn[i].width, 92),
-			.pszText = (LPTSTR)(LPCSTR)str
+			.pszText = (LPSTR)(LPCSTR)str
 		};
 		m_cFreqList.InsertColumn(i, &lvc);
 	}
@@ -325,7 +326,7 @@ void CMicCal2::MakeFreqData()
 {
 	FilterData micCalData[MICCAL_NFREQ];
 
-	int nItem = m_cFreqList.GetItemCount();
+	const int nItem = m_cFreqList.GetItemCount();
 	for (int i = 0; i < nItem; i++) {
 		micCalData[i].fFreq = atof(m_cFreqList.GetItemText(i, 0));
 		micCalData[i].fLevel = atof(m_cFreqList.GetItemText(i, 1));
@@ -356,7 +357,7 @@ int CMicCal2::GetFreqData(FilterData *pFilterData)
 {
 	int i;
 
-	int nFreqData = m_cFreqList.GetItemCount();
+	const int nFreqData = m_cFreqList.GetItemCount();
 	for (i = 0; i < nFreqData; i++) {
 		pFilterData->fFreq = atof(m_cFreqList.GetItemText(i, 0));
 		pFilterData->fLevel = atof(m_cFreqList.GetItemText(i, 1));
@@ -410,7 +411,10 @@ void CMicCal2::WaveInData(double *pData)
 	double xt, yt;
 	double *pFftBuf = new double[WAVEBUF_SAMPLESPERBUFFER];
 
-	memcpy(pFftBuf, pData, sizeof(double) * WAVEBUF_SAMPLESPERBUFFER);
+	for (i = 0; i < WAVEBUF_SAMPLESPERBUFFER; i++) {
+		pFftBuf[i] = *pData++;
+		pData++;
+	}
 
 	m_oRFFT.fft(WAVEBUF_SAMPLESPERBUFFER, pFftBuf);
 
@@ -485,7 +489,7 @@ void CMicCal2::SetFilter(const FilterData *pFilterData, int nFilterData)
 	for (i = 1; i < WAVEBUF_SAMPLESPERBUFFER; i++)
 		m_pFilterTbl[i] = 1 / (m_pFilterTbl[i] * WAVEBUF_SAMPLESPERBUFFER);
 
-	int nFilter = m_cFilter.GetCurSel();
+	const int nFilter = m_cFilter.GetCurSel();
 	if (nFilter != 0) {
 		double *pFilter = new double[WAVEBUF_SAMPLESPERBUFFER];
 		MakeFilterTbl2(pFilter, WAVEBUF_SAMPLESPERBUFFER, SAMPLING_RATE, nFilter, 20);

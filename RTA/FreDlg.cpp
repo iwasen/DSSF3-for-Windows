@@ -271,7 +271,7 @@ void CFreDlg::OnBnClickedChannelStereo()
 void CFreDlg::OnEnChangeMaxLevel()
 {
 	if (m_cMaxLevel.m_hWnd) {
-		int nMaxLevel = m_cMaxLevel;
+		const int nMaxLevel = m_cMaxLevel;
 		if (nMaxLevel != g_oSetData.Fre.nMaxLevel) {
 			g_oSetData.Fre.nMaxLevel = nMaxLevel;
 			RedrawGraph();
@@ -282,7 +282,7 @@ void CFreDlg::OnEnChangeMaxLevel()
 void CFreDlg::OnEnChangeMinLevel()
 {
 	if (m_cMinLevel.m_hWnd) {
-		int nMinLevel = m_cMinLevel;
+		const int nMinLevel = m_cMinLevel;
 		if (nMinLevel != g_oSetData.Fre.nMinLevel) {
 			g_oSetData.Fre.nMinLevel = nMinLevel;
 			RedrawGraph();
@@ -310,7 +310,7 @@ void CFreDlg::OnBnClickedScreenShot()
 	CString sTab;
 	HBITMAP hBmp = NULL;
 	m_cFreTab.GetCurrentTitle(sTab);
-	int nTimeCount = (int)m_fTimeCount;
+	const int nTimeCount = (int)m_fTimeCount;
 	sTitle.Format("%s - %d:%02d:%02d", (LPCSTR)sTab, nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 
 	switch (g_oSetData.Fre.nMode) {
@@ -549,7 +549,7 @@ BOOL CFreDlg::CheckDataHold()
 
 BOOL CFreDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_BTN_START, IDH_FRE_START,
 		IDC_ELP_TIME, IDH_FRE_ELP_TIME,
 		IDC_SAMPLING_RATE, IDH_FRE_SAMPLING_RATE,
@@ -568,7 +568,7 @@ BOOL CFreDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

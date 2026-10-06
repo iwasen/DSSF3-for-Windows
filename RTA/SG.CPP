@@ -88,7 +88,7 @@ void CSG::GenerateTone(double *pWaveBuf, int nChannel, int nWaveForm, double fFr
 	else
 		fFreqStep = pow(fFreq / oWorkData.fFreq, 1 / (double)SG_SPB);
 
-	double fLevel = (double)g_oSetData.Sg.nDLevel / 100;
+	const double fLevel = (double)g_oSetData.Sg.nDLevel / 100;
 
 	for (int i = 0; i < SG_SPB; i++) {
 		switch (nWaveForm) {
@@ -153,7 +153,7 @@ double CSG::GetUserWaveFormManual(const WaveFormManual *pWaveForm, SWorkData &oW
 		if (!m_bInitSpline) {
 			m_bInitSpline = TRUE;
 
-			int nPoint = pWaveForm->nDataNum;
+			const int nPoint = pWaveForm->nDataNum;
 			double *xp = new double[nPoint];
 			double *yp = new double[nPoint];
 
@@ -175,10 +175,10 @@ double CSG::GetUserWaveFormManual(const WaveFormManual *pWaveForm, SWorkData &oW
 				break;
 		}
 
-		double x = pWaveForm->vertex[i].x;
-		double y = pWaveForm->vertex[i].y;
-		double dx = pWaveForm->vertex[i + 1].x - x;
-		double dy = pWaveForm->vertex[i + 1].y - y;
+		const double x = pWaveForm->vertex[i].x;
+		const double y = pWaveForm->vertex[i].y;
+		const double dx = pWaveForm->vertex[i + 1].x - x;
+		const double dy = pWaveForm->vertex[i + 1].y - y;
 
 		return y + (oWorkData.fAngle - x) / dx * dy;
 	}
@@ -208,12 +208,12 @@ int CSG::WaveOutNoise(LPWAVENOTIFY pWaveNotify)
 	int nRingBufPtr;
 	int nPolarity = 1;
 	double *buf = new double[SG_SPB];
-	double fLevel = (double)g_oSetData.Sg.nDLevel / 100;
+	const double fLevel = (double)g_oSetData.Sg.nDLevel / 100;
 
 	switch (g_oSetData.Sg.nNoiseMode) {
 	case NOISE_MODE_INVERSE:
 		nPolarity = -1;
-		// no break
+		[[fallthrough]];
 	case NOISE_MODE_MONO:
 		switch (g_oSetData.Sg.nNoiseType) {
 		case NOISE_WHITE:
@@ -288,11 +288,11 @@ int CSG::WaveOutSweep(LPWAVENOTIFY pWaveNotify)
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 	SWorkData &oWorkData = m_aWorkData[0];
 
-	int nSweepSamples = (int)(g_oSetData.Sg.nSamplingRate * g_oSetData.Sg.fSweepTime);
+	const int nSweepSamples = (int)(g_oSetData.Sg.nSamplingRate * g_oSetData.Sg.fSweepTime);
 
-	double fSample = 1 / (g_oSetData.Sg.nSamplingRate * g_oSetData.Sg.fSweepTime);
-	double fFreqStep = pow(g_oSetData.Sg.fEndFreq / g_oSetData.Sg.fStartFreq, fSample);
-	double fLevelStep = pow(pow(10.0, (g_oSetData.Sg.fStartLevel - g_oSetData.Sg.fEndLevel) / 20), fSample);
+	const double fSample = 1 / (g_oSetData.Sg.nSamplingRate * g_oSetData.Sg.fSweepTime);
+	const double fFreqStep = pow(g_oSetData.Sg.fEndFreq / g_oSetData.Sg.fStartFreq, fSample);
+	const double fLevelStep = pow(pow(10.0, (g_oSetData.Sg.fStartLevel - g_oSetData.Sg.fEndLevel) / 20), fSample);
 
 	for (i = 0; i < SG_SPB; i++) {
 		if (m_nSweepCount >= nSweepSamples) {
@@ -302,7 +302,7 @@ int CSG::WaveOutSweep(LPWAVENOTIFY pWaveNotify)
 				break;
 		}
 
-		double fLevel = (double)g_oSetData.Sg.nDLevel / 100 * m_fSweepLevel;
+		const double fLevel = (double)g_oSetData.Sg.nDLevel / 100 * m_fSweepLevel;
 
 		switch (g_oSetData.Sg.nSweepWave) {
 		case WAVE_SIN:
@@ -386,7 +386,7 @@ int CSG::WaveOutSynth(LPWAVENOTIFY pWaveNotify)
 
 	for (i = 0; i < N_SG_COMPONENT; i++) {
 		if (g_oSetData.Sg.fCompFreq[i] != 0 && g_oSetData.Sg.nCompLevel[i] != 0) {
-			double fFreq = g_oSetData.Sg.fSynthFreq * g_oSetData.Sg.fCompFreq[i];
+			const double fFreq = g_oSetData.Sg.fSynthFreq * g_oSetData.Sg.fCompFreq[i];
 			if (fFreq < g_oSetData.Sg.nSamplingRate / 2) {
 				GenerateTone(buf, 1, g_oSetData.Sg.nSynthWave, g_oSetData.Sg.fSynthFreq * g_oSetData.Sg.fCompFreq[i], m_aWorkData[i]);
 				for (j = 0; j < SG_SPB; j++)
@@ -395,7 +395,7 @@ int CSG::WaveOutSynth(LPWAVENOTIFY pWaveNotify)
 		}
 	}
 
-	double fMax = GetMaxData(waveBuf, SG_SPB);
+	const double fMax = GetMaxData(waveBuf, SG_SPB);
 	for (i = 0; i < SG_SPB; i++)
 		pWaveBuf[i] = (fMax > 1.0) ? waveBuf[i] / fMax : waveBuf[i];
 
@@ -410,8 +410,8 @@ int CSG::WaveOutScale(LPWAVENOTIFY pWaveNotify)
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 	SWorkData &oWorkData = m_aWorkData[0];
 
-	int nPitch = (g_oSetData.Sg.nOctave - 4) * 12 + (g_oSetData.Sg.nScale - 9);
-	double fFreq = g_oSetData.Sg.fReferencePitch * pow(2.0, (double)nPitch / 12);
+	const int nPitch = (g_oSetData.Sg.nOctave - 4) * 12 + (g_oSetData.Sg.nScale - 9);
+	const double fFreq = g_oSetData.Sg.fReferencePitch * pow(2.0, (double)nPitch / 12);
 
 	oWorkData.fFreq = 0;
 

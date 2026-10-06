@@ -27,7 +27,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CMtfWnd メッセージ ハンドラ
 
-void CMtfWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF color)
+void CMtfWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF color)
 {
 	if (m_bInitialize)
 		return;
@@ -53,9 +53,10 @@ void CMtfWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF co
 	m_brushData.CreateSolidBrush(color);
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = nFontSize;
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = nFontSize,
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -88,7 +89,6 @@ void CMtfWnd::Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF co
 
 void CMtfWnd::SetBitmap()
 {
-	int x, y;
 	CString text;
 	CSize size;
 
@@ -116,12 +116,12 @@ void CMtfWnd::SetBitmap()
 
 	m_dcMem.SelectObject(&m_penGray);
 
-	int minFreq = (int)(MIN_FREQ * 10);
-	int maxFreq = (int)(MAX_FREQ * 10);
-	double fMaxFreqLog = log((double)maxFreq);
-	double fMinFreqLog = log((double)minFreq);
+	const int minFreq = (int)(MIN_FREQ * 10);
+	const int maxFreq = (int)(MAX_FREQ * 10);
+	const double fMaxFreqLog = log((double)maxFreq);
+	const double fMinFreqLog = log((double)minFreq);
 	for (int nFreq = minFreq; nFreq <= maxFreq; ) {
-		x =  (int)((log((double)nFreq) - fMinFreqLog) *
+		const int x =  (int)((log((double)nFreq) - fMinFreqLog) *
 					m_nScaleWidth / (fMaxFreqLog - fMinFreqLog) + m_nScaleLeft + 0.5);
 
 		if (x > m_nScaleLeft && x < m_nScaleRight) {
@@ -146,7 +146,7 @@ void CMtfWnd::SetBitmap()
 	}
 
 	for (int nLevel = 0; nLevel <= 10; nLevel++) {
-		y = m_nScaleBottom - nLevel * m_nScaleHeight / 10;
+		const int y = m_nScaleBottom - nLevel * m_nScaleHeight / 10;
 
 		if (y > m_nScaleTop && y < m_nScaleBottom) {
 			m_dcMem.MoveTo(m_nScaleLeft, y);
@@ -175,8 +175,8 @@ void CMtfWnd::SetBitmap()
 
 void CMtfWnd::DispGraph(const double *pMtfData, const double *pMtfFreq)
 {
-	double fMaxFreqLog = log((double)MAX_FREQ);
-	double fMinFreqLog = log((double)MIN_FREQ);
+	const double fMaxFreqLog = log((double)MAX_FREQ);
+	const double fMinFreqLog = log((double)MIN_FREQ);
 	int x, y;
 
 	SetBitmap();
@@ -185,7 +185,7 @@ void CMtfWnd::DispGraph(const double *pMtfData, const double *pMtfFreq)
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penMtf);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushData);
 
-	double fTmp1 = (double)m_nScaleWidth / (fMaxFreqLog - fMinFreqLog);
+	const double fTmp1 = (double)m_nScaleWidth / (fMaxFreqLog - fMinFreqLog);
 
 	for (int i = 0; i < N_MTF_FREQ; i++) {
 		x = m_nScaleLeft + (int)((log(pMtfFreq[i]) - fMinFreqLog) * fTmp1 + 0.5);

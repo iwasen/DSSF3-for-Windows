@@ -548,9 +548,9 @@ void CImpFactor::InitAcParamList()
 				str += pListColumn->text;
 		}
 #ifdef _LANG_JPN
-		int nWidth = CDpi::AdjustDpi(pListColumn->width, 90);
+		const int nWidth = CDpi::AdjustDpi(pListColumn->width, 90);
 #else
-		int nWidth = CDpi::AdjustDpi(pListColumn->width);
+		const int nWidth = CDpi::AdjustDpi(pListColumn->width);
 #endif
 		m_cParameterList.InsertColumn(i, str, LVCFMT_RIGHT, nWidth);
 	}
@@ -1404,7 +1404,7 @@ void CImpFactor::OnScreenCopy()
 			if (dlg.DoModal() == IDOK) {
 				HDIB hDIB = ScreenCopy();
 				if (hDIB != NULL) {
-					MMPictureWriteFile(hDIB, (LPTSTR)(LPCSTR)dlg.GetPathName());
+					MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
 					::GlobalFree(hDIB);
 				}
 			}
@@ -1473,8 +1473,8 @@ HDIB CImpFactor::GraphCopy()
 	else
 		m_pGraphIR->GetWindowRect(rect);
 
-	int nWidth = (setData.ImpSC.nColSpace + rect.Width()) * nCol + setData.ImpSC.nColSpace;
-	int nHeight = (setData.ImpSC.nRowSpace + rect.Height()) * nRow + setData.ImpSC.nRowSpace;
+	const int nWidth = (setData.ImpSC.nColSpace + rect.Width()) * nCol + setData.ImpSC.nColSpace;
+	const int nHeight = (setData.ImpSC.nRowSpace + rect.Height()) * nRow + setData.ImpSC.nRowSpace;
 
 	CDC *pDC = GetDC();
 	CDC DCMem;
@@ -1486,7 +1486,7 @@ HDIB CImpFactor::GraphCopy()
 	CGdiObject *pOrg = DCMem.SelectObject(&bmp);
 	DCMem.FillSolidRect(0, 0, nWidth, nHeight, GetSysColor(COLOR_3DFACE));
 
-	int nCurrentPage = m_nCurrentPage;
+	const int nCurrentPage = m_nCurrentPage;
 
 	nCol = nRow = 0;
 	for (i = 0; i < 7; i++) {
@@ -1524,7 +1524,7 @@ HDIB CImpFactor::GraphCopy()
 
 	DCMem.SelectObject(pOrg);
 
-	int nSize = sizeof(BITMAPINFOHEADER) + WIDTHBYTES(nWidth * 24) * nHeight;
+	const int nSize = sizeof(BITMAPINFOHEADER) + WIDTHBYTES(nWidth * 24) * nHeight;
 	HDIB hDIB = ::GlobalAlloc(GMEM_MOVEABLE, nSize);
 	BITMAPINFO *pBmi = (BITMAPINFO *)::GlobalLock(hDIB);
 
@@ -1577,7 +1577,7 @@ void CImpFactor::OnBnClickedCsvOutput()
 
 BOOL CImpFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDCANCEL, IDH_IMP_FACTOR_CANCEL,
 		IDC_SELECT_DATA, IDH_IMP_FACTOR_SELECT_DATA,
 		IDC_PREV_DATA, IDH_IMP_FACTOR_PREV_DATA,
@@ -1623,7 +1623,7 @@ BOOL CImpFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -1638,7 +1638,7 @@ BOOL CImpFactor::CalcMeasurementIR()
 		return FALSE;
 	setData.CalcParam = dlg.m_CalcParam;
 
-	double fScale = 1.0;
+	const double fScale = 1.0;
 
 	CString str;
 	str.LoadString(IDS_CALCULATING);

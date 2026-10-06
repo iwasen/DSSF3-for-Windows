@@ -37,13 +37,13 @@ BOOL CSetting::OnInitDialog()
 
 BOOL CSetting::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDOK, IDH_SETTING_OK,
 		IDCANCEL, IDH_SETTING_CANCEL,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

@@ -83,7 +83,7 @@ void CWaveWnd::OnPaint()
 		if (m_rectZoom.Width() != 0) {
 			CPen *pPenOrg = m_dcMem2.SelectObject(&m_penZoomArea);
 			CBrush *pBrushOrg = m_dcMem2.SelectObject(&m_brushZoomArea);
-			int ropModeOrg = m_dcMem2.SetROP2(R2_MASKPEN);
+			const int ropModeOrg = m_dcMem2.SetROP2(R2_MASKPEN);
 
 			m_dcMem2.Rectangle(m_rectZoom);
 
@@ -119,7 +119,7 @@ BOOL CWaveWnd::OnEraseBkgnd(CDC* /*pDC*/)
 	return TRUE;
 }
 
-void CWaveWnd::Initialize(int nChannel, LPCTSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd)
+void CWaveWnd::Initialize(int nChannel, LPCSTR pTitle, PFNGRAPH pCallBackFunc, LPARAM nCallBackData, CWnd *pNotifyWnd)
 {
 	if (m_bInitialize)
 		return;
@@ -202,9 +202,10 @@ void CWaveWnd::SetSize(int nFontSize)
 	ReleaseDC(pDC);
 
 	CString str;
-	LOGFONT font{};
-	font.lfHeight = nFontSize;
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = nFontSize,
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.DeleteObject();
@@ -246,7 +247,7 @@ void CWaveWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, 
 	double step, t, t1, t2;
 	double fValue;
 	int ns;
-	double fLevelRange = fMaxValue - fMinValue;
+	const double fLevelRange = fMaxValue - fMinValue;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
@@ -353,12 +354,6 @@ void CWaveWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, 
 
 void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime, const double *pData, int nData, int nChannel, double fMaxValue, double fMinValue, BOOL bHScroll, BOOL bVScroll, double fSelStart, double fSelEnd, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec)
 {
-	int i, i2;
-	int x, x2;
-	int y, ymin, ymax;
-	int nPoint = 0;
-	double fLevelRange = fMaxValue - fMinValue;
-
 	m_bHScroll = bHScroll;
 	m_bVScroll = bVScroll;
 
@@ -370,15 +365,21 @@ void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime,
 		return;
 	}
 
+	int i;
+	int x;
+	int y;
+	int nPoint = 0;
+	const double fLevelRange = fMaxValue - fMinValue;
+
 	m_dcMem.SelectClipRgn(&m_Rgn);
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penData);
 
-	x2 = 0;
-	ymin = m_nScaleBottom;
-	ymax = m_nScaleTop;
-	i2 = int(fStartTime / fTotalTime * nData + 0.99);
+	int x2 = 0;
+	int ymin = m_nScaleBottom;
+	int ymax = m_nScaleTop;
+	const int i2 = int(fStartTime / fTotalTime * nData + 0.99);
 	for (i = i2; i < nData; i++) {
 		x = (int)((i * fTotalTime / nData - fStartTime) / fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
@@ -413,11 +414,11 @@ void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime,
 		m_dcMem.Polyline(m_pPointBuf, nPoint);
 
 	if (fSelStart >= 0) {
-		int nStart = m_nScaleLeft + int((fSelStart - fStartTime) * m_nScaleWidth / fDispTime + 0.5);
-		int nEnd = m_nScaleLeft + int((fSelEnd - fStartTime) * m_nScaleWidth / fDispTime + 0.5);
+		const int nStart = m_nScaleLeft + int((fSelStart - fStartTime) * m_nScaleWidth / fDispTime + 0.5);
+		const int nEnd = m_nScaleLeft + int((fSelEnd - fStartTime) * m_nScaleWidth / fDispTime + 0.5);
 		CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushSel);
 		m_dcMem.SelectStockObject(NULL_PEN);
-		int nRop2 = m_dcMem.SetROP2(R2_MASKPEN);
+		const int nRop2 = m_dcMem.SetROP2(R2_MASKPEN);
 		m_dcMem.Rectangle(nStart, m_nScaleTop + 1, nEnd + 1, m_nScaleBottom);
 		m_dcMem.SetROP2(nRop2);
 		m_dcMem.SelectObject(pBrushOrg);
@@ -432,7 +433,7 @@ void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime,
 
 	m_arrayMarker.RemoveAll();
 	if (nAcfMarkerRec != 0) {
-		double fEndTime = fStartTime + fDispTime;
+		const double fEndTime = fStartTime + fDispTime;
 		for (i = 0; i < nAcfMarkerRec; i++) {
 			if (pAcfMarkerRec[i].fTime > fStartTime && pAcfMarkerRec[i].fTime < fEndTime) {
 				x = m_nScaleLeft + (int)((pAcfMarkerRec[i].fTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
@@ -637,7 +638,7 @@ CRect rect = m_arrayMarker[i].rectMarker;
 
 void CWaveWnd::DispMarkerCursor(double fStartTime, double fDispTime, double fOffsetTime)
 {
-	int x = (int)((fOffsetTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
+	const int x = (int)((fOffsetTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
 	if (x >= 0 && x < m_nScaleWidth)
 		m_nMarkerCursorX = x + m_nScaleLeft;
 	else

@@ -218,7 +218,7 @@ int CFreNoise::Initialize()
 
 void CFreNoise::AllocAverageBuf()
 {
-	int nAverageNum = (s_tTimeConstant[g_oSetData.Fre.nNoiseAveraging] * m_nSamplingRate + m_nWaveBufSize / 2) / m_nWaveBufSize;
+	const int nAverageNum = (s_tTimeConstant[g_oSetData.Fre.nNoiseAveraging] * m_nSamplingRate + m_nWaveBufSize / 2) / m_nWaveBufSize;
 	m_oLeftData.Alloc(m_nFreqPoint, nAverageNum);
 	if (m_nChannel == 2)
 		m_oRightData.Alloc(m_nFreqPoint, nAverageNum);
@@ -306,7 +306,7 @@ BOOL CFreNoise::WaveOutData(double *pData)
 		m_nLevel = g_oSetData.Fre.nNoiseLevel;
 	}
 
-	double fLevel = pow(10.0, m_nLevel / 20.0);
+	const double fLevel = pow(10.0, m_nLevel / 20.0);
 	m_cNoise.GeneratePinkNoise(pData, 1, m_nWaveBufSize, fLevel);
 
 	return bReset;
@@ -358,7 +358,7 @@ BOOL CFreNoise::CheckDataExist() const
 	return m_bValidData != 0;
 }
 
-void CFreNoise::CsvOutput(LPCTSTR pFileName)
+void CFreNoise::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
 
@@ -443,7 +443,7 @@ HBITMAP CFreNoise::GetBitmap()
 
 BOOL CFreNoise::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH, IDH_FRE_NOISE_GRAPH,
 		IDC_FREQ_START, IDH_FRE_NOISE_FREQ_START,
 		IDC_FREQ_END, IDH_FRE_NOISE_FREQ_END,
@@ -454,7 +454,7 @@ BOOL CFreNoise::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -478,11 +478,11 @@ void CFreNoise::MakeFilterTbl()
 
 	MakeFilterTbl3(m_pFilterTblL, m_nWaveBufSize, m_nSamplingRate, (FilterData *)pDlg->m_oMicCalDataL.aFreq, pDlg->m_oMicCalDataL.nFreqData, 20);
 	MakeFilterTbl3(m_pFilterTblR, m_nWaveBufSize, m_nSamplingRate, (FilterData *)pDlg->m_oMicCalDataR.aFreq, pDlg->m_oMicCalDataR.nFreqData, 20);
-	double sensL = pow(10.0, -pDlg->m_oMicCalDataL.fInputSens / 20);
-	double sensR = pow(10.0, -pDlg->m_oMicCalDataR.fInputSens / 20);
+	const double sensL = pow(10.0, -pDlg->m_oMicCalDataL.fInputSens / 20);
+	const double sensR = pow(10.0, -pDlg->m_oMicCalDataR.fInputSens / 20);
 	m_pFilterTblL[0] = 0;
 	m_pFilterTblR[0] = 0;
-	double t = (g_oSetData.Fre.nMicCalID == -1) ? m_nWaveBufSize * 0.0525 : m_nWaveBufSize * 0.052;
+	const double t = (g_oSetData.Fre.nMicCalID == -1) ? m_nWaveBufSize * 0.0525 : m_nWaveBufSize * 0.052;
 	for (int i = 1; i < m_nWaveBufSize; i++) {
 		m_pFilterTblL[i] = sensL / (m_pFilterTblL[i] * t);
 		m_pFilterTblR[i] = sensR / (m_pFilterTblR[i] * t);
@@ -521,7 +521,7 @@ BOOL CFreNoise::CheckDataHold()
 
 void CFreNoise::SaveHoldData(CFile &oFile)
 {
-	INT32 count = (INT32)m_oHoldDataList.GetCount();
+	const INT32 count = (INT32)m_oHoldDataList.GetCount();
 
 	oFile.Write(&count, sizeof(count));
 

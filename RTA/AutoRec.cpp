@@ -32,8 +32,8 @@ void CAutoRec::StartRecord(int nSampleRate, int nChannels, int nWindow, BOOL bOu
 
 	m_sFileName.Format("%s\\%s-%s-%s.wavdssf", (LPCSTR)g_oSetData2.sAutoRecFolder, (LPCSTR)m_oAutoRecInfo.oStartTime.Format("%Y%m%d-%H%M%S"), (LPCSTR)GetWindowName(), bOut ? "O" : "I");
 
-	int nBitsPerSample = 16;
-	int nBytesPerSample = (nBitsPerSample / 8) * nChannels;
+	const int nBitsPerSample = 16;
+	const int nBytesPerSample = (nBitsPerSample / 8) * nChannels;
 
 	PCMWAVEFORMAT waveFormat{
 		.wf{
@@ -77,7 +77,7 @@ void CAutoRec::WriteData(double *pData, int nData)
 
 void CAutoRec::WriteInfoData(CFile &file)
 {
-	int nSizeAutoRecInfo = sizeof(AutoRecInfo);
+	const int nSizeAutoRecInfo = sizeof(AutoRecInfo);
 	file.Write(&nSizeAutoRecInfo, sizeof(int));
 	file.Write(&m_oAutoRecInfo, sizeof(m_oAutoRecInfo));
 

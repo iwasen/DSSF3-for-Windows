@@ -243,8 +243,8 @@ void CSgScale::OnCbnSelchangeWaveForm()
 
 void CSgScale::DispFreq()
 {
-	int nPitch = (g_oSetData.Sg.nOctave - 4) * 12 + (g_oSetData.Sg.nScale - 9);
-	double fFreq = g_oSetData.Sg.fReferencePitch * pow(2.0, (double)nPitch / 12);
+	const int nPitch = (g_oSetData.Sg.nOctave - 4) * 12 + (g_oSetData.Sg.nScale - 9);
+	const double fFreq = g_oSetData.Sg.fReferencePitch * pow(2.0, (double)nPitch / 12);
 
 	m_cFreq.Format("%.1f", fFreq);
 }
@@ -277,7 +277,7 @@ void CSgScale::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 BOOL CSgScale::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_KEYBOARD, IDH_SG_SCALE_KEYBOARD,
 		IDC_REFERENCE_PITCH, IDH_SG_SCALE_REFERENCE_PITCH,
 		IDC_WAVE_FORM, IDH_SG_SCALE_WAVE_FORM,
@@ -307,7 +307,7 @@ BOOL CSgScale::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

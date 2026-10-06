@@ -29,20 +29,22 @@ void CRFFT::ifft(int n, double *fp)
 
 void CRFFT::fft_sub(int n, double *fp, int isgn)
 {
-	int i;
+//#	int i;
 
 	alloc_work(n);
 
 	if (n == 0)
 		return;
 
-	for (i = 0; i < n; i++)
-		a[i] = fp[i];
+	memcpy(a, fp, n * sizeof(double));
+//#	for (i = 0; i < n; i++)
+//#		a[i] = fp[i];
 
 	rdft(n, isgn, a, ip, w);
 
-	for (i = 0; i < n; i++)
-		fp[i] = a[i];
+	memcpy(fp, a, n * sizeof(double));
+//#	for (i = 0; i < n; i++)
+//#		fp[i] = a[i];
 }
 
 void CRFFT::alloc_work(int n)

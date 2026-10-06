@@ -340,8 +340,8 @@ int CAsioManager::GetBufSize() const
 
 BOOL CAsioManager::ChangeBufSize()
 {
-	int nOldBufSize = m_nBufSize;
-	int nNewBufSize = GetBufSize();
+	const int nOldBufSize = m_nBufSize;
+	const int nNewBufSize = GetBufSize();
 	if (nOldBufSize != nNewBufSize) {
 		m_cAsioDriver.ASIOStop();
 		m_cAsioDriver.ASIODisposeBuffers();
@@ -548,7 +548,7 @@ void CAsioManager::Buffering(long index)
 				m_nInBufCount = 0;
 			}
 
-			int nCopySize2 = m_nBufSize - nCopySize;
+			const int nCopySize2 = m_nBufSize - nCopySize;
 			if (nCopySize2 > 0) {
 				ConverToDouble(m_asioChannelInfo[0].type, nCopySize2, p1, m_pWaveInBuf[m_nInBufIndex], m_nInChannels);
 				ConverToDouble(m_asioChannelInfo[1].type, nCopySize2, p2, m_pWaveInBuf[m_nInBufIndex] + (m_nInChannels - 1), m_nInChannels);
@@ -562,7 +562,7 @@ void CAsioManager::Buffering(long index)
 		int nCopySize = m_nWaveOutBufSize - m_nOutBufCount;
 		if (nCopySize > m_nBufSize)
 			nCopySize = m_nBufSize;
-		double *pWaveOutBuf = m_pWaveOutBuf[m_nOutBufIndex] + m_nOutBufCount * m_nOutChannels;
+		const double *pWaveOutBuf = m_pWaveOutBuf[m_nOutBufIndex] + m_nOutBufCount * m_nOutChannels;
 		p1 = ConverFromDouble(m_asioChannelInfo[2].type, nCopySize, m_asioBufferInfo[2].buffers[index], pWaveOutBuf, m_nOutChannels);
 		p2 = ConverFromDouble(m_asioChannelInfo[3].type, nCopySize, m_asioBufferInfo[3].buffers[index], pWaveOutBuf + (m_nOutChannels - 1), m_nOutChannels);
 		m_nOutBufCount += nCopySize;
@@ -577,7 +577,7 @@ void CAsioManager::Buffering(long index)
 			m_nOutBufCount = 0;
 		}
 
-		int nCopySize2 = m_nBufSize - nCopySize;
+		const int nCopySize2 = m_nBufSize - nCopySize;
 		if (nCopySize2 > 0) {
 			ConverFromDouble(m_asioChannelInfo[2].type, nCopySize2, p1, m_pWaveOutBuf[m_nOutBufIndex], m_nOutChannels);
 			ConverFromDouble(m_asioChannelInfo[3].type, nCopySize2, p2, m_pWaveOutBuf[m_nOutBufIndex] + (m_nOutChannels - 1), m_nOutChannels);
@@ -783,31 +783,31 @@ void *CAsioManager::ConverFromDouble(int nType, int nSize, void *pOutData, const
 		break;
 	case ASIOSTInt32MSB:
 		for(i = 0; i < nSize; i++, pInData += nAlign) {
-			long t = ConvertToInt(*pInData, 32);
+			const long t = ConvertToInt(*pInData, 32);
 			*out.l++ = SwapLong(t);
 		}
 		break;
 	case ASIOSTInt32MSB16:		// 32 bit data with 16 bit alignment
 		for (i = 0; i < nSize; i++, pInData += nAlign) {
-			DWORD t = (DWORD)ConvertToInt(*pInData, 16);
+			const DWORD t = (DWORD)ConvertToInt(*pInData, 16);
 			*out.l++ = SwapLong(t);
 		}
 		break;
 	case ASIOSTInt32MSB18:		// 32 bit data with 18 bit alignment
 		for(i = 0; i < nSize; i++, pInData += nAlign) {
-			DWORD t = (DWORD)ConvertToInt(*pInData, 18);
+			const DWORD t = (DWORD)ConvertToInt(*pInData, 18);
 			*out.l++ = SwapLong(t);
 		}
 		break;
 	case ASIOSTInt32MSB20:		// 32 bit data with 20 bit alignment
 		for (i = 0; i < nSize; i++, pInData += nAlign) {
-			DWORD t = (DWORD)ConvertToInt(*pInData, 20);
+			const DWORD t = (DWORD)ConvertToInt(*pInData, 20);
 			*out.l++ = SwapLong(t);
 		}
 		break;
 	case ASIOSTInt32MSB24:		// 32 bit data with 24 bit alignment
 		for(i = 0; i < nSize; i++, pInData += nAlign) {
-			DWORD t = (DWORD)ConvertToInt(*pInData, 24);
+			const DWORD t = (DWORD)ConvertToInt(*pInData, 24);
 			*out.l++ = SwapLong(t);
 		}
 		break;
@@ -894,7 +894,7 @@ void *CAsioManager::ConverToDouble(int nType, int nSize, void *pInData, double *
 		break;
 	case ASIOSTInt16MSB:
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			WORD t = *in.s++;
+			const WORD t = *in.s++;
 			*pOutData = (double)SwapShort(t) / PowDouble(16);
 		}
 		break;
@@ -913,31 +913,31 @@ void *CAsioManager::ConverToDouble(int nType, int nSize, void *pInData, double *
 		break;
 	case ASIOSTInt32MSB:
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
-			DWORD t = *in.l++;
+			const DWORD t = *in.l++;
 			*pOutData = (double)SwapLong(t) / PowDouble(32);
 		}
 		break;
 	case ASIOSTInt32MSB16:		// 32 bit data with 18 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			DWORD t = *in.l++;
+			const DWORD t = *in.l++;
 			*pOutData = (double)SwapLong(t) / PowDouble(16);
 		}
 		break;
 	case ASIOSTInt32MSB18:		// 32 bit data with 18 bit alignment
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
-			DWORD t = *in.l++;
+			const DWORD t = *in.l++;
 			*pOutData = (double)SwapLong(t) / PowDouble(18);
 		}
 		break;
 	case ASIOSTInt32MSB20:		// 32 bit data with 20 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			DWORD t = *in.l++;
+			const DWORD t = *in.l++;
 			*pOutData = (double)SwapLong(t) / PowDouble(20);
 		}
 		break;
 	case ASIOSTInt32MSB24:		// 32 bit data with 24 bit alignment
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
-			DWORD t = *in.l++;
+			const DWORD t = *in.l++;
 			*pOutData = (double)SwapLong(t) / PowDouble(24);
 		}
 		break;

@@ -27,7 +27,7 @@ void CWaveEx::FilteringWave(LPWAVENOTIFY pWaveNotify)
 				m_nFilterUpdateCounter = g_nFilterUpdateCounter;
 			}
 
-			int nData = pWaveNotify->nSamplesNum;
+			const int nData = pWaveNotify->nSamplesNum;
 			double *pData = pWaveNotify->pSamplesData;
 			for (int i = 0; i < nData; i++) {
 				*pData++ = m_cFilterLeft.ExecIIR(*pData);

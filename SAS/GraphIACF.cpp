@@ -115,7 +115,7 @@ void CGraphIACF::CalcGraphWindow()
 		double *pCalibration = new double[nFftSize];
 		MakeFilterTbl3(pCalibration, nFftSize, m_fRate, (FilterData *)m_pNmsMicCal->freq, m_pNmsMicCal->nFreqData, 20);
 		pCalibration[0] = 1;
-		double sens = pow(10.0, -m_pNmsMicCal->fInputSens / 20);
+		const double sens = pow(10.0, -m_pNmsMicCal->fInputSens / 20);
 		MakeFilterTbl2(pFilterTbl, nFftSize, m_fRate, m_pAcfCondition->nFreqWeighting, 20);
 		for (i = 0; i < nFftSize; i++)
 			pFilterTbl[i] *= sens / pCalibration[i];
@@ -160,12 +160,12 @@ void CGraphIACF::DispGraphWindow()
 
 BOOL CGraphIACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static const UINT aIDs[] = {
+	static constexpr UINT aIDs[] = {
 		IDC_GRAPH_ACF, IDH_GRAPH_ACF,
 		0
 	};
 
-	DispContextHelp(pHelpInfo, aIDs);
+	::DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

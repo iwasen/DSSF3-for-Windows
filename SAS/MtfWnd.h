@@ -7,7 +7,7 @@ class CMtfWnd : public CWnd
 public:
 	CMtfWnd();
 
-	void Initialize(int nFontSize, LPCTSTR pTitle, int nRemark, COLORREF color);
+	void Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF color);
 	void DispGraph(const double *pMtfData, const double *pMtfFreq);
 
 protected:

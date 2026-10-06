@@ -110,7 +110,6 @@
 #define PRODUCT_CODE	"DSSF3"
 
 // ライセンスチェック
-//#define GET_CHECK_DATA GetCheckData1()
 #define GET_CHECK_DATA \
 		((GetCheckData1() + 19580414) ^ 0x3f81f9ca)
 #define CHECK_LICENSE0(_app_id, _product_version) \
@@ -147,12 +146,12 @@ extern double GetCeilValue(double fValue);
 extern int MessageBoxID(CWnd *pWnd, UINT nIDPrompt, UINT nType);
 extern BOOL ExecMMLib(CWnd *pWnd);
 extern BOOL CheckMMLib();
-extern BOOL SendMMLib(CWnd *pWnd, LPCTSTR pFolderTitle, LPCTSTR pFolderComment, LPCTSTR pDataTitle, LPCTSTR pDataComment, LPCTSTR pText, HANDLE hDIB);
+extern BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pDataTitle, LPCSTR pDataComment, LPCSTR pText, HANDLE hDIB);
 extern void LoadBimapStretch(CBitmap &bitmapDst, UINT nID, int nWidth, int nHeight);
 extern int ReadWaveData(HWAVEDATA hWaveData, double *pLeftData, double *pRightData, int nData, int nOffset = 0);
 extern HWAVEDATA MakeWaveDataHandle(int nSamplesPerSec, int nBitsPerSample, int nChannel, int nDataNum, const double *pLeftData, const double *pRightData, BOOL bNormalize = FALSE);
 extern void OpenURL(UINT nID);
-extern void OpenURL(LPCTSTR pUrl);
+extern void OpenURL(LPCSTR pUrl);
 extern DLGTEMPLATE *GetDialogResource(UINT nID, int nFontSize);
 extern void MakeWindowFunc(int type, int size, double *data, double fMul = 1);
 extern void ScreenShot(HWND hWnd);
@@ -163,4 +162,4 @@ extern void CopyWaveToDouble(const void *pWaveData, double *pLeftData, double *p
 extern double GetMaxData(const double *pData, int nData, int nAlign = 1);
 extern double GetMaxData(const double *pLeftData, const double *pRightData, int nData);
 extern CString GetExeDir();
-extern void SetFileType(LPCTSTR ext, LPCTSTR docname, LPCTSTR doctype, LPCTSTR exepath) ;
+extern void SetFileType(LPCSTR ext, LPCSTR docname, LPCSTR doctype, LPCSTR exepath) ;

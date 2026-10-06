@@ -68,8 +68,8 @@ IDR_ZOOM_V              BITMAP                  "res\\zoom_v.bmp"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 5,2,0,49
- PRODUCTVERSION 5,2,0,49
+ FILEVERSION 5,2,0,50
+ PRODUCTVERSION 5,2,0,50
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -87,13 +87,13 @@ BEGIN
             VALUE "Comments", "Written by Shinichi Aizawa"
             VALUE "CompanyName", "Yoshimasa Electronic Inc."
             VALUE "FileDescription", "Diagnostic System for Sound Fields Version 5"
-            VALUE "FileVersion", "5.2.0.49"
+            VALUE "FileVersion", "5.2.0.50"
             VALUE "InternalName", "RA"
             VALUE "LegalCopyright", "Copyright (C) 2000-2026 Yoshimasa Electronic Inc."
             VALUE "LegalTrademarks", "YMEC"
             VALUE "OriginalFilename", "RTA.EXE"
             VALUE "ProductName", "Realtime Analyzer [RA]"
-            VALUE "ProductVersion", "5.2.0.49"
+            VALUE "ProductVersion", "5.2.0.50"
         END
     END
     BLOCK "VarFileInfo"

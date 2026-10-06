@@ -8,7 +8,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CProgressDlg ダイアログ
 
-CProgressDlg::CProgressDlg(CWnd* pParent /*=NULL*/, LPCTSTR title)
+CProgressDlg::CProgressDlg(CWnd* pParent /*=NULL*/, LPCSTR title)
 	: CDialogAF(CProgressDlg::IDD, pParent)
 {
 	m_nMaxValue = 100;
@@ -68,7 +68,7 @@ void CProgressDlg::SetProgressBarSub(int percent)
 	m_Progress.SetPos(m_nPos + percent / m_nMaxValue);
 }
 
-void CProgressDlg::SetMessage(LPCTSTR msg)
+void CProgressDlg::SetMessage(LPCSTR msg)
 {
 	m_sMessage = msg;
 	UpdateData(FALSE);

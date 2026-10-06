@@ -30,9 +30,10 @@ void CDstManualWnd::Initialize()
 	m_penRight.CreatePen(PS_SOLID, 0, COLOR_RIGHT);
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	LOGFONT font{};
-	font.lfHeight = CDpi::OriginalDpi(90, 88);
-	font.lfCharSet = DEFAULT_CHARSET;
+	LOGFONT font{
+		.lfHeight = CDpi::OriginalDpi(90, 88),
+		.lfCharSet = DEFAULT_CHARSET
+	};
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -88,7 +89,7 @@ void CDstManualWnd::SetBitmap(int nChannel, int nMaxHarmonics)
 
 	m_dcMem.SelectObject(pFontOrg);
 
-	double xStep = (double)m_nScaleWidth / nMaxHarmonics;
+	const double xStep = (double)m_nScaleWidth / nMaxHarmonics;
 	int xWidth;
 	if (nChannel != 0)
 		xWidth = (int)(xStep / 2.5);
@@ -104,8 +105,8 @@ void CDstManualWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, i
 {
 	int y;
 	int i;
-	int nWidth = nRight - nLeft;
-	int nHeight = nBottom - nTop;
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	CPen *pPenOrg;
 	CSize size;
 	CString sText;
@@ -127,7 +128,7 @@ void CDstManualWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, i
 
 	m_dcMem.SelectObject(&m_Font);
 
-	int nData = nMaxHarmonics;
+	const int nData = nMaxHarmonics;
 	fStep = (double)nWidth / nData;
 	fPos = nLeft + fStep / 2;
 	for (i = 0; i < nData; i++) {
@@ -146,9 +147,9 @@ void CDstManualWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, i
 	m_dcMem.TextOut(nLeft + (nWidth - size.cx) / 2, m_nHeight - size.cy - 2, sText);
 
 	if (g_oSetData.Dst.nScaleMode == 0) {
-		double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
-		double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
-		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
+		const double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
+		const double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
+		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
 			for (fTHD = fMinTHD, i = 0; fTHD <= fMaxTHD * 1.0001; fTHD += fStep, i++) {
 				y = m_nScaleBottom - (int)((dB20((double)fTHD) - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
@@ -171,9 +172,9 @@ void CDstManualWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, i
 		}
 		sUnit = "[%]";
 	} else {
-		int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
+		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
-			int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
+			const int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
 			for (nTHD = g_oSetData.Dst.nScaleMin, i = 0; nTHD <= g_oSetData.Dst.nScaleMax; nTHD += nStep, i++) {
 				y = m_nScaleBottom - (int)((nTHD - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
 
@@ -215,8 +216,8 @@ void CDstManualWnd::DispGraph(const double *pLeftDst, const double *pRightDst, i
 	CRect rect;
 	double xPos;
 	int xWidth;
-	double xStep = (double)m_nScaleWidth / nMaxHarmonics;
-	double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
+	const double xStep = (double)m_nScaleWidth / nMaxHarmonics;
+	const double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
 
 	SetBitmap(nChannel, nMaxHarmonics);
 

@@ -84,7 +84,7 @@ BOOL CRtaApp::InitInstance()
 			if (OpenClipboard(NULL)) {
 				EmptyClipboard();
 
-				DWORD dwCount = (DWORD)sAutoRecFile.GetLength() + 1;
+				const DWORD dwCount = (DWORD)sAutoRecFile.GetLength() + 1;
 				HGLOBAL hMem = ::GlobalAlloc(GHND | GMEM_SHARE , dwCount);
 
 				PTSTR pMem = (PTSTR)::GlobalLock(hMem);

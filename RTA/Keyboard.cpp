@@ -135,13 +135,13 @@ void CKeyboard::PreSubclassWindow()
 	GetClientRect(rect);
 
 	int nOctave, nKey, nIndex;
-	static const int tWhiteKey[7] = {0, 2, 4, 5, 7, 9, 11};
-	static const int tBlackKey[5] = {1, 3, 6, 8, 10};
+	static constexpr int tWhiteKey[7] = {0, 2, 4, 5, 7, 9, 11};
+	static constexpr int tBlackKey[5] = {1, 3, 6, 8, 10};
 
-	double nWhiteKeyWidth = rect.right / 52.0;
-	int nWhiteKeyHeight = rect.bottom;
-	int nBlackKeyWidth = (int)(nWhiteKeyWidth * 2 / 3);
-	int nBlackKeyHeight = rect.bottom * 13 / 20;
+	const double nWhiteKeyWidth = rect.right / 52.0;
+	const int nWhiteKeyHeight = rect.bottom;
+	const int nBlackKeyWidth = (int)(nWhiteKeyWidth * 2 / 3);
+	const int nBlackKeyHeight = rect.bottom * 13 / 20;
 
 	for (i = 0; i < 52; i++) {
 		nIndex = i + 36;
@@ -150,13 +150,13 @@ void CKeyboard::PreSubclassWindow()
 		m_nKey[nIndex] = tWhiteKey[(i + 5) % 7];
 	}
 
-	static const int key[5] = {1, 2, 4, 5, 6};
-	static const int pos[5] = {0, 1, 0, 0, 0};
+	static constexpr int key[5] = {1, 2, 4, 5, 6};
+	static constexpr int pos[5] = {0, 1, 0, 0, 0};
 
 	for (i = 0; i < 36; i++) {
 		nOctave = (i + 4) / 5;
 		nKey = (i + 4) % 5;
-		double x = (nOctave * 7 + key[nKey] - 5) * nWhiteKeyWidth - nBlackKeyWidth / 2 + pos[nKey];
+		const double x = (nOctave * 7 + key[nKey] - 5) * nWhiteKeyWidth - nBlackKeyWidth / 2 + pos[nKey];
 
 		nIndex = i;
 		m_KeyRect[nIndex].SetRect((int)x, 0, (int)(x + nBlackKeyWidth), nBlackKeyHeight);
