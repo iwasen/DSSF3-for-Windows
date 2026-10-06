@@ -78,7 +78,7 @@ void CSasView::SetHeader(int nHeader)
 		int fmt;
 		int width;
 	};
-	static const LISTCOLUMN tColumnFolder[] = {
+	static constexpr LISTCOLUMN tColumnFolder[] = {
 		{IDS_TITLE, LVCFMT_LEFT, 150},
 		{IDS_NAME, LVCFMT_LEFT, 100},
 		{IDS_PLACE, LVCFMT_LEFT, 100},

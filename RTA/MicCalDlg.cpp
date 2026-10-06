@@ -112,7 +112,7 @@ void CMicCalDlg::InitMicCalList()
 		UINT textID;
 		int width;
 	};
-	static const LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[] = {
 		{IDS_MICINFO, 150},
 		{IDS_MICAMPINFO, 150},
 		{IDS_COMMENT, 150}

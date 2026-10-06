@@ -438,7 +438,7 @@ void CImpFactor::InitAcParamList()
 		LPCSTR text;
 		int width;
 	};
-	static const LISTCOLUMN tParam1Stereo[] = {
+	static constexpr LISTCOLUMN tParam1Stereo[] = {
 		{0, "Freq.", 53},
 		{0, "SPL", 53},
 		{0, "SPL-L", 53},

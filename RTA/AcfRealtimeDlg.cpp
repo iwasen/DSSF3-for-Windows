@@ -512,7 +512,7 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 		LPCSTR text;
 		int width;
 	};
-	static const LISTCOLUMN tColumnHeader1[] = {
+	static constexpr LISTCOLUMN tColumnHeader1[] = {
 		{0, "Time", 68},
 		{IDS_PHI0, NULL, 68},
 		{IDS_TAUE, NULL, 68},

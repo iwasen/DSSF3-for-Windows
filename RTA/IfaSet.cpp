@@ -101,7 +101,7 @@ BOOL CIfaSet::OnInitDialog()
 		int textID;
 		int width;
 	};
-	static const LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[] = {
 		{IDS_TITLE, 200},
 		{IDS_COMMENT, 200},
 		{IDS_SAMPLING, 65}

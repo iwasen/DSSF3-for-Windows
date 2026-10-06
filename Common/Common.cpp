@@ -13,8 +13,8 @@
 #include <atlbase.h>
 #include <mmsystem.h>
 
-const char g_sSystemName[] = "Diagnostic System for Sound Fields";
-const char g_sRegistryName[] = "Analyzing System for Sound Fields Ver5";
+constexpr char g_sSystemName[] = "Diagnostic System for Sound Fields";
+constexpr char g_sRegistryName[] = "Analyzing System for Sound Fields Ver5";
 CDllUxTheme g_dllUxTheme;
 
 static HDDEDATA EXPENTRY DdeCallback(WORD wType, WORD wFmt, HCONV hConv, HSZ hszTopic, HSZ hszItem, HDDEDATA hData, DWORD lData1, DWORD lData2);

@@ -201,7 +201,7 @@ void CNmsFactor::InitNmsFactorList()
 		LPCSTR text;
 		int width;
 	};
-	static const LISTCOLUMN tColumnHeader[] = {
+	static constexpr LISTCOLUMN tColumnHeader[] = {
 		{0, "Time", 53},
 		{IDS_PHI0, NULL, 53},
 		{IDS_TAUE, NULL, 53},
@@ -212,7 +212,7 @@ void CNmsFactor::InitNmsFactorList()
 		{IDS_TIACC, NULL, 53},
 		{0, "W_IACC", 53}
 	};
-	static const char *tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
+	static constexpr const char *tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
 	CString str;
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;

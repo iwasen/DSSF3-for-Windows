@@ -43,7 +43,7 @@ BOOL CSaveDlg::OnInitDialog()
 		UINT textID;
 		int width;
 	};
-	static const LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[] = {
 		{IDS_TITLE, 150},
 		{IDS_NAME, 100},
 		{IDS_PLACE, 100},

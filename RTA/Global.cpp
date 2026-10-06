@@ -33,19 +33,19 @@ const char *g_pFreqScale3[MAX_OCT3 + 1] = {
 	"16k", "20k", "25k", "31.5k", "40k", "50k", "63k", "8k", "100k", ""
 };
 
-const int g_nOctBandTbl[OCT_BAND_NUM] = {
+constexpr int g_nOctBandTbl[OCT_BAND_NUM] = {
 	1, 3, 6, 12, 24
 };
 
-static const UINT g_tWaveForm[N_WAVE_FORM] = {
+static constexpr UINT g_tWaveForm[N_WAVE_FORM] = {
 	IDS_SINUSOIDAL, IDS_TRIANGULAR, IDS_SQUARE, IDS_SAWTOOTH
 };
 
-const UINT g_tFftModeId[FFT_MODE_NUM] = {
+constexpr UINT g_tFftModeId[FFT_MODE_NUM] = {
 	IDS_SPECTRUM, IDS_OCTAVE, IDS_WATERFALL, IDS_CORRELATION, IDS_PHASE2, IDS_SPECTROGRAM, IDS_CROSS_SPECTRUM, IDS_COHERENCE, IDS_CEPSTRUM
 };
 
-const int g_tFontSize[] = {
+constexpr int g_tFontSize[] = {
 #ifdef _LANG_JPN
 	9, 10, 11, 12, 14, 16, 18, 0
 #endif

@@ -122,7 +122,7 @@ void CMicCal2::InitFreqList()
 		UINT textID;
 		int width;
 	};
-	static const LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[] = {
 		{IDS_FREQUENCY, 55},
 		{IDS_LEVEL, 55}
 	};

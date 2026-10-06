@@ -101,7 +101,7 @@ void CNmsView::SetListHeader()
 		int fmt;
 		int width;
 	};
-	static const LISTCOLUMN tColumnHeader[] = {
+	static constexpr LISTCOLUMN tColumnHeader[] = {
 		{0, "No.", LVCFMT_LEFT, 50},
 		{IDS_MEASUREMENT_TIME, NULL, LVCFMT_LEFT, 128},
 		{IDS_STATUS, NULL, LVCFMT_LEFT, 70},
