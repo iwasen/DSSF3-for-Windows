@@ -79,8 +79,7 @@ void CWaveViewWnd::SetBitmap()
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penGray);
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	m_dcMem.MoveTo(m_nScaleLeft, m_nScaleCenter);

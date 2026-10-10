@@ -114,8 +114,7 @@ void CFreqWnd::SetBitmap(int nScale, int nMinFreq, int nMaxFreq, int nMinLevel, 
 	m_nScaleHeight = m_nScaleBottom - m_nScaleTop;
 	m_nScaleCenter = m_nScaleTop + m_nScaleHeight / 2;
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	rect.SetRect(m_nScaleLeft, m_nScaleTop, m_nScaleRight, m_nScaleBottom);

@@ -5,7 +5,7 @@
 #include "MSeq.h"
 #include "Common.h"
 
-static const MSeqParam tMSeqParam[] = {
+static constexpr MSeqParam tMSeqParam[] = {
 	{10, 2, {3, 10},       {3, 13, 19, 30, 104, 152, 177, 325, 904, 1009}},
 	{11, 2, {2, 11},       {11, 13, 22, 59, 85, 108, 138, 231, 465, 1139, 1914}},
 	{12, 4, {1, 4, 6, 12}, {1, 4, 17, 19, 38, 70, 267, 361, 446, 3254, 3578, 4066}},

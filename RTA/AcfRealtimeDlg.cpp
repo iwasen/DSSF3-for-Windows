@@ -529,8 +529,8 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 		{0, "W_IACC", 55}
 	};
 	const LISTCOLUMN *pColumnHeader;
-	static LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
-	const char **pUnit = NULL;
+	static constexpr LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
+	LPCTSTR const* pUnit = NULL;
 	CString str;
 	int nColumn;
 

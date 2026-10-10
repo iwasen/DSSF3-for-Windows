@@ -128,8 +128,7 @@ void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nM
 
 	m_nScaleZero = m_nScaleTop + m_nScaleHeight * nMaxLevel / nLevelRange;
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	m_dcMem.MoveTo(m_nScaleLeft - 1, m_nScaleTop);

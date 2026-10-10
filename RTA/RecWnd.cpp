@@ -160,7 +160,6 @@ void CRecWnd::Resize()
 
 void CRecWnd::SetBitmap(double startTime, double dispTime)
 {
-	CRect rect;
 	CString sText;
 	CSize size;
 	int x, y;
@@ -170,7 +169,7 @@ void CRecWnd::SetBitmap(double startTime, double dispTime)
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	for (int i = 100; i >= -100; i -= 20) {

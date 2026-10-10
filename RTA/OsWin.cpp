@@ -183,11 +183,10 @@ void COsWin::Resize()
 
 void COsWin::SetBitmap()
 {
-	CRect rect;
 	int i;
 	int x, y;
 
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	for (i = 1; i < m_nVDiv * 5; i++) {
@@ -532,9 +531,7 @@ void COsWin::DispXY(const double *pData, int nData, double fLevelL, double fLeve
 
 void COsWin::ClearScreen()
 {
-	CRect rect;
-
-	rect.SetRect(0, 0, m_nWidth, m_nScaleTop);
+	CRect rect(0, 0, m_nWidth, m_nScaleTop);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	m_dcMem2.BitBlt(0, 0, m_nWidth, m_nHeight, &m_dcMem, 0, 0, SRCCOPY);
@@ -593,13 +590,10 @@ void COsWin::DispTriggerLevel(int nTrigLevel, int nChannel, BOOL bDraw)
 
 void COsWin::DispText(LPCSTR text, int nLine)
 {
-	CRect rect;
-	CSize size;
-
-	size = m_dcMem.GetOutputTextExtent(text);
+	CSize size = m_dcMem.GetOutputTextExtent(text);
 	const int y = (size.cy + 2) * nLine + 6;
 
-	rect.SetRect(m_nScaleLeft, y, m_nWidth, y + size.cy);
+	CRect rect(m_nScaleLeft, y, m_nWidth, y + size.cy);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	m_dcMem.TextOut(m_nScaleLeft, y, text);

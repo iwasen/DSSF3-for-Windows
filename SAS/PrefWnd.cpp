@@ -123,8 +123,7 @@ void CPrefWnd::SetBitmap(int minS, int maxTe)
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penGray);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	for (t = 0; t <= maxTe; t += 10) {

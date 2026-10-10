@@ -109,8 +109,7 @@ void CParamWnd::SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double
 	m_nScaleWidth = m_nScaleRight - m_nScaleLeft;
 	m_nScaleHeight = m_nScaleBottom - m_nScaleTop;
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	for (i = 0; i < nData; i++) {

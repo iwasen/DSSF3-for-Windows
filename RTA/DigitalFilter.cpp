@@ -15,7 +15,7 @@
 #include "DigitalFilter.h"
 
 // ベッセルフィルタ用定数
-const complex<double> CDigitalFilter::m_aBesselTable[] = {
+constexpr complex<double> CDigitalFilter::m_aBesselTable[] = {
 	complex<double>(-1.00000000000e+00, 0.00000000000e+00), complex<double>(-1.10160133059e+00, 6.36009824757e-01),
 	complex<double>(-1.32267579991e+00, 0.00000000000e+00), complex<double>(-1.04740916101e+00, 9.99264436281e-01),
 	complex<double>(-1.37006783055e+00, 4.10249717494e-01), complex<double>(-9.95208764350e-01, 1.25710573945e+00),

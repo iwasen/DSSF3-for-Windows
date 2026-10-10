@@ -522,46 +522,49 @@ int ReadWaveData(HWAVEDATA hWaveData, double *pLeftData, double *pRightData, int
 	if (pLeftData == NULL)
 		return 0;
 
-	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-	const int nBytesPerSample = pWaveData->nChannels * (pWaveData->nBitsPerSample / 8);
-	const int nWaveSize = pWaveData->dataSize / nBytesPerSample;
-	const int nReadSize = min(nWaveSize - nOffset, nData);
+	if (PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData); pWaveData != NULL) {
+		const int nBytesPerSample = pWaveData->nChannels * (pWaveData->nBitsPerSample / 8);
+		const int nWaveSize = pWaveData->dataSize / nBytesPerSample;
+		const int nReadSize = min(nWaveSize - nOffset, nData);
 
-	CopyWaveToDouble((BYTE *)pWaveData->waveData + nOffset * nBytesPerSample, pLeftData, pWaveData->nChannels == 2 ? pRightData : NULL, nReadSize, pWaveData->nBitsPerSample);
+		CopyWaveToDouble((BYTE *)pWaveData->waveData + nOffset * nBytesPerSample, pLeftData, pWaveData->nChannels == 2 ? pRightData : NULL, nReadSize, pWaveData->nBitsPerSample);
 
-	::GlobalUnlock(hWaveData);
+		::GlobalUnlock(hWaveData);
 
-	if (nReadSize < nData) {
-		const int nClear = nData - nReadSize;
+		if (nReadSize < nData) {
+			const int nClear = nData - nReadSize;
 
-		memset(pLeftData + nReadSize, 0, sizeof(double) * nClear);
-		if (pRightData != NULL)
-			memset(pRightData + nReadSize, 0, sizeof(double) * nClear);
-	}
+			memset(pLeftData + nReadSize, 0, sizeof(double) * nClear);
+			if (pRightData != NULL)
+				memset(pRightData + nReadSize, 0, sizeof(double) * nClear);
+		}
 
-	return nReadSize;
+		return nReadSize;
+	} else
+		return 0;
 }
 
 HWAVEDATA MakeWaveDataHandle(int nSamplesPerSec, int nBitsPerSample, int nChannel, int nDataNum, const double *pLeftData, const double *pRightData, BOOL bNormalize)
 {
 	const int nBytes = nDataNum * (nBitsPerSample / 8) * (pRightData == NULL ? 1 : nChannel);
 	HWAVEDATA hWaveData = ::GlobalAlloc(GHND, sizeof(WAVEDATA) + nBytes);
-	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-	pWaveData->nChannels = (WORD)nChannel;
-	pWaveData->nBitsPerSample = (WORD)nBitsPerSample;
-	pWaveData->nSamplesPerSec = nSamplesPerSec;
-	pWaveData->dataSize = nBytes;
+	if (PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData); pWaveData!= NULL) {
+		pWaveData->nChannels = (WORD)nChannel;
+		pWaveData->nBitsPerSample = (WORD)nBitsPerSample;
+		pWaveData->nSamplesPerSec = nSamplesPerSec;
+		pWaveData->dataSize = nBytes;
 
-	double fMul;
-	if (bNormalize) {
-		const double fMaxData = GetMaxData(pLeftData, pRightData, nDataNum);
-		fMul = fMaxData == 0 ? 0 : 1 / fMaxData;
-	} else
-		fMul = 1.0;
+		double fMul;
+		if (bNormalize) {
+			const double fMaxData = GetMaxData(pLeftData, pRightData, nDataNum);
+			fMul = fMaxData == 0 ? 0 : 1 / fMaxData;
+		} else
+			fMul = 1.0;
 
-	CopyWaveFromDouble(pWaveData->waveData, pLeftData, pRightData, nDataNum, nBitsPerSample, fMul);
+		CopyWaveFromDouble(pWaveData->waveData, pLeftData, pRightData, nDataNum, nBitsPerSample, fMul);
 
-	::GlobalUnlock(hWaveData);
+		::GlobalUnlock(hWaveData);
+	}
 
 	return hWaveData;
 }

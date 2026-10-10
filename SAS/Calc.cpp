@@ -7,11 +7,10 @@
 #include "Regress.h"
 #include "MakeFilter.h"
 #include "SetData.h"
+#include <numbers>
 
-#pragma warning (disable : 4366)
-
-const struct FREQBAND g_tFilterTbl[2] = {
-	{12, sqrt(2.0),
+const FREQBAND g_tFilterTbl[2] = {
+	{12, std::numbers::sqrt2,
 		{0, 15.625, 31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000},
 		{0, 16, 31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000}},
 	{33, pow(2.0, 1.0 / 6),
@@ -29,7 +28,7 @@ const struct FREQBAND g_tFilterTbl[2] = {
 };
 
 // STI 変調周波数
-const double g_tMtfFreq[N_MTF_FREQ] = {
+constexpr double g_tMtfFreq[N_MTF_FREQ] = {
 	0.63, 0.8, 1.0, 1.25, 1.6, 2.0, 2.5,
 	3.15, 4.0, 5.0, 6.3, 8.0, 10.0, 12.5
 };
@@ -39,17 +38,17 @@ static CMSeq g_oMSeq;
 static CTSP g_oTSP;
 
 // STI 周波数バンド
-static const double tMtfBand[N_MTF_BAND] = {
+static constexpr double tMtfBand[N_MTF_BAND] = {
 	125, 250, 500, 1000, 2000, 4000, 8000
 };
 
 // RASTI 500Hzバンド変調周波数
-static const double tMtf500[N_MTF_500] = {
+static constexpr double tMtf500[N_MTF_500] = {
 	1.0, 2.0, 4.0, 8.0
 };
 
 // RASTI 2kHzバンド変調周波数
-static const double tMtf2000[N_MTF_2000] = {
+static constexpr double tMtf2000[N_MTF_2000] = {
 	0.7, 1.4, 2.8, 5.6, 11.2
 };
 

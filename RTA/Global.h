@@ -97,12 +97,11 @@
 
 extern CSetData g_oSetData;
 extern CSetData2 g_oSetData2;
-extern const char *g_tWindowFunc[WF_NUM];
 extern INT_PTR g_nWaveInDevice;
 extern INT_PTR g_nWaveOutDevice;
 extern HICON g_hIcon;
-extern const char *g_pFreqScale1[];
-extern const char *g_pFreqScale3[];
+extern const LPCTSTR g_pFreqScale1[];
+extern const LPCTSTR g_pFreqScale3[];
 extern const int g_nOctBandTbl[];
 extern CWaveForm g_oWaveForm;
 extern const UINT g_tFftModeId[];
@@ -132,4 +131,4 @@ extern void GetAxisUnit(int nMode, CString &sUnitX, CString &sUnitY);
 extern LPCSTR GetRunningStatus(int nStringId, int nInputBits, int nOutputBits, int nRecordBits);
 extern double GetDither(int nBitsPerSample);
 extern void SetBackupList(CListCtrl &cListBackup, CStringArray &oBackupList);
-extern CString Hankaku2Zenkaku(const char *str);
+extern CString Hankaku2Zenkaku(LPCSTR str);

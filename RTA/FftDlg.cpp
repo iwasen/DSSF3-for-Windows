@@ -504,9 +504,7 @@ int CFftDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 LRESULT CFftDlg::OnTabDrag(WPARAM wParam, LPARAM lParam)
 {
-	CRect rect;
-
-	rect.SetRect((int)wParam, (int)lParam, 0, 0);
+	CRect rect((int)wParam, (int)lParam, 0, 0);
 	SeparatePage(g_oSetData.Fft.nMode, rect);
 
 	return 0;

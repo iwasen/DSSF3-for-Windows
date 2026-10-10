@@ -130,8 +130,7 @@ void CIACCWnd::SetBitmap()
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	for (i = -10; i <= 10; i++) {

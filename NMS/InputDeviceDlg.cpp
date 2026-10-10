@@ -251,9 +251,9 @@ void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 		for (DWORD src = 0; src < m_cSrcItems; src++) {
 			// “ü—Í‹@Ší‚Ì LineID Žæ“¾
 			MIXERLINE mxl{
-				mxl.cbStruct = sizeof(mxl),
-				mxl.dwDestination = dst,
-				mxl.dwSource = src
+				.cbStruct = sizeof(mxl),
+				.dwDestination = dst,
+				.dwSource = src
 			};
 			if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_SOURCE) != MMSYSERR_NOERROR)
 				return;
@@ -570,8 +570,6 @@ void CInputDeviceDlg::OnRegist()
 
 void CInputDeviceDlg::OnChange()
 {
-	CDbMicCal dbMicCal;
-	DbMicCalRec dbMicCalRec;
 	int index;
 
 	if ((index = GetCurSel()) == -1) {
@@ -589,9 +587,11 @@ void CInputDeviceDlg::OnChange()
 		return;
 	}
 
+	CDbMicCal dbMicCal;
 	if (!dbMicCal.Open())
 		return;
 
+	DbMicCalRec dbMicCalRec;
 	dbMicCalRec.nMicCalID = (long)m_cMicCalList.GetItemData(index);
 	GetMicCalData(&dbMicCalRec);
 
@@ -604,7 +604,6 @@ void CInputDeviceDlg::OnChange()
 
 void CInputDeviceDlg::OnDelete()
 {
-	CDbMicCal dbMicCal;
 	int index;
 
 	if ((index = GetCurSel()) == -1) {
@@ -615,6 +614,7 @@ void CInputDeviceDlg::OnDelete()
 	if (::AfxMessageBox(IDS_MSG_DELTEMICCAL, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL)
 		return;
 
+	CDbMicCal dbMicCal;
 	if (!dbMicCal.Open())
 		return;
 
@@ -628,7 +628,6 @@ void CInputDeviceDlg::OnDelete()
 
 void CInputDeviceDlg::OnFreqRegist()
 {
-	CString str;
 	int index;
 
 	UpdateData(TRUE);
@@ -638,6 +637,7 @@ void CInputDeviceDlg::OnFreqRegist()
 		return;
 	}
 
+	CString str;
 	str.Format("%g", m_fFreq);
 
 	LV_FINDINFO findInfo{
@@ -664,11 +664,11 @@ void CInputDeviceDlg::OnFreqRegist()
 
 void CInputDeviceDlg::OnFreqDelete()
 {
-	CString str;
 	int index;
 
 	UpdateData(TRUE);
 
+	CString str;
 	str.Format("%g", m_fFreq);
 
 	LV_FINDINFO findInfo{
@@ -685,9 +685,8 @@ void CInputDeviceDlg::OnFreqDelete()
 int CInputDeviceDlg::GetCurSel()
 {
 	const int itemCount = m_cMicCalList.GetItemCount();
-	int i;
 
-	for (i = 0; i < itemCount; i++) {
+	for (int i = 0; i < itemCount; i++) {
 		if (m_cMicCalList.GetItemState(i, LVIS_SELECTED) != 0)
 			return i;
 	}
@@ -845,13 +844,13 @@ void CInputDeviceDlg::SaveCheck()
 
 	if (m_bUpdate) {
 		if (::AfxMessageBox(IDS_MSG_CHANGEDATA, MB_OKCANCEL | MB_ICONQUESTION) == IDOK) {
-			CDbMicCal dbMicCal;
-			DbMicCalRec dbMicCalRec;
-
 			UpdateData(TRUE);
+
+			DbMicCalRec dbMicCalRec;
 			dbMicCalRec.nMicCalID = (long)m_cMicCalList.GetItemData(index);
 			GetMicCalData(&dbMicCalRec);
 
+			CDbMicCal dbMicCal;
 			if (!dbMicCal.Open())
 				return;
 

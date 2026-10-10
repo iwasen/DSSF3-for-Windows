@@ -162,7 +162,6 @@ void CFactorWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc
 void CFactorWnd::SetSize(int nFontSize)
 {
 	CRect rect;
-
 	GetClientRect(&rect);
 
 	if (rect.Size() == m_sizeCurrent)
@@ -233,8 +232,7 @@ void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue
 
 	m_fScaleZero = m_nScaleTop + m_nScaleHeight * fMaxValue / fLevelRange;
 
-	CRect rect;
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	rect.SetRect(m_nScaleLeft, m_nScaleTop, m_nScaleRight, m_nScaleBottom);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="EngDeb|Win32">
@@ -36,8 +36,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{044C166F-CC4A-4AD9-AE4D-3B9837D1802F}</ProjectGuid>
-    <RootNamespace>NMS</RootNamespace>
+    <ProjectGuid>{80FE1C08-0219-4E35-B70B-01C2492ACB0D}</ProjectGuid>
+    <RootNamespace>RTA</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -82,10 +82,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v145</PlatformToolset>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -126,58 +126,58 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>D:\VS\IntDir\$(VisualStudioVersion)\$(SolutionName)\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='JpnDeb|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_JPN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_JPN;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -185,7 +185,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistJd.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistJd.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -201,16 +201,16 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_JPN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_JPN;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -218,7 +218,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistJd.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistJd.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -229,16 +229,17 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_JPN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_JPN;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <AssemblerOutput />
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -246,7 +247,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistJ.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistJ.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -264,16 +265,16 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_JPN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_JPN;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -281,7 +282,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistJ.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistJ.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -294,16 +295,16 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_ENG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_ENG;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -311,7 +312,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistEd.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistEd.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -327,16 +328,16 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_ENG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_ENG;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -344,7 +345,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistEd.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswind.lib;pcscld.lib;mmdbd.lib;RegistEd.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -355,16 +356,16 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_ENG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_ENG;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -372,7 +373,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistE.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistE.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -390,16 +391,16 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)common;S:\job\ymec\MyDev\INCLUDE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OS_WNT;_PRJ_NMS;_LANG_ENG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_WNT;_PRJ_RTA;_LANG_ENG;USE_ASIO;USE_WASAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
-      <DisableSpecificWarnings>6031;26495;6011</DisableSpecificWarnings>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -407,7 +408,7 @@
       <AdditionalIncludeDirectories>..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistE.lib;htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;pcswin.lib;pcscl.lib;mmdb.lib;RegistE.lib;htmlhelp.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>S:\job\ymec\MyDev\LIB64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -417,10 +418,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\AsioDriver.cpp" />
+    <ClCompile Include="..\Common\AsioManager.cpp" />
     <ClCompile Include="..\Common\CalcAcf.cpp" />
     <ClCompile Include="..\Common\Common.cpp" />
-    <ClCompile Include="..\Common\DialogEx.cpp" />
-    <ClCompile Include="..\Common\DialogML.cpp" />
     <ClCompile Include="..\Common\Directory.cpp" />
     <ClCompile Include="..\Common\DllCall.cpp" />
     <ClCompile Include="..\Common\DllUxTheme.cpp" />
@@ -432,42 +433,101 @@
     <ClCompile Include="..\Common\Filter.cpp" />
     <ClCompile Include="..\Common\FreqWnd.cpp" />
     <ClCompile Include="..\Common\HyperLink.cpp" />
+    <ClCompile Include="..\Common\ImpWnd.cpp" />
     <ClCompile Include="..\Common\Indicator.cpp" />
-    <ClCompile Include="..\Common\listvwex.cpp" />
+    <ClCompile Include="..\Common\IRMethod.cpp" />
     <ClCompile Include="..\Common\Mixer.cpp" />
+    <ClCompile Include="..\Common\MSeq.cpp" />
     <ClCompile Include="..\Common\MyCtrl.cpp" />
-    <ClCompile Include="..\Common\NsTemp.cpp" />
     <ClCompile Include="..\Common\PlaybackBtn.cpp" />
     <ClCompile Include="..\Common\regress.cpp" />
     <ClCompile Include="..\Common\RemarkWnd.cpp" />
     <ClCompile Include="..\Common\Spline.cpp" />
-    <ClCompile Include="..\Common\TempAcf.cpp" />
-    <ClCompile Include="..\Common\TempExportDlg.cpp" />
-    <ClCompile Include="..\Common\TempIAcf.cpp" />
-    <ClCompile Include="..\Common\TempImportDlg.cpp" />
-    <ClCompile Include="..\Common\TemplateDlg.cpp" />
     <ClCompile Include="..\Common\ToolBarEx.cpp" />
+    <ClCompile Include="..\Common\TSP.cpp" />
     <ClCompile Include="..\Common\WaveFile.cpp" />
     <ClCompile Include="..\Common\WaveIn.cpp" />
     <ClCompile Include="..\Common\WaveOut.cpp" />
-    <ClCompile Include="ChangeNoiseSrcDlg.cpp" />
+    <ClCompile Include="Acf3dd.cpp" />
+    <ClCompile Include="AcfDlg.cpp" />
+    <ClCompile Include="AcfRealtimeCalcDlg.cpp" />
+    <ClCompile Include="AcfRealtimeDlg.cpp" />
+    <ClCompile Include="AcfSpgWnd.cpp" />
+    <ClCompile Include="AutoRec.cpp" />
+    <ClCompile Include="AutoRecDlg.cpp" />
+    <ClCompile Include="AverageBuf.cpp" />
+    <ClCompile Include="BaseDlg.cpp" />
+    <ClCompile Include="CsvFile.cpp" />
+    <ClCompile Include="DataBackupDlg.cpp" />
+    <ClCompile Include="DataRecordDlg.cpp" />
+    <ClCompile Include="DataRestoreDlg.cpp" />
+    <ClCompile Include="DialogEx.cpp" />
+    <ClCompile Include="DigitalFilter.cpp" />
+    <ClCompile Include="DstDlg.cpp" />
+    <ClCompile Include="DstFreq.cpp" />
+    <ClCompile Include="DstFreqWnd.cpp" />
+    <ClCompile Include="DstHoldData.cpp" />
+    <ClCompile Include="DstLevel.cpp" />
+    <ClCompile Include="DstLevelWnd.cpp" />
+    <ClCompile Include="DstManual.cpp" />
+    <ClCompile Include="DstManualWnd.cpp" />
+    <ClCompile Include="Fft3dd.cpp" />
+    <ClCompile Include="FftCep.cpp" />
+    <ClCompile Include="FftCoh.cpp" />
+    <ClCompile Include="FftCrf.cpp" />
+    <ClCompile Include="FftCrs.cpp" />
+    <ClCompile Include="FftDlg.cpp" />
+    <ClCompile Include="FftFreqDlg.cpp" />
+    <ClCompile Include="FftLevelDlg.cpp" />
+    <ClCompile Include="FftOct.cpp" />
+    <ClCompile Include="FftPhs.cpp" />
+    <ClCompile Include="FftPws.cpp" />
+    <ClCompile Include="FftSpg.cpp" />
+    <ClCompile Include="FftWnd.cpp" />
+    <ClCompile Include="FftWndEx.cpp" />
+    <ClCompile Include="FileDlg.cpp" />
+    <ClCompile Include="FilterDlg.cpp" />
+    <ClCompile Include="FilterWnd.cpp" />
+    <ClCompile Include="FreDlg.cpp" />
+    <ClCompile Include="FreHoldData.cpp" />
+    <ClCompile Include="FreNoise.cpp" />
+    <ClCompile Include="FreSpot.cpp" />
+    <ClCompile Include="FreSweep.cpp" />
+    <ClCompile Include="FreWnd.cpp" />
     <ClCompile Include="Global.cpp" />
-    <ClCompile Include="GraphFactor.cpp" />
-    <ClCompile Include="InputDeviceDlg.cpp" />
-    <ClCompile Include="MainFrm.cpp" />
-    <ClCompile Include="ManualMode.cpp" />
-    <ClCompile Include="Measurement.cpp" />
-    <ClCompile Include="MeasureSetDlg.cpp" />
-    <ClCompile Include="Nms.cpp" />
-    <ClCompile Include="NmsDoc.cpp" />
-    <ClCompile Include="NmsFactor.cpp" />
-    <ClCompile Include="NmsItem.cpp" />
-    <ClCompile Include="NmsView.cpp" />
-    <ClCompile Include="NoiseSourceDlg.cpp" />
-    <ClCompile Include="PeakLevelWnd.cpp" />
-    <ClCompile Include="SaveDlg.cpp" />
+    <ClCompile Include="IfaSave.cpp" />
+    <ClCompile Include="IfaSet.cpp" />
+    <ClCompile Include="ImpulseDlg.cpp" />
+    <ClCompile Include="IRAssistDlg.cpp" />
+    <ClCompile Include="IRAssistWnd.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="MicCal2.cpp" />
+    <ClCompile Include="MicCalDlg.cpp" />
+    <ClCompile Include="Mrnd.cpp" />
+    <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="OsCalDlg.cpp" />
+    <ClCompile Include="OsDlg.cpp" />
+    <ClCompile Include="OsWin.cpp" />
+    <ClCompile Include="ParentWnd.cpp" />
+    <ClCompile Include="PresetDlg.cpp" />
+    <ClCompile Include="RecDlg.cpp" />
+    <ClCompile Include="RecWnd.cpp" />
+    <ClCompile Include="Rta.cpp" />
+    <ClCompile Include="RtaDlg.cpp" />
+    <ClCompile Include="ScreenShot.cpp" />
     <ClCompile Include="SetData.cpp" />
-    <ClCompile Include="SplWnd.cpp" />
+    <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="SettingDevice.cpp" />
+    <ClCompile Include="SettingFont.cpp" />
+    <ClCompile Include="SG.CPP" />
+    <ClCompile Include="SgDlg.cpp" />
+    <ClCompile Include="SgNoise.cpp" />
+    <ClCompile Include="SgPulse.cpp" />
+    <ClCompile Include="SgScale.cpp" />
+    <ClCompile Include="SgSweep.cpp" />
+    <ClCompile Include="SgSynth.cpp" />
+    <ClCompile Include="SgTone.cpp" />
+    <ClCompile Include="SgWave.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">Create</PrecompiledHeader>
@@ -478,12 +538,24 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TimeWnd.cpp" />
+    <ClCompile Include="WasapiManager.cpp" />
+    <ClCompile Include="WaveEditDlg.cpp" />
+    <ClCompile Include="WaveEditFM.cpp" />
+    <ClCompile Include="WaveEditManual.cpp" />
+    <ClCompile Include="WaveEditWnd.cpp" />
+    <ClCompile Include="WaveEx.cpp" />
+    <ClCompile Include="WaveForm.cpp" />
+    <ClCompile Include="WaveInEx.cpp" />
+    <ClCompile Include="WaveOutEx.cpp" />
+    <ClCompile Include="WaveViewWnd.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\AsioDriver.h" />
+    <ClInclude Include="..\Common\AsioManager.h" />
     <ClInclude Include="..\Common\CalcAcf.h" />
     <ClInclude Include="..\Common\Common.h" />
-    <ClInclude Include="..\Common\DialogEx.h" />
-    <ClInclude Include="..\Common\DialogML.h" />
+    <ClInclude Include="..\Common\comres.h" />
     <ClInclude Include="..\Common\Directory.h" />
     <ClInclude Include="..\Common\DllCall.h" />
     <ClInclude Include="..\Common\DllUxTheme.h" />
@@ -495,61 +567,171 @@
     <ClInclude Include="..\Common\MakeFilter.h" />
     <ClInclude Include="..\Common\FreqWnd.h" />
     <ClInclude Include="..\Common\HyperLink.h" />
+    <ClInclude Include="..\Common\ImpWnd.h" />
     <ClInclude Include="..\Common\Indicator.h" />
-    <ClInclude Include="..\Common\listvwex.h" />
+    <ClInclude Include="..\Common\IRMethod.h" />
     <ClInclude Include="..\Common\Mixer.h" />
+    <ClInclude Include="..\Common\MSeq.h" />
     <ClInclude Include="..\Common\MyCtrl.h" />
-    <ClInclude Include="..\Common\NsTemp.h" />
     <ClInclude Include="..\Common\PlaybackBtn.h" />
     <ClInclude Include="..\Common\regress.h" />
     <ClInclude Include="..\Common\RemarkWnd.h" />
     <ClInclude Include="..\Common\Spline.h" />
-    <ClInclude Include="..\Common\TempAcf.h" />
-    <ClInclude Include="..\Common\TempExportDlg.h" />
-    <ClInclude Include="..\Common\TempIAcf.h" />
-    <ClInclude Include="..\Common\TempImportDlg.h" />
-    <ClInclude Include="..\Common\TemplateDlg.h" />
     <ClInclude Include="..\Common\ToolBarEx.h" />
+    <ClInclude Include="..\Common\TSP.h" />
+    <ClInclude Include="..\Common\VerRes.h" />
     <ClInclude Include="..\Common\WaveFile.h" />
     <ClInclude Include="..\Common\WaveIn.h" />
+    <ClInclude Include="..\Common\WaveNotify.h" />
     <ClInclude Include="..\Common\WaveOut.h" />
-    <ClInclude Include="ChangeNoiseSrcDlg.h" />
+    <ClInclude Include="Acf3dd.h" />
+    <ClInclude Include="AcfDlg.h" />
+    <ClInclude Include="AcfRealtimeCalcDlg.h" />
+    <ClInclude Include="AcfRealtimeDlg.h" />
+    <ClInclude Include="AcfSpgWnd.h" />
+    <ClInclude Include="AutoRec.h" />
+    <ClInclude Include="AutoRecDlg.h" />
+    <ClInclude Include="AverageBuf.h" />
+    <ClInclude Include="BaseDlg.h" />
+    <ClInclude Include="CsvFile.h" />
+    <ClInclude Include="DataBackupDlg.h" />
+    <ClInclude Include="DataRecordDlg.h" />
+    <ClInclude Include="DataRestoreDlg.h" />
+    <ClInclude Include="DialogEx.h" />
+    <ClInclude Include="DigitalFilter.h" />
+    <ClInclude Include="DstDlg.h" />
+    <ClInclude Include="DstFreq.h" />
+    <ClInclude Include="DstFreqWnd.h" />
+    <ClInclude Include="DstHoldData.h" />
+    <ClInclude Include="DstLevel.h" />
+    <ClInclude Include="DstLevelWnd.h" />
+    <ClInclude Include="DstManual.h" />
+    <ClInclude Include="DstManualWnd.h" />
+    <ClInclude Include="FftDlg.h" />
+    <ClInclude Include="FftFreqDlg.h" />
+    <ClInclude Include="FftLevelDlg.h" />
+    <ClInclude Include="FftWnd.h" />
+    <ClInclude Include="FftWndEx.h" />
+    <ClInclude Include="FileDlg.h" />
+    <ClInclude Include="FilterDlg.h" />
+    <ClInclude Include="FilterWnd.h" />
+    <ClInclude Include="FreDlg.h" />
+    <ClInclude Include="FreHoldData.h" />
+    <ClInclude Include="FreNoise.h" />
+    <ClInclude Include="FreSpot.h" />
+    <ClInclude Include="FreSweep.h" />
+    <ClInclude Include="FreWnd.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="GraphFactor.h" />
     <ClInclude Include="Help\ContextHelp.h" />
-    <ClInclude Include="InputDeviceDlg.h" />
-    <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="ManualMode.h" />
-    <ClInclude Include="Measurement.h" />
-    <ClInclude Include="MeasureSetDlg.h" />
-    <ClInclude Include="Nms.h" />
-    <ClInclude Include="NmsDoc.h" />
-    <ClInclude Include="NmsFactor.h" />
-    <ClInclude Include="NmsItem.h" />
-    <ClInclude Include="NmsView.h" />
-    <ClInclude Include="NoiseSourceDlg.h" />
-    <ClInclude Include="PeakLevelWnd.h" />
+    <ClInclude Include="IfaSave.h" />
+    <ClInclude Include="IfaSet.h" />
+    <ClInclude Include="ImpulseDlg.h" />
+    <ClInclude Include="IRAssistDlg.h" />
+    <ClInclude Include="IRAssistWnd.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="MicCal2.h" />
+    <ClInclude Include="MicCalDlg.h" />
+    <ClInclude Include="Mrnd.h" />
+    <ClInclude Include="Noise.h" />
+    <ClInclude Include="OsCalDlg.h" />
+    <ClInclude Include="OsDlg.h" />
+    <ClInclude Include="OsWin.h" />
+    <ClInclude Include="ParentWnd.h" />
+    <ClInclude Include="PresetDlg.h" />
+    <ClInclude Include="RecDlg.h" />
+    <ClInclude Include="RecWnd.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SaveDlg.h" />
+    <ClInclude Include="Rta.h" />
+    <ClInclude Include="RtaDlg.h" />
+    <ClInclude Include="ScreenShot.h" />
     <ClInclude Include="SetData.h" />
-    <ClInclude Include="SplWnd.h" />
+    <ClInclude Include="Setting.h" />
+    <ClInclude Include="SettingDevice.h" />
+    <ClInclude Include="SettingFont.h" />
+    <ClInclude Include="SG.H" />
+    <ClInclude Include="SgDlg.h" />
+    <ClInclude Include="SgNoise.h" />
+    <ClInclude Include="SgPulse.h" />
+    <ClInclude Include="SgScale.h" />
+    <ClInclude Include="SgSweep.h" />
+    <ClInclude Include="SgSynth.h" />
+    <ClInclude Include="SgTone.h" />
+    <ClInclude Include="SgWave.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TimeWnd.h" />
+    <ClInclude Include="WasapiManager.h" />
+    <ClInclude Include="WaveEditDlg.h" />
+    <ClInclude Include="WaveEditFM.h" />
+    <ClInclude Include="WaveEditManual.h" />
+    <ClInclude Include="WaveEditWnd.h" />
+    <ClInclude Include="WaveEx.h" />
+    <ClInclude Include="WaveForm.h" />
+    <ClInclude Include="WaveInEx.h" />
+    <ClInclude Include="WaveOutEx.h" />
+    <ClInclude Include="WaveViewWnd.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\Nms.ico" />
-    <Image Include="res\stateico.bmp" />
-    <Image Include="res\Toolbar.bmp" />
-    <Image Include="res\zoom_h.bmp" />
-    <Image Include="res\zoom_v.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Nms.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Help\ContextHelp_J.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="Help\NMS_J.hhp">
+    <None Include="..\Common\HMove.cur" />
+    <None Include="..\Common\res\finger.cur" />
+    <CustomBuild Include="Help\RTA_E.hhp">
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">カスタム ビルド ステップを実行しています。</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">カスタム ビルド ステップを実行しています。</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">ヘルプ ファイルを作成しています...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">copy "$(ProjectDir)\help\$(ProjectName)_E.hhp" "$(SolutionDir)\Manual\help\eng\\$(ProjectName).hhp"
+cl /EP /Tc "help\ContextHelp_E.txt"&gt;"$(SolutionDir)\Manual\help\eng\ContextHelp.txt"
+start /wait hhc "$(SolutionDir)\Manual\help\eng\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\eng\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\eng\ContextHelp.txt"
+move "$(SolutionDir)\Manual\help\eng\$(ProjectName).chm" "help\$(ProjectName)_E.chm"
+if not exist "help\$(ProjectName)_E.chm" goto :HelpError
+copy "help\$(ProjectName)_E.chm" "$(SolutionDir)\$(ProjectName)_E.chm"
+copy "help\$(ProjectName)_E.chm" "$(SolutionDir)\win32\engdeb\$(ProjectName)_E.chm"
+copy "help\$(ProjectName)_E.chm" "$(SolutionDir)\x64\engdeb\$(ProjectName)_E.chm"
+goto :HelpDone
+:HelpError
+echo help\$(ProjectName)_E.hhp(1) : error:ヘルプ ファイルを作成中に問題が発生しました。
+echo.
+:HelpDone
+echo.
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">Help\ContextHelp.h;Help\ContextHelp_E.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">$(SolutionDir)\$(ProjectName)_E.chm;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">ヘルプ ファイルを作成しています...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">copy "$(ProjectDir)\help\$(ProjectName)_E.hhp" "$(SolutionDir)\Manual\help\eng\\$(ProjectName).hhp"
+cl /EP /Tc "help\ContextHelp_E.txt"&gt;"$(SolutionDir)\Manual\help\eng\ContextHelp.txt"
+start /wait hhc "$(SolutionDir)\Manual\help\eng\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\eng\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\eng\ContextHelp.txt"
+move "$(SolutionDir)\Manual\help\eng\$(ProjectName).chm" "help\$(ProjectName)_E.chm"
+if not exist "help\$(ProjectName)_E.chm" goto :HelpError
+copy "help\$(ProjectName)_E.chm" "$(SolutionDir)\$(ProjectName)_E.chm"
+goto :HelpDone
+:HelpError
+echo help\$(ProjectName)_E.hhp(1) : error:ヘルプ ファイルを作成中に問題が発生しました。
+echo.
+:HelpDone
+echo.
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">Help\ContextHelp.h;Help\ContextHelp_E.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">$(SolutionDir)\$(ProjectName)_E.chm;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="Help\RTA_J.hhp">
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">ヘルプ ファイルを作成しています...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngDeb|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">ヘルプ ファイルを作成しています...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngDeb|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">ヘルプ ファイルを作成しています...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngRel|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">ヘルプ ファイルを作成しています...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='EngRel|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='JpnDeb|Win32'">カスタム ビルド ステップを実行しています。</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='JpnDeb|Win32'">
       </Command>
@@ -557,11 +739,16 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='JpnDeb|x64'">
       </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">ヘルプ ファイルを作成しています...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">cl /EP /Tc "$(ProjectDir)\help\ContextHelp_J.txt"&gt;"$(ProjectDir)\help\ContextHelp.txt"
-start /wait hhc "$(ProjectDir)\help\$(ProjectName)_J.hhp"
-del "$(ProjectDir)\help\ContextHelp.txt"
-if not exist "$(ProjectDir)\help\$(ProjectName)_J.chm" goto :HelpError
-copy "$(ProjectDir)\help\$(ProjectName)_J.chm" "$(SolutionDir)\$(ProjectName)_J.chm"
+      <Command Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">copy "$(ProjectDir)\help\$(ProjectName)_J.hhp" "$(SolutionDir)\Manual\help\jpn\$(ProjectName).hhp"
+cl /EP /Tc "help\ContextHelp_J.txt"&gt;"$(SolutionDir)\Manual\help\jpn\ContextHelp.txt"
+start /wait hhc "$(SolutionDir)\Manual\help\jpn\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\jpn\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\jpn\ContextHelp.txt"
+move "$(SolutionDir)\Manual\help\jpn\$(ProjectName).chm" "help\$(ProjectName)_J.chm"
+if not exist "help\$(ProjectName)_J.chm" goto :HelpError
+copy "help\$(ProjectName)_J.chm" "$(SolutionDir)\$(ProjectName)_J.chm"
+copy "help\$(ProjectName)_J.chm" "$(SolutionDir)\win32\jpndeb\$(ProjectName)_J.chm"
+copy "help\$(ProjectName)_J.chm" "$(SolutionDir)\x64\jpndeb\$(ProjectName)_J.chm"
 goto :HelpDone
 :HelpError
 echo help\$(ProjectName)_J.hhp(1) : error:ヘルプ ファイルを作成中に問題が発生しました。
@@ -569,14 +756,17 @@ echo.
 :HelpDone
 echo.
 </Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">Help\ContextHelp.h;Help\ContextHelp_J.txt;..\Common\Help\CommonHelp.h;..\Common\Help\CommonHelp_J.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">Help\ContextHelp.h;Help\ContextHelp_J.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='JpnRel|Win32'">$(SolutionDir)\$(ProjectName)_J.chm;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">ヘルプ ファイルを作成しています...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">cl /EP /Tc "$(ProjectDir)\help\ContextHelp_J.txt"&gt;"$(ProjectDir)\help\ContextHelp.txt"
-start /wait hhc "$(ProjectDir)\help\$(ProjectName)_J.hhp"
-del "$(ProjectDir)\help\ContextHelp.txt"
-if not exist "$(ProjectDir)\help\$(ProjectName)_J.chm" goto :HelpError
-copy "$(ProjectDir)\help\$(ProjectName)_J.chm" "$(SolutionDir)\$(ProjectName)_J.chm"
+      <Command Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">copy "$(ProjectDir)\help\$(ProjectName)_J.hhp" "$(SolutionDir)\Manual\help\jpn\$(ProjectName).hhp"
+cl /EP /Tc "help\ContextHelp_J.txt"&gt;"$(SolutionDir)\Manual\help\jpn\ContextHelp.txt"
+start /wait hhc "$(SolutionDir)\Manual\help\jpn\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\jpn\$(ProjectName).hhp"
+del "$(SolutionDir)\Manual\help\jpn\ContextHelp.txt"
+move "$(SolutionDir)\Manual\help\jpn\$(ProjectName).chm" "help\$(ProjectName)_J.chm"
+if not exist "help\$(ProjectName)_J.chm" goto :HelpError
+copy "help\$(ProjectName)_J.chm" "$(SolutionDir)\$(ProjectName)_J.chm"
 goto :HelpDone
 :HelpError
 echo help\$(ProjectName)_J.hhp(1) : error:ヘルプ ファイルを作成中に問題が発生しました。
@@ -584,16 +774,41 @@ echo.
 :HelpDone
 echo.
 </Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">Help\ContextHelp.h;Help\ContextHelp_J.txt;..\Common\Help\CommonHelp.h;..\Common\Help\CommonHelp_J.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">Help\ContextHelp.h;Help\ContextHelp_J.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='JpnRel|x64'">$(SolutionDir)\$(ProjectName)_J.chm;%(Outputs)</Outputs>
     </CustomBuild>
+    <None Include="resource.hm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Common\res\IndicatorLeft.bmp" />
+    <Image Include="..\Common\res\IndicatorRight.bmp" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\ico00001.ico" />
+    <Image Include="res\icon1.ico" />
+    <Image Include="res\Rta.ico" />
+    <Image Include="res\RtaOctHoldLeft.bmp" />
+    <Image Include="res\RtaOctHoldRight.bmp" />
+    <Image Include="res\RtaOctLeft.bmp" />
+    <Image Include="res\RtaOctPeakLeft.bmp" />
+    <Image Include="res\RtaOctPeakRight.bmp" />
+    <Image Include="res\RtaOctRight.bmp" />
+    <Image Include="res\toolbar1.bmp" />
+    <Image Include="res\zoom_h.bmp" />
+    <Image Include="res\zoom_v.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Rta.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Help\ContextHelp_E.txt" />
+    <Text Include="Help\ContextHelp_J.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="Nms.rc" />
+      <UserProperties RESOURCE_FILE="Rta.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

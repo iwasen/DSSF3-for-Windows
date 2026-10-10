@@ -212,7 +212,7 @@ void CNmsFactor::InitNmsFactorList()
 		{IDS_TIACC, NULL, 53},
 		{0, "W_IACC", 53}
 	};
-	static constexpr const char *tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
+	static constexpr LPCTSTR tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
 	CString str;
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;

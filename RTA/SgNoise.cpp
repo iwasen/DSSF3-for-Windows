@@ -6,7 +6,7 @@
 #include "SgNoise.h"
 #include "Help\ContextHelp.h"
 
-static const int tMaxTimeRange[] = {10, 100, 1000};
+static constexpr int tMaxTimeRange[] = {10, 100, 1000};
 
 /////////////////////////////////////////////////////////////////////////////
 // CSgNoise ダイアログ

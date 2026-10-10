@@ -922,8 +922,8 @@ void CAcfDlg::LoadACFData(long nAcfID)
 		delete [] m_pWaveBuf;
 
 	pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-	if (pWaveData == NULL)
-		return;
+//	if (pWaveData == NULL)
+	//	return;
 	m_nBitsPerSample = pWaveData->nBitsPerSample;
 	m_pWaveBuf = new double[m_nWaveBufSize];
 	CopyWaveToDouble((BYTE *)pWaveData->waveData, m_pWaveBuf, NULL, m_nWaveBufSize, m_nBitsPerSample);

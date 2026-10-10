@@ -443,7 +443,7 @@ void CNmsFactor::InitNmsFactorList()
 		{0, "W_IACC", 53}
 	};
 	const LISTCOLUMN *pColumnHeader;
-	static const char *tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
+	static constexpr LPCTSTR tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
 	CString str;
 
 	m_cFactorList.DeleteAllItems();

@@ -710,8 +710,7 @@ void CMySliderCtrl::AddTicString(int nTic, LPCSTR pStr)
 		const int nTop = wp.rcNormalPosition.top + 25 + abs(logFont.lfHeight) / 2;
 		const int nBottom = nTop + abs(logFont.lfHeight);
 
-		CRect rect;
-		rect.SetRect(wp.rcNormalPosition.left - TS_MARGIN, nTop, wp.rcNormalPosition.right + TS_MARGIN, nBottom);
+		CRect rect(wp.rcNormalPosition.left - TS_MARGIN, nTop, wp.rcNormalPosition.right + TS_MARGIN, nBottom);
 		m_MySliderString.Create(::AfxRegisterWndClass(0), "SliderString", WS_CHILD | WS_VISIBLE, rect, GetParent(), 0xffff);
 	}
 

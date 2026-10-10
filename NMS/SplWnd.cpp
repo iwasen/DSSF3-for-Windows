@@ -45,7 +45,7 @@ BOOL CSplWnd::OnInitDialog()
 	m_Font.CreatePointFontIndirect(&font);
 	m_cSpl.SetFont(&m_Font);
 
-	static const char *unit[] = {"dB", "dB(A)", "dB(B)", "dB(C)"};
+	static constexpr LPCTSTR unit[] = {"dB", "dB(A)", "dB(B)", "dB(C)"};
 	m_cDB.SetWindowText(unit[g_oSetData.Measurement.AcfCondition.nFreqWeighting]);
 
 	SetWindowPos(&wndTopMost, g_oSetData.SplWindow.left, g_oSetData.SplWindow.top, 0, 0, SWP_NOSIZE);

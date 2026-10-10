@@ -8,38 +8,11 @@
 
 CSetData g_oSetData;
 CSetData2 g_oSetData2;
-const char *g_tWindowFunc[WF_NUM] = {
-	"Rectangular", "Triangular", "Hamming", "Hanning", "Blackman", "Blackman-Harris", "Flat-Top"
-};
 INT_PTR g_nWaveInDevice;
 INT_PTR g_nWaveOutDevice;
 HICON g_hIcon;
 CWaveForm g_oWaveForm;
 int g_nFilterUpdateCounter;
-
-const char *g_pFreqScale1[MAX_OCT1 + 1] = {
-	"ALL",
-	"16", "31.5", "63",
-	"125", "250", "500",
-	"1k", "2k", "4k",
-	"8k", "16k", ""
-};
-
-const char *g_pFreqScale3[MAX_OCT3 + 1] = {
-	"ALL",
-	"16", "20", "25", "31.5", "40", "50", "63", "80", "100", "125",
-	"160", "200", "250", "315", "400", "500", "630", "800", "1k", "1.25k",
-	"1.6k", "2k", "2.5k", "3.15k", "4k", "5k", "6.3k", "8k", "10k", "12.5k",
-	"16k", "20k", "25k", "31.5k", "40k", "50k", "63k", "8k", "100k", ""
-};
-
-constexpr int g_nOctBandTbl[OCT_BAND_NUM] = {
-	1, 3, 6, 12, 24
-};
-
-static constexpr UINT g_tWaveForm[N_WAVE_FORM] = {
-	IDS_SINUSOIDAL, IDS_TRIANGULAR, IDS_SQUARE, IDS_SAWTOOTH
-};
 
 constexpr UINT g_tFftModeId[FFT_MODE_NUM] = {
 	IDS_SPECTRUM, IDS_OCTAVE, IDS_WATERFALL, IDS_CORRELATION, IDS_PHASE2, IDS_SPECTROGRAM, IDS_CROSS_SPECTRUM, IDS_COHERENCE, IDS_CEPSTRUM
@@ -52,6 +25,34 @@ constexpr int g_tFontSize[] = {
 #ifdef _LANG_ENG
 	8, 10, 12, 14, 18, 0
 #endif
+};
+
+constexpr LPCTSTR g_pFreqScale1[MAX_OCT1 + 1] = {
+	"ALL",
+	"16", "31.5", "63",
+	"125", "250", "500",
+	"1k", "2k", "4k",
+	"8k", "16k", ""
+};
+
+constexpr LPCTSTR g_pFreqScale3[MAX_OCT3 + 1] = {
+	"ALL",
+	"16", "20", "25", "31.5", "40", "50", "63", "80", "100", "125",
+	"160", "200", "250", "315", "400", "500", "630", "800", "1k", "1.25k",
+	"1.6k", "2k", "2.5k", "3.15k", "4k", "5k", "6.3k", "8k", "10k", "12.5k",
+	"16k", "20k", "25k", "31.5k", "40k", "50k", "63k", "8k", "100k", ""
+};
+
+constexpr int g_nOctBandTbl[OCT_BAND_NUM] = {
+	1, 3, 6, 12, 24
+};
+
+static constexpr LPCTSTR g_tWindowFunc[WF_NUM] = {
+	"Rectangular", "Triangular", "Hamming", "Hanning", "Blackman", "Blackman-Harris", "Flat-Top"
+};
+
+static constexpr UINT g_tWaveForm[N_WAVE_FORM] = {
+	IDS_SINUSOIDAL, IDS_TRIANGULAR, IDS_SQUARE, IDS_SAWTOOTH
 };
 
 void SetWindowFuncList(CComboBox &combo)
@@ -474,7 +475,7 @@ void SetBackupList(CListCtrl &cListBackup, CStringArray &oBackupList)
 	}
 }
 
-CString Hankaku2Zenkaku(const char *str)
+CString Hankaku2Zenkaku(LPCSTR str)
 {
 	char ret_str[1024];
 

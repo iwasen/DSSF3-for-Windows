@@ -80,7 +80,6 @@ END_MESSAGE_MAP()
 
 void CScreenShotWnd::ShowBitmap(LPCSTR pTitle, HBITMAP hBmp, CScreenShot *pScreenShot)
 {
-	CRect rect;
 	const DWORD dwStyle = WS_TILED | WS_VISIBLE | WS_CAPTION | WS_SYSMENU;
 	const DWORD dwExStyle = 0;
 	BITMAP bm;
@@ -91,7 +90,7 @@ void CScreenShotWnd::ShowBitmap(LPCSTR pTitle, HBITMAP hBmp, CScreenShot *pScree
 	m_bitmap.GetBitmap(&bm);
 	m_nWidth = bm.bmWidth;
 	m_nHeight = bm.bmHeight;
-	rect.SetRect(0, 0, bm.bmWidth, bm.bmHeight);
+	CRect rect(0, 0, bm.bmWidth, bm.bmHeight);
 	AdjustWindowRectEx(rect, dwStyle, FALSE, dwExStyle);
 
 	CreateEx(dwExStyle, ::AfxRegisterWndClass(0, ::AfxGetApp()->LoadStandardCursor(IDC_ARROW), 0, ::AfxGetApp()->LoadIcon(IDI_SCREEN_SHOT)),

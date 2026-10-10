@@ -110,7 +110,6 @@ void CDstManualWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, i
 	CPen *pPenOrg;
 	CSize size;
 	CString sText;
-	CRect rect;
 	double fStep;
 	double fPos;
 	double fTHD;
@@ -120,7 +119,7 @@ void CDstManualWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, i
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	m_dcMem.SetTextColor(COLOR_TEXT);

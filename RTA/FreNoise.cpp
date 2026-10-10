@@ -14,8 +14,8 @@
 #define MIN_LEVEL_POS 0
 #define MAX_LEVEL_POS (-(MIN_LEVEL_VAL))
 
-static const int s_tFftSize[] = {32768, 16384, 8192, 4096};
-static const int s_tTimeConstant[] = {1, 2, 4, 8, 16};
+static constexpr int s_tFftSize[] = {32768, 16384, 8192, 4096};
+static constexpr int s_tTimeConstant[] = {1, 2, 4, 8, 16};
 
 // CFreNoise ダイアログ
 

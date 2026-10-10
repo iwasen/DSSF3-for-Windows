@@ -94,7 +94,6 @@ void CAcf3dd::SetBitmap()
 	int i, j;
 	CString sText;
 	CSize size;
-	CRect rect;
 	double t;
 	int ns;
 	CBrush brushBkGrnd(COLOR_BKGRND);
@@ -133,7 +132,7 @@ void CAcf3dd::SetBitmap()
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 	CPen *pPenOrg = m_dcMem.SelectObject(&penBlack);
 
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &brushBkGrnd);
 
 	const POINT point[]{

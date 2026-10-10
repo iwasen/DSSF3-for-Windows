@@ -529,7 +529,7 @@ void CAcfFactor::InitAcfFactorList()
 		{IDS_PHI10, NULL, 43}
 	};
 	const LISTCOLUMN *pColumnHeader;
-	static const char *tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
+	static constexpr LPCTSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
 
 	m_cFactorList.DeleteAllItems();
 
@@ -539,7 +539,7 @@ void CAcfFactor::InitAcfFactorList()
 	if (!m_bCalculated)
 		return;
 
-	const char **pUnit = NULL;
+	const char *const *pUnit = NULL;
 	CString str;
 	switch (m_nListKind) {
 	case 1:
@@ -1245,7 +1245,7 @@ HDIB CAcfFactor::GraphCopy()
 	HDIB hDIB = ::GlobalAlloc(GMEM_MOVEABLE, nSize);
 	BITMAPINFO *pBmi = (BITMAPINFO *)::GlobalLock(hDIB);
 
-	char *lpvBits = (LPSTR)pBmi + sizeof(BITMAPINFOHEADER);
+	LPSTR lpvBits = (LPSTR)pBmi + sizeof(BITMAPINFOHEADER);
 
 	memset(pBmi, 0, sizeof(BITMAPINFOHEADER));
 	pBmi->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);

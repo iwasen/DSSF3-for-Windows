@@ -173,7 +173,7 @@ void CNmsView::UpdateItem(const CNmsItem *pNmsItem)
 void CNmsView::SetNmsItem(const CNmsItem *pNmsItem)
 {
 	CListCtrl &lc = GetListCtrl();
-	static const UINT status[] = {NULL, IDS_NOT_CALC, IDS_IN_CALC, IDS_FINISHED};
+	static constexpr UINT status[] = {NULL, IDS_NOT_CALC, IDS_IN_CALC, IDS_FINISHED};
 	const int nItem = pNmsItem->m_nIndex;
 	CString str;
 	int nItemColor;

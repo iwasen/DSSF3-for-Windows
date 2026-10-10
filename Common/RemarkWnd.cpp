@@ -90,7 +90,6 @@ void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFo
 	CFont font, *pFontOrg;
 	CBitmap *pBitmapOrg;
 	CPen *pPenOrg;
-	CRect rect;
 	CString str;
 	CWnd *pParent = GetParent();
 
@@ -125,7 +124,7 @@ void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFo
 
 	CBrush brush;
 	brush.CreateSolidBrush(RGB(255, 255, 225));
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &brush);
 
 	y = YMARGIN;
