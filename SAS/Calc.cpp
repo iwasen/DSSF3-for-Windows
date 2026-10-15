@@ -307,105 +307,11 @@ double CalcParamSpl(const double *pData, int nData, int nMultiplier)
 
 	return dB10(power / nData);
 }
-/*
-// 自己相関からΔT1を求める方法（べき乗になっていない場合の対処が必要）
-void CalcParamDeltaT1(float *pData, int nData, double fRate, double minTime, double *pT0, double *pT1)
-{
-	float T0Level, T1Level;
-	int T0Pos, T1Pos;
-	float maxLevel;
-	int i;
-	float data;
-	int startPos;
-	BOOL bUpFlag;
 
-	if (pData == NULL) {
-		*pT0 = 0;
-		*pT1 = 0;
-		return;
-	}
-
-	float *pWork1 = new float[nData];
-	float *pWork2 = new float[nData];
-	memcpy(pWork1, pData, nData * sizeof(float));
-	memset(pWork2, 0, nData * sizeof(float));
-	g_FFT.fft(nData, pWork1, pWork2);
-	for (i = 0; i < nData; i++) {
-		pWork1[i] = pWork1[i] * pWork1[i] + pWork2[i] * pWork2[i];
-		pWork2[i] = 0;
-	}
-	g_FFT.ifft(nData, pWork1, pWork2);
-
-	maxLevel = 0;
-	for (i = 1; i < nData / 2; i++) {
-		data = (float)fabs(pData[i]);
-		if (data > maxLevel)
-			maxLevel = data;
-	}
-
-	T0Level = 0;
-	T0Pos = 0;
-	for (i = 1; i < nData / 2; i++) {
-		data = (float)fabs(pData[i]);
-		if (data > (float)fabs(pData[i - 1]) && data > (float)fabs(pData[i + 1])) {
-			if (data > T0Level) {
-				T0Level = data;
-				T0Pos = i;
-			} else if (T0Level > maxLevel / 5)
-				break;
-		}
-	}
-
-	startPos = (int)(minTime / 1000 * fRate) + 1;
-	if (startPos >= nData)
-		startPos = nData - 1;
-
-	maxLevel = 0;
-	for (i = startPos; i < nData / 2; i++) {
-		data = pWork1[i];
-		if (data > maxLevel)
-			maxLevel = data;
-	}
-
-	T1Level = 0;
-	T1Pos = 0;
-	bUpFlag = FALSE;
-	for (i = startPos; i < nData / 2; i++) {
-		data = pWork1[i];
-		if (data > pWork1[i - 1] && data > pWork1[i + 1]) {
-			if (bUpFlag) {
-				if (data > T1Level) {
-					T1Level = data;
-					T1Pos = i;
-				} else if (T1Level > maxLevel / 2)
-					break;
-			} else {
-				if (T1Level != 0 && data > T1Level && data > maxLevel / 10)
-					bUpFlag = TRUE;
-				else {
-					T1Level = data;
-					T1Pos = i;
-				}
-			}
-		}
-	}
-
-	delete [] pWork1;
-	delete [] pWork2;
-
-	*pT0 = (double)T0Pos / fRate * 1000;
-	*pT1 = (double)(T0Pos + T1Pos) / fRate * 1000;
-}
-*/
 void CalcParamDeltaT1(const double *pData, int nData, double fRate, double minTime, double *pT0, double *pT1, int *pT0Pos)
 {
-	double T1Level;
-	int T0Pos = 0, T1Pos;
-	double maxLevel;
 	int i;
 	double data;
-	int startPos;
-	BOOL bUpFlag;
 
 	if (pData == NULL) {
 		*pT0 = 0;
@@ -414,13 +320,14 @@ void CalcParamDeltaT1(const double *pData, int nData, double fRate, double minTi
 		return;
 	}
 
-	maxLevel = 0;
+	double maxLevel = 0;
 	for (i = 1; i < nData / 2; i++) {
 		data = fabs(pData[i]);
 		if (data > maxLevel)
 			maxLevel = data;
 	}
 
+	int T0Pos = 0;
 	for (i = 1; i < nData / 2; i++) {
 		data = fabs(pData[i]);
 		if (data > fabs(pData[i - 1]) && data > fabs(pData[i + 1])) {
@@ -431,7 +338,7 @@ void CalcParamDeltaT1(const double *pData, int nData, double fRate, double minTi
 		}
 	}
 
-	startPos = (int)(T0Pos + minTime / 1000 * fRate) + 1;
+	int startPos = (int)(T0Pos + minTime / 1000 * fRate) + 1;
 	if (startPos >= nData)
 		startPos = nData - 1;
 
@@ -442,9 +349,9 @@ void CalcParamDeltaT1(const double *pData, int nData, double fRate, double minTi
 			maxLevel = data;
 	}
 
-	T1Level = 0;
-	T1Pos = 0;
-	bUpFlag = FALSE;
+	double T1Level = 0;
+	int T1Pos = 0;
+	BOOL bUpFlag = FALSE;
 	for (i = startPos; i < nData / 2; i++) {
 		data = fabs(pData[i]);
 		if (data > fabs(pData[i - 1]) && data > fabs(pData[i + 1])) {
@@ -474,15 +381,13 @@ void CalcParamDeltaT1(const double *pData, int nData, double fRate, double minTi
 #define MAX_A	20
 double CalcParamTSub(const double *pData1, const double *pData2, int nData, double fRate, double t1, double endLevel, BOOL bAuto, double noise, double *pDev, double *pAVal, double *pEndTime)
 {
-	double *pEchoData;
-	double noiseLevel, l2, r2;
+	double l2, r2;
 	double fLevel;
-	int noisePos;
 	int i, j, k;
-	int startPos, endPos;
+	int endPos;
 	double a;
 
-	pEchoData = new double[nData];
+	double *pEchoData = new double[nData];
 	CalcEchoData(pData1, pData2, pEchoData, nData, fRate, t1, noise);
 
 	if (pAVal != NULL) {
@@ -494,13 +399,13 @@ double CalcParamTSub(const double *pData1, const double *pData2, int nData, doub
 			*pAVal = MAX_A;
 	}
 
-	startPos = (int)(t1 / 1000 * fRate);
-	noisePos = (int)(nData * (1 - noise));
+	int startPos = (int)(t1 / 1000 * fRate);
+	int noisePos = (int)(nData * (1 - noise));
 
 	if (bAuto) {
 		if (noise == 0)
 			noise = 0.5;
-		noiseLevel = 0;
+		double noiseLevel = 0;
 		for (i = noisePos; i < nData; i++) {
 			l2 = (double)pData1[i] * (double)pData1[i];
 			if (pData2 != NULL) {
@@ -567,38 +472,18 @@ double CalcParamTSub(const double *pData1, const double *pData2, int nData, doub
 #define MAX_WIACC	50
 void CalcParamIACC(const double *pIACCData, int nIACCData, double fRate, double *pIACC, double *pTIACC, double *pWIACC, double wLevel, double *pWIACC1, double *pWIACC2)
 {
-	double IACC;
-	int nT1, nT2;
 	int i, nIACCPos = 0;
 	int wPos1, wPos2;
 	double wt1, wt2;
 
-/*
-	float maxIACC = pIACCData[0];
-	for (i = 1; i < nIACCData; i++) {
-		if (pIACCData[i] > maxIACC)
-			maxIACC = pIACCData[i];
-	}
-
-	maxIACC *= (float)0.8;
-	IACC = -1;
-	nIACCPos = 0;
-	for (i = 1; i < nIACCData - 1; i++) {
-		if (pIACCData[i] > maxIACC && abs(i - nIACCData / 2) < abs(nIACCPos - nIACCData / 2) &&
-					pIACCData[i] >= pIACCData[i - 1] && pIACCData[i] >= pIACCData[i + 1]) {
-			IACC = pIACCData[i];
-			nIACCPos = i;
-		}
-	}
-*/
-	nT1 = nIACCData / 2 - (int)(fRate / 1000);
+	int nT1 = nIACCData / 2 - (int)(fRate / 1000);
 	if (nT1 < 0)
 		nT1 = 0;
-	nT2 = nIACCData / 2 + (int)(fRate / 1000);
+	int nT2 = nIACCData / 2 + (int)(fRate / 1000);
 	if (nT2 > nIACCData)
 		nT2 = nIACCData;
 
-	IACC = -1;
+	double IACC = -1;
 	for (i = nT1; i < nT2; i++) {
 		if (pIACCData[i] > IACC) {
 			IACC = pIACCData[i];
@@ -754,14 +639,13 @@ double CalcC(const double *pData, int nData, double fRate, int nT0Pos, double t,
 	double p1 = 0;
 	double p2 = 0;
 	double pw;
-	int nPos;
 	int i;
 
 	// 直接音の位置を原点に補正
 	pData += nT0Pos;
 	nData -= nT0Pos;
 
-	nPos = (int)(t * fRate);
+	int nPos = (int)(t * fRate);
 	if (nPos > nData)
 		nPos = nData;
 
@@ -785,16 +669,14 @@ double CalcC(const double *pData, int nData, double fRate, int nT0Pos, double t,
 double CalcD(const double *pData, int nData, double fRate, int nT0Pos, double t, double fNoisePower)
 {
 	double p1 = 0;
-	double p2 = 0;
 	double pw;
-	int nPos;
 	int i;
 
 	// 直接音の位置を原点に補正
 	pData += nT0Pos;
 	nData -= nT0Pos;
 
-	nPos = (int)(t * fRate);
+	int nPos = (int)(t * fRate);
 	if (nPos > nData)
 		nPos = nData;
 
@@ -805,7 +687,7 @@ double CalcD(const double *pData, int nData, double fRate, int nT0Pos, double t,
 		p1 += pw;
 	}
 
-	p2 = p1;
+	double p2 = p1;
 	for (; i < nData; i++) {
 		pw = (double)pData[i] * pData[i] - fNoisePower;
 		if (pw < 0)
@@ -879,24 +761,19 @@ double CalcIACCSub(const double *pDataL, const double *pDataR, int nData, double
 BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamRec *pDbAcParamRec, double fRate, CProgressDlg *pProgressDlg)
 {
 	const FREQBAND *pFreqBand;
-	int nFreq;
-	double *pIRLeft = NULL, *pIRRight = NULL;
-	double *pIRLeft2 = NULL, *pIRRight2 = NULL;
-	int i, j, n;
-	int nData, nData2;
+	int i, j;
 	double *pIACCData = NULL;
 	int nIACCData = 0;
 	CString str, str2;
 	BOOL bAbort = FALSE;
-	int nFreqIndex;
 	int nT0PosL = 0, nT0PosR = 0;
-	double fMTI500L, fMTI500R;
-	double fMTI2000L, fMTI2000R;
 
-	nData = 1 << pDbImpulseRec->nMeasTime;
+	int nData = 1 << pDbImpulseRec->nMeasTime;
 
-	pIRLeft = new double[nData];
-	pIRLeft2 = new double[nData];
+	double *pIRLeft = new double[nData];
+	double *pIRLeft2 = new double[nData];
+	double *pIRRight = NULL;
+	double *pIRRight2 = NULL;
 	if (pDbImpulseRec->nChannel == 2) {
 		nIACCData = (int)(fRate / 500);
 		nIACCData += nIACCData - 1;
@@ -905,7 +782,7 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 		pIACCData = new double[nIACCData];
 	}
 
-	nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
+	int nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
 
 	const int nMethod = pDbImpulseRec->nBit & 0x03;
 	CIRMethod *pMethod;
@@ -939,15 +816,16 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 	pDbAcParamRec->dbAcParamCond.fCCustom = setData.CalcParam.fCCustom;
 
 	double fMTIL[N_MTF_BAND]{};
-	fMTI500L = 0;
-	fMTI2000L = 0;
+	double fMTI500L = 0;
+	double fMTI2000L = 0;
 
 	double fMTIR[N_MTF_BAND]{};
-	fMTI500R = 0;
-	fMTI2000R = 0;
+	double fMTI500R = 0;
+	double fMTI2000R = 0;
 
-	n = 0;
-	nFreqIndex = 0;
+	int n = 0;
+	int nFreqIndex = 0;
+	int nFreq;
 	for (i = 0; nFreqIndex < pFreqBand->nData; i++) {
 		if (i == 0)
 			nFreq = FREQ_ALL;
@@ -1143,21 +1021,18 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 
 void CalcTsub(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamRec *pDbAcParamRec, double fRate)
 {
-	const FREQBAND *pFreqBand;
-	double *pIRLeft = NULL, *pIRRight = NULL;
-	double *pIRLeft2 = NULL, *pIRRight2 = NULL;
-	int nData, nData2;
+	int nData = 1 << pDbImpulseRec->nMeasTime;
 
-	nData = 1 << pDbImpulseRec->nMeasTime;
-
-	pIRLeft = new double[nData];
-	pIRLeft2 = new double[nData];
+	double *pIRLeft = new double[nData];
+	double *pIRLeft2 = new double[nData];
+	double *pIRRight = NULL;
+	double *pIRRight2 = NULL;
 	if (pDbImpulseRec->nChannel == 2) {
 		pIRRight = new double[nData];
 		pIRRight2 = new double[nData];
 	}
 
-	nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
+	int nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
 
 	const int nMethod = pDbImpulseRec->nBit & 0x03;
 	CIRMethod *pMethod;
@@ -1171,7 +1046,7 @@ void CalcTsub(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamR
 	if (pIRRight != NULL)
 		pMethod->CalcImpulse(pIRRight);
 
-	pFreqBand = &g_tFilterTbl[pDbAcParamRec->dbAcParamCond.nFreqBand];
+	const FREQBAND *pFreqBand = &g_tFilterTbl[pDbAcParamRec->dbAcParamCond.nFreqBand];
 
 	for (int i = 0; i < pDbAcParamRec->nDataNum; i++) {
 		memcpy(pIRLeft2, pIRLeft, nData * sizeof(double));
@@ -1200,17 +1075,15 @@ void CalcTsub(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamR
 
 void CalcIACC(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamRec *pDbAcParamRec, double fRate)
 {
-	const FREQBAND *pFreqBand;
-	double *pIRLeft = NULL, *pIRRight = NULL;
-	double *pIRLeft2 = NULL, *pIRRight2 = NULL;
-	double *pIACCData = NULL;
-
 	const int nData = 1 << pDbImpulseRec->nMeasTime;
 	int nIACCData = (int)(fRate / 500);
 	nIACCData += nIACCData - 1;
 
-	pIRLeft = new double[nData];
-	pIRLeft2 = new double[nData];
+	double *pIRLeft = new double[nData];
+	double *pIRLeft2 = new double[nData];
+	double *pIRRight = NULL;
+	double *pIRRight2 = NULL;
+	double *pIACCData = NULL;
 	if (pDbImpulseRec->nChannel == 2) {
 		pIRRight = new double[nData];
 		pIRRight2 = new double[nData];
@@ -1231,7 +1104,7 @@ void CalcIACC(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamR
 	if (pIRRight != NULL)
 		pMethod->CalcImpulse(pIRRight);
 
-	pFreqBand = &g_tFilterTbl[pDbAcParamRec->dbAcParamCond.nFreqBand];
+	const FREQBAND *pFreqBand = &g_tFilterTbl[pDbAcParamRec->dbAcParamCond.nFreqBand];
 
 	for (int i = 0; i < pDbAcParamRec->nDataNum; i++) {
 		memcpy(pIRLeft2, pIRLeft, nData * sizeof(double));
@@ -1304,14 +1177,13 @@ void CalcPowerSpectrum(const double *pWaveLeft, const double *pWaveRight, double
 
 BOOL CalcPreference(double SPL, double dT1, double Tsub, double IACC, double A, double te, double bestSPL, double *s)
 {
-	double a, x, tp;
 	BOOL rc = TRUE;
 
-	x = SPL - bestSPL;
-	a = (x >= 0) ? 0.07 : 0.04;
+	double x = SPL - bestSPL;
+	double a = (x >= 0) ? 0.07 : 0.04;
 	s[1] = -a * pow(fabs(x), 1.5);
 
-	tp = (1 - log10(A)) * te;
+	double tp = (1 - log10(A)) * te;
 	if (tp > 0) {
 		x = log10(dT1 / tp);
 		a = (x >= 0) ? 1.42 : 1.11;
@@ -1422,17 +1294,16 @@ double GetAdjustSPL(long folderID, long nSplRefData, double fSplRefLevel)
 void CalcMTF(const double *pIR, int nData, double fRate, const double *pMtfFreq, int nMtfFreq, double *pMTF, BOOL bSN, double fSN)
 {
 	int i, j;
-	double fSum1, fSum2R, fSum2I, fSum2;
 	double fTmp1, fTmp2, fTmp3;
 	double t;
 
-	fSum1 = 0;
+	double fSum1 = 0;
 	for (i = 0; i < nData; i++)
 		fSum1 += pIR[i] * pIR[i];
 
 	for (i = 0; i < nMtfFreq; i++) {
-		fSum2R = 0;
-		fSum2I = 0;
+		double fSum2R = 0;
+		double fSum2I = 0;
 		for (j = 0; j < nData; j++) {
 			t = j / fRate;
 			fTmp1 = cos(2 * M_PI * pMtfFreq[i] * t);
@@ -1441,7 +1312,7 @@ void CalcMTF(const double *pIR, int nData, double fRate, const double *pMtfFreq,
 			fSum2R += fTmp1 * fTmp3;
 			fSum2I += fTmp2 * fTmp3;
 		}
-		fSum2 = sqrt(fSum2R * fSum2R + fSum2I * fSum2I);
+		double fSum2 = sqrt(fSum2R * fSum2R + fSum2I * fSum2I);
 
 		pMTF[i] = fSum2 / fSum1;
 
@@ -1452,17 +1323,14 @@ void CalcMTF(const double *pIR, int nData, double fRate, const double *pMtfFreq,
 
 double CalcMTI(const double *pIR, int nData, double fRate, const double *pMtfFreq, int nMtfFreq, BOOL bSN, double fSN)
 {
-	double fSNR;
-	double fTI;
-	double fMTI;
 	double tMTI[N_MTF_FREQ];
 
 	CalcMTF(pIR, nData, fRate, pMtfFreq, nMtfFreq, tMTI, bSN, fSN);
 
-	fMTI = 0;
+	double fMTI = 0;
 	for (int i = 0; i < nMtfFreq; i++) {
-		fSNR = 10 * log10(tMTI[i] / (1 - tMTI[i]));
-		fTI = (fSNR + 15) / 30;
+		double fSNR = 10 * log10(tMTI[i] / (1 - tMTI[i]));
+		double fTI = (fSNR + 15) / 30;
 		if (fTI > 1)
 			fTI = 1;
 		else if (fTI < 0)
@@ -1476,19 +1344,19 @@ double CalcMTI(const double *pIR, int nData, double fRate, const double *pMtfFre
 
 void CalcParamSTI(const double *pMTI, double fMTI500, double fMTI2000, double *pSTI, double *pSTI_m, double *pSTI_f, double *pRASTI)
 {
-	static const double tSTI[N_MTF_BAND] = {
+	static constexpr double tSTI[N_MTF_BAND] = {
 		0.129, 0.143, 0.114, 0.114, 0.186, 0.171, 0.143
 	};
-	static const double tSTI_m1[N_MTF_BAND] = {
+	static constexpr double tSTI_m1[N_MTF_BAND] = {
 		0.085, 0.127, 0.230, 0.233, 0.309, 0.224, 0.173
 	};
-	static const double tSTI_m2[N_MTF_BAND - 1] = {
+	static constexpr double tSTI_m2[N_MTF_BAND - 1] = {
 		0.085, 0.078, 0.065, 0.011, 0.047, 0.095
 	};
-	static const double tSTI_f1[N_MTF_BAND] = {
+	static constexpr double tSTI_f1[N_MTF_BAND] = {
 		0, 0.117, 0.223, 0.216, 0.328, 0.250, 0.194
 	};
-	static const double tSTI_f2[N_MTF_BAND - 1] = {
+	static constexpr double tSTI_f2[N_MTF_BAND - 1] = {
 		0, 0.099, 0.066, 0.062, 0.025, 0.076
 	};
 

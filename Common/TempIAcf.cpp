@@ -72,9 +72,9 @@ void CTempIAcf::OnSetWeighting()
 	NsWeightData nsWeightData;
 
 	ReadNsWeightData(&nsWeightData);
-	nsWeightData.fIACC = (float)m_cIACCWeighting;
-	nsWeightData.fWIACC = (float)m_cWIACCWeighting;
-	nsWeightData.fTIACC = (float)m_cTIACCWeighting;
+	nsWeightData.fIACC = m_cIACCWeighting;
+	nsWeightData.fWIACC = m_cWIACCWeighting;
+	nsWeightData.fTIACC = m_cTIACCWeighting;
 	WriteNsWeightData(&nsWeightData);
 }
 
@@ -147,9 +147,9 @@ void CTempIAcf::SetData(const NsTmpData &nsTmpData)
 
 void CTempIAcf::GetData(NsTmpData &nsTmpData)
 {
-	nsTmpData.fIACCStandard = (float)m_cIACCStandard;
-	nsTmpData.fIACCUpperLimit = (float)m_cIACCUpperLimit;
-	nsTmpData.fIACCLowerLimit = (float)m_cIACCLowerLimit;
+	nsTmpData.fIACCStandard = m_cIACCStandard;
+	nsTmpData.fIACCUpperLimit = m_cIACCUpperLimit;
+	nsTmpData.fIACCLowerLimit = m_cIACCLowerLimit;
 	nsTmpData.bIACCUpperCheck = m_cIACCUpperCheck;
 	nsTmpData.bIACCLowerCheck = m_cIACCLowerCheck;
 	nsTmpData.fIACCSum2 = 0;

@@ -154,17 +154,17 @@ BOOL CSaveDlg::MakeFolder(long &nFolderID)
 	if (!dbFolder.GetNewID(&nFolderID))
 		return FALSE;
 
-	DbFolderRec dbFolderRec;
-	dbFolderRec.nFolderID = nFolderID;
-	dbFolderRec.sType = FOLDER_TYPE_NMS;
-	dbFolderRec.sName = m_cName;
-	dbFolderRec.sPlace = m_cPlace;
 	CString sDate = m_cDate;
-	dbFolderRec.sDate = sDate.Left(4) + sDate.Mid(5, 2) + sDate.Mid(8, 2);
-	dbFolderRec.sTitle = m_cTitle;
-	dbFolderRec.sComment = m_cComment;
-	dbFolderRec.fScale = 1.0;
-
+	DbFolderRec dbFolderRec{
+		.nFolderID = nFolderID,
+		.sType = FOLDER_TYPE_NMS,
+		.sName = m_cName,
+		.sPlace = m_cPlace,
+		.sDate = sDate.Left(4) + sDate.Mid(5, 2) + sDate.Mid(8, 2),
+		.sTitle = m_cTitle,
+		.sComment = m_cComment,
+		.fScale = 1.0
+	};
 	if (!dbFolder.StoreRec(&dbFolderRec))
 		return FALSE;
 

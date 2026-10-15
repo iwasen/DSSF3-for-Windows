@@ -43,7 +43,7 @@ BOOL CCsvFile::Input()
 	CString sBuf;
 
 	if (!ReadString(sBuf)) {
-		return false;
+		return FALSE;
 	}
 
 	sBuf.ReleaseBuffer();
@@ -60,7 +60,7 @@ BOOL CCsvFile::Input()
 		m_aCsvData.Add(sToken);
 	}
 
-	return true;
+	return TRUE;
 }
 
 CString CCsvFile::GetString(int nColumn)

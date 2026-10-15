@@ -27,7 +27,7 @@ constexpr int g_tFontSize[] = {
 #endif
 };
 
-constexpr LPCTSTR g_pFreqScale1[MAX_OCT1 + 1] = {
+constexpr LPCSTR g_pFreqScale1[MAX_OCT1 + 1] = {
 	"ALL",
 	"16", "31.5", "63",
 	"125", "250", "500",
@@ -35,7 +35,7 @@ constexpr LPCTSTR g_pFreqScale1[MAX_OCT1 + 1] = {
 	"8k", "16k", ""
 };
 
-constexpr LPCTSTR g_pFreqScale3[MAX_OCT3 + 1] = {
+constexpr LPCSTR g_pFreqScale3[MAX_OCT3 + 1] = {
 	"ALL",
 	"16", "20", "25", "31.5", "40", "50", "63", "80", "100", "125",
 	"160", "200", "250", "315", "400", "500", "630", "800", "1k", "1.25k",
@@ -47,7 +47,7 @@ constexpr int g_nOctBandTbl[OCT_BAND_NUM] = {
 	1, 3, 6, 12, 24
 };
 
-static constexpr LPCTSTR g_tWindowFunc[WF_NUM] = {
+static constexpr LPCSTR g_tWindowFunc[WF_NUM] = {
 	"Rectangular", "Triangular", "Hamming", "Hanning", "Blackman", "Blackman-Harris", "Flat-Top"
 };
 

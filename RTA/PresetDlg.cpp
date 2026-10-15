@@ -74,7 +74,6 @@ void CPresetDlg::OnLbnSelchangePresetList()
 void CPresetDlg::OnSave()
 {
 	CPresetSaveDlg dlg(this);
-
 	if (dlg.DoModal() != IDOK)
 		return;
 
@@ -131,7 +130,6 @@ void CPresetDlg::OnSave()
 void CPresetDlg::OnOverwrite()
 {
 	int index;
-
 	if ((index = m_cPresetList.GetCurSel()) == LB_ERR) {
 		::AfxMessageBox(IDS_MSG_SELECTITEM);
 		return;
@@ -212,7 +210,6 @@ void CPresetDlg::OnOverwrite()
 void CPresetDlg::OnDelete()
 {
 	int index;
-
 	if ((index = m_cPresetList.GetCurSel()) == LB_ERR) {
 		::AfxMessageBox(IDS_MSG_SELECTITEM);
 		return;
@@ -262,7 +259,6 @@ void CPresetDlg::SetPresetList()
 void CPresetDlg::OnBnClickedMakeShortcut()
 {
 	int index;
-
 	if ((index = m_cPresetList.GetCurSel()) == LB_ERR) {
 		::AfxMessageBox(IDS_MSG_SELECTITEM);
 		return;

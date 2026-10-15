@@ -639,8 +639,8 @@ public:
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbFolderRec *pDbRec);
 	BOOL ReadRecNext(DbFolderRec *pDbRec);
-	BOOL StoreRec(DbFolderRec *pDbRec);
-	BOOL UpdateRec(DbFolderRec *pDbRec);
+	BOOL StoreRec(const DbFolderRec *pDbRec);
+	BOOL UpdateRec(const DbFolderRec *pDbRec);
 };
 
 // インパルス応答測定データファイルクラス
@@ -652,7 +652,7 @@ public:
 	BOOL ReadRecID(long id, DbImpulseRec *pDbRec);
 	BOOL ReadRecNext(DbImpulseRec *pDbRec);
 	BOOL StoreRec(DbImpulseRec *pDbRec);
-	BOOL UpdateRec(DbImpulseRec *pDbRec);
+	BOOL UpdateRec(const DbImpulseRec *pDbRec);
 
 	int m_nIdxFolderID;
 	int m_nIdxImpulseID;
@@ -666,8 +666,8 @@ public:
 	BOOL GetNewID(long *pAcfID);
 	BOOL ReadRecID(long id, DbAcfRec *pDbRec);
 	BOOL ReadRecNext(DbAcfRec *pDbRec);
-	BOOL StoreRec(DbAcfRec *pDbRec);
-	BOOL UpdateRec(DbAcfRec *pDbRec);
+	BOOL StoreRec(const DbAcfRec *pDbRec);
+	BOOL UpdateRec(const DbAcfRec *pDbRec);
 
 	int m_nIdxFolderID;
 	int m_nIdxAcfID;
@@ -681,8 +681,8 @@ public:
 	BOOL GetNewID(long *pNmsID);
 	BOOL ReadRecID(long id, DbNmsRec *pDbRec, NmsConditionData *pNmsConditionData, NmsFactorData **pNmsFactorData, NoiseSrcData *pNoiseSrcData);
 	BOOL ReadRecNext(DbNmsRec *pDbRec);
-	BOOL StoreRec(DbNmsRec *pDbRec);
-	BOOL UpdateRec(DbNmsRec *pDbRec);
+	BOOL StoreRec(const DbNmsRec *pDbRec);
+	BOOL UpdateRec(const DbNmsRec *pDbRec);
 
 	int m_nIdxFolderID;
 	int m_nIdxNmsID;
@@ -696,8 +696,8 @@ public:
 	BOOL GetNewID(long *pNsTmpID);
 	BOOL ReadRecID(long id, DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData);
 	BOOL ReadRecNext(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData);
-	BOOL StoreRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData);
-	BOOL UpdateRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData);
+	BOOL StoreRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData);
+	BOOL UpdateRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData);
 	BOOL DeleteRec(long id);
 
 	int m_nIdxNsTmpID;
@@ -723,8 +723,8 @@ public:
 	BOOL ReadRecID(long id, DbAcfFactorRec *pDbRec,
 			AcfConditionData *pAcfConditionData = NULL, AcfFactorData **pAcfFactorData = NULL, TaunPhinData **pTaunPhinData = NULL);
 	BOOL SearchID(long id);
-	BOOL StoreRec(DbAcfFactorRec *pDbRec);
-	BOOL UpdateRec(DbAcfFactorRec *pDbRec);
+	BOOL StoreRec(const DbAcfFactorRec *pDbRec);
+	BOOL UpdateRec(const DbAcfFactorRec *pDbRec);
 };
 
 // Runnning ACF マーカークラス
@@ -735,8 +735,8 @@ public:
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbAcfMarkerRec *pDbRec);
 	BOOL ReadRecNext(DbAcfMarkerRec *pDbRec);
-	BOOL StoreRec(DbAcfMarkerRec *pDbRec);
-	BOOL UpdateRec(DbAcfMarkerRec *pDbRec);
+	BOOL StoreRec(const DbAcfMarkerRec *pDbRec);
+	BOOL UpdateRec(const DbAcfMarkerRec *pDbRec);
 	BOOL DeleteRec(long id);
 	BOOL ReadRecAcfID(long id, DbAcfMarkerRec **pDbRec, int &nDataNum);
 
@@ -752,8 +752,8 @@ public:
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbIFilterRec *pDbRec);
 	BOOL ReadRecNext(DbIFilterRec *pDbRec);
-	BOOL StoreRec(DbIFilterRec *pDbRec);
-	BOOL UpdateRec(DbIFilterRec *pDbRec);
+	BOOL StoreRec(const DbIFilterRec *pDbRec);
+	BOOL UpdateRec(const DbIFilterRec *pDbRec);
 	BOOL DeleteID(long id);
 };
 
@@ -765,8 +765,8 @@ public:
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbMicCalRec *pDbRec);
 	BOOL ReadRecNext(DbMicCalRec *pDbRec);
-	BOOL StoreRec(DbMicCalRec *pDbRec);
-	BOOL UpdateRec(DbMicCalRec *pDbRec);
+	BOOL StoreRec(const DbMicCalRec *pDbRec);
+	BOOL UpdateRec(const DbMicCalRec *pDbRec);
 	BOOL DeleteID(long id);
 	BOOL SearchRecID(long id);
 };
@@ -779,8 +779,8 @@ public:
 	BOOL GetNewID(long *pID);
 	BOOL ReadRecID(long id, DbPresetRec *pDbRec);
 	BOOL ReadRecNext(DbPresetRec *pDbRec);
-	BOOL StoreRec(DbPresetRec *pDbRec);
-	BOOL UpdateRec(DbPresetRec *pDbRec);
+	BOOL StoreRec(const DbPresetRec *pDbRec);
+	BOOL UpdateRec(const DbPresetRec *pDbRec);
 	BOOL DeleteID(long id);
 };
 
@@ -790,7 +790,7 @@ class CDbWaveForm : public CPSDB
 public:
 	BOOL Open(LPCSTR dir = g_szDefaultDir);
 	BOOL ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData);
-	BOOL WriteRec(DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData);
+	BOOL WriteRec(const DbWaveFormRec *pDbRec, const WaveFormData *pWaveFormData);
 };
 
 extern void DeleteFolder(long nFolderID);

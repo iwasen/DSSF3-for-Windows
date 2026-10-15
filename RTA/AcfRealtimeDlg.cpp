@@ -530,7 +530,7 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 	};
 	const LISTCOLUMN *pColumnHeader;
 	static constexpr LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
-	LPCTSTR const* pUnit = NULL;
+	LPCSTR const* pUnit = NULL;
 	CString str;
 	int nColumn;
 

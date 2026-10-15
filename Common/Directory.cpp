@@ -11,15 +11,14 @@
 
 BOOL CreateDirectoryAll(LPCSTR pDirPath)
 {
-	DWORD err;
-	char *p;
-	char buf[MAX_PATH];
+	LPSTR p;
 
 	if (!::CreateDirectory(pDirPath, NULL)) {
-		err = ::GetLastError();
+		DWORD err = ::GetLastError();
 		if (err == ERROR_ALREADY_EXISTS)
 			return TRUE;
 		else if (err == ERROR_PATH_NOT_FOUND) {
+			char buf[MAX_PATH];
 			strcpy_s(buf, pDirPath);
 			if ((p = strrchr(buf, '\\')) != NULL) {
 				*p = '\0';
@@ -88,7 +87,7 @@ static void GetFolder(LPSTR pPath)
 
 void GetDataDirectory(CString &sDataDirectory)
 {
-	TCHAR szPath[MAX_PATH];
+	char szPath[MAX_PATH];
 
 	GetFolder(szPath);
 	::PathAppend(szPath, DATA_DIRECTORY);

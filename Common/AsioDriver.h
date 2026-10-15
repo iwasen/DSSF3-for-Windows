@@ -286,7 +286,7 @@ interface IASIO : public IUnknown
 	virtual ASIOBool init(void *sysHandle) = 0;
 	virtual void getDriverName(LPCSTR name) = 0;
 	virtual long getDriverVersion() = 0;
-	virtual void getErrorMessage(char *string) = 0;
+	virtual void getErrorMessage(LPSTR string) = 0;
 	virtual ASIOError start() = 0;
 	virtual ASIOError stop() = 0;
 	virtual ASIOError getChannels(long *numInputChannels, long *numOutputChannels) = 0;

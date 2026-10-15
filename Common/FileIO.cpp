@@ -5,10 +5,7 @@
 #include "FileIO.h"
 #include "Common.h"
 #include "comres.h"
-#include "mmdb.h"
 #include "DssData.h"
-#include "shellapi.h"
-#include "shlwapi.h"
 
 #define	OFFSET_MEASTIME	50
 
@@ -173,7 +170,7 @@ BOOL CDbFolder::ReadRecNext(DbFolderRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbFolder::StoreRec(DbFolderRec *pDbRec)
+BOOL CDbFolder::StoreRec(const DbFolderRec *pDbRec)
 {
 	DbFolderBuf dbBuf;
 	int err;
@@ -187,7 +184,7 @@ BOOL CDbFolder::StoreRec(DbFolderRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbFolder::UpdateRec(DbFolderRec *pDbRec)
+BOOL CDbFolder::UpdateRec(const DbFolderRec *pDbRec)
 {
 	DbFolderBuf dbBuf;
 	int err;
@@ -392,7 +389,7 @@ BOOL CDbImpulse::StoreRec(DbImpulseRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbImpulse::UpdateRec(DbImpulseRec *pDbRec)
+BOOL CDbImpulse::UpdateRec(const DbImpulseRec *pDbRec)
 {
 	DbImpulseBuf dbBuf;
 	int err;
@@ -560,7 +557,7 @@ BOOL CDbAcf::ReadRecNext(DbAcfRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcf::StoreRec(DbAcfRec *pDbRec)
+BOOL CDbAcf::StoreRec(const DbAcfRec *pDbRec)
 {
 	DbAcfBuf dbBuf;
 	int err;
@@ -574,7 +571,7 @@ BOOL CDbAcf::StoreRec(DbAcfRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcf::UpdateRec(DbAcfRec *pDbRec)
+BOOL CDbAcf::UpdateRec(const DbAcfRec *pDbRec)
 {
 	DbAcfBuf dbBuf;
 	int err;
@@ -840,7 +837,7 @@ BOOL CDbNms::ReadRecNext(DbNmsRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbNms::StoreRec(DbNmsRec *pDbRec)
+BOOL CDbNms::StoreRec(const DbNmsRec *pDbRec)
 {
 	DbNmsBuf dbBuf;
 	int err;
@@ -854,7 +851,7 @@ BOOL CDbNms::StoreRec(DbNmsRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbNms::UpdateRec(DbNmsRec *pDbRec)
+BOOL CDbNms::UpdateRec(const DbNmsRec *pDbRec)
 {
 	DbNmsBuf dbBuf;
 	int err;
@@ -1037,7 +1034,7 @@ BOOL CDbNsTmp::ReadRecNext(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 	return TRUE;
 }
 
-BOOL CDbNsTmp::StoreRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
+BOOL CDbNsTmp::StoreRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 {
 	DbNsTmpBuf dbBuf;
 	int err;
@@ -1049,7 +1046,7 @@ BOOL CDbNsTmp::StoreRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 	}
 
 	if (pNsTmpData != NULL) {
-		if ((err = DBWriteBinary("NSTMPDATA", pNsTmpData, sizeof(NsTmpData))) != 0) {
+		if ((err = DBWriteBinary("NSTMPDATA", (LPCVOID)pNsTmpData, sizeof(NsTmpData))) != 0) {
 			ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
 			return FALSE;
 		}
@@ -1058,7 +1055,7 @@ BOOL CDbNsTmp::StoreRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 	return TRUE;
 }
 
-BOOL CDbNsTmp::UpdateRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
+BOOL CDbNsTmp::UpdateRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 {
 	DbNsTmpBuf dbBuf;
 	int err;
@@ -1071,7 +1068,7 @@ BOOL CDbNsTmp::UpdateRec(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 	}
 
 	if (pNsTmpData != NULL) {
-		if ((err = DBWriteBinary("NSTMPDATA", pNsTmpData, sizeof(NsTmpData))) != 0) {
+		if ((err = DBWriteBinary("NSTMPDATA", (LPCVOID)pNsTmpData, sizeof(NsTmpData))) != 0) {
 			ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
 			return FALSE;
 		}
@@ -1219,17 +1216,17 @@ BOOL CDbAcParam::StoreRec(DbAcParamRec *pDbRec)
 		return FALSE;
 	}
 
-	if ((err = DBWriteBinary("CONDITION", &pDbRec->dbAcParamCond, sizeof(DbAcParamCond))) != 0) {
+	if ((err = DBWriteBinary("CONDITION", (LPCVOID)&pDbRec->dbAcParamCond, sizeof(DbAcParamCond))) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
 		return FALSE;
 	}
 
-	if ((err = DBWriteBinary("RESULT", &pDbRec->dbAcParamResult, sizeof(DbAcParamResult))) != 0) {
+	if ((err = DBWriteBinary("RESULT", (LPCVOID)&pDbRec->dbAcParamResult, sizeof(DbAcParamResult))) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
 		return FALSE;
 	}
 
-	if ((err = DBWriteBinary("DATA", &pDbRec->dbAcParamData, sizeof(DbAcParamData) * pDbRec->nDataNum)) != 0) {
+	if ((err = DBWriteBinary("DATA", (LPCVOID)&pDbRec->dbAcParamData, sizeof(DbAcParamData) * pDbRec->nDataNum)) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
 		return FALSE;
 	}
@@ -1411,7 +1408,7 @@ BOOL CDbAcfFactor::SearchID(long id)
 	return TRUE;
 }
 
-BOOL CDbAcfFactor::StoreRec(DbAcfFactorRec *pDbRec)
+BOOL CDbAcfFactor::StoreRec(const DbAcfFactorRec *pDbRec)
 {
 	DbAcfFactorBuf dbBuf;
 	int err;
@@ -1425,7 +1422,7 @@ BOOL CDbAcfFactor::StoreRec(DbAcfFactorRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcfFactor::UpdateRec(DbAcfFactorRec *pDbRec)
+BOOL CDbAcfFactor::UpdateRec(const DbAcfFactorRec *pDbRec)
 {
 	DbAcfFactorBuf dbBuf;
 	int err;
@@ -1455,21 +1452,16 @@ BOOL CDbAcfMarker::Open(LPCSTR dir)
 	pathName.Format("%s\\%s", dir, FN_ACFMARKER_DBF);
 	if ((err = DBOpen(g_oPcserve, pathName)) != 0) {
 		if (err == ERROR_DB_NOFILE) {
-			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0) {
-//				ErrorMessage(IDS_ERR_CREATEACFFILE, err);
+			if ((err = DBCreate(g_oPcserve, pathName, fieldInf, ARRAY_SIZE(fieldInf))) != 0)
 				return FALSE;
-			}
 			bCreateIndex = TRUE;
-		} else {
-//			ErrorMessage(IDS_ERR_OPENACFFILE, err);
+		} else
 			return FALSE;
-		}
 	}
 
 	pathName.Format("%s\\%s", dir, FN_ACFMARKER1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &m_nIdxMarkerID) != 0) {
 		if ((err = DBIdxCreate(pathName, "MARKERID", 0, &m_nIdxMarkerID)) != 0) {
-//			ErrorMessage(IDS_ERR_CREATEACFINDEX1, err);
 			return FALSE;
 		}
 	}
@@ -1477,7 +1469,6 @@ BOOL CDbAcfMarker::Open(LPCSTR dir)
 	pathName.Format("%s\\%s", dir, FN_ACFMARKER2_EDX);
 	if (bCreateIndex || DBIndex(pathName, &m_nIdxAcfID) != 0) {
 		if ((err = DBIdxCreate(pathName, "ACFID", 1, &m_nIdxAcfID)) != 0) {
-//			ErrorMessage(IDS_ERR_CREATEACFINDEX2, err);
 			return FALSE;
 		}
 	}
@@ -1501,7 +1492,6 @@ int CDbAcfMarker::GetNewID(long *pID)
 		*pID = 1;
 	else {
 		DBSetFilter(NULL);
-//		ErrorMessage(IDS_ERR_READACFFILE, err);
 		return FALSE;
 	}
 
@@ -1519,10 +1509,8 @@ BOOL CDbAcfMarker::ReadRecID(long id, DbAcfMarkerRec *pDbRec)
 
 	MakeStrID(id, strID);
 	DBChgIdx(m_nIdxMarkerID);
-	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
-//		ErrorMessage(IDS_ERR_READACFFILE, err);
+	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0)
 		return FALSE;
-	}
 
 	if (find == 0)
 		return FALSE;
@@ -1538,10 +1526,8 @@ BOOL CDbAcfMarker::ReadRecNext(DbAcfMarkerRec *pDbRec)
 	int nRead;
 	int err;
 
-	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
-//		ErrorMessage(IDS_ERR_READACFFILE, err);
+	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0)
 		return FALSE;
-	}
 
 	if (nRead != 1)
 		return FALSE;
@@ -1551,31 +1537,27 @@ BOOL CDbAcfMarker::ReadRecNext(DbAcfMarkerRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbAcfMarker::StoreRec(DbAcfMarkerRec *pDbRec)
+BOOL CDbAcfMarker::StoreRec(const DbAcfMarkerRec *pDbRec)
 {
 	DbAcfMarkerBuf dbBuf;
 	int err;
 
 	DBSetFieldBuf(&dbBuf, pDbRec);
-	if ((err = DBStore(&dbBuf)) != 0) {
-//		ErrorMessage(IDS_ERR_WRITEACFFILE, err);
+	if ((err = DBStore(&dbBuf)) != 0)
 		return FALSE;
-	}
 
 	return TRUE;
 }
 
-BOOL CDbAcfMarker::UpdateRec(DbAcfMarkerRec *pDbRec)
+BOOL CDbAcfMarker::UpdateRec(const DbAcfMarkerRec *pDbRec)
 {
 	DbAcfMarkerBuf dbBuf;
 	int err;
 
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	DBChgIdx(m_nIdxMarkerID);
-	if ((err = DBUpdateKey(dbBuf.aMarkerID, LEN_ID, &dbBuf)) != 0) {
-//		ErrorMessage(IDS_ERR_WRITEACFFILE, err);
+	if ((err = DBUpdateKey(dbBuf.aMarkerID, LEN_ID, &dbBuf)) != 0)
 		return FALSE;
-	}
 
 	return TRUE;
 }
@@ -1587,10 +1569,8 @@ BOOL CDbAcfMarker::DeleteRec(long id)
 
 	MakeStrID(id, strID);
 	DBChgIdx(m_nIdxMarkerID);
-	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0) {
-//		ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
+	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0)
 		return FALSE;
-	}
 
 	return TRUE;
 }
@@ -1726,7 +1706,7 @@ BOOL CDbIFilter::ReadRecNext(DbIFilterRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbIFilter::StoreRec(DbIFilterRec *pDbRec)
+BOOL CDbIFilter::StoreRec(const DbIFilterRec *pDbRec)
 {
 	DbIFilterBuf dbBuf;
 	int err;
@@ -1740,7 +1720,7 @@ BOOL CDbIFilter::StoreRec(DbIFilterRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbIFilter::UpdateRec(DbIFilterRec *pDbRec)
+BOOL CDbIFilter::UpdateRec(const DbIFilterRec *pDbRec)
 {
 	DbIFilterBuf dbBuf;
 	int err;
@@ -1941,7 +1921,7 @@ BOOL CDbMicCal::ReadRecNext(DbMicCalRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbMicCal::StoreRec(DbMicCalRec *pDbRec)
+BOOL CDbMicCal::StoreRec(const DbMicCalRec *pDbRec)
 {
 	DbMicCalBuf dbBuf;
 	int err;
@@ -1955,7 +1935,7 @@ BOOL CDbMicCal::StoreRec(DbMicCalRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbMicCal::UpdateRec(DbMicCalRec *pDbRec)
+BOOL CDbMicCal::UpdateRec(const DbMicCalRec *pDbRec)
 {
 	DbMicCalBuf dbBuf;
 	int err;
@@ -2041,7 +2021,6 @@ Reopen:
 	DBNField(&nField);
 	DBRecSize(&nRecSize);
 	if (nField != ARRAY_SIZE(fieldInf) || nRecSize - 1 != sizeof(DbPresetBuf)) {
-//		if (::AfxMessageBox(IDS_MSG_CONVERTPRESET, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
 		if (bReopen) {
 			DBClose();
 			return FALSE;
@@ -2147,7 +2126,7 @@ BOOL CDbPreset::ReadRecNext(DbPresetRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbPreset::StoreRec(DbPresetRec *pDbRec)
+BOOL CDbPreset::StoreRec(const DbPresetRec *pDbRec)
 {
 	DbPresetBuf dbBuf;
 	int err;
@@ -2161,7 +2140,7 @@ BOOL CDbPreset::StoreRec(DbPresetRec *pDbRec)
 	return TRUE;
 }
 
-BOOL CDbPreset::UpdateRec(DbPresetRec *pDbRec)
+BOOL CDbPreset::UpdateRec(const DbPresetRec *pDbRec)
 {
 	DbPresetBuf dbBuf;
 	int err;
@@ -2229,12 +2208,12 @@ BOOL CDbWaveForm::Open(LPCSTR dir)
 
 BOOL CDbWaveForm::ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData)
 {
-	DbWaveFormBuf dbBuf;
-	CString strID;
 	int find;
 	long nRead;
 	int err;
 
+	DbWaveFormBuf dbBuf;
+	CString strID;
 	MakeStrID(id, strID);
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		if (err != 3006)
@@ -2265,7 +2244,7 @@ BOOL CDbWaveForm::ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveF
 	return TRUE;
 }
 
-BOOL CDbWaveForm::WriteRec(DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData)
+BOOL CDbWaveForm::WriteRec(const DbWaveFormRec *pDbRec, const WaveFormData *pWaveFormData)
 {
 	DbWaveFormBuf dbBuf;
 	int find;
@@ -2307,24 +2286,12 @@ BOOL CDbWaveForm::WriteRec(DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData)
 void DeleteFolder(long nFolderID)
 {
 	CDbFolder dbFolder;
-	DbFolderBuf dbFolderBuf;
-	CDbImpulse dbImpulse;
-	DbImpulseRec dbImpulseRec;
-	CDbAcParam dbAcParam;
-	CDbAcf dbAcf;
-	DbAcfRec dbAcfRec;
-	CDbAcfFactor dbAcfFactor;
-	CDbNms dbNms;
-	CString strFolderID;
-	CString strDataID;
-	CString select;
-	int find;
-	int i;
-	long nRec;
-
 	if (!dbFolder.Open())
 		return;
 
+	int find;
+	CString strFolderID;
+	DbFolderBuf dbFolderBuf;
 	MakeStrID(nFolderID, strFolderID);
 	if (dbFolder.DBReadKey(strFolderID, LEN_ID, &dbFolderBuf, 0, &find) != 0 || find == 0) {
 		::AfxMessageBox(IDS_ERR_FINDFOLDER);
@@ -2335,6 +2302,18 @@ void DeleteFolder(long nFolderID)
 		::AfxMessageBox(IDS_ERR_DELETEFOLDER);
 		return;
 	}
+
+	CDbImpulse dbImpulse;
+	DbImpulseRec dbImpulseRec;
+	CDbAcParam dbAcParam;
+	CDbAcf dbAcf;
+	DbAcfRec dbAcfRec;
+	CDbAcfFactor dbAcfFactor;
+	CDbNms dbNms;
+	CString strDataID;
+	CString select;
+	int i;
+	long nRec;
 
 	switch (dbFolderBuf.aType[0]) {
 	case FOLDER_TYPE_IR:
@@ -2415,12 +2394,10 @@ void DeleteFolder(long nFolderID)
 void DeleteImpulse(long nImpulseID)
 {
 	CDbImpulse dbImpulse;
-	CDbAcParam dbAcParam;
-	CString strImpulseID;
-
 	if (!dbImpulse.Open())
 		return;
 
+	CString strImpulseID;
 	MakeStrID(nImpulseID, strImpulseID);
 	if (dbImpulse.DBChgIdx(dbImpulse.m_nIdxImpulseID) != 0) {
 		::AfxMessageBox(IDS_ERR_DELETEIRDATA);
@@ -2432,6 +2409,7 @@ void DeleteImpulse(long nImpulseID)
 		return;
 	}
 
+	CDbAcParam dbAcParam;
 	if (!dbAcParam.Open())
 		return;
 
@@ -2441,13 +2419,10 @@ void DeleteImpulse(long nImpulseID)
 void DeleteAcf(long nAcfID)
 {
 	CDbAcf dbAcf;
-	CDbAcfFactor dbAcfFactor;
-	CDbAcfMarker dbAcfMarker;
-	CString strAcfID;
-
 	if (!dbAcf.Open())
 		return;
 
+	CString strAcfID;
 	MakeStrID(nAcfID, strAcfID);
 	if (dbAcf.DBChgIdx(dbAcf.m_nIdxAcfID) != 0) {
 		::AfxMessageBox(IDS_ERR_DELETEIRDATA);
@@ -2459,9 +2434,11 @@ void DeleteAcf(long nAcfID)
 		return;
 	}
 
+	CDbAcfFactor dbAcfFactor;
 	if (dbAcfFactor.Open())
 		dbAcfFactor.DBDeleteKey(strAcfID, LEN_ID, 1);
 
+	CDbAcfMarker dbAcfMarker;
 	if (dbAcfMarker.Open()) {
 		dbAcfMarker.DBChgIdx(dbAcfMarker.m_nIdxAcfID);
 		dbAcfMarker.DBDeleteKey(strAcfID, LEN_ID, 1);
@@ -2471,11 +2448,10 @@ void DeleteAcf(long nAcfID)
 void DeleteNms(long nNmsID)
 {
 	CDbNms dbNms;
-	CString strNmsID;
-
 	if (!dbNms.Open())
 		return;
 
+	CString strNmsID;
 	MakeStrID(nNmsID, strNmsID);
 	if (dbNms.DBChgIdx(dbNms.m_nIdxNmsID) != 0) {
 		::AfxMessageBox(IDS_ERR_DELETEIRDATA);
@@ -2567,8 +2543,25 @@ void WriteNsWeightData(const NsWeightData *pNsWeightData)
 
 void ImportIR(LPCSTR pDir)
 {
-	CDbFolder dbSrcFolder, dbDstFolder;
-	CDbImpulse dbSrcImpulse, dbDstImpulse;
+	if (_stricmp(g_szDefaultDir, pDir) == 0)
+		return;
+
+	CDbFolder dbSrcFolder;
+	if (!dbSrcFolder.Open(pDir))
+		return;
+
+	CDbImpulse dbSrcImpulse;
+	if (!dbSrcImpulse.Open(pDir))
+		return;
+
+	CDbFolder dbDstFolder;
+	if (!dbDstFolder.Open())
+		return;
+
+	CDbImpulse dbDstImpulse;
+	if (!dbDstImpulse.Open())
+		return;
+
 	DbFolderRec dbFolderRec;
 	DbImpulseRec dbImpulseRec;
 	long nFolderID;
@@ -2576,21 +2569,6 @@ void ImportIR(LPCSTR pDir)
 	long nRec;
 	int i;
 	HANDLE hWaveData;
-
-	if (_stricmp(g_szDefaultDir, pDir) == 0)
-		return;
-
-	if (!dbSrcFolder.Open(pDir))
-		return;
-
-	if (!dbSrcImpulse.Open(pDir))
-		return;
-
-	if (!dbDstFolder.Open())
-		return;
-
-	if (!dbDstImpulse.Open())
-		return;
 
 	dbSrcFolder.DBSetFilter("TYPE=I");
 	while (dbSrcFolder.ReadRecNext(&dbFolderRec)) {
@@ -2622,8 +2600,25 @@ void ImportIR(LPCSTR pDir)
 
 void ImportACF(LPCSTR pDir)
 {
-	CDbFolder dbSrcFolder, dbDstFolder;
-	CDbAcf dbSrcAcf, dbDstAcf;
+	if (_stricmp(g_szDefaultDir, pDir) == 0)
+		return;
+
+	CDbFolder dbSrcFolder;
+	if (!dbSrcFolder.Open(pDir))
+		return;
+
+	CDbAcf dbSrcAcf;
+	if (!dbSrcAcf.Open(pDir))
+		return;
+
+	CDbFolder dbDstFolder;
+	if (!dbDstFolder.Open())
+		return;
+
+	CDbAcf dbDstAcf;
+	if (!dbDstAcf.Open())
+		return;
+
 	DbFolderRec dbFolderRec;
 	DbAcfRec dbAcfRec;
 	long nFolderID;
@@ -2631,21 +2626,6 @@ void ImportACF(LPCSTR pDir)
 	long nRec;
 	int i;
 	HANDLE hWaveData;
-
-	if (_stricmp(g_szDefaultDir, pDir) == 0)
-		return;
-
-	if (!dbSrcFolder.Open(pDir))
-		return;
-
-	if (!dbSrcAcf.Open(pDir))
-		return;
-
-	if (!dbDstFolder.Open())
-		return;
-
-	if (!dbDstAcf.Open())
-		return;
 
 	dbSrcFolder.DBSetFilter("TYPE=A");
 	while (dbSrcFolder.ReadRecNext(&dbFolderRec)) {

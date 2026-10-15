@@ -82,10 +82,10 @@ void CTempAcf::OnSetWeighting()
 	NsWeightData nsWeightData;
 
 	ReadNsWeightData(&nsWeightData);
-	nsWeightData.fPhi0 = (float)m_cPhi0Weighting;
-	nsWeightData.fTaue = (float)m_cTaueWeighting;
-	nsWeightData.fTau1 = (float)m_cTau1Weighting;
-	nsWeightData.fPhi1 = (float)m_cPhi1Weighting;
+	nsWeightData.fPhi0 = m_cPhi0Weighting;
+	nsWeightData.fTaue = m_cTaueWeighting;
+	nsWeightData.fTau1 = m_cTau1Weighting;
+	nsWeightData.fPhi1 = m_cPhi1Weighting;
 	WriteNsWeightData(&nsWeightData);
 }
 
@@ -177,9 +177,9 @@ void CTempAcf::SetData(const NsTmpData &nsTmpData)
 
 void CTempAcf::GetData(NsTmpData &nsTmpData)
 {
-	nsTmpData.fPhi0Standard = (float)m_cPhi0Standard;
-	nsTmpData.fPhi0UpperLimit = (float)m_cPhi0UpperLimit;
-	nsTmpData.fPhi0LowerLimit = (float)m_cPhi0LowerLimit;
+	nsTmpData.fPhi0Standard = m_cPhi0Standard;
+	nsTmpData.fPhi0UpperLimit = m_cPhi0UpperLimit;
+	nsTmpData.fPhi0LowerLimit = m_cPhi0LowerLimit;
 	nsTmpData.bPhi0UpperCheck = m_cPhi0UpperCheck;
 	nsTmpData.bPhi0LowerCheck = m_cPhi0LowerCheck;
 	nsTmpData.fPhi0Sum2 = 0;
@@ -198,9 +198,9 @@ void CTempAcf::GetData(NsTmpData &nsTmpData)
 	nsTmpData.bTau1LowerCheck = m_cTau1LowerCheck;
 	nsTmpData.fTau1Sum2 = 0;
 
-	nsTmpData.fPhi1Standard = (float)m_cPhi1Standard;
-	nsTmpData.fPhi1UpperLimit = (float)m_cPhi1UpperLimit;
-	nsTmpData.fPhi1LowerLimit = (float)m_cPhi1LowerLimit;
+	nsTmpData.fPhi1Standard = m_cPhi1Standard;
+	nsTmpData.fPhi1UpperLimit = m_cPhi1UpperLimit;
+	nsTmpData.fPhi1LowerLimit = m_cPhi1LowerLimit;
 	nsTmpData.bPhi1UpperCheck = m_cPhi1UpperCheck;
 	nsTmpData.bPhi1LowerCheck = m_cPhi1LowerCheck;
 	nsTmpData.fPhi1Sum2 = 0;

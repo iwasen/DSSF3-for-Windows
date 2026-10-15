@@ -582,7 +582,7 @@ void OpenURL(LPCSTR pUrl)
 	::ShellExecute(NULL, "open", pUrl, NULL, NULL, SW_SHOWNORMAL);
 }
 
-typedef struct {
+struct DLGTEMPLATEEX {
   WORD      dlgVer;
   WORD      signature;
   DWORD     helpID;
@@ -596,7 +596,7 @@ typedef struct {
   short menu;
   short windowClass;
   short     title[1];
-} DLGTEMPLATEEX;
+};
 
 DLGTEMPLATE *GetDialogResource(UINT nID, int nFontSize)
 {

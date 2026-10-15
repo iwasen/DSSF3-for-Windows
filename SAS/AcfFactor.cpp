@@ -529,7 +529,7 @@ void CAcfFactor::InitAcfFactorList()
 		{IDS_PHI10, NULL, 43}
 	};
 	const LISTCOLUMN *pColumnHeader;
-	static constexpr LPCTSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
+	static constexpr LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
 
 	m_cFactorList.DeleteAllItems();
 
