@@ -318,7 +318,6 @@ BOOL CImpFactor::ReadData()
 void CImpFactor::DispGraph()
 {
 	DbAcParamRec *pDbAcParamRec;
-
 	if (m_bCalculated)
 		pDbAcParamRec = &m_dbAcParamRec;
 	else
@@ -438,7 +437,7 @@ void CImpFactor::InitAcParamList()
 		LPCSTR text;
 		int width;
 	};
-	static constexpr LISTCOLUMN tParam1Stereo[] = {
+	static constexpr LISTCOLUMN tParam1Stereo[]{
 		{0, "Freq.", 53},
 		{0, "SPL", 53},
 		{0, "SPL-L", 53},
@@ -456,13 +455,13 @@ void CImpFactor::InitAcParamList()
 		{IDS_TIACC, NULL, 53},
 		{0, "W_IACC", 53},
 		{0, "S", 53}
-	}, tParam1Mono[] = {
+	}, tParam1Mono[]{
 		{0, "Freq.", 53},
 		{0, "SPL", 53},
 		{IDS_DT1, NULL, 53},
 		{0, "A-value", 53},
 		{0, "Tsub", 53}
-	}, tParam2Stereo[] = {
+	}, tParam2Stereo[]{
 		{0, "Freq.", 53},
 		{0, "G", 53},
 		{0, "G-L", 53},
@@ -496,7 +495,7 @@ void CImpFactor::InitAcParamList()
 		{0, "Ts-R", 53},
 		{0, "IACCE", 53},
 		{0, "IACCL", 53}
-	}, tParam2Mono[] = {
+	}, tParam2Mono[]{
 		{0, "Freq.", 53},
 		{0, "G", 53},
 		{0, "T20", 53},
@@ -510,8 +509,6 @@ void CImpFactor::InitAcParamList()
 		{0, "Ts", 53}
 	};
 	const LISTCOLUMN *pListColumn;
-	int size;
-	CString str;
 
 	m_cParameterList.DeleteAllItems();
 
@@ -521,6 +518,7 @@ void CImpFactor::InitAcParamList()
 	if (!m_bCalculated)
 		return;
 
+	int size;
 	if (m_nParam == 0) {
 		if (m_dbImpulseRec.nChannel == 1) {
 			pListColumn = tParam1Mono;
@@ -539,6 +537,7 @@ void CImpFactor::InitAcParamList()
 		}
 	}
 
+	CString str;
 	for (int i = 0; i < size; i++, pListColumn++) {
 		if (pListColumn->nID == 0)
 			str = pListColumn->text;
@@ -581,7 +580,6 @@ void CImpFactor::DispAcParamList()
 void CImpFactor::DispAcParam1List()
 {
 	CString str;
-	double s0;
 	DbAcParamData *pDbAcParamData = m_dbAcParamRec.dbAcParamData;
 
 	for (int i = 0; i < m_dbAcParamRec.nDataNum; i++) {
@@ -640,6 +638,7 @@ void CImpFactor::DispAcParam1List()
 			str.Format("%.2lf", pDbAcParamData[i].wIACC);
 			m_cParameterList.SetItemText(i, CLM_WIACC, str);
 
+			double s0;
 			if (pDbAcParamData[i].nFreq == FREQ_ALL || pDbAcParamData[i].nFreq == FREQ_AFILTER) {
 				if (CalcS0(&m_dbAcParamRec, i, m_fAdjustSPL, &s0))
 					str.Format("%.2lf", s0);
@@ -794,7 +793,6 @@ void CImpFactor::DispAcParam2List()
 
 void CImpFactor::DispCalcParam()
 {
-
 	if (m_bCalculated) {
 		m_Param1.m_iFreqBand = m_dbAcParamRec.dbAcParamCond.nFreqBand;
 
@@ -915,22 +913,22 @@ void CImpFactor::DeleteGraphWindow()
 void CImpFactor::FreeBuffers()
 {
 	if (m_pWaveLeft != NULL) {
-		delete [] m_pWaveLeft;
+		delete[] m_pWaveLeft;
 		m_pWaveLeft = NULL;
 	}
 
 	if (m_pWaveRight != NULL) {
-		delete [] m_pWaveRight;
+		delete[] m_pWaveRight;
 		m_pWaveRight = NULL;
 	}
 
 	if (m_pIRLeft != NULL) {
-		delete [] m_pIRLeft;
+		delete[] m_pIRLeft;
 		m_pIRLeft = NULL;
 	}
 
 	if (m_pIRRight != NULL) {
-		delete [] m_pIRRight;
+		delete[] m_pIRRight;
 		m_pIRRight = NULL;
 	}
 
@@ -977,7 +975,6 @@ void CImpFactor::OnSelectData()
 void CImpFactor::OnPrevData()
 {
 	long impulseID;
-
 	if ((impulseID = m_pView->GetPrevItem(m_nImpulseID)) != -1) {
 		SaveDataCheck();
 
@@ -990,7 +987,6 @@ void CImpFactor::OnPrevData()
 void CImpFactor::OnNextData()
 {
 	long impulseID;
-
 	if ((impulseID = m_pView->GetNextItem(m_nImpulseID)) != -1) {
 		SaveDataCheck();
 
@@ -1386,9 +1382,7 @@ void CImpFactor::OnPlayback()
 void CImpFactor::OnScreenCopy()
 {
 	CImpScDlg cImpScDlg(this);
-
 	cImpScDlg.m_nChannel = m_dbImpulseRec.nChannel;
-
 	switch (cImpScDlg.DoModal()) {
 	case IDOK:
 		{
@@ -1577,7 +1571,7 @@ void CImpFactor::OnBnClickedCsvOutput()
 
 BOOL CImpFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDCANCEL, IDH_IMP_FACTOR_CANCEL,
 		IDC_SELECT_DATA, IDH_IMP_FACTOR_SELECT_DATA,
 		IDC_PREV_DATA, IDH_IMP_FACTOR_PREV_DATA,
@@ -1631,7 +1625,6 @@ BOOL CImpFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 BOOL CImpFactor::CalcMeasurementIR()
 {
 	CCalcImpDlg dlg;
-
 	dlg.m_CalcParam = setData.CalcParam;
 	dlg.m_nFolderID = m_nFolderID;
 	if (dlg.DoModal() == IDCANCEL)

@@ -8,25 +8,25 @@
 #include "ImpFactor.h"
 #include "Help\ContextHelp.h"
 
-#define ITEM_SPL	0
-#define ITEM_A		1
-#define ITEM_TSUB	2
-#define ITEM_IACC	3
-#define ITEM_TIACC	4
-#define ITEM_WIACC	5
+#define ITEM_SPL		0
+#define ITEM_A			1
+#define ITEM_TSUB		2
+#define ITEM_IACC		3
+#define ITEM_TIACC		4
+#define ITEM_WIACC		5
 
-#define ITEM_G		6
-#define ITEM_T20	7
-#define ITEM_T30	8
+#define ITEM_G			6
+#define ITEM_T20		7
+#define ITEM_T30		8
 #define ITEM_T_CUSTOM	9
-#define ITEM_EDT	10
-#define ITEM_C50	11
-#define ITEM_C80	12
+#define ITEM_EDT		10
+#define ITEM_C50		11
+#define ITEM_C80		12
 #define ITEM_C_CUSTOM	13
-#define ITEM_D50	14
-#define ITEM_TS		15
-#define ITEM_IACCE	16
-#define ITEM_IACCL	17
+#define ITEM_D50		14
+#define ITEM_TS			15
+#define ITEM_IACCE		16
+#define ITEM_IACCL		17
 
 /////////////////////////////////////////////////////////////////////////////
 // CGraphParam ダイアログ
@@ -117,22 +117,22 @@ void CGraphParam::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pDataFreq != NULL) {
-		delete [] m_pDataFreq;
+		delete[] m_pDataFreq;
 		m_pDataFreq = NULL;
 	}
 
 	if (m_pDataAll != NULL) {
-		delete [] m_pDataAll;
+		delete[] m_pDataAll;
 		m_pDataAll = NULL;
 	}
 
 	if (m_pDataLeft != NULL) {
-		delete [] m_pDataLeft;
+		delete[] m_pDataLeft;
 		m_pDataLeft = NULL;
 	}
 
 	if (m_pDataRight != NULL) {
-		delete [] m_pDataRight;
+		delete[] m_pDataRight;
 		m_pDataRight = NULL;
 	}
 }
@@ -478,7 +478,7 @@ void CGraphParam::DispParamWindow()
 
 BOOL CGraphParam::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_PARAM, IDH_GRAPH_PARAM,
 		IDC_PARAM_SPL, IDH_GRAPH_PARAM_SPL,
 		IDC_PARAM_A, IDH_GRAPH_PARAM_A,

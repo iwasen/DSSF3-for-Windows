@@ -28,7 +28,7 @@ protected:
 				if (!::GetFileVersionInfo((LPSTR)lpszFileName,0,dwSize,m_pBlock)||
 						!::VerQueryValue(m_pBlock,_T("\\"),(void**)&m_pFixedFileInfo,&tmp)||
 						!::VerQueryValue(m_pBlock,_T("\\VarFileInfo\\Translation"),(void**)&m_pLangID,&tmp2)) {
-					delete [] m_pBlock;
+					delete[] m_pBlock;
 					m_pBlock=NULL;
 					return FALSE;
 				}
@@ -41,7 +41,7 @@ public:
 				Create(lpszFileName);
 			}
 			CVerRes(LPCSTR lpszFileName) { Create(lpszFileName); }
-	virtual		~CVerRes(void) { delete [] m_pBlock; }
+	virtual		~CVerRes(void) { delete[] m_pBlock; }
 	DefineStringResource(FileVersion);
 	DefineStringResource(ProductVersion);
 	DefineStringResource(Comments);

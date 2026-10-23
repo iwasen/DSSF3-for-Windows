@@ -78,11 +78,11 @@ void CAcfWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, L
 
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -117,15 +117,12 @@ void CAcfWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc, L
 void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nMinLevel, int nStep, int nDiv, LPCSTR pStr)
 {
 	CString sText;
-	CSize size;
-	int x, y;
-	int ns;
-	const int nLevelRange = nMaxLevel - nMinLevel;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
+	const int nLevelRange = nMaxLevel - nMinLevel;
 	m_nScaleZero = m_nScaleTop + m_nScaleHeight * nMaxLevel / nLevelRange;
 
 	CRect rect(0, 0, m_nWidth, m_nHeight);
@@ -134,8 +131,9 @@ void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nM
 	m_dcMem.MoveTo(m_nScaleLeft - 1, m_nScaleTop);
 	m_dcMem.LineTo(m_nScaleLeft - 1, m_nScaleBottom);
 
+	SIZE size;
 	for (int i = nMaxLevel; i >= nMinLevel; i -= nStep) {
-		y = m_nScaleZero - (i * m_nScaleHeight / nLevelRange);
+		int y = m_nScaleZero - (i * m_nScaleHeight / nLevelRange);
 		if (i == 0)
 			m_dcMem.SelectObject(&m_penBlack);
 		else if (i == nMinLevel)
@@ -154,6 +152,7 @@ void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nM
 	const double t1 = dispTime / 7;
 	double step = pow(10.0, floor(log10(t1)));
 	const double t2 = t1 / step;
+	int ns;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -163,7 +162,7 @@ void CAcfWnd::SetBitmap(double startTime, double dispTime, int nMaxLevel, int nM
 		ns = 5;
 
 	for (double t = floor(startTime / step) * step; t < startTime + dispTime; t += step) {
-		x = m_nScaleLeft + int((t - startTime) * m_nScaleWidth / dispTime);
+		int x = m_nScaleLeft + int((t - startTime) * m_nScaleWidth / dispTime);
 		if (x >= m_nScaleLeft) {
 			if (int(t / step + 0.5) % ns == 0) {
 				if (x > m_nScaleLeft) {

@@ -125,7 +125,6 @@ int CWaveOut::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 
 			ConvertDoubleToWave(pWaveHdr, nRc);
 
-//			pWaveHdr->lpData = waveNotify.pSamplesData;
 			pWaveHdr->dwBufferLength = waveNotify.nSamplesNum * nBytesPerSample;
 			pWaveHdr->dwBytesRecorded = waveNotify.nSamplesRecorded * nBytesPerSample;
 			pWaveHdr->dwFlags = waveNotify.nFlags;
@@ -224,7 +223,7 @@ void CWaveOut::Close()
 	}
 
 	if (m_pSamplesBuffer != NULL) {
-		delete [] m_pSamplesBuffer;
+		delete[] m_pSamplesBuffer;
 		m_pSamplesBuffer = NULL;
 	}
 }
@@ -259,8 +258,6 @@ BOOL CWaveOut::AllocWaveBuffer(int nBufferNum, int nBufferSize)
 		return FALSE;
 
 	HGLOBAL hData, hWaveHdr;
-	LPSTR	pData;
-	LPWAVEHDR pWaveHdr;
 	LPWAVEHDR pWaveHdr2 = NULL;
 
 	for (int i = 0; i < nBufferNum; i++) {
@@ -275,8 +272,8 @@ BOOL CWaveOut::AllocWaveBuffer(int nBufferNum, int nBufferSize)
 			return FALSE;
 		}
 
-		pData = (LPSTR)::GlobalLock(hData);
-		pWaveHdr = (LPWAVEHDR)::GlobalLock(hWaveHdr);
+		LPSTR pData = (LPSTR)::GlobalLock(hData);
+		LPWAVEHDR pWaveHdr = (LPWAVEHDR)::GlobalLock(hWaveHdr);
 
 		m_pWaveHdr = pWaveHdr;
 
@@ -297,9 +294,7 @@ BOOL CWaveOut::AllocWaveBuffer(int nBufferNum, int nBufferSize)
 void CWaveOut::FreeWaveBuffer()
 {
 	HGLOBAL hMem;
-
 	LPWAVEHDR pWaveHdr = m_pWaveHdr;
-
 	while (pWaveHdr != NULL) {
 		LPWAVEHDR pWaveHdr2 = (LPWAVEHDR)pWaveHdr->dwUser;
 

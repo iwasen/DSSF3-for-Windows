@@ -52,7 +52,6 @@ END_MESSAGE_MAP()
 int CMyEdit::operator=(int param)
 {
 	CString str1, str2;
-
 	str1.Format("%d", param);
 	GetWindowText(str2);
 
@@ -65,7 +64,6 @@ int CMyEdit::operator=(int param)
 long CMyEdit::operator=(long nParam)
 {
 	CString sStr1, sStr2;
-
 	sStr1.Format("%ld", nParam);
 	GetWindowText(sStr2);
 
@@ -78,7 +76,6 @@ long CMyEdit::operator=(long nParam)
 float CMyEdit::operator=(float param)
 {
 	CString str1, str2;
-
 	str1.Format("%g", param);
 	GetWindowText(str2);
 
@@ -91,7 +88,6 @@ float CMyEdit::operator=(float param)
 double CMyEdit::operator=(double param)
 {
 	CString str1, str2;
-
 	str1.Format("%g", param);
 	GetWindowText(str2);
 
@@ -104,7 +100,6 @@ double CMyEdit::operator=(double param)
 CString &CMyEdit::operator=(CString &param)
 {
 	CString str2;
-
 	GetWindowText(str2);
 
 	if (param != str2)
@@ -116,7 +111,6 @@ CString &CMyEdit::operator=(CString &param)
 LPCSTR CMyEdit::operator=(LPCSTR param)
 {
 	CString str2;
-
 	GetWindowText(str2);
 
 	if (str2 != param)
@@ -128,7 +122,6 @@ LPCSTR CMyEdit::operator=(LPCSTR param)
 CMyEdit &CMyEdit::operator=(CMyEdit &param)
 {
 	CString str;
-
 	param.GetWindowText(str);
 	SetWindowText(str);
 
@@ -181,11 +174,11 @@ void CMyEdit::Format(LPCSTR lpszFormat, ...)
 {
 	va_list vl;
 	char str[256];
-	CString str2;
 
 	va_start(vl, lpszFormat);
 	vsprintf_s(str, lpszFormat, vl);
 
+	CString str2;
 	GetWindowText(str2);
 
 	if (str2 != str)
@@ -195,7 +188,6 @@ void CMyEdit::Format(LPCSTR lpszFormat, ...)
 void CMyEdit::Blank()
 {
 	CString str;
-
 	GetWindowText(str);
 	if (!str.IsEmpty())
 		SetWindowText("");
@@ -203,10 +195,10 @@ void CMyEdit::Blank()
 
 void CMyEdit::LoadString(UINT nStringID)
 {
-	CString str1, str2;
-
+	CString str1;
 	str1.LoadString(nStringID);
 
+	CString str2;
 	GetWindowText(str2);
 
 	if (str2 != str1)
@@ -372,7 +364,7 @@ int CMyTab::AddPage(CDialog *pDialog, UINT id, LPCSTR title, BOOL bCreate, BOOL 
 	}
 	InsertItem(n, title);
 
-	TabData tabData = {pDialog, id, FALSE};
+	TabData tabData{ pDialog, id, FALSE };
 	m_TabData.InsertAt(n, tabData);
 
 	if (bCreate)
@@ -384,7 +376,6 @@ int CMyTab::AddPage(CDialog *pDialog, UINT id, LPCSTR title, BOOL bCreate, BOOL 
 int CMyTab::AddPage(CDialog *pDialog, UINT id, UINT titleID, BOOL bCreate, BOOL bSort)
 {
 	CString str;
-
 	str.LoadString(titleID);
 	return AddPage(pDialog, id, (LPCSTR)str, bCreate, bSort);
 }
@@ -411,15 +402,6 @@ void CMyTab::DeletePage(int n)
 
 	m_TabData.RemoveAt(n);
 	DeleteItem(n);
-/*
-	int nSize = m_TabData.GetSize();
-	if (nSize > 0) {
-		if (n >= nSize)
-			n = 0;
-		SetCurSel(n);
-		//SetPage(n);
-	}
-*/
 }
 
 void CMyTab::SetPage(int n)
@@ -456,7 +438,6 @@ void CMyTab::DisplayChildDlg(int n)
 
 void CMyTab::CreateChildDlg(int n)
 {
-	CRect rect1, rect2;
 	CWnd *pParent = GetParent();
 	CDialog *pDialog = m_TabData[n].pDialog;
 
@@ -469,6 +450,7 @@ void CMyTab::CreateChildDlg(int n)
 	g_dllUxTheme.EnableThemeDialogTexture(pDialog->m_hWnd, ETDT_ENABLETAB);
 
 	// ダイアログをタブコントロール全体に広げる（タブとダイアログの背景色が微妙に違うので）
+	CRect rect1, rect2;
 	GetWindowRect(rect1);
 	AdjustRect(FALSE, rect1);
 	pDialog->GetWindowRect(rect2);
@@ -517,10 +499,9 @@ void CMyTab::SetFontSize(int nFontSize)
 
 void CMyTab::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	CRect rect;
-
 	CTabCtrl::OnLButtonDown(nFlags, point);
 
+	CRect rect;
 	for (int i = 0; i < GetItemCount(); i++) {
 		GetItemRect(i, rect);
 
@@ -658,11 +639,10 @@ void CMySliderString::OnPaint()
 	dc.SetBkMode(TRANSPARENT);
 	CFont *pFont = dc.SelectObject(GetParent()->GetFont());
 
-	CSize size;
 	for (POSITION pos = m_StringList.GetHeadPosition(); pos != NULL; ) {
 		CTicString *pTicString = (CTicString *)m_StringList.GetNext(pos);
 
-		size = dc.GetTextExtent(pTicString->text);
+		CSize size = dc.GetTextExtent(pTicString->text);
 		dc.TextOut(TS_MARGIN + pTicString->x - size.cx / 2 + 1, 0, pTicString->text);
 	}
 
@@ -710,7 +690,7 @@ void CMySliderCtrl::AddTicString(int nTic, LPCSTR pStr)
 		const int nTop = wp.rcNormalPosition.top + 25 + abs(logFont.lfHeight) / 2;
 		const int nBottom = nTop + abs(logFont.lfHeight);
 
-		CRect rect(wp.rcNormalPosition.left - TS_MARGIN, nTop, wp.rcNormalPosition.right + TS_MARGIN, nBottom);
+		RECT rect(wp.rcNormalPosition.left - TS_MARGIN, nTop, wp.rcNormalPosition.right + TS_MARGIN, nBottom);
 		m_MySliderString.Create(::AfxRegisterWndClass(0), "SliderString", WS_CHILD | WS_VISIBLE, rect, GetParent(), 0xffff);
 	}
 

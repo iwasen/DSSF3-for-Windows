@@ -7,11 +7,11 @@
 #include "FactorWnd.h"
 #include "Dpi.h"
 
-#define COLOR_DATA	RGB(0, 0, 255)
-#define COLOR_SEL	RGB(255, 0, 0)
+#define COLOR_DATA		RGB(0, 0, 255)
+#define COLOR_SEL		RGB(255, 0, 0)
 #define COLOR_SEL_LINE	RGB(255, 128, 128)
 #define COLOR_MARKER	RGB(0, 192, 0)
-#define COLOR_DRAG	RGB(192, 0, 0)
+#define COLOR_DRAG		RGB(192, 0, 0)
 #define COLOR_ZOOMAREA	RGB(255, 240, 240)
 
 #define MOUSE_NORMAL			0
@@ -36,7 +36,6 @@ CFactorWnd::CFactorWnd()
 	m_nMarkerIndex = -1;
 	m_pNotifyWnd = NULL;
 	m_sizeCurrent = 0;
-	m_rectZoom.SetRect(0, 0, 0, 0);
 	m_hCursor = NULL;
 }
 
@@ -87,12 +86,13 @@ void CFactorWnd::OnPaint()
 		}
 
 		if (m_nMouseMode == MOUSE_DRAG) {
-			CPoint point[5];
-			point[0] = m_pointDragStart;
-			point[1].SetPoint(m_pointDragStart.x, m_pointDragEnd.y);
-			point[2] = m_pointDragEnd;
-			point[3].SetPoint(m_pointDragEnd.x, m_pointDragStart.y);
-			point[4] = m_pointDragStart;
+			POINT point[5]{
+				{ m_pointDragStart },
+				{ m_pointDragStart.x, m_pointDragEnd.y },
+				{ m_pointDragEnd },
+				{ m_pointDragEnd.x, m_pointDragStart.y },
+				{ m_pointDragStart }
+			};
 			CPen *pPenOrg = m_dcMem2.SelectObject(&m_penDrag);
 			m_dcMem2.Polyline(point, 5);
 			m_dcMem2.SelectObject(pPenOrg);
@@ -162,7 +162,7 @@ void CFactorWnd::Initialize(int nFontSize, LPCSTR pTitle, PFNGRAPH pCallBackFunc
 void CFactorWnd::SetSize(int nFontSize)
 {
 	CRect rect;
-	GetClientRect(&rect);
+	GetClientRect(rect);
 
 	if (rect.Size() == m_sizeCurrent)
 		return;
@@ -184,11 +184,11 @@ void CFactorWnd::SetSize(int nFontSize)
 	m_bitmapMem2.CreateCompatibleBitmap(pDC, m_nWidth, m_nHeight);
 	ReleaseDC(pDC);
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.DeleteObject();
@@ -218,18 +218,11 @@ void CFactorWnd::SetSize(int nFontSize)
 
 void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, double fMinValue, LPCSTR pAxisStr, BOOL bLogScale)
 {
-	CString sText;
-	CSize size;
-	int x, y;
-	double step, t, t1, t2;
-	double fValue;
-	int ns;
-	const double fLevelRange = fMaxValue - fMinValue;
-
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
+	const double fLevelRange = fMaxValue - fMinValue;
 	m_fScaleZero = m_nScaleTop + m_nScaleHeight * fMaxValue / fLevelRange;
 
 	CRect rect(0, 0, m_nWidth, m_nHeight);
@@ -239,6 +232,12 @@ void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue
 	m_dcMem.SelectStockObject(NULL_BRUSH);
 	m_dcMem.Rectangle(rect);
 
+	int x, y;
+	int ns;
+	double step, t, t1, t2;
+	double fValue;
+	SIZE size;
+	CString sText;
 	if (bLogScale) {
 		step = pow(10, floor(log10((fMinValue)) + 1e-3));
 		const double fLogMaxValue = log(fMaxValue);
@@ -353,13 +352,7 @@ void CFactorWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue
 
 void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime, const double *pData, int nData, double fMaxValue, double fMinValue, LPCSTR pAxisStr, int nSel, BOOL bHScroll, BOOL bVScroll, DbAcfMarkerRec *pAcfMarkerRec, int nAcfMarkerRec, double fOffsetTime, BOOL bLogScale)
 {
-	int i, i2;
-	int x;
-	int y;
-	const double fLevelRange = fMaxValue - fMinValue;
-	BOOL bFirst = TRUE;
-	BOOL bSel = FALSE;
-	int nSelX = 0, nSelY = 0;
+	int i;
 
 	m_bHScroll = bHScroll;
 	m_bVScroll = bVScroll;
@@ -374,12 +367,17 @@ void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime
 	const int nDotSize1 = min(int(m_nScaleWidth * fStepTime / fDispTime) / 4, 2);
 	const int nDotSize2 = nDotSize1 ? nDotSize1 + 1 : 0;
 
+	int nSelX = 0, nSelY = 0;
+	BOOL bSel = FALSE;
+	BOOL bFirst = TRUE;
+	const double fLevelRange = fMaxValue - fMinValue;
 	const double fOffset = fStartTime / fStepTime;
-	i2 = int(fOffset);
+	int i2 = int(fOffset);
 	for (i = i2; i < nData; i++) {
 		if (!_isnan(pData[i]) && _finite(pData[i])) {
-			x = m_nScaleLeft + int((i - fOffset) * fStepTime / fDispTime * m_nScaleWidth + 0.5);
+			int x = m_nScaleLeft + int((i - fOffset) * fStepTime / fDispTime * m_nScaleWidth + 0.5);
 
+			int y;
 			if (bLogScale)
 				y = m_nScaleBottom - (int)((log(pData[i] < fMinValue ? fMinValue : pData[i]) - log(fMinValue)) * m_nScaleHeight / (log(fMaxValue) - log(fMinValue)) + 0.5);
 			else
@@ -428,27 +426,33 @@ void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime
 		const double fEndTime = fStartTime + fDispTime;
 		for (i = 0; i < nAcfMarkerRec; i++) {
 			if (pAcfMarkerRec[i].fTime > fStartTime && pAcfMarkerRec[i].fTime < fEndTime) {
-				x = m_nScaleLeft + (int)((pAcfMarkerRec[i].fTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
+				int x = m_nScaleLeft + (int)((pAcfMarkerRec[i].fTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
 
 				m_dcMem.SelectObject(&m_penMarkerDot);
 				m_dcMem.MoveTo(x, m_nScaleTop);
 				m_dcMem.LineTo(x, m_nScaleBottom);
 
-				CPoint point[3];
-				point[0].x = x;
-				point[0].y = m_nScaleTop - 2;
-				point[1].x = x - 5;
-				point[1].y = m_nScaleTop - 9;
-				point[2].x = x + 5;
-				point[2].y = m_nScaleTop - 9;
+				POINT point[3]{
+					{
+						.x = x,
+						.y = m_nScaleTop - 2
+					},{
+						.x = x - 5,
+						.y = m_nScaleTop - 9
+					},{
+						.x = x + 5,
+						.y = m_nScaleTop - 9
+					}
+				};
 				m_dcMem.SelectObject(&m_penGray);
 				m_dcMem.SelectObject(&m_brushMarker);
 				m_dcMem.Polygon(point, 3);
 
-				SMarker marker;
-				marker.nMarkerID = pAcfMarkerRec[i].nMarkerID;
-				marker.sTitle = pAcfMarkerRec[i].sTitle;
-				marker.rectMarker.SetRect(point[1].x, point[1].y, point[2].x, point[0].y);
+				SMarker marker{
+					.nMarkerID = pAcfMarkerRec[i].nMarkerID,
+					.sTitle = pAcfMarkerRec[i].sTitle,
+					.rectMarker{ point[1].x, point[1].y, point[2].x, point[0].y }
+				};
 				m_arrayMarker.Add(marker);
 			}
 		}
@@ -520,9 +524,14 @@ void CFactorWnd::OnLButtonUp(UINT nFlags, CPoint point)
 			m_nMouseMode = MOUSE_NORMAL;
 
 			if (m_pointDragStart.x != m_pointDragEnd.x && m_pointDragStart.y != m_pointDragEnd.y) {
-				CPoint pointStart, pointEnd;
-				pointStart.SetPoint(min(m_pointDragStart.x, m_pointDragEnd.x), min(m_pointDragStart.y, m_pointDragEnd.y));
-				pointEnd.SetPoint(max(m_pointDragStart.x, m_pointDragEnd.x), max(m_pointDragStart.y, m_pointDragEnd.y));
+				POINT pointStart{
+					.x = min(m_pointDragStart.x, m_pointDragEnd.x),
+					.y = min(m_pointDragStart.y, m_pointDragEnd.y)
+				};
+				POINT pointEnd{
+					.x = max(m_pointDragStart.x, m_pointDragEnd.x),
+					.y = max(m_pointDragStart.y, m_pointDragEnd.y)
+				};
 				SGraphDrag drag{
 					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
 					.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight,
@@ -561,9 +570,8 @@ void CFactorWnd::OnMouseMove(UINT nFlags, CPoint point)
 			break;
 		case MOUSE_ZOOM_AREA:
 			{
-				CPoint pointStart, pointEnd;
-				pointStart = point - m_pointZoomArea;
-				pointEnd = pointStart + m_rectZoom.Size();
+				CPoint pointStart{ point - m_pointZoomArea };
+				CPoint pointEnd{ pointStart + m_rectZoom.Size() };
 
 				SGraphDrag drag{
 					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
@@ -665,7 +673,7 @@ BOOL CFactorWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if (pMsg->message == WM_MOUSEMOVE) {
 		int i;
-		CPoint point(GET_X_LPARAM(pMsg->lParam), GET_Y_LPARAM(pMsg->lParam));
+		POINT point(GET_X_LPARAM(pMsg->lParam), GET_Y_LPARAM(pMsg->lParam));
 		for (i = 0; i < m_arrayMarker.GetCount(); i++) {
 			if (m_arrayMarker[i].rectMarker.PtInRect(point)) {
 				if (i != m_nMarkerIndex) {

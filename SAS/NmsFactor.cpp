@@ -213,8 +213,6 @@ BOOL CNmsFactor::ReadData()
 	m_sMeasureTime.Format("%.2f", m_dbNmsRec.fDataTime);
 	m_sChannel = ((m_dbNmsRec.nChannel & 0x03) == 1) ? "Mono" : "Stereo";
 	m_iBit = (m_dbNmsRec.nChannel & 0x04) ? 24 : 16;
-//	m_sTitle = m_dbNmsRec.title;
-//	m_sComment = m_dbNmsRec.comment;
 	m_sTime = FormatTime(m_dbNmsRec.sTime);
 	m_cPlayback.EnableWindow(m_hWaveData != NULL);
 
@@ -248,14 +246,14 @@ void CNmsFactor::DispGraph()
 		return;
 
 	if (m_pAcfFactor != NULL)
-		delete [] m_pAcfFactor;
+		delete[] m_pAcfFactor;
 
 	m_pAcfFactor = new AcfFactor[m_dbNmsRec.nNmsFactor];
 	for (i = 0; i < m_dbNmsRec.nNmsFactor; i++)
 		m_pAcfFactor[i] = m_pNmsFactorData[i].Acf;
 
 	if (m_pIAcfFactor != NULL)
-		delete [] m_pIAcfFactor;
+		delete[] m_pIAcfFactor;
 
 	m_pIAcfFactor = new IAcfFactor[m_dbNmsRec.nNmsFactor];
 	for (i = 0; i < m_dbNmsRec.nNmsFactor; i++)
@@ -431,7 +429,7 @@ void CNmsFactor::InitNmsFactorList()
 		LPCSTR text;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumnHeader[] = {
+	static constexpr LISTCOLUMN tColumnHeader[]{
 		{0, "Time", 53},
 		{IDS_PHI0, NULL, 53},
 		{IDS_TAUE, NULL, 53},
@@ -442,9 +440,7 @@ void CNmsFactor::InitNmsFactorList()
 		{IDS_TIACC, NULL, 53},
 		{0, "W_IACC", 53}
 	};
-	const LISTCOLUMN *pColumnHeader;
-	static constexpr LPCSTR tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
-	CString str;
+	static constexpr LPCSTR tUnit[]{ " [sec]", " [dB]", " [ms]", " [ms]", "", "", "", "" };
 
 	m_cFactorList.DeleteAllItems();
 
@@ -454,9 +450,10 @@ void CNmsFactor::InitNmsFactorList()
 	if (!m_bCalculated)
 		return;
 
-	pColumnHeader = tColumnHeader;
+	const LISTCOLUMN *pColumnHeader = tColumnHeader;
 	m_nColumn = ARRAY_SIZE(tColumnHeader);
 
+	CString str;
 	for (int i = 0; i < m_nColumn; i++, pColumnHeader++) {
 		if (pColumnHeader->nID == 0)
 			str = pColumnHeader->text;
@@ -515,7 +512,7 @@ void CNmsFactor::DispNmsFactorList()
 
 void CNmsFactor::DispCalcParam()
 {
-	static constexpr int tFilterName[] = {IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING};
+	static constexpr int tFilterName[]{ IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING };
 
 	if (m_bCalculated) {
 		AcfCondition *pAcfCondition = &m_NmsConditionData.AcfCondition;
@@ -605,17 +602,17 @@ void CNmsFactor::DeleteGraphWindow()
 void CNmsFactor::FreeBuffers()
 {
 	if (m_pNmsFactorData != NULL) {
-		delete [] m_pNmsFactorData;
+		delete[] m_pNmsFactorData;
 		m_pNmsFactorData = NULL;
 	}
 
 	if (m_pAcfFactor != NULL) {
-		delete [] m_pAcfFactor;
+		delete[] m_pAcfFactor;
 		m_pAcfFactor = NULL;
 	}
 
 	if (m_pIAcfFactor != NULL) {
-		delete [] m_pIAcfFactor;
+		delete[] m_pIAcfFactor;
 		m_pIAcfFactor = NULL;
 	}
 
@@ -634,7 +631,6 @@ void CNmsFactor::OnSelectData()
 void CNmsFactor::OnPrevData()
 {
 	long nmsID;
-
 	if ((nmsID = m_pView->GetPrevItem(m_NmsID)) != -1) {
 		m_cPlayback.Stop();
 		m_NmsID = nmsID;
@@ -646,7 +642,6 @@ void CNmsFactor::OnPrevData()
 void CNmsFactor::OnNextData()
 {
 	long nmsID;
-
 	if ((nmsID = m_pView->GetNextItem(m_NmsID)) != -1) {
 		m_cPlayback.Stop();
 		m_NmsID = nmsID;
@@ -664,7 +659,6 @@ void CNmsFactor::EnablePrevNext()
 void CNmsFactor::OnColumnclickFactorList(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-
 	if (m_nSortItem != pNMListView->iSubItem)
 		m_nSortDir = 1;
 	else
@@ -736,10 +730,8 @@ void CNmsFactor::OnCancel()
 
 void CNmsFactor::CloseAll()
 {
-	CWnd *pWnd;
-
 	while (!m_WindowList.IsEmpty()) {
-		pWnd = (CWnd *)m_WindowList.GetHead();
+		CWnd *pWnd = (CWnd *)m_WindowList.GetHead();
 		if (pWnd != NULL)
 			pWnd->DestroyWindow();
 	}
@@ -869,7 +861,6 @@ HDIB CNmsFactor::ScreenCopy()
 HDIB CNmsFactor::GraphCopy()
 {
 	int i, nGraph = 0;
-	CWnd *pWnd;
 	int x, y;
 
 	for (i = 0; i < 10; i++) {
@@ -926,6 +917,7 @@ HDIB CNmsFactor::GraphCopy()
 			m_cGraph.SetPage(i);
 			m_cGraph.UpdateWindow();
 			m_cGraph.GetCurrentDlg()->UpdateWindow();
+			CWnd *pWnd;
 			if (setData.NmsSC.bFrame)
 				pWnd = &m_cGraph;
 			else
@@ -969,7 +961,6 @@ HDIB CNmsFactor::GraphCopy()
 CString CNmsFactor::GetDataText()
 {
 	int i, j;
-	CString data;
 	char text[32];
 
 	LVCOLUMN lvc{
@@ -978,6 +969,7 @@ CString CNmsFactor::GetDataText()
 		.cchTextMax = sizeof(text)
 	};
 
+	CString data;
 	for (i = 0; i < m_nColumn; i++) {
 		m_cFactorList.GetColumn(i, &lvc);
 		if (i != 0)
@@ -1093,7 +1085,7 @@ void CNmsFactor::OnBnClickedCsvOutput()
 
 BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDCANCEL, IDH_NMS_FACTOR_CANCEL,
 		IDC_SELECT_DATA, IDH_NMS_FACTOR_SELECT_DATA,
 		IDC_PREV_DATA, IDH_NMS_FACTOR_PREV_DATA,

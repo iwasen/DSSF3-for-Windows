@@ -45,12 +45,6 @@ void CFftWnd::SetBitmapCrf(FFTWINDOW *pFftWindow)
 
 void CFftWnd::DrawScaleCrf(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText)
 {
-	CString sText;
-	CSize size;
-	int ns;
-	double step, t1, t2;
-	const int nCenter = nTop + pFftWindow->m_nScaleHeight / 2;
-
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushGraph);
 	m_dcMem.Rectangle(nLeft - 1, nTop - 1, nRight + 1, nBottom + 1);
@@ -62,6 +56,11 @@ void CFftWnd::DrawScaleCrf(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(&m_Font);
 
+	const int nCenter = nTop + pFftWindow->m_nScaleHeight / 2;
+	double step, t1, t2;
+	int ns;
+	CString sText;
+	SIZE size;
 	for (int i = 100; i >= -100; i -= 20) {
 		const int y = (int)(nCenter - (i * ((double)pFftWindow->m_nScaleHeight / 2) / 100) + 0.5);
 		if (i != 100 && i != -100) {
@@ -124,7 +123,6 @@ void CFftWnd::DrawScaleCrf(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 void CFftWnd::SetBitmapCrfSub(int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, double step, int zero, int width, int dir, int ns)
 {
 	CString sText;
-	CSize size;
 	const double fTime = m_fTimeStep / m_nCrfRange;
 
 	for (double t = 0; t < fTime; t += step) {
@@ -142,7 +140,7 @@ void CFftWnd::SetBitmapCrfSub(int nLeft, int nTop, int nRight, int nBottom, BOOL
 
 				if (bAxisX) {
 					sText.Format("%g", (t == 0) ? 0 : t * 1000 * dir);
-					size = m_dcMem.GetOutputTextExtent(sText);
+					SIZE size = m_dcMem.GetOutputTextExtent(sText);
 					m_dcMem.TextOut(x - size.cx / 2, nBottom + 2, sText);
 				}
 			} else {
@@ -188,10 +186,10 @@ void CFftWnd::GetWaveDataCrf(const FFTWINDOW *pFftWindow)
 void CFftWnd::CalcAutoCorrelation(const double *pFftBuf, double *pCrfBuf)
 {
 	int i, j;
-	const int nFftSize2 = m_nFftSize / 2;
 
 	pCrfBuf[0] = pCrfBuf[1] = 0;
 
+	const int nFftSize2 = m_nFftSize / 2;
 	for (i = 1; i < nFftSize2; i++) {
 		j = i * 2;
 
@@ -209,11 +207,11 @@ void CFftWnd::CalcAutoCorrelation(const double *pFftBuf, double *pCrfBuf)
 void CFftWnd::CalcLateralCorrelation(double *pFftBufRe, double *pFftBufIm)
 {
 	int i, j;
-	const int nFftSize2 = m_nFftSize / 2;
-	double *pCrfBuf = m_aFftData[0].m_pCrfBuf;
 
+	double *pCrfBuf = m_aFftData[0].m_pCrfBuf;
 	pCrfBuf[0] = pCrfBuf[1] = 0;
 
+	const int nFftSize2 = m_nFftSize / 2;
 	for (i = 1; i < nFftSize2; i++) {
 		j = i * 2;
 
@@ -237,20 +235,18 @@ void CFftWnd::CalcLateralCorrelation(double *pFftBufRe, double *pFftBufIm)
 void CFftWnd::CalcCrf(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffset, int nDataSize) const
 {
 	POINT *pPoint = pFftData->m_pCrfPoint;
-	int x, y;
 	int x2 = -1, y2 = 0;
 	int nPointCount = 0;
-	int nIndex;
 	const int nCenter = pFftWindow->m_nScaleHeight / 2;
 	double *pCrfBuf = pFftData->m_pCrfBuf;
 
 	for (int i = 0; ; i++) {
-		x = (i * pFftWindow->m_nScaleWidth + nDataSize / 2) / nDataSize;
+		int x = (i * pFftWindow->m_nScaleWidth + nDataSize / 2) / nDataSize;
 
-		nIndex = nOffset + i;
+		int nIndex = nOffset + i;
 		if (nIndex >= m_nFftSize)
 			nIndex -= m_nFftSize;
-		y = (int)(nCenter - pCrfBuf[nIndex] * pFftWindow->m_nScaleHeight / 2 + 0.5);
+		int y = (int)(nCenter - pCrfBuf[nIndex] * pFftWindow->m_nScaleHeight / 2 + 0.5);
 
 		if (x != x2 || y != y2) {
 			pPoint[nPointCount].x = x;
@@ -279,7 +275,6 @@ void CFftWnd::DispCrfInfo(const FFTWINDOW *pFftWindow)
 
 void CFftWnd::DispCrfInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId)
 {
-	CString sTime, sLevel;
 	double *pCrfBuf = pFftData->m_pCrfBuf;
 	const int nDataSize = (g_oSetData.Fft.nCorrelation == 0) ? m_nFftSize / m_nCrfRange : m_nFftSize * 2 / m_nCrfRange;
 	const int nCrfDispTime = (g_oSetData.Fft.nCorrelation == 0) ? pFftData->m_nCrfDispTime : pFftData->m_nCrfDispTime - nDataSize / 2;
@@ -288,6 +283,7 @@ void CFftWnd::DispCrfInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int
 	pFftData->m_nCrfTimePos = (pFftData->m_nCrfDispTime * pFftWindow->m_nScaleWidth) / nDataSize;
 	pFftData->m_nCrfLevelPos = (int)((pFftWindow->m_nScaleHeight / 2) - pCrfBuf[nIndex] * pFftWindow->m_nScaleHeight / 2 + 0.5);
 
+	CString sTime, sLevel;
 	if (pFftData->m_nCrfDispTime == 0) {
 		sLevel.Empty();
 		sTime.Empty();
@@ -320,23 +316,22 @@ void CFftWnd::PaintCrf(const FFTWINDOW *pFftWindow, int nChannel)
 
 void CFftWnd::PaintCrfSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nOffest, CPen &penData, CPen &penLine, CPen &penPeak)
 {
-	const int nCenter = pFftWindow->m_nScaleHeight / 2;
-	int i, j, y;
-	int dx,dy;
-
 	m_dcMem2.SelectObject(penData);
 	m_dcMem2.SetROP2(R2_COPYPEN);
 	m_dcMem2.Polyline(pFftData->m_pCrfPoint, pFftData->m_nCrfPointCount);
 	m_dcMem2.SelectObject(penLine);
 	m_dcMem2.SetROP2(R2_MASKPEN);
-	for (i = nOffest, j = 0; i < pFftWindow->m_nScaleWidth; i += 2) {
+
+	const int nCenter = pFftWindow->m_nScaleHeight / 2;
+	int y;
+	for (int i = nOffest, j = 0; i < pFftWindow->m_nScaleWidth; i += 2) {
 		while (pFftData->m_pCrfPoint[j].x < i)
 			j++;
 		if (pFftData->m_pCrfPoint[j].x == i)
 			y = pFftData->m_pCrfPoint[j].y;
 		else {
-			dx = pFftData->m_pCrfPoint[j].x - pFftData->m_pCrfPoint[j - 1].x;
-			dy = pFftData->m_pCrfPoint[j].y - pFftData->m_pCrfPoint[j - 1].y;
+			int dx = pFftData->m_pCrfPoint[j].x - pFftData->m_pCrfPoint[j - 1].x;
+			int dy = pFftData->m_pCrfPoint[j].y - pFftData->m_pCrfPoint[j - 1].y;
 			y = pFftData->m_pCrfPoint[j].y - dy * (pFftData->m_pCrfPoint[j].x - i) / dx;
 		}
 		m_dcMem2.MoveTo(i, nCenter);
@@ -356,7 +351,6 @@ void CFftWnd::SetDispFreqCrf(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	if (!g_oSetData.Fft.bPeakDisp) {
 		const int nDataSize = (g_oSetData.Fft.nCorrelation == 0) ? m_nFftSize / m_nCrfRange : m_nFftSize * 2 / m_nCrfRange;
-
 		const int n = (point.x - pFftWindow->m_nFrameLeft) * nDataSize / pFftWindow->m_nScaleWidth;
 		m_aFftData[0].m_nCrfDispTime = m_aFftData[1].m_nCrfDispTime = (n > 1 && n < nDataSize) ? n : 0;
 		DispCrfInfo(pFftWindow);

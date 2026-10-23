@@ -51,17 +51,17 @@ void CRFFT::alloc_work(int n)
 {
 	if (last_n != n) {
 		if (a != NULL) {
-			delete [] a;
+			delete[] a;
 			a = NULL;
 		}
 
 		if (ip != NULL) {
-			delete [] ip;
+			delete[] ip;
 			ip = NULL;
 		}
 
 		if (w != NULL) {
-			delete [] w;
+			delete[] w;
 			w = NULL;
 		}
 
@@ -96,63 +96,57 @@ void CRFFT::cdft(int n, int isgn, double *a, int *ip, double *w)
 */
 void CRFFT::rdft(int n, int isgn, double *a, int *ip, double *w)
 {
-    int nw, nc;
-    double xi;
-
-    nw = ip[0];
-    if (n > (nw << 2)) {
-        nw = n >> 2;
-        makewt(nw, ip, w);
-    }
-    nc = ip[1];
-    if (n > (nc << 2)) {
-        nc = n >> 2;
-        makect(nc, ip, w + nw);
-    }
-    if (isgn >= 0) {
-        if (n > 4) {
-            bitrv2(n, ip + 2, a);
-            cftfsub(n, a, w);
-            rftfsub(n, a, nc, w + nw);
-        } else if (n == 4) {
-            cftfsub(n, a, w);
-        }
-        xi = a[0] - a[1];
-        a[0] += a[1];
-        a[1] = xi;
-    } else {
-        a[1] = 0.5 * (a[0] - a[1]);
-        a[0] -= a[1];
-        if (n > 4) {
-            rftbsub(n, a, nc, w + nw);
-            bitrv2(n, ip + 2, a);
-            cftbsub(n, a, w);
-        } else if (n == 4) {
-            cftfsub(n, a, w);
-        }
-    }
+	int nw = ip[0];
+	if (n > (nw << 2)) {
+		nw = n >> 2;
+		makewt(nw, ip, w);
+	}
+	int nc = ip[1];
+	if (n > (nc << 2)) {
+		nc = n >> 2;
+		makect(nc, ip, w + nw);
+	}
+	if (isgn >= 0) {
+		if (n > 4) {
+			bitrv2(n, ip + 2, a);
+			cftfsub(n, a, w);
+			rftfsub(n, a, nc, w + nw);
+		} else if (n == 4) {
+			cftfsub(n, a, w);
+		}
+		double xi = a[0] - a[1];
+		a[0] += a[1];
+		a[1] = xi;
+	} else {
+		a[1] = 0.5 * (a[0] - a[1]);
+		a[0] -= a[1];
+		if (n > 4) {
+			rftbsub(n, a, nc, w + nw);
+			bitrv2(n, ip + 2, a);
+			cftbsub(n, a, w);
+		} else if (n == 4) {
+			cftfsub(n, a, w);
+		}
+	}
 }
 
 /* --------	initializing routines -------- */
 
 void CRFFT::makewt(int nw,	int *ip, double *w)
 {
-	int j, nwh;
-	double delta, x, y;
-
 	ip[0] =	nw;
 	ip[1] =	1;
 	if (nw > 2)	{
-		nwh	= nw >>	1;
-		delta =	atan(1.0) /	nwh;
+		int nwh	= nw >>	1;
+		double delta =	atan(1.0) /	nwh;
 		w[0] = 1;
 		w[1] = 0;
 		w[nwh] = cos(delta * nwh);
 		w[nwh +	1] = w[nwh];
 		if (nwh	> 2) {
-			for	(j = 2;	j <	nwh; j += 2) {
-				x =	cos(delta *	j);
-				y =	sin(delta *	j);
+			for	(int j = 2;	j <	nwh; j += 2) {
+				double x =	cos(delta *	j);
+				double y =	sin(delta *	j);
 				w[j] = x;
 				w[j	+ 1] = y;
 				w[nw - j] =	y;
@@ -165,32 +159,29 @@ void CRFFT::makewt(int nw,	int *ip, double *w)
 
 void CRFFT::makect(int nc, int *ip, double *c)
 {
-    int j, nch;
-    double delta;
-
-    ip[1] = nc;
-    if (nc > 1) {
-        nch = nc >> 1;
-        delta = atan(1.0) / nch;
-        c[0] = cos(delta * nch);
-        c[nch] = 0.5 * c[0];
-        for (j = 1; j < nch; j++) {
-            c[j] = 0.5 * cos(delta * j);
-            c[nc - j] = 0.5 * sin(delta * j);
-        }
-    }
+	ip[1] = nc;
+	if (nc > 1) {
+		int nch = nc >> 1;
+		double delta = atan(1.0) / nch;
+		c[0] = cos(delta * nch);
+		c[nch] = 0.5 * c[0];
+		for (int j = 1; j < nch; j++) {
+			c[j] = 0.5 * cos(delta * j);
+			c[nc - j] = 0.5 * sin(delta * j);
+		}
+	}
 }
 
 /* --------	child routines --------	*/
 
 void CRFFT::bitrv2(int n, int *ip,	double *a)
 {
-	int j, j1, k, k1, l, m,	m2;
+	int j, j1, k, k1;
 	double xr, xi, yr, yi;
 
 	ip[0] =	0;
-	l =	n;
-	m =	1;
+	int l =	n;
+	int m =	1;
 	while ((m << 3)	< l) {
 		l >>= 1;
 		for	(j = 0;	j <	m; j++)	{
@@ -198,7 +189,7 @@ void CRFFT::bitrv2(int n, int *ip,	double *a)
 		}
 		m <<= 1;
 	}
-	m2 = 2 * m;
+	int m2 = 2 * m;
 	if ((m << 3) ==	l) {
 		for	(k = 0;	k <	m; k++)	{
 			for	(j = 0;	j <	k; j++)	{
@@ -284,12 +275,12 @@ void CRFFT::bitrv2(int n, int *ip,	double *a)
 
 void CRFFT::bitrv2conj(int n, int *ip,	double *a)
 {
-	int j, j1, k, k1, l, m,	m2;
+	int j, j1, k, k1;
 	double xr, xi, yr, yi;
 
 	ip[0] =	0;
-	l =	n;
-	m =	1;
+	int l =	n;
+	int m =	1;
 	while ((m << 3)	< l) {
 		l >>= 1;
 		for	(j = 0;	j <	m; j++)	{
@@ -297,7 +288,7 @@ void CRFFT::bitrv2conj(int n, int *ip,	double *a)
 		}
 		m <<= 1;
 	}
-	m2 = 2 * m;
+	int m2 = 2 * m;
 	if ((m << 3) ==	l) {
 		for	(k = 0;	k <	m; k++)	{
 			for	(j = 0;	j <	k; j++)	{
@@ -392,10 +383,10 @@ void CRFFT::bitrv2conj(int n, int *ip,	double *a)
 
 void CRFFT::cftfsub(int n,	double *a, const double *w)
 {
-	int j, j1, j2, j3, l;
+	int j, j1, j2, j3;
 	double x0r,	x0i, x1r, x1i, x2r,	x2i, x3r, x3i;
 
-	l =	2;
+	int l =	2;
 	if (n >	8) {
 		cft1st(n, a, w);
 		l =	8;
@@ -441,10 +432,10 @@ void CRFFT::cftfsub(int n,	double *a, const double *w)
 
 void CRFFT::cftbsub(int n,	double *a, const double *w)
 {
-	int j, j1, j2, j3, l;
+	int j, j1, j2, j3;
 	double x0r,	x0i, x1r, x1i, x2r,	x2i, x3r, x3i;
 
-	l =	2;
+	int l =	2;
 	if (n >	8) {
 		cft1st(n, a, w);
 		l =	8;
@@ -594,11 +585,11 @@ void CRFFT::cft1st(int n, double *a, const double *w)
 
 void CRFFT::cftmdl(int n, int l, double *a, const double *w)
 {
-	int j, j1, j2, j3, k, k1, k2, m, m2;
+	int j, j1, j2, j3, k, k1, k2, m2;
 	double wk1r, wk1i, wk2r, wk2i, wk3r, wk3i;
 	double x0r,	x0i, x1r, x1i, x2r,	x2i, x3r, x3i;
 
-	m =	l << 2;
+	int m =	l << 2;
 	for	(j = 0;	j <	l; j +=	2) {
 		j1 = j + l;
 		j2 = j1	+ l;
@@ -720,50 +711,50 @@ void CRFFT::cftmdl(int n, int l, double *a, const double *w)
 
 void CRFFT::rftfsub(int n, double *a, int nc, const double *c)
 {
-    int j, k, kk, ks, m;
-    double wkr, wki, xr, xi, yr, yi;
+	int j, k;
+	double wkr, wki, xr, xi, yr, yi;
 
-    m = n >> 1;
-    ks = 2 * nc / m;
-    kk = 0;
-    for (j = 2; j < m; j += 2) {
-        k = n - j;
-        kk += ks;
-        wkr = 0.5 - c[nc - kk];
-        wki = c[kk];
-        xr = a[j] - a[k];
-        xi = a[j + 1] + a[k + 1];
-        yr = wkr * xr - wki * xi;
-        yi = wkr * xi + wki * xr;
-        a[j] -= yr;
-        a[j + 1] -= yi;
-        a[k] += yr;
-        a[k + 1] -= yi;
-    }
+	int m = n >> 1;
+	int ks = 2 * nc / m;
+	int kk = 0;
+	for (j = 2; j < m; j += 2) {
+		k = n - j;
+		kk += ks;
+		wkr = 0.5 - c[nc - kk];
+		wki = c[kk];
+		xr = a[j] - a[k];
+		xi = a[j + 1] + a[k + 1];
+		yr = wkr * xr - wki * xi;
+		yi = wkr * xi + wki * xr;
+		a[j] -= yr;
+		a[j + 1] -= yi;
+		a[k] += yr;
+		a[k + 1] -= yi;
+	}
 }
 
 void CRFFT::rftbsub(int n, double *a, int nc, const double *c)
 {
-    int j, k, kk, ks, m;
-    double wkr, wki, xr, xi, yr, yi;
+	int j, k;
+	double wkr, wki, xr, xi, yr, yi;
 
-    a[1] = -a[1];
-    m = n >> 1;
-    ks = 2 * nc / m;
-    kk = 0;
-    for (j = 2; j < m; j += 2) {
-        k = n - j;
-        kk += ks;
-        wkr = 0.5 - c[nc - kk];
-        wki = c[kk];
-        xr = a[j] - a[k];
-        xi = a[j + 1] + a[k + 1];
-        yr = wkr * xr + wki * xi;
-        yi = wkr * xi - wki * xr;
-        a[j] -= yr;
-        a[j + 1] = yi - a[j + 1];
-        a[k] += yr;
-        a[k + 1] = yi - a[k + 1];
-    }
-    a[m + 1] = -a[m + 1];
+	a[1] = -a[1];
+	int m = n >> 1;
+	int ks = 2 * nc / m;
+	int kk = 0;
+	for (j = 2; j < m; j += 2) {
+		k = n - j;
+		kk += ks;
+		wkr = 0.5 - c[nc - kk];
+		wki = c[kk];
+		xr = a[j] - a[k];
+		xi = a[j + 1] + a[k + 1];
+		yr = wkr * xr + wki * xi;
+		yi = wkr * xi - wki * xr;
+		a[j] -= yr;
+		a[j + 1] = yi - a[j + 1];
+		a[k] += yr;
+		a[k + 1] = yi - a[k + 1];
+	}
+	a[m + 1] = -a[m + 1];
 }

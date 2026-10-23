@@ -54,8 +54,6 @@ END_MESSAGE_MAP()
 
 BOOL CMeasurement::Start(int nMeasurementMode)
 {
-	int i;
-
 	if (g_oSetData.Measurement.bEndDateTime) {
 		if (CTime::GetCurrentTime() > g_oSetData.Measurement.tEndDateTime) {
 			g_oSetData.Measurement.bStartDateTime = FALSE;
@@ -101,10 +99,10 @@ BOOL CMeasurement::Start(int nMeasurementMode)
 
 	m_pFilter = new double[m_nSamplePerBlock];
 	::MakeFilterTbl2(m_pFilter, m_nSamplePerBlock, m_nSamplingRate, g_oSetData.Measurement.AcfCondition.nFreqWeighting, 20);
-	for (i = 0; i < m_nSamplePerBlock; i++)
+	for (int i = 0; i < m_nSamplePerBlock; i++)
 		m_pFilter[i] *= sens / pCalibration[i] / m_nSamplePerBlock;
 
-	delete [] pCalibration;
+	delete[] pCalibration;
 
 	if (!Open(g_oSetData.InputDevice.nInputDevice, NULL, 2, m_nSamplingRate, m_nSamplePerBlock, 6))
 		return FALSE;
@@ -166,16 +164,12 @@ LRESULT CMeasurement::OnWaveInData(WPARAM /*wParam*/, LPARAM lParam)
 
 void CMeasurement::AutoMeasuring(LPWAVENOTIFY pWaveNotify)
 {
-	double *pData;
 	int i;
-	int nCount;
-	int nCopy;
-	BOOL bMaxLevel;
 
-	pData = pWaveNotify->pSamplesData;
-	nCount = pWaveNotify->nSamplesRecorded;
+	double *pData = pWaveNotify->pSamplesData;
+	int nCount = pWaveNotify->nSamplesRecorded;
 	while (nCount) {
-		nCopy = min(nCount, m_nRingBufSize - m_nRingBufPtr);
+		int nCopy = min(nCount, m_nRingBufSize - m_nRingBufPtr);
 		memcpy(&m_pRingBuf[m_nRingBufPtr], pData, nCopy * sizeof(WaveData));
 		pData += nCopy * 2;
 		nCount -= nCopy;
@@ -196,17 +190,13 @@ void CMeasurement::AutoMeasuring(LPWAVENOTIFY pWaveNotify)
 		m_pFftBuf2[i] = *pData++;
 	}
 	m_oRFFT.fft(m_nSamplePerBlock, m_pFftBuf1);
-//	m_oRFFT.fft(m_nSamplePerBlock, m_pFftBuf2);
 	for (i = 0; i < m_nSamplePerBlock; i++) {
 		m_pFftBuf1[i] *= m_pFilter[i];
-//		m_pFftBuf2[i] *= m_pFilter[i];
 	}
 	m_oRFFT.ifft(m_nSamplePerBlock, m_pFftBuf1);
-//	m_oRFFT.ifft(m_nSamplePerBlock, m_pFftBuf2);
 
 	for (i = 0; i < m_nSamplePerBlock; i++) {
 		m_fPower = CalcPower(m_pFftBuf1[i]);
-//		m_fPower = CalcPower(m_pFftBuf2[i]);
 		if (m_fPower == 0)
 			continue;
 
@@ -222,6 +212,7 @@ void CMeasurement::AutoMeasuring(LPWAVENOTIFY pWaveNotify)
 		if (!m_bRingBufFill)
 			continue;
 
+		BOOL bMaxLevel;
 		if (g_oSetData.Measurement.nSamplingTiming == 0) {
 			if (m_bResetLevel) {
 				m_fMaxLevel = m_fSPL;
@@ -274,23 +265,18 @@ void CMeasurement::AutoMeasuring(LPWAVENOTIFY pWaveNotify)
 // ƒ}ƒjƒ…ƒAƒ‹‘ª’èˆ—
 void CMeasurement::ManualMeasuring(LPWAVENOTIFY pWaveNotify)
 {
-	double *pData;
-	int nCopy;
 	int i;
 
-	pData = m_pSamplesBuffer;
+	double *pData = m_pSamplesBuffer;
 	for (i = 0; i < m_nSamplePerBlock; i++) {
 		m_pFftBuf1[i] = *pData++;
 		m_pFftBuf2[i] = *pData++;
 	}
 	m_oRFFT.fft(m_nSamplePerBlock, m_pFftBuf1);
-//	m_oRFFT.fft(m_nSamplePerBlock, m_pFftBuf2);
 	for (i = 0; i < m_nSamplePerBlock; i++) {
 		m_pFftBuf1[i] *= m_pFilter[i];
-//		m_pFftBuf2[i] *= m_pFilter[i];
 	}
 	m_oRFFT.ifft(m_nSamplePerBlock, m_pFftBuf1);
-//	m_oRFFT.ifft(m_nSamplePerBlock, m_pFftBuf2);
 
 	for (i = 0; i < m_nSamplePerBlock; i++) {
 		m_fPower = CalcPower(m_pFftBuf1[i]);
@@ -301,7 +287,7 @@ void CMeasurement::ManualMeasuring(LPWAVENOTIFY pWaveNotify)
 
 	if (m_bMeasuring) {
 		pData = pWaveNotify->pSamplesData;
-		nCopy = min(pWaveNotify->nSamplesRecorded, m_nRingBufSize - m_nRingBufPtr);
+		int nCopy = min(pWaveNotify->nSamplesRecorded, m_nRingBufSize - m_nRingBufPtr);
 		memcpy(&m_pRingBuf[m_nRingBufPtr], pData, nCopy * sizeof(WaveData));
 		m_nRingBufPtr += nCopy;
 
@@ -346,21 +332,13 @@ void CMeasurement::StopManualSampling()
 
 double CMeasurement::CalcPower(double fData) const
 {
-	double fPower;
-
-	fPower = fData * fData * 2;
+	const double fPower = fData * fData * 2;
 
 	return fPower * m_fTimeConst1 + m_fPower * m_fTimeConst2;
 }
 
 BOOL CMeasurement::SaveSampleData()
 {
-	HWAVEDATA hWaveData;
-	PWAVEDATA pWaveData;
-	CString tempFileName;
-	int nDataSize;
-	int nCopySize;
-
 	if (g_oSetData.Measurement.bStartDateTime) {
 		if (CTime::GetCurrentTime() < g_oSetData.Measurement.tStartDateTime)
 			return FALSE;
@@ -372,22 +350,24 @@ BOOL CMeasurement::SaveSampleData()
 	}
 
 	const int nBytesPerSample = m_oWaveFormat.Format.wBitsPerSample / 8 * m_oWaveFormat.Format.nChannels;
-	nDataSize = m_bRingBufFill ? m_nRingBufSize : m_nRingBufPtr;
+	const int nDataSize = m_bRingBufFill ? m_nRingBufSize : m_nRingBufPtr;
+	HWAVEDATA hWaveData;
 	if ((hWaveData = ::GlobalAlloc(GHND, sizeof(WAVEDATA) + nDataSize * nBytesPerSample)) == NULL)
 		return FALSE;
 
-	pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
+	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
 
 	pWaveData->nChannels = m_oWaveFormat.Format.nChannels;
 	pWaveData->nBitsPerSample = m_oWaveFormat.Format.wBitsPerSample;
 	pWaveData->nSamplesPerSec = m_nSamplingRate;
 	pWaveData->dataSize = nDataSize * nBytesPerSample;
-	nCopySize = m_bRingBufFill ? (m_nRingBufSize - m_nRingBufPtr) : 0;
+	const int nCopySize = m_bRingBufFill ? (m_nRingBufSize - m_nRingBufPtr) : 0;
 	CopyWaveFromDouble(pWaveData->waveData, (double *)(m_pRingBuf + m_nRingBufPtr), NULL, nCopySize * m_oWaveFormat.Format.nChannels, m_oWaveFormat.Format.wBitsPerSample);
 	CopyWaveFromDouble((char *)pWaveData->waveData + (nCopySize * nBytesPerSample), (double *)m_pRingBuf, NULL, m_nRingBufPtr * m_oWaveFormat.Format.nChannels, m_oWaveFormat.Format.wBitsPerSample);
 
 	::GlobalUnlock(hWaveData);
 
+	CString tempFileName;
 	tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, m_nSaveCounter);
 	if (MMWaveWriteFile(hWaveData, (LPSTR)(LPCSTR)tempFileName) != 0) {
 		::GlobalFree(hWaveData);
@@ -402,27 +382,27 @@ BOOL CMeasurement::SaveSampleData()
 void CMeasurement::FreeBuffers()
 {
 	if (m_pRingBuf != NULL) {
-		delete [] m_pRingBuf;
+		delete[] m_pRingBuf;
 		m_pRingBuf = NULL;
 	}
 
 	if (m_pRingBuf != NULL) {
-		delete [] m_pRingBuf;
+		delete[] m_pRingBuf;
 		m_pRingBuf = NULL;
 	}
 
 	if (m_pFilter != NULL) {
-		delete [] m_pFilter;
+		delete[] m_pFilter;
 		m_pFilter = NULL;
 	}
 
 	if (m_pFftBuf1 != NULL) {
-		delete [] m_pFftBuf1;
+		delete[] m_pFftBuf1;
 		m_pFftBuf1 = NULL;
 	}
 
 	if (m_pFftBuf2 != NULL) {
-		delete [] m_pFftBuf2;
+		delete[] m_pFftBuf2;
 		m_pFftBuf2 = NULL;
 	}
 }
@@ -487,16 +467,15 @@ void CMeasurement::Recalclation()
 void CMeasurement::WaveFileMeasuring(LPCSTR pWaveFileName)
 {
 	CFileStatus status;
-	CString tempFileName;
-	CWaveFile waveFile;
-	PCMWAVEFORMAT waveFormat;
-	DWORD dwDataSize;
-
 	if (CFile::GetStatus(pWaveFileName, status)) {
+		CString tempFileName;
 		tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, m_nSaveCounter);
 
 		::CopyFile(pWaveFileName, tempFileName, FALSE);
 
+		DWORD dwDataSize;
+		PCMWAVEFORMAT waveFormat;
+		CWaveFile waveFile;
 		if (waveFile.Open(tempFileName, &waveFormat, &dwDataSize)) {
 			const double fSamplingTime = dwDataSize / (waveFormat.wBitsPerSample / 8) / waveFormat.wf.nChannels / (double)waveFormat.wf.nSamplesPerSec;
 			AddItem(fSamplingTime, &status.m_mtime);

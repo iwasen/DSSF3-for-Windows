@@ -24,10 +24,10 @@ BOOL CToolBarEx::OnEraseBkgnd(CDC* pDC)
 
 		CWnd *pParent = GetParent();
 
-		CRect rect;
-		pDC->GetClipBox(rect);
-		MapWindowPoints(pParent, rect);
-		pParent->InvalidateRect(rect);
+		RECT rect;
+		pDC->GetClipBox(&rect);
+		MapWindowPoints(pParent, &rect);
+		pParent->InvalidateRect(&rect);
 		pParent->UpdateWindow();
 
 		m_bInEraseBG = FALSE;

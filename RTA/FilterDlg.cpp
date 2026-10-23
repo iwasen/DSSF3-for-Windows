@@ -92,8 +92,8 @@ void CFilterDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInit) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Flt.nPosLeft = rect.left;
 		g_oSetData.Flt.nPosTop = rect.top;
 	}

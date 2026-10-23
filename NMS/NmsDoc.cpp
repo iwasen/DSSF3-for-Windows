@@ -109,7 +109,6 @@ void CNmsDoc::OnUpdateMeasureSet(CCmdUI* pCmdUI)
 
 void CNmsDoc::OnMeasureStart()
 {
-
 	SetMicCalData();
 
 	if (m_oMeasurement.Start(MEASUREMENT_AUTO)) {
@@ -244,7 +243,6 @@ void CNmsDoc::SetMicCalData()
 void CNmsDoc::OnInputDevice()
 {
 	CInputDeviceDlg dlg;
-
 	dlg.m_MicCalID = g_oSetData.Measurement.nMicCalID;
 	if (dlg.DoModal() == IDOK) {
 		g_oSetData.Measurement.nMicCalID = dlg.m_MicCalID;
@@ -266,7 +264,6 @@ void CNmsDoc::OnFileSave()
 		return;
 
 	CSaveDlg dlg;
-
 	dlg.m_pItemList = &m_cItemList;
 	if (dlg.DoModal() == IDOK)
 		DeleteAllItems();
@@ -361,11 +358,10 @@ BOOL CNmsDoc::CalcFactor(int nCalcCounter)
 
 void CNmsDoc::DeleteAllItems()
 {
-	CNmsItem *pNmsItem;
 	CString tempFileName;
 
 	while (!m_cItemList.IsEmpty()) {
-		pNmsItem = (CNmsItem *)m_cItemList.RemoveHead();
+		CNmsItem *pNmsItem = (CNmsItem *)m_cItemList.RemoveHead();
 
 		tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, pNmsItem->m_nIndex);
 		::DeleteFile(tempFileName);
@@ -434,7 +430,7 @@ void CNmsDoc::OnRecalc()
 		CNmsItem *pNmsItem = (CNmsItem *)m_cItemList.GetNext(pos);
 		pNmsItem->m_nStatus = STATUS_WAIT_CALC;
 		if (pNmsItem->m_pNmsFactorData != NULL) {
-			delete [] pNmsItem->m_pNmsFactorData;
+			delete[] pNmsItem->m_pNmsFactorData;
 			pNmsItem->m_pNmsFactorData = NULL;
 		}
 		pNmsItem->m_NoiseSrcData = {};

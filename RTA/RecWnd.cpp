@@ -10,8 +10,6 @@
 #define MOUSE_SELECT_END		2
 #define MOUSE_SCROLL			3
 
-//#define MIN_SELECT_TIME		0.001
-
 /////////////////////////////////////////////////////////////////////////////
 // CRecWnd
 
@@ -32,7 +30,7 @@ CRecWnd::CRecWnd()
 CRecWnd::~CRecWnd()
 {
 	if (m_pPointBuf != NULL)
-		delete [] m_pPointBuf;
+		delete[] m_pPointBuf;
 }
 
 BEGIN_MESSAGE_MAP(CRecWnd, CWnd)
@@ -147,7 +145,7 @@ void CRecWnd::Uninitialize2()
 	m_Rgn.DeleteObject();
 
 	if (m_pPointBuf != NULL) {
-		delete [] m_pPointBuf;
+		delete[] m_pPointBuf;
 		m_pPointBuf = NULL;
 	}
 }
@@ -161,7 +159,7 @@ void CRecWnd::Resize()
 void CRecWnd::SetBitmap(double startTime, double dispTime)
 {
 	CString sText;
-	CSize size;
+	SIZE size;
 	int x, y;
 	int ns;
 
@@ -364,8 +362,6 @@ void CRecWnd::DispGraph2(const double *pData, int nData, int nChannel, int nLR, 
 	m_dcMem.SelectObject(pBitmapOrg);
 	m_dcMem.SelectObject(pPenOrg);
 
-//	CRect rect(m_nScaleLeft + nOffset * m_nScaleWidth / nData, m_nScaleTop, m_nScaleLeft + (nOffset + nLength) * m_nScaleWidth / nData, m_nScaleBottom);
-//	InvalidateRect(rect, FALSE);
 	Invalidate(FALSE);
 	UpdateWindow();
 }

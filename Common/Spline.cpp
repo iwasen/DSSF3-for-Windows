@@ -53,8 +53,8 @@ void CSpline::MakeTable(const double x[], const double y[], int n)
 	for (i = n - 2; i > 0; i--)
 		m_z[i] = (m_z[i] - h[i] * m_z[i + 1]) / d[i];
 
-	delete [] h;
-	delete [] d;
+	delete[] h;
+	delete[] d;
 }
 
 double CSpline::Spline(double t)
@@ -77,17 +77,17 @@ double CSpline::Spline(double t)
 void CSpline::FreeBuffers()
 {
 	if (m_x != NULL) {
-		delete [] m_x;
+		delete[] m_x;
 		m_x = NULL;
 	}
 
 	if (m_y != NULL) {
-		delete [] m_y;
+		delete[] m_y;
 		m_y = NULL;
 	}
 
 	if (m_z != NULL) {
-		delete [] m_z;
+		delete[] m_z;
 		m_z = NULL;
 	}
 }

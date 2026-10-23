@@ -55,7 +55,7 @@ void CNoiseSourceDlg::OnOK()
 
 BOOL CNoiseSourceDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_NOISE_SOURCE_OK,
 		IDCANCEL, IDH_NOISE_SOURCE_CANCEL,
 		IDC_NOISE_SOURCE_NAME, IDH_NOISE_SOURCE_NAME,

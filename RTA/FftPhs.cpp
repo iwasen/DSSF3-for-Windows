@@ -32,10 +32,8 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 {
 	int	fFreq, fPhase;
 	int x, y;
-	const int nWidth = nRight - nLeft;
-	const int nHeight = nBottom - nTop;
 	CString sText;
-	CSize size;
+	SIZE size;
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushGraph);
@@ -47,6 +45,8 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(&m_Font);
 
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
 	if (g_oSetData.Fft.nFftScale == 0) {
 		const int step = GetLogScaleStep(m_nMinFreq);
 		const double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
@@ -133,13 +133,12 @@ void CFftWnd::DrawScalePhs(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 void CFftWnd::GetWaveDataPhs(const FFTWINDOW *pFftWindow)
 {
 	if (m_bValidFftData) {
-		int i, j;
 		double xt1, yt1, xt2, yt2;
 		const int nFftSize2 = m_nFftSize / 2;
 
 		m_pPhaseBuf[0] = 0;
-		for (i = 1; i < nFftSize2; i++) {
-			j = i * 2;
+		for (int i = 1; i < nFftSize2; i++) {
+			int j = i * 2;
 
 			xt1 = m_pFftBufL[j];
 			yt1 = m_pFftBufL[j + 1];
@@ -177,11 +176,9 @@ void CFftWnd::CalcPhs(const FFTWINDOW *pFftWindow)
 
 int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *pPoint)
 {
-	int x;
 	int x2 = 0;
 	const double fTmp1 = (double)pFftWindow->m_nScaleWidth / (m_fLogMaxFreq - m_fLogMinFreq);
 	const double fTmp2 = (double)pFftWindow->m_nScaleWidth / (m_nMaxFreq - m_nMinFreq);
-	double fPhase;
 	const int nFftSize2 = m_nFftSize / 2;
 	int nPointCount = 0;
 	double ymin = pPhaseBuf[0];
@@ -189,6 +186,7 @@ int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *p
 	const int nCenter = pFftWindow->m_nScaleHeight / 2;
 
 	for (int i = 0; i < nFftSize2; i++) {
+		int x;
 		if (g_oSetData.Fft.nFftScale == 0)
 			x = (int)((m_pLogFreqTbl[i] - m_fLogMinFreq) * fTmp1);
 		else
@@ -213,7 +211,7 @@ int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *p
 			ymax = -M_PI;
 		}
 
-		fPhase = pPhaseBuf[i];
+		double fPhase = pPhaseBuf[i];
 
 		if (fPhase < ymin)
 			ymin = fPhase;
@@ -226,7 +224,6 @@ int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *p
 
 void CFftWnd::DispPhsInfo(const FFTWINDOW *pFftWindow)
 {
-	CString sFreq, sLevel;
 	double *pBuf = m_pPhaseBuf;
 
 	if (g_oSetData.Fft.nFftScale == 0)
@@ -235,6 +232,7 @@ void CFftWnd::DispPhsInfo(const FFTWINDOW *pFftWindow)
 		m_nPhsFreqPos = (int)((m_fFreqStep * m_nPhsDispFreq - m_nMinFreq) * ((double)pFftWindow->m_nFrameWidth / (m_nMaxFreq - m_nMinFreq)));
 	m_nPhsLevelPos = (pFftWindow->m_nScaleHeight / 2) - (int)(pBuf[m_nPhsDispFreq] / M_PI * pFftWindow->m_nScaleHeight / 2);
 
+	CString sFreq, sLevel;
 	if (m_nPhsDispFreq == 0) {
 		sLevel.Empty();
 		sFreq.Empty();
@@ -270,7 +268,6 @@ void CFftWnd::PaintPhs(const FFTWINDOW *pFftWindow, int nChannel)
 void CFftWnd::SetDispFreqPhs(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	int n;
-
 	if (g_oSetData.Fft.nFftScale == 0)
 		n = (int)(exp((point.x - pFftWindow->m_nFrameLeft) * (m_fLogMaxFreq - m_fLogMinFreq) / pFftWindow->m_nScaleWidth + m_fLogMinFreq) / m_fFreqStep);
 	else

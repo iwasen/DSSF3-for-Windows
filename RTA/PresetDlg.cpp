@@ -49,7 +49,6 @@ BOOL CPresetDlg::OnInitDialog()
 void CPresetDlg::OnOK()
 {
 	int index;
-
 	if ((index = m_cPresetList.GetCurSel()) == LB_ERR) {
 		::AfxMessageBox(IDS_MSG_SELECTITEM);
 		return;
@@ -234,8 +233,6 @@ void CPresetDlg::OnDblclkPresetList()
 
 void CPresetDlg::SetPresetList()
 {
-	int nIndex;
-
 	m_cPresetList.ResetContent();
 
 	CDbPreset dbPreset;
@@ -245,7 +242,7 @@ void CPresetDlg::SetPresetList()
 			if (!dbPreset.ReadRecNext(&dbPresetRec))
 				break;
 
-			nIndex = m_cPresetList.AddString(dbPresetRec.sTitle);
+			int nIndex = m_cPresetList.AddString(dbPresetRec.sTitle);
 			m_cPresetList.SetItemData(nIndex, dbPresetRec.nPresetID);
 		}
 	}
@@ -283,7 +280,7 @@ void CPresetDlg::OnBnClickedMakeShortcut()
 
 BOOL CPresetDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_PRESET_LIST, IDH_PRESET_LIST,
 		IDOK, IDH_PRESET_SET,
 		IDCANCEL, IDH_PRESET_CLOSE,
@@ -333,7 +330,7 @@ void CPresetSaveDlg::OnOK()
 
 BOOL CPresetSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_TITLE, IDH_PRESET_SAVE_TITLE,
 		IDOK, IDH_PRESET_SAVE_SET,
 		IDCANCEL, IDH_PRESET_SAVE_CANCEL,

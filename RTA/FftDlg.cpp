@@ -50,7 +50,7 @@ CFftDlg::CFftDlg(CWnd* pParent /*=NULL*/)
 CFftDlg::~CFftDlg()
 {
 	if (m_pWaveBuf != NULL)
-		delete [] m_pWaveBuf;
+		delete[] m_pWaveBuf;
 
 	m_pWaveIn->ReleaseInstance();
 }
@@ -171,9 +171,9 @@ BOOL CFftDlg::OnInitDialog()
 	CreateStatusBar();
 	SetStatusBar(IDS_STATUS_STOP);
 
-	CRect rectSeparator;
-	CRect rectControl;
-	GetDlgItem(IDC_SEPARATOR_LINE)->GetWindowRect(rectSeparator);
+	RECT rectSeparator;
+	RECT rectControl;
+	GetDlgItem(IDC_SEPARATOR_LINE)->GetWindowRect(&rectSeparator);
 	CWnd *pWnd = GetTopWindow();
 	while (pWnd != NULL) {
 		switch (pWnd->GetDlgCtrlID()) {
@@ -184,7 +184,7 @@ BOOL CFftDlg::OnInitDialog()
 			SetCtlPosition(pWnd, 0, 1, 1, 1);
 			break;
 		default:
-			pWnd->GetWindowRect(rectControl);
+			pWnd->GetWindowRect(&rectControl);
 			if (rectControl.top < rectSeparator.top)
 				SetCtlPosition(pWnd, 1, 0, 1, 0);
 			else
@@ -239,7 +239,7 @@ BOOL CFftDlg::OnInitDialog()
 	m_cRlSplit = g_oSetData.Fft.bRlSplit;
 
 	// 平滑化
-	static constexpr int tTimeConstant[] = {35, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
+	static constexpr int tTimeConstant[]{ 35, 125, 250, 500, 1000, 2000, 4000, 8000, 16000 };
 	// 平滑化の旧バージョンからのコンバージョン
 	if (g_oSetData.Fft.nSmoothing != 0 && g_oSetData.Fft.nSmoothing <= 10)
 		g_oSetData.Fft.nSmoothing = 125;
@@ -285,7 +285,7 @@ BOOL CFftDlg::OnInitDialog()
 	str.Format("%d", g_oSetData.Fft.nTimeDataNum);
 	m_cFftTimeDataNum.SelectString(-1, str);
 
-	static constexpr int TimeResTbl[] = {1, 2, 4, 8};
+	static constexpr int TimeResTbl[]{1, 2, 4, 8};
 	for (i = 0; i < ARRAY_SIZE(TimeResTbl); i++) {
 		str.Format("%dx", TimeResTbl[i]);
 		m_cFftTimeRes.InsertString(i, str);
@@ -323,7 +323,7 @@ BOOL CFftDlg::OnInitDialog()
 	}
 	SelectListBox(m_cFftTimeRange, g_oSetData.Fft.nTimeRange);
 
-	static constexpr int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
+	static constexpr int tChannel[]{ IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE };
 	for (i = 0; i < ARRAY_SIZE(tChannel); i++) {
 		str.LoadString(tChannel[i]);
 		m_cFftChannel.AddString(str);
@@ -568,7 +568,6 @@ LRESULT CFftDlg::OnFreqLevelRight(WPARAM wParam, LPARAM lParam)
 void CFftDlg::OnSelchangeSamplingRate()
 {
 	int index;
-
 	if ((index = m_cSamplingRate.GetCurSel()) != CB_ERR) {
 		BOOL bStart = m_bStart;
 		if (bStart)
@@ -914,7 +913,6 @@ void CFftDlg::EnableControls()
 			bFftPeakDisp = TRUE;
 			bFftPeakHold = TRUE;
 			bFftAverage = TRUE;
-//			bFftChannel = TRUE;
 			bFftFilter = TRUE;
 			if (!g_oSetData.Fft.bFftAutoFreq) {
 				bFftMaxFreq = TRUE;
@@ -1134,7 +1132,6 @@ void CFftDlg::OnFftTimeBwd()
 void CFftDlg::OnSelchangeFftTimeDataNum()
 {
 	CString str;
-
 	m_cFftTimeDataNum.GetWindowText(str);
 	g_oSetData.Fft.nTimeDataNum = atoi(str);
 	ChangeDispMode();
@@ -1142,8 +1139,6 @@ void CFftDlg::OnSelchangeFftTimeDataNum()
 
 BOOL CFftDlg::Start()
 {
-	const int nBufSize = g_oSetData.Fft.nFftSize * 2;
-
 	m_fBlockTime = (double)g_oSetData.Fft.nFftSize / g_oSetData.Fft.nSamplingRate / g_oSetData.Fft.nTimeRes;
 
 	m_wndFft.InitBuf();
@@ -1151,10 +1146,11 @@ BOOL CFftDlg::Start()
 	if (!m_pWaveIn->Open(g_oSetData.Pc.nInputDevice, this, 2, g_oSetData.Fft.nSamplingRate, g_oSetData.Fft.nFftSize / g_oSetData.Fft.nTimeRes, 4))
 		return FALSE;
 
+	const int nBufSize = g_oSetData.Fft.nFftSize * 2;
 	if (m_nBufSize != nBufSize) {
 		m_nBufSize = nBufSize;
 
-		delete [] m_pWaveBuf;
+		delete[] m_pWaveBuf;
 
 		m_pWaveBuf = new double[nBufSize];
 		memset(m_pWaveBuf, 0, nBufSize * sizeof(double));
@@ -1210,14 +1206,13 @@ void CFftDlg::OnFftCfLateral()
 
 void CFftDlg::OnFftCalibration()
 {
-	int nInputDevice, nInputVolume;
-	CMicCalDlg dlg(this);
-
 	if (m_bStart)
 		Stop();
 
+	int nInputDevice, nInputVolume;
 	GetInputDevice(&nInputDevice, &nInputVolume);
 
+	CMicCalDlg dlg(this);
 	dlg.m_MicCalID = g_oSetData.Fft.nMicCalID;
 	if (dlg.DoModal() == IDOK) {
 		g_oSetData.Fft.nMicCalID = dlg.m_MicCalID;
@@ -1232,7 +1227,6 @@ void CFftDlg::SetMicCalData()
 {
 	if (g_oSetData.Fft.nMicCalID != -1) {
 		CDbMicCal dbMicCal;
-
 		if (dbMicCal.Open()) {
 			if (dbMicCal.ReadRecID(g_oSetData.Fft.nMicCalID, &m_wndFft.m_oMicCalDataL)) {
 				if (dbMicCal.SearchRecID(-g_oSetData.Fft.nMicCalID - 1))
@@ -1260,8 +1254,8 @@ void CFftDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized && !IsIconic()) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Fft.nPosLeft = rect.left;
 		g_oSetData.Fft.nPosTop = rect.top;
 	}
@@ -1569,7 +1563,7 @@ void CFftDlg::FullScreen()
 
 BOOL CFftDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FFT_TAB, IDH_FFT_TAB,
 		ID_FFT_WINDOW, IDH_FFT_TAB,
 		IDC_BTN_START, IDH_FFT_START,

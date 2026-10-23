@@ -122,7 +122,7 @@ void CCalcNmsDlg::EnableControl()
 
 BOOL CCalcNmsDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_CALC_NMS_OK,
 		IDCANCEL, IDH_CALC_NMS_CANCEL,
 		IDC_CALC_NO, IDH_CALC_NMS_CALC_NO,

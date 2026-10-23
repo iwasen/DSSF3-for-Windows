@@ -7,8 +7,8 @@
 #include "Calc.h"
 #include "Help\ContextHelp.h"
 
-#define MAX_TE	300
-#define COLOR_DATA			RGB(255, 0, 0)
+#define MAX_TE			300
+#define COLOR_DATA		RGB(255, 0, 0)
 
 /////////////////////////////////////////////////////////////////////////////
 // CGraphPref ダイアログ
@@ -67,7 +67,7 @@ void CGraphPref::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pData != NULL) {
-		delete [] m_pData;
+		delete[] m_pData;
 		m_pData = NULL;
 	}
 }
@@ -75,8 +75,7 @@ void CGraphPref::OnDestroy()
 void CGraphPref::DispPrefWindow()
 {
 	double s[5];
-	int maxTauE  = 0;
-
+	int maxTauE = 0;
 	double maxS = -1000;
 	for (int i = 0; i < MAX_TE; i++) {
 		CalcPreference(m_fSPL, m_fDT1, m_fTsub, m_fIACC, m_fA, i + 1, (double)m_cBestSPL, s);
@@ -100,8 +99,6 @@ void CGraphPref::OnCalc()
 
 void CGraphPref::DispPreference()
 {
-	double s[5];
-
 	if ((double)m_cTauE <= 0) {
 		CString msg;
 		msg.LoadString(IDS_MSG_TAUE);
@@ -109,6 +106,7 @@ void CGraphPref::DispPreference()
 		return;
 	}
 
+	double s[5];
 	CalcPreference(m_fSPL, m_fDT1, m_fTsub, m_fIACC, m_fA, (double)m_cTauE, (double)m_cBestSPL, s);
 	m_cS.Format("%.2lf", s[0]);
 	m_cS1.Format("%.2lf", s[1]);
@@ -154,7 +152,7 @@ void CGraphPref::OnShowWindow(BOOL bShow, UINT nStatus)
 
 BOOL CGraphPref::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_PREF, IDH_GRAPH_PREF,
 		IDC_BESTSPL, IDH_GRAPH_PREF_BESTSPL,
 		IDC_TAUE, IDH_GRAPH_PREF_TAUE,

@@ -91,10 +91,10 @@ void CGraphFreq::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pFreqLeft != NULL)
-		delete [] m_pFreqLeft;
+		delete[] m_pFreqLeft;
 
 	if (m_pFreqRight != NULL)
-		delete [] m_pFreqRight;
+		delete[] m_pFreqRight;
 }
 
 void CGraphFreq::OnShowWindow(BOOL bShow, UINT nStatus)
@@ -125,7 +125,7 @@ void CGraphFreq::OnMean()
 
 BOOL CGraphFreq::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FREQ_LEFT, IDH_GRAPH_FREQ_LEFT,
 		IDC_FREQ_RIGHT, IDH_GRAPH_FREQ_RIGHT,
 		IDC_MEAN, IDH_GRAPH_FREQ_MEAN,

@@ -71,10 +71,8 @@ void CFftWnd::SetBitmap3dd(FFTWINDOW *pFftWindow)
 
 void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText)
 {
-	int	nFreq, nLevel;
 	int x, y;
-	CString sText;
-	CSize size;
+	SIZE size;
 	const int nLeft1 = nLeft, nTop1 = nTop, nRight1 = nLeft + pFftWindow->m_nScaleWidth2, nBottom1 = nTop + pFftWindow->m_nScaleHeight2;
 	const int nLeft2 = nRight - pFftWindow->m_nScaleWidth2, nTop2 = nBottom - pFftWindow->m_nScaleHeight2, nRight2 = nRight, nBottom2 = nBottom;
 
@@ -117,6 +115,8 @@ void CFftWnd::DrawScale3dd(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(&m_Font);
 
+	CString sText;
+	int	nFreq, nLevel;
 	if (g_oSetData.Fft.nFftScale == 0) {
 		const int step = GetLogScaleStep(m_nMinFreq);
 		const double fSpanFreq = m_fLogMaxFreq - m_fLogMinFreq;
@@ -228,27 +228,23 @@ void CFftWnd::GetWaveData3dd(const FFTWINDOW *pFftWindow)
 
 void CFftWnd::Calc3dd(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 {
+	int nPointCount = 0;
 	int nPtr = pFftData->m_n3ddCurrentPtr;
 	POINT *pPoint = pFftData->m_p3ddPoint[nPtr];
-	double *pFftPBuf = pFftData->m_oPowerSpecBuf.GetBuf();
-	long x, y;
-	long x2 = 0;
-	const double fStepY = double(pFftWindow->m_nScaleHeight2) / (m_nMinLevel - m_nMaxLevel);
-	const double fTmp1 = double(pFftWindow->m_nScaleWidth2) / (m_fLogMaxFreq - m_fLogMinFreq);
-	const double fTmp2 = double(pFftWindow->m_nScaleWidth2) / (m_nMaxFreq - m_nMinFreq);
-	const int nFftSize2 = m_nFftSize / 2;
-	double fLevel = 0;
-	double fLevel2 = pFftPBuf[0];
-	int nLevelCounter = 0;
-	int nPointCount = 0;
-	int dx, xj;
-	double dl;
-	double t;
-
 	pPoint[nPointCount].x = 0;
 	pPoint[nPointCount].y = pFftWindow->m_nScaleHeight2;
 	nPointCount++;
 
+	const double fStepY = double(pFftWindow->m_nScaleHeight2) / (m_nMinLevel - m_nMaxLevel);
+	const double fTmp1 = double(pFftWindow->m_nScaleWidth2) / (m_fLogMaxFreq - m_fLogMinFreq);
+	const double fTmp2 = double(pFftWindow->m_nScaleWidth2) / (m_nMaxFreq - m_nMinFreq);
+	const double *pFftPBuf = pFftData->m_oPowerSpecBuf.GetBuf();
+	const int nFftSize2 = m_nFftSize / 2;
+	int nLevelCounter = 0;
+	double fLevel = 0;
+	double fLevel2 = pFftPBuf[0];
+	long x2 = 0;
+	long x, y;
 	for (int i = 0; i < nFftSize2; i++) {
 		if (g_oSetData.Fft.nFftScale == 0)
 			x = long((m_pLogFreqTbl[i] - m_fLogMinFreq) * fTmp1 + 0.5);
@@ -264,13 +260,13 @@ void CFftWnd::Calc3dd(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 			if (fLevel2 == 0)
 				fLevel2 = fLevel;
 
-			dx = x - x2;
-			dl = fLevel - fLevel2;
+			int dx = x - x2;
+			double dl = fLevel - fLevel2;
 			for (int j = 0; j < dx; j++) {
-				xj = x2 + j;
+				int xj = x2 + j;
 				if (xj >= 0 && xj < pFftWindow->m_nScaleWidth2) {
 					pPoint[nPointCount].x = xj;
-					t = fLevel2 + dl * j / dx;
+					double t = fLevel2 + dl * j / dx;
 					if (t > 0) {
 						y = long((dB10(t) - m_nMaxLevel) * fStepY + 0.5);
 						if (y > pFftWindow->m_nScaleHeight2)
@@ -311,7 +307,6 @@ void CFftWnd::Disp3ddInfo(const FFTWINDOW *pFftWindow)
 void CFftWnd::Disp3ddInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId)
 {
 	CString sFreq, sLevel;
-
 	if (pFftData->m_fFftAllPower != 0)
 		sLevel.Format("%.2lf", dB10(pFftData->m_fFftAllPower));
 	sFreq = "ALL";
@@ -335,23 +330,22 @@ void CFftWnd::Paint3dd(const FFTWINDOW *pFftWindow, int nChannel)
 
 void CFftWnd::Paint3ddSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 {
-	int i, j, nPtr, nPointCount, n;
+	int i, j;
 	long x, y;
-	POINT *pPoint;
 
 	for (i = 0; i < pFftWindow->m_nScaleWidth; i++)
 		m_p3ddCheckTbl[i] = pFftWindow->m_nScaleHeight;
 
-	nPtr = pFftData->m_n3ddCurrentPtr;
+	int nPtr = pFftData->m_n3ddCurrentPtr;
 	for (i = 0; i < g_oSetData.Fft.nTimeDataNum; i++) {
-		n = g_oSetData.Fft.nTimeDataNum - i;
+		int n = g_oSetData.Fft.nTimeDataNum - i;
 		if (g_oSetData.Fft.nTimeDir != 0) {
 			if (--nPtr < 0)
 				nPtr = g_oSetData.Fft.nTimeDataNum - 1;
 		}
 
-		nPointCount = pFftData->m_n3ddPointCount[nPtr];
-		pPoint = pFftData->m_p3ddPoint[nPtr] + nPointCount - 1;
+		int nPointCount = pFftData->m_n3ddPointCount[nPtr];
+		POINT *pPoint = pFftData->m_p3ddPoint[nPtr] + nPointCount - 1;
 		for (j = 0; j < nPointCount - 1; j++) {
 			x = pPoint->x + m_dx * n;
 			y = pPoint->y + m_dy * n;

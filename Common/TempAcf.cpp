@@ -132,7 +132,6 @@ void CTempAcf::OnTaueUpperCheck()
 void CTempAcf::ShowWeightings()
 {
 	NsWeightData nsWeightData;
-
 	ReadNsWeightData(&nsWeightData);
 	m_cPhi0Weighting.Format("%.3g", nsWeightData.fPhi0);
 	m_cTaueWeighting.Format("%.3g", nsWeightData.fTaue);
@@ -208,7 +207,7 @@ void CTempAcf::GetData(NsTmpData &nsTmpData)
 
 BOOL CTempAcf::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_PHI0_STANDARD, IDH_TEMP_ACF_PHI0_STANDARD,
 		IDC_PHI0_UPPER_CHECK, IDH_TEMP_ACF_PHI0_UPPER_CHECK,
 		IDC_PHI0_UPPER_LIMIT, IDH_TEMP_ACF_PHI0_UPPER_LIMIT,

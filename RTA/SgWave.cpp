@@ -70,7 +70,6 @@ BOOL CSgWave::OnInitDialog()
 void CSgWave::OnBnClickedEdit()
 {
 	CWaveEditDlg dlg;
-
 	dlg.m_pSgDlg = (CSgDlg *)GetParent();
 	dlg.m_pWaveForm = m_pWaveForm;
 	INT_PTR ret = dlg.DoModal();
@@ -82,13 +81,9 @@ void CSgWave::OnBnClickedEdit()
 
 void CSgWave::SetFreqRange()
 {
-	int	nFreq;
-	int	pos;
-	int nTic;
-
 	m_cSFreq.ClearTics();
-	for (nFreq = (int)MIN_FREQ, nTic = 0; nFreq <= (int)MAX_FREQ; nTic++) {
-		pos = CalcSliderPos(nFreq);
+	for (int nFreq = (int)MIN_FREQ, nTic = 0; nFreq <= (int)MAX_FREQ; nTic++) {
+		int pos = CalcSliderPos(nFreq);
 		m_cSFreq.SetTic(pos);
 
 		if (g_oSetData.Sg.nFreqRange == 0) {
@@ -198,7 +193,7 @@ void CSgWave::OnBnClickedWaveform()
 
 BOOL CSgWave::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_WAVE_WND, IDH_SG_WAVE_WND,
 		IDC_WAVEFORM1, IDH_SG_WAVE_WAVEFORM1_5,
 		IDC_WAVEFORM2, IDH_SG_WAVE_WAVEFORM1_5,

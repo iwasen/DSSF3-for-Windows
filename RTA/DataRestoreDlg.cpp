@@ -47,10 +47,11 @@ void CDataRestoreDlg::OnOK()
 			sPathName.Format("%s\\*\t", g_DssData.m_sDatabaseFolder);
 			sPathName.Replace('\t', '\0');
 
-			SHFILEOPSTRUCT sfo = { 0 };
-			sfo.wFunc = FO_DELETE;
-			sfo.pFrom = sPathName;
-			sfo.fFlags = FOF_NOCONFIRMATION;
+			SHFILEOPSTRUCT sfo{
+				.wFunc = FO_DELETE,
+				.pFrom = sPathName,
+				.fFlags = FOF_NOCONFIRMATION
+			};
 			::SHFileOperation(&sfo);
 
 			CString sBackup = m_oBackupList.ElementAt(m_cListBackup.GetItemData(m_cListBackup.GetNextSelectedItem(pos)));
@@ -58,11 +59,13 @@ void CDataRestoreDlg::OnOK()
 			sFrom.Format("%s\\*.DBF\t%s\\*.BIN\t", (LPCSTR)sBackup, (LPCSTR)sBackup);
 			sFrom.Replace('\t', '\0');
 
-			sfo.wFunc = FO_COPY;
-			sfo.pFrom = sFrom;
-			sfo.pTo = g_DssData.m_sDatabaseFolder;
-			sfo.fFlags = FOF_NOCONFIRMATION;
-			::SHFileOperation(&sfo);
+			SHFILEOPSTRUCT sfo2{
+				.wFunc = FO_COPY,
+				.pFrom = sFrom,
+				.pTo = g_DssData.m_sDatabaseFolder,
+				.fFlags = FOF_NOCONFIRMATION
+			};
+			::SHFileOperation(&sfo2);
 
 			::AfxMessageBox(IDS_RESTORE_END, MB_OK | MB_ICONINFORMATION);
 
@@ -74,7 +77,7 @@ void CDataRestoreDlg::OnOK()
 
 BOOL CDataRestoreDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_LIST_BACKUP, IDH_RESTORE_LIST_BACKUP,
 		IDOK, IDH_RESTORE_EXEC,
 		IDCANCEL, IDH_RESTORE_CLOSE,

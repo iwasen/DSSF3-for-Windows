@@ -61,7 +61,6 @@ BOOL CFolderDlg::OnInitDialog()
 void CFolderDlg::OnSelchangeFolderList()
 {
 	DbFolderRec *pDbFolderRec;
-
 	if ((pDbFolderRec = m_cFolderList.GetSelFolderRec()) == NULL)
 		return;
 
@@ -159,7 +158,7 @@ void CFolderDlg::OnDelete()
 
 BOOL CFolderDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FOLDER_LIST, IDH_IMP_FOLDER_FOLDER_LIST,
 		IDC_REGIST, IDH_IMP_FOLDER_REGIST,
 		IDC_CHANGE, IDH_IMP_FOLDER_CHANGE,
@@ -233,7 +232,6 @@ BOOL CSaveIR::OnInitDialog()
 void CSaveIR::OnFolder()
 {
 	CFolderDlg dlg(this);
-
 	dlg.m_nFolderType = FOLDER_TYPE_IR;
 	dlg.DoModal();
 
@@ -297,14 +295,13 @@ void CSaveIR::OnOK()
 void CSaveIR::OnSelchangeFolderList()
 {
 	DbFolderRec *pDbFolderRec;
-
 	if ((pDbFolderRec = m_cFolderList.GetSelFolderRec()) != NULL)
 		m_cDataList.SetDataList(pDbFolderRec->nFolderID);
 }
 
 BOOL CSaveIR::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FOLDER_LIST, IDH_IMP_SAVE_FOLDER_LIST,
 		IDC_DATA_LIST, IDH_IMP_SAVE_DATA_LIST,
 		IDOK, IDH_IMP_SAVE_SAVE,
@@ -375,7 +372,6 @@ BOOL CLoadIR::OnInitDialog()
 void CLoadIR::OnSelchangeFolderList()
 {
 	DbFolderRec *pDbFolderRec;
-
 	if ((pDbFolderRec = m_cFolderList.GetSelFolderRec()) == NULL)
 		return;
 
@@ -392,7 +388,6 @@ void CLoadIR::OnSelchangeFolderList()
 void CLoadIR::OnSelchangeDataList()
 {
 	DbImpulseRec *pDbImpulseRec;
-
 	if ((pDbImpulseRec = m_cDataList.GetSelImpulseRec()) == NULL)
 		return;
 
@@ -404,7 +399,6 @@ void CLoadIR::OnSelchangeDataList()
 void CLoadIR::OnOK()
 {
 	DbImpulseRec *pDbImpulseRec;
-
 	if ((pDbImpulseRec = m_cDataList.GetSelImpulseRec()) == NULL) {
 		::AfxMessageBox(IDS_MSG_SELECTDATA);
 		return;
@@ -418,7 +412,6 @@ void CLoadIR::OnOK()
 void CLoadIR::OnDelete()
 {
 	DbImpulseRec *pDbImpulseRec;
-
 	if ((pDbImpulseRec = m_cDataList.GetSelImpulseRec()) == NULL) {
 		::AfxMessageBox(IDS_MSG_SELECTDATA);
 		return;
@@ -435,7 +428,6 @@ void CLoadIR::OnDelete()
 void CLoadIR::OnFolder()
 {
 	CFolderDlg dlg(this);
-
 	dlg.m_nFolderType = FOLDER_TYPE_IR;
 	dlg.DoModal();
 
@@ -475,7 +467,7 @@ void CLoadIR::OnImportData()
 
 BOOL CLoadIR::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FOLDER_LIST, IDH_IMP_LOAD_FOLDER_LIST,
 		IDC_FOLER_TITLE, IDH_IMP_LOAD_FOLER_TITLE,
 		IDC_FOLDER_NAME, IDH_IMP_LOAD_FOLDER_NAME,
@@ -549,7 +541,6 @@ BOOL CLoadACF::OnInitDialog()
 void CLoadACF::OnSelchangeFolderList()
 {
 	DbFolderRec *pDbFolderRec;
-
 	if ((pDbFolderRec = m_cFolderList.GetSelFolderRec()) == NULL)
 		return;
 
@@ -566,7 +557,6 @@ void CLoadACF::OnSelchangeFolderList()
 void CLoadACF::OnSelchangeDataList()
 {
 	DbAcfRec *pDbAcfRec;
-
 	if ((pDbAcfRec = m_cDataList.GetSelAcfRec()) == NULL)
 		return;
 
@@ -578,7 +568,6 @@ void CLoadACF::OnSelchangeDataList()
 void CLoadACF::OnOK()
 {
 	DbAcfRec *pDbAcfRec;
-
 	if ((pDbAcfRec = m_cDataList.GetSelAcfRec()) == NULL) {
 		::AfxMessageBox(IDS_MSG_SELECTDATA);
 		return;
@@ -592,7 +581,6 @@ void CLoadACF::OnOK()
 void CLoadACF::OnDelete()
 {
 	DbAcfRec *pDbAcfRec;
-
 	if ((pDbAcfRec = m_cDataList.GetSelAcfRec()) == NULL) {
 		::AfxMessageBox(IDS_MSG_SELECTDATA);
 		return;
@@ -609,7 +597,6 @@ void CLoadACF::OnDelete()
 void CLoadACF::OnFolder()
 {
 	CFolderDlg dlg(this);
-
 	dlg.m_nFolderType = FOLDER_TYPE_ACF;
 	dlg.DoModal();
 
@@ -649,7 +636,7 @@ void CLoadACF::OnWaveFile()
 
 BOOL CLoadACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FOLDER_LIST, IDH_IMP_LOAD_FOLDER_LIST,
 		IDC_FOLER_TITLE, IDH_IMP_LOAD_FOLER_TITLE,
 		IDC_FOLDER_NAME, IDH_IMP_LOAD_FOLDER_NAME,
@@ -725,7 +712,6 @@ BOOL CSaveACF::OnInitDialog()
 void CSaveACF::OnFolder()
 {
 	CFolderDlg dlg(this);
-
 	dlg.m_nFolderType = FOLDER_TYPE_ACF;
 	dlg.DoModal();
 
@@ -801,7 +787,7 @@ void CSaveACF::OnSelchangeFolderList()
 
 BOOL CSaveACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FOLDER_LIST, IDH_ACF_SAVE_FOLDER_LIST,
 		IDC_DATA_LIST, IDH_ACF_SAVE_DATA_LIST,
 		IDOK, IDH_ACF_SAVE_OK,
@@ -833,7 +819,7 @@ CFolderList::CFolderList()
 CFolderList::~CFolderList()
 {
 	if (m_pFolder != NULL)
-		delete [] m_pFolder;
+		delete[] m_pFolder;
 }
 
 BEGIN_MESSAGE_MAP(CFolderList, CListBox)
@@ -844,17 +830,13 @@ END_MESSAGE_MAP()
 
 void CFolderList::SetFolderList(int nFolderType)
 {
-	CDbFolder dbFolder;
-	long nRec;
-	int i;
-	int nIndex;
-
 	if (m_pFolder != NULL) {
-		delete [] m_pFolder;
+		delete[] m_pFolder;
 		m_pFolder = NULL;
 		ResetContent();
 	}
 
+	CDbFolder dbFolder;
 	if (!dbFolder.Open())
 		return;
 
@@ -862,17 +844,18 @@ void CFolderList::SetFolderList(int nFolderType)
 	strFilter.Format("TYPE=%c", nFolderType);
 	dbFolder.DBSetFilter(strFilter);
 
+	long nRec;
 	if (dbFolder.DBRecCount(&nRec) != 0)
 		return;
 
 	if ((m_pFolder = new DbFolderRec[nRec]) == NULL)
 		return;
 
-	for (i = 0; i < nRec; i++) {
+	for (int i = 0; i < nRec; i++) {
 		if (!dbFolder.ReadRecNext(&m_pFolder[i]))
 			break;
 
-		nIndex = AddString(m_pFolder[i].sTitle);
+		int nIndex = AddString(m_pFolder[i].sTitle);
 		SetItemData(nIndex, i);
 	}
 
@@ -900,7 +883,7 @@ CIRDataList::CIRDataList()
 CIRDataList::~CIRDataList()
 {
 	if (m_pData != NULL)
-		delete [] m_pData;
+		delete[] m_pData;
 }
 
 BEGIN_MESSAGE_MAP(CIRDataList, CListBox)
@@ -912,7 +895,7 @@ END_MESSAGE_MAP()
 void CIRDataList::SetDataList(long folderID)
 {
 	if (m_pData != NULL) {
-		delete [] m_pData;
+		delete[] m_pData;
 		m_pData = NULL;
 		ResetContent();
 	}
@@ -964,7 +947,7 @@ CAcfDataList::CAcfDataList()
 CAcfDataList::~CAcfDataList()
 {
 	if (m_pData != NULL)
-		delete [] m_pData;
+		delete[] m_pData;
 }
 
 BEGIN_MESSAGE_MAP(CAcfDataList, CListBox)
@@ -976,7 +959,7 @@ END_MESSAGE_MAP()
 void CAcfDataList::SetDataList(long folderID)
 {
 	if (m_pData != NULL) {
-		delete [] m_pData;
+		delete[] m_pData;
 		m_pData = NULL;
 		ResetContent();
 	}
@@ -1010,7 +993,6 @@ void CAcfDataList::SetDataList(long folderID)
 DbAcfRec *CAcfDataList::GetSelAcfRec()
 {
 	int index;
-
 	if ((index = GetCurSel()) == LB_ERR)
 		return NULL;
 

@@ -61,7 +61,6 @@ void CTempExportDlg::SetNsTmpList(long nID)
 		return;
 
 	DbNsTmpRec dbNsTmpRec;
-
 	for (int i = 0; ; i++) {
 		if (!dbNsTmp.ReadRecNext(&dbNsTmpRec, NULL))
 			break;
@@ -132,7 +131,7 @@ BOOL CTempExportDlg::CheckSelect(long nID)
 
 BOOL CTempExportDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_TEMP_EXPORT_OK,
 		IDCANCEL, IDH_TEMP_EXPORT_CANCEL,
 		IDC_TEMPLATE_LIST, IDH_TEMP_EXPORT_TEMPLATE_LIST,

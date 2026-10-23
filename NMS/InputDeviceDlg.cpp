@@ -55,7 +55,7 @@ CInputDeviceDlg::CInputDeviceDlg(CWnd* pParent /*=NULL*/)
 CInputDeviceDlg::~CInputDeviceDlg()
 {
 	if (m_pFilterTbl != NULL)
-		delete [] m_pFilterTbl;
+		delete[] m_pFilterTbl;
 
 	if (g_pPeakLevelWnd != NULL)
 		g_pPeakLevelWnd->m_cPeakLevel.Clear();
@@ -149,7 +149,6 @@ BOOL CInputDeviceDlg::OnInitDialog()
 	m_cLevelBar.SetScrollRange(MIN_LEVEL_BAR, MAX_LEVEL_BAR, FALSE);
 	m_cLevelBar.SetScrollPos((int)(m_fInputSens * 10), FALSE);
 
-	CString str;
 	LOGFONT font{
 #ifdef LANG_JPN
 		.lfHeight = 160,
@@ -158,6 +157,7 @@ BOOL CInputDeviceDlg::OnInitDialog()
 #endif
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font);
@@ -173,8 +173,8 @@ BOOL CInputDeviceDlg::OnInitDialog()
 	m_WindowSize.cx = rectDlg.Width();
 	m_WindowSize.cy = rectDlg.Height();
 
-	CRect rectSeparator;
-	m_cSeparator.GetWindowRect(rectSeparator);
+	RECT rectSeparator;
+	m_cSeparator.GetWindowRect(&rectSeparator);
 
 	SetWindowPos(NULL, 0, 0, m_WindowSize.cx, rectSeparator.top - rectDlg.top, SWP_NOZORDER | SWP_NOMOVE);
 
@@ -197,10 +197,6 @@ void CInputDeviceDlg::InitInputDevice()
 
 void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 {
-	MIXERCONTROL mxc;
-	MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
-	MIXERCONTROLDETAILS_LISTTEXT mxcdl[MAX_CONTROL_ID];
-
 	m_cInputSelector.ResetContent();
 
 	MixerInitialize(nInputDevice, 0);
@@ -214,6 +210,7 @@ void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 		return;
 
 	// 録音入力セレクタ
+	MIXERCONTROL mxc;
 	if (MixerGetControlsByType(dwMixerInDevice, mxl.dwLineID, MIXERCONTROL_CONTROLTYPE_MUX, mxc) == MMSYSERR_NOERROR ||
 			MixerGetControlsByType(dwMixerInDevice, mxl.dwLineID, MIXERCONTROL_CONTROLTYPE_MIXER, mxc) == MMSYSERR_NOERROR) {
 		m_cSrcItems = 0;
@@ -223,10 +220,12 @@ void CInputDeviceDlg::SetInputSelect(int nInputDevice)
 			m_cMultipleItems = MAX_CONTROL_ID;
 
 		// セレクタリスト取得
+		MIXERCONTROLDETAILS_LISTTEXT mxcdl[MAX_CONTROL_ID];
 		if (MixerGetControlList(dwMixerInDevice, m_dwDstControlID, m_cMultipleItems, mxcdl, sizeof(MIXERCONTROLDETAILS_LISTTEXT)) != MMSYSERR_NOERROR)
 			return;
 
 		// セレクト状態取得
+		MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 		if (MixerGetControlValue(dwMixerInDevice, m_dwDstControlID, m_cMultipleItems, mxcdb, sizeof(MIXERCONTROLDETAILS_BOOLEAN)) != MMSYSERR_NOERROR)
 			return;
 
@@ -315,7 +314,6 @@ void CInputDeviceDlg::OnSelchangeInputDevice()
 void CInputDeviceDlg::OnSelchangeInputSelector()
 {
 	int i;
-	MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 
 	m_nSelectInput = m_cInputSelector.GetCurSel();
 
@@ -325,6 +323,7 @@ void CInputDeviceDlg::OnSelchangeInputSelector()
 	}
 
 	if (m_cMultipleItems != 0) {
+		MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 		for (i = 0; i < (int)m_cMultipleItems; i++)
 			mxcdb[i].fValue = (i == m_nSelectInput) ? 1 : 0;
 
@@ -394,7 +393,7 @@ void CInputDeviceDlg::OnDestroy()
 	g_pWaveIn->Close();
 
 	if (m_pFreqData != NULL) {
-		delete [] m_pFreqData;
+		delete[] m_pFreqData;
 		m_pFreqData = NULL;
 	}
 }
@@ -405,7 +404,7 @@ void CInputDeviceDlg::InitMicCalList()
 		UINT textID;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[]{
 		{IDS_MICINFO, 147},
 		{IDS_MICAMPINFO, 147},
 		{IDS_COMMENT, 147}
@@ -431,7 +430,7 @@ void CInputDeviceDlg::InitFreqList()
 		UINT textID;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[]{
 		{IDS_FREQUENCY, 55},
 		{IDS_LEVEL, 55}
 	};
@@ -540,9 +539,6 @@ void CInputDeviceDlg::OnItemchangedFreqList(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CInputDeviceDlg::OnRegist()
 {
-	CDbMicCal dbMicCal;
-	DbMicCalRec dbMicCalRec;
-
 	if (::AfxMessageBox(IDS_MSG_SAVEMICCAL, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL)
 		return;
 
@@ -553,9 +549,11 @@ void CInputDeviceDlg::OnRegist()
 		return;
 	}
 
+	CDbMicCal dbMicCal;
 	if (!dbMicCal.Open())
 		return;
 
+	DbMicCalRec dbMicCalRec;
 	if (!dbMicCal.GetNewID(&dbMicCalRec.nMicCalID))
 		return;
 
@@ -571,7 +569,6 @@ void CInputDeviceDlg::OnRegist()
 void CInputDeviceDlg::OnChange()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1) {
 		::AfxMessageBox(IDS_MSG_SELECTMICCAL);
 		return;
@@ -605,7 +602,6 @@ void CInputDeviceDlg::OnChange()
 void CInputDeviceDlg::OnDelete()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1) {
 		::AfxMessageBox(IDS_MSG_SELECTMICCAL);
 		return;
@@ -628,8 +624,6 @@ void CInputDeviceDlg::OnDelete()
 
 void CInputDeviceDlg::OnFreqRegist()
 {
-	int index;
-
 	UpdateData(TRUE);
 
 	if (m_fFreq <= 0) {
@@ -644,6 +638,7 @@ void CInputDeviceDlg::OnFreqRegist()
 		.flags = LVFI_STRING,
 		.psz = str
 	};
+	int index;
 	if ((index = m_cFreqList.FindItem(&findInfo)) == -1) {
 		if (m_cFreqList.GetItemCount() == MICCAL_NFREQ) {
 			str.FormatMessage(IDS_MSG_INPUTNDATA, MICCAL_NFREQ);
@@ -664,8 +659,6 @@ void CInputDeviceDlg::OnFreqRegist()
 
 void CInputDeviceDlg::OnFreqDelete()
 {
-	int index;
-
 	UpdateData(TRUE);
 
 	CString str;
@@ -675,6 +668,7 @@ void CInputDeviceDlg::OnFreqDelete()
 		.flags = LVFI_STRING,
 		.psz = str
 	};
+	int index;
 	if ((index = m_cFreqList.FindItem(&findInfo)) != -1) {
 		m_cFreqList.DeleteItem(index);
 	}
@@ -759,10 +753,9 @@ int CALLBACK CInputDeviceDlg::CompareFreq(LPARAM lParam1, LPARAM lParam2, LPARAM
 void CInputDeviceDlg::MakeFreqData()
 {
 	FilterData micCalData[MICCAL_NFREQ];
-	int i;
 
 	const int nItem = m_cFreqList.GetItemCount();
-	for (i = 0; i < nItem; i++) {
+	for (int i = 0; i < nItem; i++) {
 		micCalData[i].fFreq = atof(m_cFreqList.GetItemText(i, 0));
 		micCalData[i].fLevel = atof(m_cFreqList.GetItemText(i, 1));
 	}
@@ -775,7 +768,6 @@ void CInputDeviceDlg::MakeFreqData()
 void CInputDeviceDlg::OnRead()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1) {
 		::AfxMessageBox(IDS_MSG_SELECTMICCAL);
 		return;
@@ -809,10 +801,9 @@ void CInputDeviceDlg::GetMicCalData(DbMicCalRec *pDbMicCalRec)
 
 int CInputDeviceDlg::GetFreqData(FilterData *pFilterData)
 {
-	int nFreqData;
 	int i;
 
-	nFreqData = m_cFreqList.GetItemCount();
+	int nFreqData = m_cFreqList.GetItemCount();
 	for (i = 0; i < nFreqData; i++) {
 		pFilterData->fFreq = atof(m_cFreqList.GetItemText(i, 0));
 		pFilterData->fLevel = atof(m_cFreqList.GetItemText(i, 1));
@@ -838,7 +829,6 @@ void CInputDeviceDlg::OnReset()
 void CInputDeviceDlg::SaveCheck()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1)
 		return;
 
@@ -939,9 +929,8 @@ void CInputDeviceDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 {
 	const double fAngleStep = 1000.0 * M_PI * 2 / SAMPLING_RATE;
 	double *pWaveBuf = pWaveNotify->pSamplesData;
-	int i;
 
-	for (i = 0; i < WAVEBUF_SIZE; i++) {
+	for (int i = 0; i < WAVEBUF_SIZE; i++) {
 		*pWaveBuf++ = sin(m_fAngle);
 		m_fAngle += fAngleStep;
 		while (m_fAngle >= M_PI * 2)
@@ -953,14 +942,13 @@ void CInputDeviceDlg::WaveInData(LPWAVENOTIFY pWaveNotify)
 {
 	int i, j;
 	double xt, yt;
-	double fPower;
 	double *pFftBuf = new double[WAVEBUF_SIZE];
 
 	memcpy(pFftBuf, pWaveNotify->pSamplesData, WAVEBUF_SIZE * sizeof(double));
 
 	m_oRFFT.fft(WAVEBUF_SIZE, pFftBuf);
 
-	fPower = 0;
+	double fPower = 0;
 	for (i = 1; i < WAVEBUF_SIZE / 2; i++) {
 		j = i * 2;
 
@@ -1003,7 +991,7 @@ void CInputDeviceDlg::SetFilter(FilterData *pFilterData, int nFilterData)
 		MakeFilterTbl2(pFilter, WAVEBUF_SIZE, SAMPLING_RATE, nFilter, 20);
 		for (i = 0; i < WAVEBUF_SIZE; i++)
 			m_pFilterTbl[i] *= pFilter[i];
-		delete [] pFilter;
+		delete[] pFilter;
 	}
 }
 
@@ -1014,7 +1002,7 @@ void CInputDeviceDlg::OnSelchangeFilter()
 
 BOOL CInputDeviceDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_READ, IDH_INPUT_DEVICE_READ,
 		IDC_RESET, IDH_INPUT_DEVICE_RESET,
 		IDCANCEL, IDH_INPUT_DEVICE_CANCEL,

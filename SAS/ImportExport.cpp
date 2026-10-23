@@ -168,7 +168,6 @@ void CImportExport::WriteData(long nID, int nFolderType)
 void CImportExport::WriteDataIR(long nID)
 {
 	CDbImpulse oDbImpulse;
-
 	if (oDbImpulse.Open()) {
 		DbImpulseRec oDbImpulseRec;
 		if (oDbImpulse.ReadRecID(nID, &oDbImpulseRec)) {
@@ -201,7 +200,6 @@ void CImportExport::WriteDataIR(long nID)
 void CImportExport::WriteDataACF(long nID)
 {
 	CDbAcf oDbAcf;
-
 	if (oDbAcf.Open()) {
 		DbAcfRec oDbAcfRec;
 		if (oDbAcf.ReadRecID(nID, &oDbAcfRec)) {
@@ -230,7 +228,6 @@ void CImportExport::WriteDataACF(long nID)
 void CImportExport::WriteDataNMS(long nID)
 {
 	CDbNms oDbNms;
-
 	if (oDbNms.Open()) {
 		DbNmsRec oDbNmsRec;
 		if (oDbNms.ReadRecID(nID, &oDbNmsRec, NULL, NULL, NULL)) {
@@ -248,9 +245,10 @@ void CImportExport::WriteDataNMS(long nID)
 
 void CImportExport::WriteRecord(int nRecordType, void *pData, int nSize)
 {
-	RecordHeader oRecordHeader;
-	oRecordHeader.nType = nRecordType;
-	oRecordHeader.nSize = nSize;
+	RecordHeader oRecordHeader{
+		.nType = nRecordType,
+		.nSize = nSize
+	};
 	m_oFile.Write(&oRecordHeader, sizeof(oRecordHeader));
 	m_oFile.Write(pData, oRecordHeader.nSize);
 }
@@ -266,7 +264,7 @@ void CImportExport::WriteBinary(CPSDB &db, LPCSTR pFieldName, int nRecordType)
 
 		WriteRecord(nRecordType, pData, nReadNum);
 
-		delete [] pData;
+		delete[] pData;
 	}
 }
 
@@ -348,8 +346,8 @@ long CImportExport::ReadFolder()
 	ReadRecord(&oDbImpulseBuf);
 
 	CDbFolder oDbFolder;
-	DbFolderRec oDbFolderRec;
 	if (oDbFolder.Open()) {
+		DbFolderRec oDbFolderRec;
 		oDbFolder.DBGetFieldBuf(&oDbImpulseBuf, &oDbFolderRec);
 		oDbFolder.GetNewID(&oDbFolderRec.nFolderID);
 
@@ -583,7 +581,7 @@ void CImportExport::ReadBinary(CPSDB &db, LPCSTR pFieldName)
 	BYTE *pBuf = new BYTE[nSize];
 	ReadRecord(pBuf);
 	db.DBWriteBinary(pFieldName, pBuf, nSize);
-	delete [] pBuf;
+	delete[] pBuf;
 }
 
 void CImportExport::GetMaxIndex(int &nIndex, const CString &sTitle1, const CString &sTitle2)

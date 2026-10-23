@@ -47,7 +47,6 @@ CDialogAF::CDialogAF()
 CDialogAF::CDialogAF(UINT nID, CWnd* pParent /*=NULL*/)
 	: CDialog(nID, pParent)
 {
-
 }
 
 void CDialogAF::DoDataExchange(CDataExchange* pDX)

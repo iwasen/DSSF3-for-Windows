@@ -53,7 +53,6 @@ void CRemarkWnd::OnPaint()
 void CRemarkWnd::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	WINDOWPLACEMENT wpl;
-
 	GetWindowPlacement(&wpl);
 	m_Rect = wpl.rcNormalPosition;
 	m_Point = point;
@@ -85,20 +84,18 @@ void CRemarkWnd::OnMouseMove(UINT nFlags, CPoint point)
 
 void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFontPoint)
 {
-	CSize size;
-	int i, y;
-	CFont font, *pFontOrg;
-	CBitmap *pBitmapOrg;
-	CPen *pPenOrg;
-	CString str;
-	CWnd *pParent = GetParent();
+	int i;
 
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
+	CFont font;
 	font.CreatePointFont(nFontPoint, str, &m_dcMem);
-	pFontOrg = m_dcMem.SelectObject(&font);
+	CFont *pFontOrg = m_dcMem.SelectObject(&font);
+
 	m_dcMem.SetBkMode(TRANSPARENT);
 	m_dcMem.SetTextColor(RGB(64, 64, 64));
 
+	SIZE size;
 	int cx = 0;
 	int cy = 0;
 	for (i = 0; i < pRemark->nRemark; i++) {
@@ -119,7 +116,7 @@ void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFo
 	CDC *pDC = GetDC();
 	m_bitmapMem.DeleteObject();
 	m_bitmapMem.CreateCompatibleBitmap(pDC, m_nWidth, m_nHeight);
-	pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
+	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	ReleaseDC(pDC);
 
 	CBrush brush;
@@ -127,7 +124,7 @@ void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFo
 	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &brush);
 
-	y = YMARGIN;
+	int y = YMARGIN;
 #ifdef _LANG_ENG
 		y -= 1;
 #endif
@@ -135,7 +132,7 @@ void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFo
 		size = m_dcMem.GetOutputTextExtent(pRemark->remarks[i].text);
 
 		if (pRemark->remarks[i].pen != NULL) {
-			pPenOrg = m_dcMem.SelectObject(pRemark->remarks[i].pen);
+			CPen *pPenOrg = m_dcMem.SelectObject(pRemark->remarks[i].pen);
 			m_dcMem.MoveTo(XMARGIN, y + size.cy / 2);
 			m_dcMem.LineTo(XMARGIN + LINELENGTH - 5, y + size.cy / 2);
 			m_dcMem.SelectObject(pPenOrg);
@@ -154,7 +151,7 @@ void CRemarkWnd::DispRemarks(const REMARK_INFO *pRemark, int nX, int nY, int nFo
 
 	CalcWindowRect(rect);
 	UINT nFlags;
-	if (pParent != NULL) {
+	if (CWnd *pParent = GetParent(); pParent != NULL) {
 		CRect rect2;
 		pParent->GetClientRect(rect2);
 		nX = rect2.right - rect.Width() - XPOS;

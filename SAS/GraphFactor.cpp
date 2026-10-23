@@ -78,8 +78,7 @@ BOOL CGraphFactor::OnInitDialog()
 		CRect rcClient;
 		GetClientRect(rcClient);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(0, rcClient.bottom - sizeToolBar.cy + 6, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -88,8 +87,7 @@ BOOL CGraphFactor::OnInitDialog()
 		CRect rcClient;
 		GetClientRect(rcClient);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomV.MoveWindow(rcClient.right - sizeToolBar.cx + 3, 0, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -440,11 +438,8 @@ void CGraphFactor::SetHScroll()
 
 void CGraphFactor::SetVScroll()
 {
-	int nScrollSize;
-	int nScrollPos;
-
-	nScrollSize = (int)(m_fDispValue / m_fTotalValue * SCROLL_RANGE);
-	nScrollPos = (int)((m_fStartValue - m_fMinValue) / m_fTotalValue * SCROLL_RANGE);
+	const int nScrollSize = (int)(m_fDispValue / m_fTotalValue * SCROLL_RANGE);
+	const int nScrollPos = (int)((m_fStartValue - m_fMinValue) / m_fTotalValue * SCROLL_RANGE);
 
 	if (nScrollSize != m_nVScrollSize || nScrollPos != m_nVScrollPos) {
 		m_nVScrollSize = nScrollSize;
@@ -533,14 +528,14 @@ void CGraphFactor::OnDestroy()
 	CDialogExt::OnDestroy();
 
 	if (m_pfData != NULL) {
-		delete [] m_pfData;
+		delete[] m_pfData;
 		m_pfData = NULL;
 	}
 }
 
 BOOL CGraphFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_FACTOR, IDH_GRAPH_FACTOR,
 		IDC_ZOOM_V, IDH_GRAPH_FACTOR_ZOOM_V,
 		IDC_SCROLL_V, IDH_GRAPH_FACTOR_SCROLL_V,

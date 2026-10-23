@@ -9,16 +9,15 @@ CSetData setData;
 
 CSetData::CSetData()
 {
-	CFile oSetDataFile;
-	BOOL bRead = FALSE;
-	CFileStatus st;
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 
+	BOOL bRead = FALSE;
+	CFile oSetDataFile;
 	if (oSetDataFile.Open(sPathName, CFile::modeRead | CFile::shareDenyNone)) {
+		CFileStatus st;
 		oSetDataFile.GetStatus(st);
 		if (st.m_size == sizeof(CSetData)) {
 			oSetDataFile.Read(this, sizeof(CSetData));
@@ -83,13 +82,12 @@ CSetData::CSetData()
 
 CSetData::~CSetData()
 {
-	CFile setDataFile;
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 
+	CFile setDataFile;
 	if (setDataFile.Open(sPathName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
 		setDataFile.Write((char *)this, sizeof(CSetData));
 }

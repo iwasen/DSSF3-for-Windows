@@ -265,46 +265,46 @@ void CAcfRealtimeDlg::AllocBuffers()
 void CAcfRealtimeDlg::FreeBuffers()
 {
 	if (m_pCalcBufferL != NULL) {
-		delete [] m_pCalcBufferL;
+		delete[] m_pCalcBufferL;
 		m_pCalcBufferL = NULL;
 	}
 
 	if (m_pCalcBufferR != NULL) {
-		delete [] m_pCalcBufferR;
+		delete[] m_pCalcBufferR;
 		m_pCalcBufferR = NULL;
 	}
 
 	if (m_pFilterTbl != NULL) {
-		delete [] m_pFilterTbl;
+		delete[] m_pFilterTbl;
 		m_pFilterTbl = NULL;
 	}
 
 	if (m_pFilterTbl2 != NULL) {
-		delete [] m_pFilterTbl2;
+		delete[] m_pFilterTbl2;
 		m_pFilterTbl2 = NULL;
 	}
 
 	if (m_pFactorData != NULL) {
-		delete [] m_pFactorData;
+		delete[] m_pFactorData;
 		m_pFactorData = NULL;
 	}
 
 	if (m_pSpectrim != NULL) {
-		delete [] m_pSpectrim;
+		delete[] m_pSpectrim;
 		m_pSpectrim = NULL;
 	}
 
 	if (m_pWindowFunc != NULL) {
-		delete [] m_pWindowFunc;
+		delete[] m_pWindowFunc;
 		m_pWindowFunc = NULL;
 	}
 
 	while (m_aWaveBufferList.GetCount() != 0)
-		delete [] (double *)m_aWaveBufferList.RemoveHead();
+		delete[] (double *)m_aWaveBufferList.RemoveHead();
 
 	for (int i = 0; i < 4; i++) {
 		if (m_aFactorGraph[i].pFactorData != NULL) {
-			delete [] m_aFactorGraph[i].pFactorData;
+			delete[] m_aFactorGraph[i].pFactorData;
 			m_aFactorGraph[i].pFactorData = NULL;
 		}
 	}
@@ -346,7 +346,7 @@ void CAcfRealtimeDlg::CalcThread()
 				}
 			}
 
-			delete [] (double *)m_aWaveBufferList.RemoveHead();
+			delete[] (double *)m_aWaveBufferList.RemoveHead();
 
 			m_oCriticalSection.Unlock();
 
@@ -371,39 +371,34 @@ void CAcfRealtimeDlg::CalcThread()
 
 void CAcfRealtimeDlg::CalcAcfFactor(AllFactorData *pFactorData) const
 {
-	double *pIAcfData;
-	double *pFft;
-	int nIAcfData;
-	double fSPL;
-
 	// 計算結果格納エリアクリア
 	memset(pFactorData, 0, sizeof(AllFactorData));
 
 	// ACF計算
-	pFft = CalcAcf1(m_pCalcBufferL, m_nIntegrationSize1, m_nIntegrationSize2, m_nFftSize, m_pFilterTbl);
+	double *pFft = CalcAcf1(m_pCalcBufferL, m_nIntegrationSize1, m_nIntegrationSize2, m_nFftSize, m_pFilterTbl);
 
 	// ACFファクタ計算
 	TaunPhinData oTaunPhinData;
 	GetAcfFactor(&m_oAcfCondition, &pFactorData->Acf, &oTaunPhinData, m_nSamplingRate, pFft, m_nMaxDelaySize);
-	delete [] pFft;
+	delete[] pFft;
 
 	if (m_nChannel == 2) {
 		// SPL計算
-		fSPL = CalcSPL(m_pCalcBufferL, m_pCalcBufferR, m_nIntegrationSize1, m_nFftSize, m_pFilterTbl);
+		double fSPL = CalcSPL(m_pCalcBufferL, m_pCalcBufferR, m_nIntegrationSize1, m_nFftSize, m_pFilterTbl);
 
 		// IACF テンポラリバッファ確保
-		nIAcfData = (int)(m_nSamplingRate * 0.002);		// ±1ms
-		pIAcfData = new double[nIAcfData];
+		int nIAcfData = (int)(m_nSamplingRate * 0.002);		// ±1ms
+		double *pIAcfData = new double[nIAcfData];
 
 		// IACF計算
 		pFft = CalcIAcf(m_pCalcBufferL, m_pCalcBufferR, m_nIntegrationSize1, m_nFftSize, m_pFilterTbl);
 		memcpy(pIAcfData, pFft + (m_nFftSize - nIAcfData / 2), (nIAcfData / 2) * sizeof(double));
 		memcpy(pIAcfData + nIAcfData / 2, pFft, (nIAcfData / 2) * sizeof(double));
-		delete [] pFft;
+		delete[] pFft;
 
 		// IACFファクタ計算
 		GetIAcfFactor(&m_oIAcfCondition, &pFactorData->IAcf, m_nSamplingRate, pIAcfData, nIAcfData, fSPL);
-		delete [] pIAcfData;
+		delete[] pIAcfData;
 	}
 }
 
@@ -487,7 +482,6 @@ void CAcfRealtimeDlg::GetFactor(int nFactorKind, FACTOR_GRAPH &oFactorGraph)
 void CAcfRealtimeDlg::CalcSpectrum()
 {
 	int i, j;
-	double xt, yt;
 
 	double *pFftBuf = new double[m_nFftSize2];
 	for (i = 0; i < m_nFftSize2; i++)
@@ -495,30 +489,29 @@ void CAcfRealtimeDlg::CalcSpectrum()
 
 	m_oRFFT.fft(m_nFftSize2, pFftBuf);
 	for (i = 1, j = 2; i < m_nFftSize2 / 2; i++) {
-		xt = pFftBuf[j++] * m_pFilterTbl2[i];
-		yt = pFftBuf[j++] * m_pFilterTbl2[i];
+		double xt = pFftBuf[j++] * m_pFilterTbl2[i];
+		double yt = pFftBuf[j++] * m_pFilterTbl2[i];
 
 		m_pSpectrim[i] = xt * xt + yt * yt;
 	}
 
-	delete [] pFftBuf;
+	delete[] pFftBuf;
 }
 
 void CAcfRealtimeDlg::InitAcfFactorList()
 {
-	int i;
 	struct LISTCOLUMN {
 		UINT nID;
 		LPCSTR text;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumnHeader1[] = {
+	static constexpr LISTCOLUMN tColumnHeader1[]{
 		{0, "Time", 68},
 		{IDS_PHI0, NULL, 68},
 		{IDS_TAUE, NULL, 68},
 		{IDS_TAU1, NULL, 68},
 		{IDS_PHI1, NULL, 68}
-	}, tColumnHeader2[] = {
+	}, tColumnHeader2[]{
 		{0, "Time", 66},
 		{IDS_PHI0, NULL, 55},
 		{IDS_TAUE, NULL, 55},
@@ -528,17 +521,16 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 		{IDS_TIACC, NULL, 55},
 		{0, "W_IACC", 55}
 	};
-	const LISTCOLUMN *pColumnHeader;
-	static constexpr LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
-	LPCSTR const* pUnit = NULL;
-	CString str;
-	int nColumn;
+	static constexpr LPCSTR tUnit1[]{ " [s]", " [dB]", " [ms]", " [ms]", "" };
 
 	m_cFactorList.DeleteAllItems();
 
 	while (m_cFactorList.DeleteColumn(0))
 		;
 
+	const LISTCOLUMN *pColumnHeader;
+	int nColumn;
+	LPCSTR const* pUnit = NULL;
 	if (m_nChannel == 1) {
 		pColumnHeader = tColumnHeader1;
 		nColumn = ARRAY_SIZE(tColumnHeader1);
@@ -548,7 +540,8 @@ void CAcfRealtimeDlg::InitAcfFactorList()
 		nColumn = ARRAY_SIZE(tColumnHeader2);
 	}
 
-	for (i = 0; i < nColumn; i++, pColumnHeader++) {
+	CString str;
+	for (int i = 0; i < nColumn; i++, pColumnHeader++) {
 		if (pColumnHeader->nID == 0)
 			str = pColumnHeader->text;
 		else
@@ -597,8 +590,8 @@ void CAcfRealtimeDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Acf.nRealtimePosLeft = rect.left;
 		g_oSetData.Acf.nRealtimePosTop = rect.top;
 	}
@@ -606,7 +599,7 @@ void CAcfRealtimeDlg::OnMove(int x, int y)
 
 BOOL CAcfRealtimeDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_PHI0, IDH_ACF_REALTIME_GRAPH_PHI0,
 		IDC_GRAPH_PHI1, IDH_ACF_REALTIME_GRAPH_PHI1,
 		IDC_GRAPH_TAU_E, IDH_ACF_REALTIME_GRAPH_TAU_E,
@@ -635,7 +628,6 @@ void CAcfRealtimeDlg::OnStop()
 void CAcfRealtimeDlg::OnCalcConditions()
 {
 	CAcfRealtimeCalcDlg dlg;
-
 	if (dlg.DoModal() == IDOK) {
 		if (m_bStart) {
 			OnStop();

@@ -166,17 +166,16 @@ BOOL CAcfDlg::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(10, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
 	m_cGraphAcf.Initialize(90);
 	m_cGraphWave.Initialize(90, GraphCallBack, (LPARAM)this, TRUE);
 
-	CRect rectGraphAcf;
-	CRect rectControl;
-	m_cGraphAcf.GetWindowRect(rectGraphAcf);
+	RECT rectGraphAcf;
+	RECT rectControl;
+	m_cGraphAcf.GetWindowRect(&rectGraphAcf);
 	CWnd *pWnd = GetTopWindow();
 	while (pWnd != NULL) {
 		switch (pWnd->GetDlgCtrlID()) {
@@ -194,7 +193,7 @@ BOOL CAcfDlg::OnInitDialog()
 			SetCtlPosition(pWnd, 1, 1, 1, 1);
 			break;
 		default:
-			pWnd->GetWindowRect(rectControl);
+			pWnd->GetWindowRect(&rectControl);
 			if (rectControl.left > rectGraphAcf.right)
 				SetCtlPosition(pWnd, 1, 0, 1, 0);
 			else
@@ -258,7 +257,7 @@ void CAcfDlg::OnDestroy()
 
 	FreeBuffers();
 	if (m_pWaveBuf != NULL)
-		delete [] m_pWaveBuf;
+		delete[] m_pWaveBuf;
 
 	if (m_pAcfRealtimeDlg != NULL)
 		m_pAcfRealtimeDlg->DestroyWindow();
@@ -281,8 +280,8 @@ void CAcfDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Acf.nPosLeft = rect.left;
 		g_oSetData.Acf.nPosTop = rect.top;
 	}
@@ -291,14 +290,13 @@ void CAcfDlg::OnMove(int x, int y)
 void CAcfDlg::OnStart()
 {
 	int nSamplingRate;
-
 	if ((nSamplingRate = m_pWaveIn->GetFixedSamplingRate()) != 0)
 		ChangeSamplingRate(nSamplingRate);
 
 	FreeBuffers();
 
 	if (m_pWaveBuf != NULL) {
-		delete [] m_pWaveBuf;
+		delete[] m_pWaveBuf;
 		m_pWaveBuf = NULL;
 	}
 
@@ -359,10 +357,10 @@ void CAcfDlg::SetFilter()
 
 BOOL CAcfDlg::AllocBuffers()
 {
-	int n;
-
 	m_nAcfSize = (int)(m_nSamplingRate * g_oSetData.Acf.fIntegrationTime / DECIMATION);
 	m_nRingBufSize = m_nAcfSize;
+
+	int n;
 	for (m_nAcfBufSize = 1, n = m_nAcfSize - 1; n != 0; n >>= 1)
 		m_nAcfBufSize <<= 1;
 
@@ -381,17 +379,17 @@ BOOL CAcfDlg::AllocBuffers()
 void CAcfDlg::FreeBuffers()
 {
 	if (m_pRingBuf != NULL) {
-		delete [] m_pRingBuf;
+		delete[] m_pRingBuf;
 		m_pRingBuf = NULL;
 	}
 
 	if (m_pAcfBuf1 != NULL) {
-		delete [] m_pAcfBuf1;
+		delete[] m_pAcfBuf1;
 		m_pAcfBuf1 = NULL;
 	}
 
 	if (m_pFilterTbl != NULL) {
-		delete [] m_pFilterTbl;
+		delete[] m_pFilterTbl;
 		m_pFilterTbl = NULL;
 	}
 }
@@ -452,12 +450,10 @@ int CAcfDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 BOOL CAcfDlg::WaveInData(LPWAVENOTIFY pWaveNotify)
 {
-	int len;
-
 	if (m_pWaveBuf == NULL)
 		return FALSE;
 
-	len = min(pWaveNotify->nSamplesRecorded * m_nChannel, m_nWaveBufSize - m_nWaveBufCount);
+	const int len = min(pWaveNotify->nSamplesRecorded * m_nChannel, m_nWaveBufSize - m_nWaveBufCount);
 	memcpy(&m_pWaveBuf[m_nWaveBufCount], pWaveNotify->pSamplesData, len * sizeof(double));
 	m_cGraphWave.DispGraph2(m_pWaveBuf, m_nWaveBufSize, m_nChannel, m_nDispChannel, m_nWaveBufCount, len);
 	m_nWaveBufCount += len;
@@ -471,8 +467,6 @@ BOOL CAcfDlg::WaveInData(LPWAVENOTIFY pWaveNotify)
 
 int CAcfDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 {
-	int len;
-
 	if (m_pWaveBuf == NULL)
 		return 0;
 
@@ -482,7 +476,7 @@ int CAcfDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 		m_cGraphWave.SetReplayPosition(fReplayTime);
 	}
 
-	len = min(WAVEOUT_SAMPLESPERBUFFER, m_nWaveOutEndCount - m_nWaveOutCount);
+	const int len = min(WAVEOUT_SAMPLESPERBUFFER, m_nWaveOutEndCount - m_nWaveOutCount);
 	memcpy(pWaveNotify->pSamplesData, &m_pWaveBuf[m_nWaveOutCount], len * sizeof(double));
 	m_nWaveOutCount += len;
 
@@ -491,12 +485,9 @@ int CAcfDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 
 void CAcfDlg::SetRingBuf(const double *pData, int nData)
 {
-	int i;
-	int len;
-
 	while (nData > 0) {
-		len = min(nData, m_nRingBufSize - m_nRingBufPtr);
-		for (i = 0; i < len; i++) {
+		int len = min(nData, m_nRingBufSize - m_nRingBufPtr);
+		for (int i = 0; i < len; i++) {
 			m_pRingBuf[m_nRingBufPtr++] = pData[m_nDispChannel];
 			nData--;
 			pData += DECIMATION * m_nChannel;
@@ -515,7 +506,6 @@ void CAcfDlg::SetRingBuf(const double *pData, int nData)
 void CAcfDlg::CalcAcf()
 {
 	int i, j;
-	double xt, yt;
 
 	j = m_nRingBufPtr;
 	for (i = 0; i < m_nAcfSize; i++) {
@@ -533,8 +523,8 @@ void CAcfDlg::CalcAcf()
 	for (i = 1; i < m_nAcfBufSize / 2; i++) {
 		j = i * 2;
 
-		xt = m_pAcfBuf1[j] * m_pFilterTbl[i];
-		yt = m_pAcfBuf1[j + 1] * m_pFilterTbl[i];
+		double xt = m_pAcfBuf1[j] * m_pFilterTbl[i];
+		double yt = m_pAcfBuf1[j + 1] * m_pFilterTbl[i];
 
 		m_pAcfBuf1[j] = xt * xt + yt * yt;
 		m_pAcfBuf1[j + 1] = 0;
@@ -847,14 +837,12 @@ void CAcfDlg::OnFileSave()
 		return;
 
 	HWAVEDATA hWaveData = MakeWaveDataHandle(m_nSamplingRate, m_nBitsPerSample, m_nChannel, m_nWaveBufSize, m_pWaveBuf, NULL);
-
 	if (hWaveData == NULL)
 		return;
 
 	m_pWaveOut->Close();
 
 	CSaveACF dlg(this);
-
 	dlg.m_iSampling = m_nSamplingRate;
 	dlg.m_nChannel = m_nChannel;
 	dlg.m_nSample = m_nSample;
@@ -862,7 +850,6 @@ void CAcfDlg::OnFileSave()
 	dlg.m_fDataTime = m_fDataTime;
 	dlg.m_Time = m_sTime;
 	dlg.m_hWaveData = hWaveData;
-
 	dlg.DoModal();
 
 	::GlobalFree(hWaveData);
@@ -890,16 +877,14 @@ void CAcfDlg::OnFileLoad()
 void CAcfDlg::LoadACFData(long nAcfID)
 {
 	CDbAcf dbAcf;
-	DbAcfRec dbAcfRec;
-	HWAVEDATA hWaveData;
-	PWAVEDATA pWaveData;
-
 	if (!dbAcf.Open())
 		return;
 
+	DbAcfRec dbAcfRec;
 	if (!dbAcf.ReadRecID(nAcfID, &dbAcfRec))
 		return;
 
+	HWAVEDATA hWaveData;
 	if (MMWaveReadDB(&hWaveData, dbAcf.GetFCB(), "WAVEDATA") != 0) {
 		::AfxMessageBox(IDS_ERR_READDATA, MB_OK | MB_ICONEXCLAMATION);
 		return;
@@ -919,11 +904,9 @@ void CAcfDlg::LoadACFData(long nAcfID)
 	m_nWaveBufSize = m_nSample * m_nChannel;
 
 	if (m_pWaveBuf != NULL)
-		delete [] m_pWaveBuf;
+		delete[] m_pWaveBuf;
 
-	pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
-//	if (pWaveData == NULL)
-	//	return;
+	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
 	m_nBitsPerSample = pWaveData->nBitsPerSample;
 	m_pWaveBuf = new double[m_nWaveBufSize];
 	CopyWaveToDouble((BYTE *)pWaveData->waveData, m_pWaveBuf, NULL, m_nWaveBufSize, m_nBitsPerSample);
@@ -952,7 +935,6 @@ void CAcfDlg::LoadWaveFile(LPCSTR pFileName)
 	CWaveFile waveFile;
 	PCMWAVEFORMAT waveFormat;
 	DWORD dwDataSize;
-
 	if (!waveFile.Open(pFileName, &waveFormat, &dwDataSize)) {
 		::AfxMessageBox(IDS_ERR_READWAVEFILE, MB_OK | MB_ICONEXCLAMATION);
 		return;
@@ -973,7 +955,7 @@ void CAcfDlg::LoadWaveFile(LPCSTR pFileName)
 	m_sTime = fileTime;
 
 	if (m_pWaveBuf != NULL)
-		delete [] m_pWaveBuf;
+		delete[] m_pWaveBuf;
 
 	m_pWaveBuf = new double[m_nWaveBufSize];
 	waveFile.Read(m_pWaveBuf, m_nWaveBufSize);
@@ -1026,24 +1008,19 @@ void CAcfDlg::OnReplay()
 
 void CAcfDlg::OnCut()
 {
-	int nSelectStart;
-	int nSelectEnd;
-	int nSample;
-	double *pWaveBuf;
-
 	if (m_pWaveBuf == NULL)
 		return;
 
-	nSelectStart = min((int)(m_fSelectStart * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
-	nSelectEnd = min((int)(m_fSelectEnd * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
-	nSample = nSelectEnd - nSelectStart;
+	const int nSelectStart = min((int)(m_fSelectStart * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
+	const int nSelectEnd = min((int)(m_fSelectEnd * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
+	const int nSample = nSelectEnd - nSelectStart;
 
 	if (nSample <= 0)
 		return;
 
-	pWaveBuf = new double[nSample];
+	double *pWaveBuf = new double[nSample];
 	memcpy(pWaveBuf, m_pWaveBuf + nSelectStart, nSample * sizeof(double));
-	delete [] m_pWaveBuf;
+	delete[] m_pWaveBuf;
 
 	m_pWaveBuf = pWaveBuf;
 	m_nWaveBufSize = nSample;
@@ -1138,7 +1115,6 @@ void CAcfDlg::OnChannelRch()
 void CAcfDlg::EnableDispRch()
 {
 	BOOL bEnable;
-
 	if (m_pWaveBuf == NULL)
 		bEnable = (g_oSetData.Acf.nChannel == CH_STEREO);
 	else
@@ -1210,7 +1186,7 @@ void CAcfDlg::ChangeSamplingRate(int nSamplingRate)
 
 BOOL CAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_ACF, IDH_ACF_GRAPH,
 		IDC_GRAPH_WAVE, IDH_ACF_GRAPH_WAVE,
 		IDC_ZOOM_H, IDH_ACF_ZOOM_H,
@@ -1279,7 +1255,6 @@ void CAcfDlg::OnSize(UINT nType, int cx, int cy)
 	}
 }
 
-#pragma warning (disable: 6277)
 void CAcfDlg::OnBnClickedLaunchSa()
 {
 	HWAVEDATA hWaveData = MakeWaveDataHandle(m_nSamplingRate, m_nBitsPerSample, m_nChannel, m_nWaveBufSize, m_pWaveBuf, NULL);
@@ -1302,24 +1277,22 @@ void CAcfDlg::OnBnClickedLaunchSa()
 BOOL CAcfDlg::SaveACF(HWAVEDATA hWaveData) const
 {
 	CDbAcf dbAcf;
-	DbAcfRec dbAcfRec;
-
 	if (!dbAcf.Open())
 		return FALSE;
 
 	CString sTitle;
 	sTitle.LoadString(IDS_MEASUREMENT_DATA);
 
-	dbAcfRec.nAcfID = -2;
-	dbAcfRec.nFolderID = -2;
-	dbAcfRec.nSampling = m_nSamplingRate;
-	dbAcfRec.nChannel = m_nChannel | (m_nBitsPerSample >= 24 ? 0x04 : 0);
-	dbAcfRec.nSampleNum = m_nSample;
-	dbAcfRec.fDataTime = m_fDataTime;
-	dbAcfRec.sTime = m_sTime;
-	dbAcfRec.sTitle= sTitle;
-	dbAcfRec.sComment.Empty();
-
+	DbAcfRec dbAcfRec{
+		.nFolderID = -2,
+		.nAcfID = -2,
+		.nSampling = m_nSamplingRate,
+		.nChannel = m_nChannel | (m_nBitsPerSample >= 24 ? 0x04 : 0),
+		.nSampleNum = m_nSample,
+		.fDataTime = m_fDataTime,
+		.sTime = m_sTime,
+		.sTitle = sTitle
+	};
 	dbAcf.DBChgIdx(dbAcf.m_nIdxAcfID);
 	dbAcf.DBDeleteKey("-2", 2, 1);
 

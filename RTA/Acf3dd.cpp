@@ -88,14 +88,7 @@ void CAcf3dd::Resize()
 
 void CAcf3dd::SetBitmap()
 {
-	int	nLevel;
-	int x, y, y1, y2;
-	int dx, dy;
 	int i, j;
-	CString sText;
-	CSize size;
-	double t;
-	int ns;
 	CBrush brushBkGrnd(COLOR_BKGRND);
 	CPen penBlack(PS_SOLID, 0, COLOR_BLACK);
 	CPen penGray(PS_SOLID, 0, COLOR_GRAY);
@@ -118,8 +111,8 @@ void CAcf3dd::SetBitmap()
 	} else {
 		m_dy = m_dx * 5 / 3;
 	}
-	dx = (int)(m_dx * m_nTimeDataNum);
-	dy = (int)(m_dy * m_nTimeDataNum);
+	int dx = (int)(m_dx * m_nTimeDataNum);
+	int dy = (int)(m_dy * m_nTimeDataNum);
 
 	m_nScaleLeft = m_nScaleLeft2 + dx;
 	m_nScaleTop2 = m_nScaleTop + dy;
@@ -173,6 +166,7 @@ void CAcf3dd::SetBitmap()
 	double t1 = g_oSetData.Acf.fMaxTau / 6;
 	double step = pow(10.0, floor(log10(t1)));
 	double t2 = t1 / step;
+	int ns;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -181,6 +175,10 @@ void CAcf3dd::SetBitmap()
 	else
 		ns = 5;
 
+	int x, y, y1, y2;
+	SIZE size;
+	CString sText;
+	double t;
 	for (t = 0; t <= g_oSetData.Acf.fMaxTau + step * 0.5; t += step) {
 		x =  m_nScaleLeft2 + (int)(t * m_nScaleWidth2 / g_oSetData.Acf.fMaxTau);
 
@@ -201,6 +199,7 @@ void CAcf3dd::SetBitmap()
 	}
 
 	if (g_oSetData.Acf.nScaleType == 0) {
+		int	nLevel;
 		if (g_oSetData.Acf.bScaleAbs) {
 			for (nLevel = 10; nLevel >= 0; nLevel--) {
 				sText.Format("%g", nLevel / 10.0);
@@ -347,25 +346,18 @@ void CAcf3dd::ClearGraph()
 
 void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, double fSamplingRate) const
 {
-	int i, j;
 	int ptr = pDispData->m_nCurrentPtr;
 	POINT *pPoint = pDispData->m_pPoint[ptr];
-	int x, y;
-	int x2 = 0;
-	double fStepY;
 	const double fTmp2 = double(m_nScaleWidth2) / g_oSetData.Acf.fMaxTau;
 	const int nDispSize = nDataSize / 2;
-	int nPointCount = 0;
-	int xOffset = 0;
 	const int yOffset = m_nScaleBottom2 - m_nScaleBottom;
-	int dx, xj;
-	double dl;
 	const double fTimeStep = 1 / fSamplingRate * 1000;
-	double fLevel, level2;
-	int nMaxLevel;
 
+	double fStepY;
+	int nMaxLevel;
+	double fLevel2;
 	if (g_oSetData.Acf.nScaleType == 0) {
-		level2 = (double)1;
+		fLevel2 = (double)1;
 		nMaxLevel = 1;
 		if (g_oSetData.Acf.bScaleAbs)
 			fStepY = -m_nScaleHeight2;
@@ -373,13 +365,17 @@ void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, d
 			fStepY = (double)-m_nScaleHeight2 / 2;
 		}
 	} else {
-		level2 = dB10(fabs(pData[0]));
+		fLevel2 = dB10(fabs(pData[0]));
 		fStepY = (double)m_nScaleHeight2 / g_oSetData.Acf.nScaleLevel;
 		nMaxLevel = 0;
 	}
 
-	for (i = 0; i < nDispSize; i++) {
-		x = int((i * fTimeStep) * fTmp2);
+	int xOffset = 0;
+	int x2 = 0;
+	int nPointCount = 0;
+	double fLevel;
+	for (int i = 0; i < nDispSize; i++) {
+		int x = int((i * fTimeStep) * fTmp2);
 
 		if (g_oSetData.Acf.nScaleType == 0) {
 			if (g_oSetData.Acf.bScaleAbs)
@@ -390,15 +386,15 @@ void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, d
 			fLevel = dB10(fabs(pData[i]));
 
 		if (x != x2) {
-			dx = x - x2;
-			dl = fLevel - level2;
-			for (j = 0; j < dx; j++) {
-				xj = x2 + j;
+			int dx = x - x2;
+			double dl = fLevel - fLevel2;
+			for (int j = 0; j < dx; j++) {
+				int xj = x2 + j;
 				if (xj >= m_nScaleWidth2)
 					goto big_break;
 				if (xj >= 0) {
 					pPoint[nPointCount].x = xj + xOffset;
-					y = int(((level2 + dl * j / dx) - nMaxLevel) * fStepY) + yOffset;
+					int y = int(((fLevel2 + dl * j / dx) - nMaxLevel) * fStepY) + yOffset;
 					if (y > m_nScaleHeight)
 						y = m_nScaleHeight;
 					pPoint[nPointCount].y = y;
@@ -407,7 +403,7 @@ void CAcf3dd::Calc3dd(const double *pData, DISPDATA *pDispData, int nDataSize, d
 			}
 
 			x2 = x;
-			level2 = fLevel;
+			fLevel2 = fLevel;
 			fLevel = 0;
 		}
 	}
@@ -421,33 +417,31 @@ big_break:
 
 void CAcf3dd::FreeBuffers()
 {
-	int i, j;
-
-	for (i = 0; i < 2; i++) {
+	for (int i = 0; i < 2; i++) {
 		if (m_aDispData[i].m_pPoint != NULL) {
-			for (j = 0; j < m_aDispData[i].m_nAllocCount; j++) {
+			for (int j = 0; j < m_aDispData[i].m_nAllocCount; j++) {
 				if (m_aDispData[i].m_pPoint[j] != NULL) {
-					delete [] m_aDispData[i].m_pPoint[j];
+					delete[] m_aDispData[i].m_pPoint[j];
 					m_aDispData[i].m_pPoint[j] = NULL;
 				}
 			}
-			delete [] m_aDispData[i].m_pPoint;
+			delete[] m_aDispData[i].m_pPoint;
 			m_aDispData[i].m_pPoint = NULL;
 		}
 
 		if (m_aDispData[i].m_pPointCount != NULL) {
-			delete [] m_aDispData[i].m_pPointCount;
+			delete[] m_aDispData[i].m_pPointCount;
 			m_aDispData[i].m_pPointCount = NULL;
 		}
 	}
 
 	if (m_pWork != NULL) {
-		delete [] m_pWork;
+		delete[] m_pWork;
 		m_pWork = NULL;
 	}
 
 	if (m_pCheckTbl != NULL) {
-		delete [] m_pCheckTbl;
+		delete[] m_pCheckTbl;
 		m_pCheckTbl = NULL;
 	}
 }
@@ -478,28 +472,25 @@ void CAcf3dd::OnPaint()
 
 void CAcf3dd::PaintSub(const DISPDATA *pDispData)
 {
-	int i, j, ptr, nPointCount;
-	int x, y;
-	POINT *pPoint;
-
 	if (m_pCheckTbl == NULL)
 		return;
 
-	for (i = 0; i < m_nScaleWidth; i++)
+	for (int i = 0; i < m_nScaleWidth; i++)
 		m_pCheckTbl[i] = m_nScaleHeight;
 
-	ptr = pDispData->m_nCurrentPtr;
-	for (i = 0; i < m_nTimeDataNum; i++) {
+	int ptr = pDispData->m_nCurrentPtr;
+	for (int i = 0; i < m_nTimeDataNum; i++) {
 		if (g_oSetData.Acf.nTimeDir != 0) {
 			if (--ptr < 0)
 				ptr = m_nTimeDataNum - 1;
 		}
 
-		nPointCount = pDispData->m_pPointCount[ptr];
-		pPoint = pDispData->m_pPoint[ptr] + nPointCount - 1;
+		int nPointCount = pDispData->m_pPointCount[ptr];
+		POINT *pPoint = pDispData->m_pPoint[ptr] + nPointCount - 1;
+		int j;
 		for (j = 0; j < nPointCount - 1; j++) {
-			x = pPoint->x + (int)(m_dx * i);
-			y = pPoint->y - (int)(m_dy * i);
+			int x = pPoint->x + (int)(m_dx * i);
+			int y = pPoint->y - (int)(m_dy * i);
 			if (m_pCheckTbl[x] > y)
 				m_pCheckTbl[x] = y;
 
@@ -513,11 +504,6 @@ void CAcf3dd::PaintSub(const DISPDATA *pDispData)
 
 		if (nPointCount != 0)
 			m_dcMem2.Polyline(m_pWork, nPointCount);
-
-//		if (g_oSetData.Acf.nScaleType == 0 && !g_oSetData.Acf.bScaleAbs && pDispData->m_nPointCount[ptr] != 0) {
-//			m_dcMem2.MoveTo(m_dx * i, (m_nScaleTop2 - m_nScaleTop) + (m_nScaleHeight2 / 2) - m_dy * i);
-//			m_dcMem2.LineTo(m_nScaleWidth2 + m_dx * i, (m_nScaleTop2 - m_nScaleTop) + (m_nScaleHeight2 / 2) - m_dy * i);
-//		}
 
 		if (g_oSetData.Acf.nTimeDir == 0) {
 			if (++ptr >= m_nTimeDataNum)

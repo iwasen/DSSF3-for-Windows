@@ -9,11 +9,26 @@
 
 void OutputCsvFileIR(long nFolderID, const CString &pathName)
 {
+	CDbFolder dbFolder;
+	if (!dbFolder.Open())
+		return;
+
+	CDbImpulse dbImpulse;
+	if (!dbImpulse.Open())
+		return;
+
+	CDbAcParam dbAcParam;
+	if (!dbAcParam.Open())
+		return;
+
+	DbFolderRec dbFolderRec;
+	if (!dbFolder.ReadRecID(nFolderID, &dbFolderRec))
+		return;
+
 	DbImpulseBuf dbImpulseBuf;
 	DbImpulseRec dbImpulseRec;
 	DbAcParamRec dbAcParamRec;
 	DbAcParamData *pDbAcParamData = dbAcParamRec.dbAcParamData;
-	int i;
 	BOOL eof;
 	long nRec;
 	CString str, str2;
@@ -41,22 +56,6 @@ void OutputCsvFileIR(long nFolderID, const CString &pathName)
 	PWAVEDATA pWaveData;
 	int nData;
 
-	CDbFolder dbFolder;
-	if (!dbFolder.Open())
-		return;
-
-	CDbImpulse dbImpulse;
-	if (!dbImpulse.Open())
-		return;
-
-	CDbAcParam dbAcParam;
-	if (!dbAcParam.Open())
-		return;
-
-	DbFolderRec dbFolderRec;
-	if (!dbFolder.ReadRecID(nFolderID, &dbFolderRec))
-		return;
-
 	try {
 		CStdioFile file(pathName, CFile::modeCreate | CFile::modeWrite);
 
@@ -77,7 +76,7 @@ void OutputCsvFileIR(long nFolderID, const CString &pathName)
 		dbImpulse.DBChgIdx(dbImpulse.m_nIdxImpulseID);
 		str.Format("#%d=%ld", dbImpulse.m_nIdxFolderID, nFolderID);
 		dbImpulse.DBSelect(str, &nRec);
-		for (i = 0; ; i++, dbImpulse.DBSkip(1)) {
+		for (int i = 0; ; i++, dbImpulse.DBSkip(1)) {
 			if (dbImpulse.DBEof(&eof) != 0 || eof)
 				break;
 
@@ -604,21 +603,6 @@ void OutputCsvFileIR(long nFolderID, const CString &pathName)
 
 void OutputCsvFileAcf(long nFolderID, const CString &pathName)
 {
-	DbAcfBuf dbAcfBuf;
-	DbAcfRec dbAcfRec;
-	DbAcfFactorRec dbAcfFactorRec;
-	AcfConditionData acfConditionData;
-	AcfCondition *pAcfCondition;
-	AcfFactorData *pAcfFactorData;
-	BOOL eof;
-	long nRec;
-	CString str, str2;
-	CString strTime, strPhi0, strTauE, strTau1, strPhi1;
-	CString strSPL, strIACC, strTIACC, strWIACC;
-	int n;
-	double adjustPhi0;
-	double fTime;
-
 	CDbFolder dbFolder;
 	if (!dbFolder.Open())
 		return;
@@ -634,6 +618,21 @@ void OutputCsvFileAcf(long nFolderID, const CString &pathName)
 	DbFolderRec dbFolderRec;
 	if (!dbFolder.ReadRecID(nFolderID, &dbFolderRec))
 		return;
+
+	DbAcfBuf dbAcfBuf;
+	DbAcfRec dbAcfRec;
+	DbAcfFactorRec dbAcfFactorRec;
+	AcfConditionData acfConditionData;
+	AcfCondition *pAcfCondition;
+	AcfFactorData *pAcfFactorData;
+	BOOL eof;
+	long nRec;
+	CString str, str2;
+	CString strTime, strPhi0, strTauE, strTau1, strPhi1;
+	CString strSPL, strIACC, strTIACC, strWIACC;
+	int n;
+	double adjustPhi0;
+	double fTime;
 
 	try {
 		CStdioFile file(pathName, CFile::modeCreate | CFile::modeWrite);
@@ -732,7 +731,7 @@ void OutputCsvFileAcf(long nFolderID, const CString &pathName)
 				strWIACC += str;
 			}
 
-			delete [] pAcfFactorData;
+			delete[] pAcfFactorData;
 
 			str.Format("Time [s]%s\n", (LPCSTR)strTime);
 			file.WriteString(str);
@@ -750,9 +749,6 @@ void OutputCsvFileAcf(long nFolderID, const CString &pathName)
 			file.WriteString(str);
 
 			if (dbAcfRec.nChannel == 2) {
-	//			str.Format("SPL [dB]%s\n", (LPCSTR)strSPL);
-	//			file.WriteString(str);
-
 				str.Format("IACC%s\n", (LPCSTR)strIACC);
 				file.WriteString(str);
 
@@ -772,21 +768,6 @@ void OutputCsvFileAcf(long nFolderID, const CString &pathName)
 
 void OutputCsvFileNms(long nFolderID, const CString &pathName)
 {
-	DbNmsRec dbNmsRec;
-	NmsConditionData nmsConditionData;
-	AcfCondition *pAcfCondition;
-	NmsFactorData *pNmsFactorData;
-	int i;
-	BOOL eof;
-	long nRec;
-	CString str, str2;
-	CString strTime, strPhi0, strTauE, strTau1, strPhi1;
-	CString strSPL, strIACC, strTIACC, strWIACC;
-	int n;
-	double fTime;
-	NoiseSrcData noiseSrcData;
-	long nBytes;
-
 	CDbFolder dbFolder;
 	if (!dbFolder.Open())
 		return;
@@ -798,6 +779,20 @@ void OutputCsvFileNms(long nFolderID, const CString &pathName)
 	DbFolderRec dbFolderRec;
 	if (!dbFolder.ReadRecID(nFolderID, &dbFolderRec))
 		return;
+
+	DbNmsRec dbNmsRec;
+	NmsConditionData nmsConditionData;
+	AcfCondition *pAcfCondition;
+	NmsFactorData *pNmsFactorData;
+	BOOL eof;
+	long nRec;
+	CString str, str2;
+	CString strTime, strPhi0, strTauE, strTau1, strPhi1;
+	CString strSPL, strIACC, strTIACC, strWIACC;
+	int n;
+	double fTime;
+	NoiseSrcData noiseSrcData;
+	long nBytes;
 
 	try {
 		CStdioFile file(pathName, CFile::modeCreate | CFile::modeWrite);
@@ -819,7 +814,7 @@ void OutputCsvFileNms(long nFolderID, const CString &pathName)
 		dbNms.DBChgIdx(dbNms.m_nIdxNmsID);
 		str.Format("#%d=%ld", dbNms.m_nIdxFolderID, nFolderID);
 		dbNms.DBSelect(str, &nRec);
-		for (i = 0; ; i++, dbNms.DBSkip(1)) {
+		for (int i = 0; ; i++, dbNms.DBSkip(1)) {
 			if (dbNms.DBEof(&eof) != 0 || eof)
 				break;
 
@@ -889,7 +884,7 @@ void OutputCsvFileNms(long nFolderID, const CString &pathName)
 				strWIACC += str;
 			}
 
-			delete [] pNmsFactorData;
+			delete[] pNmsFactorData;
 
 			str.Format("Time [s]%s\n", (LPCSTR)strTime);
 			file.WriteString(str);

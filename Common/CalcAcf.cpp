@@ -26,7 +26,7 @@ NmsFactorData *CalcNmsFactor(HWAVEDATA hWaveData, const NmsConditionData *pNmsCo
 		fSamplingRate, nFactor, AbortCheck, &pTaunPhinData);
 
 	if (pTaunPhinData != NULL)
-		delete [] pTaunPhinData;
+		delete[] pTaunPhinData;
 
 	return pNmsFactorData;
 }
@@ -88,10 +88,10 @@ AllFactorData *CalcAcfFactor1(HWAVEDATA hWaveData, int nWaveData, const AcfCondi
 		// 中断チェック
 		if (AbortCheck != NULL) {
 			if (AbortCheck(100 * i / nStepCount)) {
-				delete [] pAllFactorData;
+				delete[] pAllFactorData;
 				pAllFactorData = NULL;
 
-				delete [] *pTaunPhinData;
+				delete[] *pTaunPhinData;
 				*pTaunPhinData = NULL;
 				break;
 			}
@@ -102,13 +102,13 @@ AllFactorData *CalcAcfFactor1(HWAVEDATA hWaveData, int nWaveData, const AcfCondi
 
 		// ACFファクタ計算
 		GetAcfFactor(pAcfCondition, &pAllFactorData[i].Acf, &(*pTaunPhinData)[i], fSamplingRate, pFft, nMaxDelaySize);
-		delete [] pFft;
+		delete[] pFft;
 	}
 
 	*nFactor = i;
 
-	delete [] pFilterTbl;
-	delete [] pWaveBuf;
+	delete[] pFilterTbl;
+	delete[] pWaveBuf;
 
 	return pAllFactorData;
 }
@@ -150,7 +150,7 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 		MakeFilterTbl2(pFilterTbl, nFftSize, fSamplingRate, pAcfCondition->nFreqWeighting, 20);
 		for (i = 0; i < nFftSize; i++)
 			pFilterTbl[i] *= sens / pCalibration[i];
-		delete [] pCalibration;
+		delete[] pCalibration;
 	} else
 		MakeFilterTbl2(pFilterTbl, nFftSize, fSamplingRate, pAcfCondition->nFreqWeighting, 20);
 
@@ -169,10 +169,10 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 		// 中断チェック
 		if (AbortCheck != NULL) {
 			if (AbortCheck(100 * i / nStepCount)) {
-				delete [] pAllFactorData;
+				delete[] pAllFactorData;
 				pAllFactorData = NULL;
 
-				delete [] *pTaunPhinData;
+				delete[] *pTaunPhinData;
 				*pTaunPhinData = NULL;
 				break;
 			}
@@ -188,13 +188,13 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 
 		// ACFファクタ計算
 		GetAcfFactor(pAcfCondition, &pAllFactorData[i].Acf, &(*pTaunPhinData)[i], fSamplingRate, pFft, nMaxDelaySize);
-		delete [] pFft;
+		delete[] pFft;
 
 		// IACF計算
 		pFft = CalcIAcf(pWaveBuf1 + nOffset, pWaveBuf2 + nOffset, nIntegrationSize1, nFftSize, pFilterTbl);
 		memcpy(pIAcfData, pFft + (nFftSize - nIAcfData / 2), (nIAcfData / 2) * sizeof(double));
 		memcpy(pIAcfData + nIAcfData / 2, pFft, (nIAcfData / 2) * sizeof(double));
-		delete [] pFft;
+		delete[] pFft;
 
 		// IACFファクタ計算
 		GetIAcfFactor(pIAcfCondition, &pAllFactorData[i].IAcf, fSamplingRate, pIAcfData, nIAcfData, fSPL);
@@ -202,19 +202,17 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 
 	*nFactor = i;
 
-	delete [] pFilterTbl;
-	delete [] pIAcfData;
-	delete [] pWaveBuf1;
-	delete [] pWaveBuf2;
+	delete[] pFilterTbl;
+	delete[] pIAcfData;
+	delete[] pWaveBuf1;
+	delete[] pWaveBuf2;
 
 	return pAllFactorData;
 }
 
 double *CalcAcf1(const double *pWaveBuf, int nDataNum1, int nDataNum2, int nFftSize, const double *pFilterTbl)
 {
-	double xt1, yt1, xt2, yt2;
-	double m;
-	int i, j;
+	int i;
 
 	// FFT ワークバッファ確保
 	double *pAcfBuf1 = new double[nFftSize];
@@ -234,15 +232,15 @@ double *CalcAcf1(const double *pWaveBuf, int nDataNum1, int nDataNum2, int nFftS
 	pAcfBuf1[0] = 0;
 	pAcfBuf1[1] = 0;
 	for (i = 1; i < nFftSize / 2; i++) {
-		j = i * 2;
+		int j = i * 2;
 
-		m = pFilterTbl[i] / nDataNum1;
+		double m = pFilterTbl[i] / nDataNum1;
 
-		xt1 = pAcfBuf1[j] * m;
-		yt1 = pAcfBuf1[j + 1] * m;
+		double xt1 = pAcfBuf1[j] * m;
+		double yt1 = pAcfBuf1[j + 1] * m;
 
-		xt2 = pAcfBuf2[j] * m;
-		yt2 = pAcfBuf2[j + 1] * m;
+		double xt2 = pAcfBuf2[j] * m;
+		double yt2 = pAcfBuf2[j + 1] * m;
 
 		pAcfBuf1[j] = xt1 * xt2 + yt1 * yt2;
 		pAcfBuf1[j + 1] = xt2 * yt1 - xt1 * yt2;
@@ -254,16 +252,14 @@ double *CalcAcf1(const double *pWaveBuf, int nDataNum1, int nDataNum2, int nFftS
 	for (i = 0; i < nFftSize; i++)
 		pAcfBuf1[i] *= 4.0 * nDataNum1 / nFftSize;
 
-	delete [] pAcfBuf2;
+	delete[] pAcfBuf2;
 
 	return pAcfBuf1;
 }
 
 double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, int nFftSize, const double *pFilterTbl)
 {
-	double xt1, yt1, xt2, yt2;
-	double m;
-	int i, j;
+	int i;
 
 	// FFT ワークバッファ確保
 	double *pAcfBuf1 = new double[nFftSize];
@@ -284,15 +280,15 @@ double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, i
 	pAcfBuf1[1] = 0;
 	double fSPL = 0;
 	for (i = 1; i < nFftSize / 2; i++) {
-		j = i * 2;
+		int j = i * 2;
 
-		m = pFilterTbl[i] / nDataNum;
+		double m = pFilterTbl[i] / nDataNum;
 
-		xt1 = pAcfBuf1[j] * m;
-		yt1 = pAcfBuf1[j + 1] * m;
+		double xt1 = pAcfBuf1[j] * m;
+		double yt1 = pAcfBuf1[j + 1] * m;
 
-		xt2 = pAcfBuf2[j] * m;
-		yt2 = pAcfBuf2[j + 1] * m;
+		double xt2 = pAcfBuf2[j] * m;
+		double yt2 = pAcfBuf2[j + 1] * m;
 
 		fSPL += xt1 * xt1 + yt1 * yt1;
 		fSPL += xt2 * xt2 + yt2 * yt2;
@@ -300,8 +296,8 @@ double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, i
 
 	fSPL *= nDataNum / nFftSize * 2;
 
-	delete [] pAcfBuf1;
-	delete [] pAcfBuf2;
+	delete[] pAcfBuf1;
+	delete[] pAcfBuf2;
 
 	return fSPL;
 }
@@ -310,15 +306,7 @@ double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, i
 
 void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, TaunPhinData *pTaunPhinData, double fSamplingRate, double *pData, int nData)
 {
-	double fPeakData;
-	double *pAcf;
-	double peakTime[MAX_PEAK_DATA];
-	double peakData[MAX_PEAK_DATA];
-	double reg0, reg1;
-	double fAcf;
 	int i;
-	int nPeakPos;
-	int nIntervalPos;
 
 	// Φ(0) 保存
 	const double fPhi0 = pData[0];
@@ -333,6 +321,7 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 	// τn φn 取得
 	memset(pTaunPhinData, 0, sizeof(TaunPhinData));
 	int n = 0;
+	int nPeakPos;
 	for (i = 2; i < nData - 2 && n < 10; i++) {
 		nPeakPos = 0;
 		if (pAcfCondition->nTau1Peak == 0) {
@@ -356,6 +345,7 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 	// τe取得
 	const int nInterval = (int)(pAcfCondition->fTaueInterval / 1000 * fSamplingRate);
 	const int nEndTime = (int)(min(pAcfCondition->fTaueEndTime / 1000, pAcfCondition->fIntegrationTime) * fSamplingRate);
+	int nIntervalPos;
 	if (pAcfCondition->bTaueOrigin)
 		nIntervalPos = 0;
 	else {
@@ -365,13 +355,15 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 		}
 	}
 
+	double peakTime[MAX_PEAK_DATA];
+	double peakData[MAX_PEAK_DATA];
 	n = 0;
 	for ( ; nIntervalPos < nEndTime; nIntervalPos += nInterval) {
-		pAcf = pData + nIntervalPos;
-		fPeakData = dB10(fabs(pAcf[0]));
+		double *pAcf = pData + nIntervalPos;
+		double fPeakData = dB10(fabs(pAcf[0]));
 		nPeakPos = nIntervalPos;
 		for (i = 1; i < nInterval; i++) {
-			fAcf = dB10(fabs(pAcf[i]));
+			double fAcf = dB10(fabs(pAcf[i]));
 			if (fAcf > fPeakData) {
 				fPeakData = fAcf;
 				nPeakPos = nIntervalPos + i;
@@ -390,6 +382,7 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 			n++;
 		}
 	}
+	double reg0, reg1;
 	Regress2x(peakTime, peakData, n, &reg0, &reg1);
 	pAcfFactor->fTauE = (float)((-10 - reg0) / reg1);
 	pAcfFactor->fTauE0 = (float)reg0;
@@ -397,9 +390,7 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 
 double *CalcIAcf(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, int nFftSize, const double *pFilterTbl)
 {
-	double xt1, yt1, xt2, yt2;
-	double m;
-	int i, j;
+	int i;
 
 	// FFT ワークバッファ確保
 	double *pAcfBuf1 = new double[nFftSize];
@@ -419,15 +410,15 @@ double *CalcIAcf(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum,
 	pAcfBuf1[0] = 0;
 	pAcfBuf1[1] = 0;
 	for (i = 1; i < nFftSize / 2; i++) {
-		j = i * 2;
+		int j = i * 2;
 
-		m = pFilterTbl[i] / nDataNum;
+		double m = pFilterTbl[i] / nDataNum;
 
-		xt1 = pAcfBuf1[j] * m;
-		yt1 = pAcfBuf1[j + 1] * m;
+		double xt1 = pAcfBuf1[j] * m;
+		double yt1 = pAcfBuf1[j + 1] * m;
 
-		xt2 = pAcfBuf2[j] * m;
-		yt2 = pAcfBuf2[j + 1] * m;
+		double xt2 = pAcfBuf2[j] * m;
+		double yt2 = pAcfBuf2[j + 1] * m;
 
 		pAcfBuf1[j] = xt1 * xt2 + yt1 * yt2;
 		pAcfBuf1[j + 1] = xt2 * yt1 - xt1 * yt2;
@@ -439,15 +430,16 @@ double *CalcIAcf(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum,
 	for (i = 0; i < nFftSize; i++)
 		pAcfBuf1[i] *= 4.0 * nDataNum / nFftSize;
 
-	delete [] pAcfBuf2;
+	delete[] pAcfBuf2;
 
 	return pAcfBuf1;
 }
 
 void GetIAcfFactor(const IAcfCondition *pIAcfCondition, IAcfFactor *pIAcfFactor, double fSamplingRate, const double *pData, int nData, double fSPL)
 {
-	int i, nIACCPos = 0;
+	int i;
 
+	int nIACCPos = 0;
 	double fIACC = -DBL_MAX;
 	for (i = 0; i < nData; i++) {
 		if (pData[i] > fIACC) {
@@ -492,25 +484,25 @@ double GetAdjustPhi0(long folderID, long nPhi0RefData, double fPhi0RefLevel)
 	if (nPhi0RefData == SPL_ABSOLUTE)
 		return 0;
 
+	int i, j;
+
+	double fMaxPhi0 = 0;
 	AcfFactorData *pAcfFactorData;
 	CDbAcfFactor dbAcfFactor;
 	DbAcfFactorRec dbAcfFactorRec;
-	double fMaxPhi0 = 0;
-	int i, j;
-
 	if (nPhi0RefData == SPL_MAXREF) {
 		CDbAcf dbAcf;
-		DbAcfRec dbAcfRec;
-		CString str;
-		long nRec;
-
 		if (!dbAcf.Open())
 			return 0;
 
+		DbAcfRec dbAcfRec;
 		if (!dbAcfFactor.Open())
 			return 0;
 
+		CString str;
 		str.Format("#%d=%ld", dbAcf.m_nIdxFolderID, folderID);
+
+		long nRec;
 		dbAcf.DBSelect(str, &nRec);
 		for (i = 0; ; i++) {
 			if (!dbAcf.ReadRecNext(&dbAcfRec))
@@ -521,7 +513,7 @@ double GetAdjustPhi0(long folderID, long nPhi0RefData, double fPhi0RefLevel)
 					if (pAcfFactorData[j].Acf.fPhi0 > fMaxPhi0)
 						fMaxPhi0 = pAcfFactorData[j].Acf.fPhi0;
 				}
-				delete [] pAcfFactorData;
+				delete[] pAcfFactorData;
 			}
 		}
 		return fPhi0RefLevel - fMaxPhi0;
@@ -536,7 +528,7 @@ double GetAdjustPhi0(long folderID, long nPhi0RefData, double fPhi0RefLevel)
 			if (pAcfFactorData[j].Acf.fPhi0 > fMaxPhi0)
 				fMaxPhi0 = pAcfFactorData[j].Acf.fPhi0;
 		}
-		delete [] pAcfFactorData;
+		delete[] pAcfFactorData;
 
 		return fPhi0RefLevel - fMaxPhi0;
 	}
@@ -544,16 +536,7 @@ double GetAdjustPhi0(long folderID, long nPhi0RefData, double fPhi0RefLevel)
 
 long CalcNoiseSource(const NmsFactorData *pNmsFactorData, int nNmsFactorData, NoiseSrcData *pNoiseSrcData, const IdentCondition *pIdentCondition)
 {
-	double fdPhi0;
-	double fdTaue;
-	double fdTau1;
-	double fdPhi1;
-	double fdIACC;
-	double fdTIACC;
-	double fdWIACC;
-	double fdTotal;
 	long nNoiseTmpID = -1;
-
 	CDbNsTmp dbNsTmp;
 	if (!dbNsTmp.Open())
 		return nNoiseTmpID;
@@ -594,14 +577,14 @@ long CalcNoiseSource(const NmsFactorData *pNmsFactorData, int nNmsFactorData, No
 				&& (!nsTmpData.bTIACCUpperCheck || iacfFactorData.fTauIACC <= nsTmpData.fTIACCUpperLimit)
 				&& (!nsTmpData.bWIACCLowerCheck || iacfFactorData.fWIACC >= nsTmpData.fWIACCLowerLimit)
 				&& (!nsTmpData.bWIACCUpperCheck || iacfFactorData.fWIACC <= nsTmpData.fWIACCUpperLimit)) {
-			fdPhi0 = fabs(acfFactorData.fPhi0 - nsTmpData.fPhi0Standard) / 10 * nsWeightData.fPhi0;
-			fdTaue = GetIdentFactor(acfFactorData.fTauE, nsTmpData.fTaueStandard, nsWeightData.fTaue);
-			fdTau1 = GetIdentFactor(acfFactorData.fTau1, nsTmpData.fTau1Standard, nsWeightData.fTau1);
-			fdPhi1 = GetIdentFactor(acfFactorData.fPhi1, nsTmpData.fPhi1Standard, nsWeightData.fPhi1);
-			fdIACC = GetIdentFactor(iacfFactorData.fIACC, nsTmpData.fIACCStandard, nsWeightData.fIACC);
-			fdTIACC = fabs(iacfFactorData.fTauIACC - nsTmpData.fTIACCStandard) * 1000 * nsWeightData.fTIACC;
-			fdWIACC = GetIdentFactor(iacfFactorData.fWIACC, nsTmpData.fWIACCStandard, nsWeightData.fWIACC);
-			fdTotal = fdPhi0 + fdTaue + fdTau1 + fdPhi1 + fdIACC + fdTIACC + fdWIACC;
+			double fdPhi0 = fabs(acfFactorData.fPhi0 - nsTmpData.fPhi0Standard) / 10 * nsWeightData.fPhi0;
+			double fdTaue = GetIdentFactor(acfFactorData.fTauE, nsTmpData.fTaueStandard, nsWeightData.fTaue);
+			double fdTau1 = GetIdentFactor(acfFactorData.fTau1, nsTmpData.fTau1Standard, nsWeightData.fTau1);
+			double fdPhi1 = GetIdentFactor(acfFactorData.fPhi1, nsTmpData.fPhi1Standard, nsWeightData.fPhi1);
+			double fdIACC = GetIdentFactor(iacfFactorData.fIACC, nsTmpData.fIACCStandard, nsWeightData.fIACC);
+			double fdTIACC = fabs(iacfFactorData.fTauIACC - nsTmpData.fTIACCStandard) * 1000 * nsWeightData.fTIACC;
+			double fdWIACC = GetIdentFactor(iacfFactorData.fWIACC, nsTmpData.fWIACCStandard, nsWeightData.fWIACC);
+			double fdTotal = fdPhi0 + fdTaue + fdTau1 + fdPhi1 + fdIACC + fdTIACC + fdWIACC;
 			if (fdTotal < fdMin) {
 				fdMin = fdTotal;
 				pNoiseSrcData->fdPhi0 = (float)fdPhi0;

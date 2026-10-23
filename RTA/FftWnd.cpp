@@ -265,7 +265,7 @@ void CFftWnd::InitFFT()
 			m_pFilterTblL[i] *= pFilter[i];
 			m_pFilterTblR[i] *= pFilter[i];
 		}
-		delete [] pFilter;
+		delete[] pFilter;
 	}
 
 	m_fLeftOffset = 0;
@@ -549,16 +549,12 @@ void CFftWnd::SetMinMax(const FFTWINDOW *pFftWindow)
 void CFftWnd::GetWaveData(double *pData)
 {
 	int i;
-	double *pData2;
-	double fLeftData, fRightData;
-	BOOL bLeft = FALSE, bRight = FALSE, bMono = FALSE;
-	BOOL bStereo = FALSE;
-	double *pFftBufL = NULL, *pFftBufR = NULL;
 
 	m_bValidFftData = TRUE;
 
 	double fLeftOffset = 0;
 	double fRightOffset = 0;
+	double *pData2;
 	for (i = 0, pData2 = pData; i < m_nFftSize; i++) {
 		fLeftOffset += *pData2++;
 		fRightOffset += *pData2++;
@@ -569,6 +565,7 @@ void CFftWnd::GetWaveData(double *pData)
 	const int nLeftOffset = (int)m_fLeftOffset;
 	const int nRightOffset = (int)m_fRightOffset;
 
+	BOOL bStereo = FALSE;
 	for (POSITION pos = m_oFftWindow.GetHeadPosition(); pos != NULL; ) {
 		FFTWINDOW *pFftWindow = (FFTWINDOW *)m_oFftWindow.GetNext(pos);
 
@@ -585,6 +582,7 @@ void CFftWnd::GetWaveData(double *pData)
 		}
 	}
 
+	BOOL bLeft = FALSE, bRight = FALSE, bMono = FALSE;
 	if (g_oSetData.Fft.nChannel == CH_STEREO || bStereo) {
 		for (i = 0, pData2 = pData; i < m_nFftSize; i++) {
 			m_pFftBufL[i] = (*pData2++ - nLeftOffset) * m_pWindowFunc[i];
@@ -610,6 +608,7 @@ void CFftWnd::GetWaveData(double *pData)
 		bRight = TRUE;
 	}
 
+	double fLeftData, fRightData;
 	if (g_oSetData.Fft.nChannel == CH_MONO) {
 		for (i = 0, pData2 = pData; i < m_nFftSize; i++) {
 			fLeftData = *pData2++ - nLeftOffset;
@@ -628,6 +627,7 @@ void CFftWnd::GetWaveData(double *pData)
 		bMono = TRUE;
 	}
 
+	double *pFftBufL = NULL, *pFftBufR = NULL;
 	if (bMono) {
 		m_oFFT.fft(m_nFftSize, m_pFftBufM);
 		pFftBufL = m_pFftBufM;
@@ -732,13 +732,12 @@ void CFftWnd::CalcSpectrum(const double *pFftBufL, const double *pFftBufR)
 void CFftWnd::CalcPowerSpectrum(FFTDATA *pFftData, const double *pBuf, const double *pFilterTbl) const
 {
 	int i, j;
-	double xt, yt;
+
 	double *pPowerSpecBuf1 = pFftData->m_pPowerSpecBuf;
 	const int nFftSize2 = m_nFftSize / 2;
-
 	for (i = 1, j = 2; i < nFftSize2; i++) {
-		xt = pBuf[j++] * pFilterTbl[i];
-		yt = pBuf[j++] * pFilterTbl[i];
+		double xt = pBuf[j++] * pFilterTbl[i];
+		double yt = pBuf[j++] * pFilterTbl[i];
 
 		pPowerSpecBuf1[i] = xt * xt + yt * yt;
 	}
@@ -758,7 +757,6 @@ void CFftWnd::CalcCrossSpectrum(const double *pBufL, const double *pBufR)
 {
 	double xt1, yt1, xt2, yt2;
 	const int nFftSize2 = m_nFftSize / 2;
-
 	for (int i = 1, j = 2; i < nFftSize2; i++) {
 		xt1 = pBufL[j] * m_pFilterTblL[i];
 		xt2 = pBufR[j++] * m_pFilterTblR[i];
@@ -779,67 +777,67 @@ void CFftWnd::CalcCrossSpectrum(const double *pBufL, const double *pBufR)
 void CFftWnd::FreeBuffer()
 {
 	if (m_pLogFreqTbl != NULL) {
-		delete [] m_pLogFreqTbl;
+		delete[] m_pLogFreqTbl;
 		m_pLogFreqTbl = NULL;
 	}
 
 	if (m_pWindowFunc != NULL) {
-		delete [] m_pWindowFunc;
+		delete[] m_pWindowFunc;
 		m_pWindowFunc = NULL;
 	}
 
 	if (m_pFftBufL != NULL) {
-		delete [] m_pFftBufL;
+		delete[] m_pFftBufL;
 		m_pFftBufL = NULL;
 	}
 
 	if (m_pFftBufR != NULL) {
-		delete [] m_pFftBufR;
+		delete[] m_pFftBufR;
 		m_pFftBufR = NULL;
 	}
 
 	if (m_pFftBufM != NULL) {
-		delete [] m_pFftBufM;
+		delete[] m_pFftBufM;
 		m_pFftBufM = NULL;
 	}
 
 	if (m_pFilterTblL != NULL) {
-		delete [] m_pFilterTblL;
+		delete[] m_pFilterTblL;
 		m_pFilterTblL = NULL;
 	}
 
 	if (m_pFilterTblR != NULL) {
-		delete [] m_pFilterTblR;
+		delete[] m_pFilterTblR;
 		m_pFilterTblR = NULL;
 	}
 
 	if (m_pPhaseBuf != NULL) {
-		delete [] m_pPhaseBuf;
+		delete[] m_pPhaseBuf;
 		m_pPhaseBuf = NULL;
 	}
 
 	if (m_pCrossBufRe != NULL) {
-		delete [] m_pCrossBufRe;
+		delete[] m_pCrossBufRe;
 		m_pCrossBufRe = NULL;
 	}
 
 	if (m_pCrossBufIm != NULL) {
-		delete [] m_pCrossBufIm;
+		delete[] m_pCrossBufIm;
 		m_pCrossBufIm = NULL;
 	}
 
 	if (m_pCrsBuf != NULL) {
-		delete [] m_pCrsBuf;
+		delete[] m_pCrsBuf;
 		m_pCrsBuf = NULL;
 	}
 
 	if (m_pCrsPeakLevel != NULL) {
-		delete [] m_pCrsPeakLevel;
+		delete[] m_pCrsPeakLevel;
 		m_pCrsPeakLevel = NULL;
 	}
 
 	if (m_pCoherenceBuf != NULL) {
-		delete [] m_pCoherenceBuf;
+		delete[] m_pCoherenceBuf;
 		m_pCoherenceBuf = NULL;
 	}
 
@@ -847,32 +845,32 @@ void CFftWnd::FreeBuffer()
 		FFTDATA *pFftData = &m_aFftData[i];
 
 		if (pFftData->m_pPowerSpecBuf != NULL) {
-			delete [] pFftData->m_pPowerSpecBuf;
+			delete[] pFftData->m_pPowerSpecBuf;
 			pFftData->m_pPowerSpecBuf = NULL;
 		}
 
 		if (pFftData->m_pPwsPeakLevel != NULL) {
-			delete [] pFftData->m_pPwsPeakLevel;
+			delete[] pFftData->m_pPwsPeakLevel;
 			pFftData->m_pPwsPeakLevel = NULL;
 		}
 
 		if (pFftData->m_pCrfBuf != NULL) {
-			delete [] pFftData->m_pCrfBuf;
+			delete[] pFftData->m_pCrfBuf;
 			pFftData->m_pCrfBuf = NULL;
 		}
 
 		if (pFftData->m_pCepBuf != NULL) {
-			delete [] pFftData->m_pCepBuf;
+			delete[] pFftData->m_pCepBuf;
 			pFftData->m_pCepBuf = NULL;
 		}
 
 		if (pFftData->m_pCepPeakLevel != NULL) {
-			delete [] pFftData->m_pCepPeakLevel;
+			delete[] pFftData->m_pCepPeakLevel;
 			pFftData->m_pCepPeakLevel = NULL;
 		}
 
 		if (pFftData->m_pSpectrogramRingBuf != NULL) {
-			delete [] pFftData->m_pSpectrogramRingBuf;
+			delete[] pFftData->m_pSpectrogramRingBuf;
 			pFftData->m_pSpectrogramRingBuf = NULL;
 		}
 	}
@@ -885,19 +883,19 @@ void CFftWnd::FreeBuffer2(const FFTWINDOW *pFftWindow)
 
 		if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_PWS) {
 			if (pFftData->m_pPwsPoint != NULL) {
-				delete [] pFftData->m_pPwsPoint;
+				delete[] pFftData->m_pPwsPoint;
 				pFftData->m_pPwsPoint = NULL;
 			}
 
 			if (pFftData->m_pPwsPeakPoint != NULL) {
-				delete [] pFftData->m_pPwsPeakPoint;
+				delete[] pFftData->m_pPwsPeakPoint;
 				pFftData->m_pPwsPeakPoint = NULL;
 			}
 		}
 
 		if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_CRF) {
 			if (pFftData->m_pCrfPoint != NULL) {
-				delete [] pFftData->m_pCrfPoint;
+				delete[] pFftData->m_pCrfPoint;
 				pFftData->m_pCrfPoint = NULL;
 			}
 		}
@@ -905,7 +903,7 @@ void CFftWnd::FreeBuffer2(const FFTWINDOW *pFftWindow)
 		if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_3DD) {
 			for (int j = 0; j < MAX_3DD; j++) {
 				if (pFftData->m_p3ddPoint[j] != NULL)
-					delete [] pFftData->m_p3ddPoint[j];
+					delete[] pFftData->m_p3ddPoint[j];
 				pFftData->m_p3ddPoint[j] = NULL;
 			}
 		}
@@ -919,12 +917,12 @@ void CFftWnd::FreeBuffer2(const FFTWINDOW *pFftWindow)
 
 		if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_CEP) {
 			if (pFftData->m_pCepPoint != NULL) {
-				delete [] pFftData->m_pCepPoint;
+				delete[] pFftData->m_pCepPoint;
 				pFftData->m_pCepPoint = NULL;
 			}
 
 			if (pFftData->m_pCepPeakPoint != NULL) {
-				delete [] pFftData->m_pCepPeakPoint;
+				delete[] pFftData->m_pCepPeakPoint;
 				pFftData->m_pCepPeakPoint = NULL;
 			}
 		}
@@ -932,45 +930,45 @@ void CFftWnd::FreeBuffer2(const FFTWINDOW *pFftWindow)
 
 	if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_3DD) {
 		if (m_p3ddCheckTbl != NULL) {
-			delete [] m_p3ddCheckTbl;
+			delete[] m_p3ddCheckTbl;
 			m_p3ddCheckTbl = NULL;
 		}
 
 		if (m_p3ddWork != NULL) {
-			delete [] m_p3ddWork;
+			delete[] m_p3ddWork;
 			m_p3ddWork = NULL;
 		}
 	}
 
 	if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_PHS) {
 		if (m_pPhsPoint != NULL) {
-			delete [] m_pPhsPoint;
+			delete[] m_pPhsPoint;
 			m_pPhsPoint = NULL;
 		}
 	}
 
 	if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_SPG) {
 		if (m_pSpgLevel != NULL) {
-			delete [] m_pSpgLevel;
+			delete[] m_pSpgLevel;
 			m_pSpgLevel = NULL;
 		}
 	}
 
 	if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_CRS) {
 		if (m_pCrsPoint != NULL) {
-			delete [] m_pCrsPoint;
+			delete[] m_pCrsPoint;
 			m_pCrsPoint = NULL;
 		}
 
 		if (m_pCrsPeakPoint != NULL) {
-			delete [] m_pCrsPeakPoint;
+			delete[] m_pCrsPeakPoint;
 			m_pCrsPeakPoint = NULL;
 		}
 	}
 
 	if (pFftWindow == NULL || pFftWindow->m_nMode == FFT_MODE_COH) {
 		if (m_pCohPoint != NULL) {
-			delete [] m_pCohPoint;
+			delete[] m_pCohPoint;
 			m_pCohPoint = NULL;
 		}
 	}
@@ -1066,7 +1064,6 @@ void CFftWnd::ResetDispFreqAll()
 void CFftWnd::SetDispFreq(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	point -= pFftWindow->m_sizeMargin;
-
 	if (point.x < 0 || point.x >= pFftWindow->m_nFrameRight || point.y < 0 || point.y >= pFftWindow->m_nFrameBottom) {
 		ResetDispFreq(pFftWindow);
 		return;
@@ -1121,7 +1118,6 @@ void CFftWnd::SetViewMode(const FFTWINDOW *pFftWindow)
 
 void CFftWnd::DrawNote(LPCSTR pText, int nTop, int nRight)
 {
-	CSize size;
 	int x, y;
 	LPCSTR pDrawText;
 
@@ -1146,7 +1142,7 @@ void CFftWnd::DrawNote(LPCSTR pText, int nTop, int nRight)
 	}
 
 	m_dcMem.SelectObject(&m_Font);
-	size = m_dcMem.GetOutputTextExtent(pText);
+	SIZE size = m_dcMem.GetOutputTextExtent(pText);
 	x = nRight - size.cx - 10;
 	y = nTop + 5;
 
@@ -1173,11 +1169,11 @@ void CFftWnd::DrawNote(LPCSTR pText, int nTop, int nRight)
 
 int CFftWnd::DrawNoteSub(LPCSTR pText, int x, int y, int nColor)
 {
-	CSize size;
 
 	m_dcMem.SetTextColor(nColor);
 	m_dcMem.TextOut(x, y, pText);
-	size = m_dcMem.GetOutputTextExtent(pText);
+
+	SIZE size = m_dcMem.GetOutputTextExtent(pText);
 
 	return x + size.cx;
 }
@@ -1187,22 +1183,22 @@ HBITMAP CFftWnd::GetBitmap()
 	CDC *pDC = GetDC();
 	CDC dc;
 	CBitmap bmp;
-	CSize sizeMargin(5, 5);
 
 	FFTWINDOW *pFftWindow = GetFftWindow(this);
 
 	dc.CreateCompatibleDC(pDC);
-	CSize sizeBmp(pFftWindow->m_nWidth + sizeMargin.cx * 2, pFftWindow->m_nHeight + sizeMargin.cy * 2);
+	const SIZE sizeMargin(5, 5);
+	SIZE sizeBmp(pFftWindow->m_nWidth + sizeMargin.cx * 2, pFftWindow->m_nHeight + sizeMargin.cy * 2);
 	bmp.CreateCompatibleBitmap(pDC, sizeBmp.cx, sizeBmp.cy);
 
 	CBitmap *pBitmapOrg1 = m_dcMem.SelectObject(pFftWindow->m_pBitmap);
 	CBitmap *pBitmapOrg2 = dc.SelectObject(&bmp);
 
-	CRect rectBmp(0, 0, sizeBmp.cx, sizeBmp.cy);
+	RECT rectBmp(0, 0, sizeBmp.cx, sizeBmp.cy);
 	if (m_hTheme != NULL)
 		g_dllUxTheme.DrawThemeBackground(m_hTheme, dc.m_hDC, 10, 0, &rectBmp, NULL);
 	else
-		dc.FillSolidRect(rectBmp, COLOR_BKGRND);
+		dc.FillSolidRect(&rectBmp, COLOR_BKGRND);
 
 	dc.SetViewportOrg(sizeMargin.cx, sizeMargin.cy);
 	dc.BitBlt(0, 0, pFftWindow->m_nWidth, pFftWindow->m_nHeight, &m_dcMem, 0, 0, SRCCOPY);
@@ -1290,8 +1286,6 @@ void CFftWnd::DeleteFftWindow(FFTWINDOW *pFftWindow)
 
 void CFftWnd::CreateFftWindow(int nMode, RECT rectWindow)
 {
-	CRect rect;
-
 	CString sTitle;
 	sTitle.LoadString(g_tFftModeId[nMode]);
 #ifdef _LANG_JPN
@@ -1306,6 +1300,7 @@ void CFftWnd::CreateFftWindow(int nMode, RECT rectWindow)
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 				::AfxGetMainWnd()->m_hWnd, 0);
 
+	CRect rect;
 	if (rectWindow.left == 0 && rectWindow.top == 0) {
 		pWnd->GetWindowRect(rect);
 		rectWindow.left = rect.left;
@@ -1373,7 +1368,6 @@ void CFftWnd::CsvOutput(LPCSTR pFileName)
 void CFftWnd::CsvInput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
-
 	if (oCsvFile.Open(pFileName, CFile::modeRead | CFile::shareDenyNone)) {
 		oCsvFile.Input();
 

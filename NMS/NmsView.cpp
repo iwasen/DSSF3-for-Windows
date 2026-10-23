@@ -101,12 +101,11 @@ void CNmsView::SetListHeader()
 		int fmt;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumnHeader[] = {
+	static constexpr LISTCOLUMN tColumnHeader[]{
 		{0, "No.", LVCFMT_LEFT, 50},
 		{IDS_MEASUREMENT_TIME, NULL, LVCFMT_LEFT, 128},
 		{IDS_STATUS, NULL, LVCFMT_LEFT, 70},
 		{IDS_DECISION, NULL, LVCFMT_LEFT, 90},
-//		{IDS_NOISE_VALUE, NULL, LVCFMT_RIGHT, 65},
 		{IDS_MAX_SPL, NULL, LVCFMT_RIGHT, 65},
 		{IDS_TAUE, NULL, LVCFMT_RIGHT, 53},
 		{IDS_TAU1, NULL, LVCFMT_RIGHT, 53},
@@ -173,7 +172,7 @@ void CNmsView::UpdateItem(const CNmsItem *pNmsItem)
 void CNmsView::SetNmsItem(const CNmsItem *pNmsItem)
 {
 	CListCtrl &lc = GetListCtrl();
-	static constexpr UINT status[] = {NULL, IDS_NOT_CALC, IDS_IN_CALC, IDS_FINISHED};
+	static constexpr UINT status[]{ NULL, IDS_NOT_CALC, IDS_IN_CALC, IDS_FINISHED };
 	const int nItem = pNmsItem->m_nIndex;
 	CString str;
 	int nItemColor;
@@ -247,13 +246,11 @@ void CNmsView::SetNmsItem(const CNmsItem *pNmsItem)
 void CNmsView::OnViewFactor()
 {
 	const CListCtrl &lc = GetListCtrl();
-	POSITION pos;
-	int nIndex;
-	CNmsItem *pNmsItem;
 
+	POSITION pos;
 	if ((pos = lc.GetFirstSelectedItemPosition()) != NULL) {
-		nIndex = lc.GetNextSelectedItem(pos);
-		pNmsItem = (CNmsItem *)lc.GetItemData(nIndex);
+		int nIndex = lc.GetNextSelectedItem(pos);
+		CNmsItem *pNmsItem = (CNmsItem *)lc.GetItemData(nIndex);
 		if (pNmsItem->m_nStatus == STATUS_FINISH_CALC)
 			CNmsFactor::OpenFactorWnd(pNmsItem);
 	}
@@ -262,14 +259,12 @@ void CNmsView::OnViewFactor()
 void CNmsView::OnUpdateViewFactor(CCmdUI* pCmdUI)
 {
 	const CListCtrl &lc = GetListCtrl();
-	POSITION pos;
-	int nIndex;
-	CNmsItem *pNmsItem;
 	BOOL bEnable = FALSE;
 
+	POSITION pos;
 	if ((pos = lc.GetFirstSelectedItemPosition()) != NULL) {
-		nIndex = lc.GetNextSelectedItem(pos);
-		pNmsItem = (CNmsItem *)lc.GetItemData(nIndex);
+		int nIndex = lc.GetNextSelectedItem(pos);
+		CNmsItem *pNmsItem = (CNmsItem *)lc.GetItemData(nIndex);
 		if (pNmsItem->m_nStatus == STATUS_FINISH_CALC)
 			bEnable = TRUE;
 	}
@@ -285,7 +280,6 @@ void CNmsView::OnLButtonDblClk(UINT /*nFlags*/, CPoint /*point*/)
 void CNmsView::OnChangeNoiseSrc()
 {
 	CNmsItem *pNmsItem;
-
 	if ((pNmsItem = GetSelectedItem()) != NULL) {
 		if (pNmsItem->m_nStatus == STATUS_FINISH_CALC) {
 			CChangeNoiseSrcDlg dlg;
@@ -298,9 +292,9 @@ void CNmsView::OnChangeNoiseSrc()
 
 void CNmsView::OnUpdateChangeNoiseSrc(CCmdUI* pCmdUI)
 {
-	CNmsItem *pNmsItem;
 	BOOL bEnable = FALSE;
 
+	CNmsItem *pNmsItem;
 	if ((pNmsItem = GetSelectedItem()) != NULL) {
 		if (pNmsItem->m_nStatus == STATUS_FINISH_CALC)
 			bEnable = TRUE;
@@ -319,12 +313,11 @@ void CNmsView::OnRclick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 CNmsItem *CNmsView::GetSelectedItem() const
 {
 	const CListCtrl &lc = GetListCtrl();
-	POSITION pos;
-	int nIndex;
 
+	POSITION pos;
 	if ((pos = lc.GetFirstSelectedItemPosition()) == NULL)
 		return NULL;
 
-	nIndex = lc.GetNextSelectedItem(pos);
+	int nIndex = lc.GetNextSelectedItem(pos);
 	return (CNmsItem *)lc.GetItemData(nIndex);
 }

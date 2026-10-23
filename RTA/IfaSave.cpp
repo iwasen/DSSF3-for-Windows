@@ -66,8 +66,7 @@ BOOL CIfaSave::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(wp.rcNormalPosition.left - sizeToolBar.cx - 4, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -82,13 +81,10 @@ BOOL CIfaSave::OnInitDialog()
 	m_nData = 1 << m_nStage;
 
 	int i;
-	double data;
-	double max, min;
-	double start, end;
 
-	max = 0;
+	double max = 0;
 	for (i = 0; i < m_nData; i++) {
-		data = fabs(m_pIRData[i]);
+		double data = fabs(m_pIRData[i]);
 		if (data > max)
 			max = data;
 	}
@@ -97,17 +93,17 @@ BOOL CIfaSave::OnInitDialog()
 		if (fabs(m_pIRData[i]) > max / 5)
 			break;
 	}
-	start = (i - 0.5) / m_iSampling;
+	double start = (i - 0.5) / m_iSampling;
 
 	i += (int)(m_iSampling * 0.001);
-	min = fabs(m_pIRData[i]);
+	double min = fabs(m_pIRData[i]);
 	for ( ; i < m_nData; i++) {
 		if (fabs(m_pIRData[i]) < min)
 			min = fabs(m_pIRData[i]);
 		else
 			break;
 	}
-	end = (i + 0.5) / m_iSampling;
+	double end = (i + 0.5) / m_iSampling;
 	m_cImpulse.SetSelectArea(start, end);
 
 	m_fTotalTime = (double)m_nData / m_iSampling;
@@ -130,12 +126,12 @@ void CIfaSave::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pFreqData != NULL) {
-		delete [] m_pFreqData;
+		delete[] m_pFreqData;
 		m_pFreqData = NULL;
 	}
 
 	if (m_pPhaseData != NULL) {
-		delete [] m_pPhaseData;
+		delete[] m_pPhaseData;
 		m_pPhaseData = NULL;
 	}
 }
@@ -299,8 +295,6 @@ void CIfaSave::CalcPowerSpectrum(double start, double end)
 {
 	int i, j;
 	const int nLoop = m_nData / 2;
-	double max;
-	double min;
 
 	const int nStartPos = (int)(start / m_fTotalTime * m_nData);
 	const int nEndPos = (int)(end / m_fTotalTime * m_nData);
@@ -322,7 +316,7 @@ void CIfaSave::CalcPowerSpectrum(double start, double end)
 //#			m_pPhaseData[i] = 0;
 	}
 
-	max = 0;
+	double max = 0;
 	m_pFreqData[0] = 0;
 	for (i = 1; i < nLoop; i++) {
 		j = i * 2;
@@ -342,7 +336,7 @@ void CIfaSave::CalcPowerSpectrum(double start, double end)
 			max = m_pFreqData[i];
 	}
 
-	min = 1.0;
+	double min = 1.0;
 	for (i = 1; i < nLoop; i++) {
 		m_pFreqData[i] /= max;
 
@@ -355,24 +349,26 @@ void CIfaSave::CalcPowerSpectrum(double start, double end)
 void CALLBACK CIfaSave::GraphCallBack(WPARAM code, LPARAM data, double param1, double param2)
 {
 	CIfaSave *pWnd = (CIfaSave *)data;
-	CString str;
 
 	switch (code) {
 	case CC_SELECT_SET:
 	case CC_SELECT_START:
 	case CC_SELECT_END:
 	case CC_SELECT_MOVE:
-		str.Format("%.2f", param1 * 1000);
-		pWnd->m_cStartPos = str;
-		pWnd->m_cStartPos.UpdateWindow();
+		{
+			CString str;
+			str.Format("%.2f", param1 * 1000);
+			pWnd->m_cStartPos = str;
+			pWnd->m_cStartPos.UpdateWindow();
 
-		str.Format("%.2f", param2 * 1000);
-		pWnd->m_cEndPos = str;
-		pWnd->m_cEndPos.UpdateWindow();
+			str.Format("%.2f", param2 * 1000);
+			pWnd->m_cEndPos = str;
+			pWnd->m_cEndPos.UpdateWindow();
 
-		if (code == CC_SELECT_END) {
-			pWnd->CalcPowerSpectrum(param1, param2);
-			pWnd->DispFreqWindow();
+			if (code == CC_SELECT_END) {
+				pWnd->CalcPowerSpectrum(param1, param2);
+				pWnd->DispFreqWindow();
+			}
 		}
 		break;
 	case CC_SCROLL:
@@ -404,7 +400,7 @@ void CIfaSave::OnPhaseAdj()
 
 BOOL CIfaSave::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_IMPALSE, IDH_IMP_IFSAVE_IMPALSE,
 		IDC_FREQ, IDH_IMP_IFSAVE_FREQ,
 		IDC_TITLE, IDH_IMP_IFSAVE_TITLE,

@@ -7,8 +7,8 @@
 #include "Calc.h"
 #include "Help\ContextHelp.h"
 
-#define COLOR_LEFT			RGB(0, 128, 255)
-#define COLOR_RIGHT			RGB(255, 64, 192)
+#define COLOR_LEFT		RGB(0, 128, 255)
+#define COLOR_RIGHT		RGB(255, 64, 192)
 
 /////////////////////////////////////////////////////////////////////////////
 // CGraphSpec ダイアログ
@@ -94,13 +94,6 @@ void CGraphSpec::DispGraphWindow(BOOL bCalc)
 		}
 
 		CalcPowerSpectrum(m_pWaveLeft, m_pWaveRight, m_pSpecLeft, m_pSpecRight, m_nFftSize, FALSE);
-/*
-		for (int i = 0; i < m_nFftSize; i++) {
-			m_pSpecLeft[i] /= m_nData;
-			if (m_nChannels == 2)
-				m_pSpecRight[i] /= m_nData;
-		}
-*/
 	}
 
 	m_cGraphLeft.DispGraph(m_pSpecLeft, m_nFftSize, m_fRate, 10, (int)(m_fRate / 2), -160, 0, NULL, TRUE);
@@ -113,19 +106,19 @@ void CGraphSpec::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pWaveLeft != NULL)
-		delete [] m_pWaveLeft;
+		delete[] m_pWaveLeft;
 
 	if (m_pWaveRight != NULL)
-		delete [] m_pWaveRight;
+		delete[] m_pWaveRight;
 
 	if (m_pSpecLeft != NULL)
-		delete [] m_pSpecLeft;
+		delete[] m_pSpecLeft;
 
 	if (m_pSpecRight != NULL)
-		delete [] m_pSpecRight;
+		delete[] m_pSpecRight;
 
 	if (m_pWindowFunc != NULL)
-		delete [] m_pWindowFunc;
+		delete[] m_pWindowFunc;
 }
 
 void CGraphSpec::OnShowWindow(BOOL bShow, UINT nStatus)
@@ -153,7 +146,7 @@ void CGraphSpec::ReDraw(int nSel)
 
 BOOL CGraphSpec::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_LEFT, IDH_GRAPH_SPEC_LEFT,
 		IDC_GRAPH_RIGHT, IDH_GRAPH_SPEC_RIGHT,
 		0

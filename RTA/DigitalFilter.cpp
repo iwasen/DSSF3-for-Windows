@@ -15,7 +15,7 @@
 #include "DigitalFilter.h"
 
 // ベッセルフィルタ用定数
-constexpr complex<double> CDigitalFilter::m_aBesselTable[] = {
+constexpr complex<double> CDigitalFilter::m_aBesselTable[]{
 	complex<double>(-1.00000000000e+00, 0.00000000000e+00), complex<double>(-1.10160133059e+00, 6.36009824757e-01),
 	complex<double>(-1.32267579991e+00, 0.00000000000e+00), complex<double>(-1.04740916101e+00, 9.99264436281e-01),
 	complex<double>(-1.37006783055e+00, 4.10249717494e-01), complex<double>(-9.95208764350e-01, 1.25710573945e+00),
@@ -234,15 +234,13 @@ void CDigitalFilter::Plane(int order, double delta, int &np, int &nz)
 int CDigitalFilter::Bilinear(int np, int nz, double cgam, double c, double cbp, double wc)
 {
 	complex<double> r, root, cx, ca, cb, b4ac;
-	double xc;
-	int nc, j, jt;
 
-	xc = wc;
+	double xc = wc;
 	for (int i = 0; i < A_SIZE; i++)
 		z_pz[i] = 0.0;
-	nc = np;
-	jt = -1;
-	j = 0;
+	int nc = np;
+	int jt = -1;
+	int j = 0;
 
 	for (int i_pz = 0; i_pz < 2; i_pz++) {
 		do {
@@ -298,12 +296,11 @@ void CDigitalFilter::AddZero(int jt)
 // 縦続形の係数に変換
 void CDigitalFilter::ToCascade(double cgam, double fScale)
 {
-	int m, jz, pos;
-	double min, tmp_a0 = 0, tmp_a1 = 0, tmp_b0 = 0, tmp_b1 = 0, tmp_b2 = 0;
+	double tmp_a0 = 0, tmp_a1 = 0, tmp_b0 = 0, tmp_b1 = 0, tmp_b2 = 0;
 
-	m = 0;
+	int m = 0;
 	for (int j = 0; j < m_nZOrder; j++) {
-		jz = j + m_nZOrder;
+		int jz = j + m_nZOrder;
 		if (fabs(imag(z_pz[j])) > 1.0E-16) {
 			akm[0][m] = real(2.0 * z_pz[j]);
 			akm[1][m] = -norm(z_pz[j]);
@@ -332,8 +329,8 @@ void CDigitalFilter::ToCascade(double cgam, double fScale)
 	}
 
 	for (int i = 0; i < (m_nZOrder + 1) / 2 - 1; i++) {
-		pos = i;
-		min = fabs(akm[1][i]);
+		int pos = i;
+		double min = fabs(akm[1][i]);
 		for (int j = i; j < (m_nZOrder + 1) / 2; j++) {
 			if (fabs(akm[1][j]) <= min) {
 				pos = j;

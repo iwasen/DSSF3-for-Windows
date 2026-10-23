@@ -277,7 +277,7 @@ void CSgScale::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 BOOL CSgScale::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_KEYBOARD, IDH_SG_SCALE_KEYBOARD,
 		IDC_REFERENCE_PITCH, IDH_SG_SCALE_REFERENCE_PITCH,
 		IDC_WAVE_FORM, IDH_SG_SCALE_WAVE_FORM,

@@ -30,13 +30,13 @@ CIfaSet::CIfaSet(CWnd* pParent /*=NULL*/)
 CIfaSet::~CIfaSet()
 {
 	if (m_pIRData != NULL)
-		delete [] m_pIRData;
+		delete[] m_pIRData;
 
 	if (m_pFreqData != NULL)
-		delete [] m_pFreqData;
+		delete[] m_pFreqData;
 
 	if (m_pPhaseData != NULL)
-		delete [] m_pPhaseData;
+		delete[] m_pPhaseData;
 }
 
 void CIfaSet::DoDataExchange(CDataExchange* pDX)
@@ -87,8 +87,7 @@ BOOL CIfaSet::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(wp.rcNormalPosition.left - sizeToolBar.cx - 4, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 
 		CToolBarCtrl &tc = m_tbZoomH.GetToolBarCtrl();
@@ -101,15 +100,15 @@ BOOL CIfaSet::OnInitDialog()
 		int textID;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[]{
 		{IDS_TITLE, 200},
 		{IDS_COMMENT, 200},
 		{IDS_SAMPLING, 65}
 	};
-	CString str;
 
 	m_cIRList.SetExtendedStyle(LVS_EX_FULLROWSELECT);
 
+	CString str;
 	for (int i = 0; i < ARRAY_SIZE(tColumn); i++) {
 		str.LoadString(tColumn[i].textID);
 		LV_COLUMN lvc{
@@ -318,14 +317,13 @@ void CIfaSet::ReadIRData()
 		return;
 
 	HWAVEDATA hWaveData;
-
 	if (MMWaveReadDB(&hWaveData, dbIFilter.GetFCB(), "IRDATA") != 0) {
 		::AfxMessageBox(IDS_ERR_READIRDATA);
 		return;
 	}
 
 	if (m_pIRData != NULL) {
-		delete [] m_pIRData;
+		delete[] m_pIRData;
 		m_pIRData = NULL;
 	}
 
@@ -357,11 +355,11 @@ void CIfaSet::ReadIRData()
 	m_cImpulse.SetSelectArea(start, end);
 
 	if (m_pFreqData != NULL)
-		delete [] m_pFreqData;
+		delete[] m_pFreqData;
 	m_pFreqData = new double[m_nData];
 
 	if (m_pPhaseData != NULL)
-		delete [] m_pPhaseData;
+		delete[] m_pPhaseData;
 	m_pPhaseData = new double[m_nData];
 
 	CalcPowerSpectrum(start, end);
@@ -400,8 +398,6 @@ void CIfaSet::CalcPowerSpectrum(double start, double end)
 {
 	int i, j;
 	const int nLoop = m_nData / 2;
-	double max;
-	double min;
 
 	const int nStartPos = (int)(start / m_fTotalTime * m_nData);
 	const int nEndPos = (int)(end / m_fTotalTime * m_nData);
@@ -423,7 +419,7 @@ void CIfaSet::CalcPowerSpectrum(double start, double end)
 //#			m_pPhaseData[i] = 0;
 	}
 
-	max = 0;
+	double max = 0;
 	m_pFreqData[0] = 0;
 	for (i = 1; i < nLoop; i++) {
 		j = i * 2;
@@ -443,7 +439,7 @@ void CIfaSet::CalcPowerSpectrum(double start, double end)
 			max = m_pFreqData[i];
 	}
 
-	min = 1.0;
+	double min = 1.0;
 	for (i = 1; i < nLoop; i++) {
 		m_pFreqData[i] /= max;
 
@@ -456,24 +452,26 @@ void CIfaSet::CalcPowerSpectrum(double start, double end)
 void CALLBACK CIfaSet::GraphCallBack(WPARAM code, LPARAM data, double param1, double param2)
 {
 	CIfaSet *pWnd = (CIfaSet *)data;
-	CString str;
 
 	switch (code) {
 	case CC_SELECT_SET:
 	case CC_SELECT_START:
 	case CC_SELECT_END:
 	case CC_SELECT_MOVE:
-		str.Format("%.2f", param1 * 1000);
-		pWnd->m_cStartPos = str;
-		pWnd->m_cStartPos.UpdateWindow();
+		{
+			CString str;
+			str.Format("%.2f", param1 * 1000);
+			pWnd->m_cStartPos = str;
+			pWnd->m_cStartPos.UpdateWindow();
 
-		str.Format("%.2f", param2 * 1000);
-		pWnd->m_cEndPos = str;
-		pWnd->m_cEndPos.UpdateWindow();
+			str.Format("%.2f", param2 * 1000);
+			pWnd->m_cEndPos = str;
+			pWnd->m_cEndPos.UpdateWindow();
 
-		if (code == CC_SELECT_END) {
-			pWnd->CalcPowerSpectrum(param1, param2);
-			pWnd->DispFreqWindow();
+			if (code == CC_SELECT_END) {
+				pWnd->CalcPowerSpectrum(param1, param2);
+				pWnd->DispFreqWindow();
+			}
 		}
 		break;
 	case CC_SCROLL:
@@ -561,7 +559,7 @@ void CIfaSet::OnDblclkIrList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 BOOL CIfaSet::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_IR_LIST, IDH_IMP_IFSET_LIST,
 		IDC_IMPALSE, IDH_IMP_IFSET_IMPALSE,
 		IDC_FREQ, IDH_IMP_IFSET_FREQ,

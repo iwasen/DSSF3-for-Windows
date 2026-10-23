@@ -37,7 +37,7 @@ BOOL CSetting::OnInitDialog()
 
 BOOL CSetting::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_SETTING_OK,
 		IDCANCEL, IDH_SETTING_CANCEL,
 		0

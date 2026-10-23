@@ -107,7 +107,6 @@ void CCalcAcfDlg::OnOK()
 void CCalcAcfDlg::SetPhi0RefData()
 {
 	CString str;
-	LONG nRec;
 	int index = 0;
 
 	str.LoadString(IDS_ABSVALUE);
@@ -130,6 +129,7 @@ void CCalcAcfDlg::SetPhi0RefData()
 
 	dbAcf.DBChgIdx(dbAcf.m_nIdxAcfID);
 	str.Format("#%d=%ld", dbAcf.m_nIdxFolderID, m_nFolderID);
+	LONG nRec;
 	dbAcf.DBSelect(str, &nRec);
 
 	DbAcfRec dbAcfRec;
@@ -160,7 +160,7 @@ void CCalcAcfDlg::OnSelchangePhi0Refdata()
 
 BOOL CCalcAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_CALC_ACF_IDOK,
 		IDCANCEL, IDH_CALC_ACF_IDCANCEL,
 		IDC_CALC_NO, IDH_CALC_ACF_CALC_NO,

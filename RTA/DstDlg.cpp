@@ -134,13 +134,12 @@ BOOL CDstDlg::OnInitDialog()
 
 void CDstDlg::RestoreHoldData()
 {
-	CFile oFile;
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME_HOLDDATA);
 
+	CFile oFile;
 	if (oFile.Open(sPathName, CFile::modeRead | CFile::shareDenyNone)) {
 		m_cDstFreq.LoadHoldData(oFile);
 		m_cDstLevel.LoadHoldData(oFile);
@@ -151,12 +150,10 @@ void CDstDlg::RestoreHoldData()
 
 void CDstDlg::SetMaxHarmonics()
 {
-	int i, nIndex;
 	CString str;
-
-	for (i = 2; i <= MAX_HARMONICS; i++) {
+	for (int i = 2; i <= MAX_HARMONICS; i++) {
 		str.Format("%d", i);
-		nIndex = m_cMaxHarmonics.AddString(str);
+		int nIndex = m_cMaxHarmonics.AddString(str);
 		m_cMaxHarmonics.SetItemData(nIndex, i);
 	}
 	SelectListBox(m_cMaxHarmonics, g_oSetData.Dst.nMaxHarmonics);
@@ -164,12 +161,10 @@ void CDstDlg::SetMaxHarmonics()
 
 void CDstDlg::SetGuardTime()
 {
-	int i, nIndex;
 	CString str;
-
-	for (i = 2; i <= MAX_GUARD_CNT; i += 2) {
+	for (int i = 2; i <= MAX_GUARD_CNT; i += 2) {
 		str.Format("%.1f sec", (double)i / 4);
-		nIndex = m_cGuardTime.AddString(str);
+		int nIndex = m_cGuardTime.AddString(str);
 		m_cGuardTime.SetItemData(nIndex, i);
 	}
 	SelectListBox(m_cGuardTime, g_oSetData.Dst.nGuardCnt);
@@ -183,17 +178,15 @@ void CDstDlg::SetScaleSelectAll()
 
 void CDstDlg::SetScaleSelect(CComboBox &cCombo, int nMax, int nMin, int nDef)
 {
-	int i, nIndex;
-	CString str;
-
 	cCombo.ResetContent();
 
-	for (i = nMax; i >= nMin; i -= 20) {
+	CString str;
+	for (int i = nMax; i >= nMin; i -= 20) {
 		if (g_oSetData.Dst.nScaleMode == 0)
 			str.Format("%1g%%", pow(10.0, i / 20) * 100);
 		else
 			str.Format("%ddB", i);
-		nIndex = cCombo.AddString(str);
+		int nIndex = cCombo.AddString(str);
 		cCombo.SetItemData(nIndex, i);
 	}
 	SelectListBox(cCombo, nDef);
@@ -204,8 +197,8 @@ void CDstDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized && !IsIconic()) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Dst.nPosLeft = rect.left;
 		g_oSetData.Dst.nPosTop = rect.top;
 	}
@@ -289,28 +282,26 @@ BOOL CDstDlg::Start()
 void CDstDlg::FreeBuffers()
 {
 	if (m_pLeftData != NULL) {
-		delete [] m_pLeftData;
+		delete[] m_pLeftData;
 		m_pLeftData = NULL;
 	}
 
 	if (m_pRightData != NULL) {
-		delete [] m_pRightData;
+		delete[] m_pRightData;
 		m_pRightData = NULL;
 	}
 
 	if (m_pSinTable != NULL) {
-		delete [] m_pSinTable;
+		delete[] m_pSinTable;
 		m_pSinTable = NULL;
 	}
 }
 
 void CDstDlg::MakeSinTable()
 {
-	int i;
-
 	m_pSinTable = new double[m_nSample];
 
-	for (i = 0; i < m_nSample; i++)
+	for (int i = 0; i < m_nSample; i++)
 		m_pSinTable[i] = sin(2 * M_PI * i / m_nSample);
 }
 
@@ -409,15 +400,12 @@ int CDstDlg::WaveOutData(double *pData)
 
 BOOL CDstDlg::WaveInData(const double *pData)
 {
-	BOOL bContinue = TRUE;
-	int i;
-
 	if (m_nGuardCnt > 0) {
 		m_nGuardCnt--;
 		return TRUE;
 	}
 
-	for (i = 0; i < m_nBufSize; i++) {
+	for (int i = 0; i < m_nBufSize; i++) {
 		m_pLeftData[m_nWaveInOffset] = *pData++;
 		if (m_nChannel == 2)
 			m_pRightData[m_nWaveInOffset] = *pData++;
@@ -425,6 +413,7 @@ BOOL CDstDlg::WaveInData(const double *pData)
 		m_nWaveInOffset++;
 	}
 
+	BOOL bContinue = TRUE;
 	if (m_nWaveInOffset == m_nSample) {
 		CalcTHD();
 		m_nWaveInOffset = 0;
@@ -447,12 +436,10 @@ BOOL CDstDlg::WaveInData(const double *pData)
 
 void CDstDlg::CalcTHD()
 {
-	double fLeftHarmonic = 0;
-	double fRightHarmonic = 0;
-	double fLeftTotal;
-	double fRightTotal = 0;
 	int i;
 
+	double fLeftHarmonic = 0;
+	double fRightHarmonic = 0;
 	for (i = 0; i < g_oSetData.Dst.nMaxHarmonics; i++) {
 		m_pLeftDst[i] = GetHarmonic(m_pLeftData, i + 1);
 		if (m_nChannel == 2)
@@ -465,7 +452,8 @@ void CDstDlg::CalcTHD()
 		}
 	}
 
-	fLeftTotal = m_pLeftDst[0] + fLeftHarmonic;
+	double fRightTotal = 0;
+	double fLeftTotal = m_pLeftDst[0] + fLeftHarmonic;
 	m_pLeftDst[0] = fLeftHarmonic;
 	if (m_nChannel == 2) {
 		fRightTotal = m_pRightDst[0] + fRightHarmonic;
@@ -481,17 +469,15 @@ void CDstDlg::CalcTHD()
 
 double CDstDlg::GetHarmonic(const double *pData, int nHarmonic)
 {
-	int i;
 	const int nStep = m_nFreq * nHarmonic;
-	int nSinOffset = 0;
-	int nCosOffset = m_nSample / 4;
-	double fSinSum = 0;
-	double fCosSum = 0;
-
 	if (nStep >= m_nSample / 2)
 		return 0;
 
-	for (i = 0; i < m_nSample; i++) {
+	int nCosOffset = m_nSample / 4;
+	int nSinOffset = 0;
+	double fSinSum = 0;
+	double fCosSum = 0;
+	for (int i = 0; i < m_nSample; i++) {
 		fSinSum += pData[i] * m_pSinTable[nSinOffset];
 		fCosSum += pData[i] * m_pSinTable[nCosOffset];
 
@@ -513,7 +499,6 @@ void CDstDlg::OnDestroy()
 void CDstDlg::OnCbnSelchangeSamplingRate()
 {
 	int nIndex;
-
 	if ((nIndex = m_cSamplingRate.GetCurSel()) != CB_ERR) {
 		BOOL bStart = m_bStart;
 
@@ -560,7 +545,6 @@ void CDstDlg::OnBnClickedChannelStereo()
 void CDstDlg::OnCbnSelchangeMaxHarmonics()
 {
 	int nIndex;
-
 	if ((nIndex = m_cMaxHarmonics.GetCurSel()) != CB_ERR) {
 		g_oSetData.Dst.nMaxHarmonics = (int)m_cMaxHarmonics.GetItemData(nIndex);
 		RedrawGraph();
@@ -621,7 +605,6 @@ void CDstDlg::RedrawGraph()
 void CDstDlg::OnTcnSelchangeDstTab(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 {
 	int	n;
-
 	if ((n = m_cDstTab.GetCurSel()) != -1) {
 		g_oSetData.Dst.nMode = n;
 		Stop();
@@ -707,11 +690,11 @@ void CDstDlg::OnBnClickedScreenShot()
 {
 	CString sTitle;
 	CString sTab;
-	HBITMAP hBmp = NULL;
 	m_cDstTab.GetCurrentTitle(sTab);
 	const int nTimeCount = m_nTimeCount / 5;
 	sTitle.Format("%s - %d:%02d:%02d", (LPCSTR)sTab, nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 
+	HBITMAP hBmp = NULL;
 	switch (g_oSetData.Dst.nMode) {
 	case MODE_MANUAL:
 		hBmp = m_cDstManual.GetBitmap();
@@ -729,7 +712,7 @@ void CDstDlg::OnBnClickedScreenShot()
 
 BOOL CDstDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_BTN_START, IDH_DST_START,
 		IDC_ELP_TIME, IDH_DST_ELP_TIME,
 		IDC_SAMPLING_RATE, IDH_DST_SAMPLING_RATE,
@@ -756,9 +739,8 @@ BOOL CDstDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 
 void CDstDlg::OnBnClickedAddDataHold()
 {
-	CColorDialog oColorDlg;
-
 	COLORREF cr = RGB(0, 0, 255);
+	CColorDialog oColorDlg;
 	oColorDlg.m_cc.rgbResult = cr;
 	oColorDlg.m_cc.Flags |= CC_RGBINIT;
 	if (oColorDlg.DoModal() == IDOK) {
@@ -805,13 +787,12 @@ void CDstDlg::EnableDataHoldButton()
 
 BOOL CDstDlg::DestroyWindow()
 {
-	CFile oFile;
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME_HOLDDATA);
 
+	CFile oFile;
 	if (oFile.Open(sPathName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone)) {
 		m_cDstFreq.SaveHoldData(oFile);
 		m_cDstLevel.SaveHoldData(oFile);

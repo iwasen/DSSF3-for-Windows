@@ -17,8 +17,6 @@ END_MESSAGE_MAP()
 
 void CDstLevelWnd::Initialize()
 {
-	CString str;
-
 	CDC *pDC = GetDC();
 	m_dcMem.CreateCompatibleDC(pDC);
 	ReleaseDC(pDC);
@@ -32,6 +30,7 @@ void CDstLevelWnd::Initialize()
 		.lfHeight = CDpi::OriginalDpi(90, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -97,18 +96,14 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 	int i;
 	const int nWidth = nRight - nLeft;
 	const int nHeight = nBottom - nTop;
-	CPen *pPenOrg;
-	CSize size;
+	SIZE size;
 	CString sText;
-	double fTHD;
-	int nTHD;
-	CString sUnit;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
-	pPenOrg = m_dcMem.SelectObject(&m_penBlack);
+	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
-	CRect rect(0, 0, m_nWidth, m_nHeight);
-	m_dcMem.FillRect(rect, &m_brushWhite);
+	RECT rect(0, 0, m_nWidth, m_nHeight);
+	m_dcMem.FillRect(&rect, &m_brushWhite);
 
 	m_dcMem.SetTextColor(COLOR_TEXT);
 	m_dcMem.SetBkMode(TRANSPARENT);
@@ -140,12 +135,14 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 	size = m_dcMem.GetOutputTextExtent(sText);
 	m_dcMem.TextOut(nLeft + (nWidth - size.cx) / 2, m_nHeight - size.cy - 2, sText);
 
+	CString sUnit;
 	if (g_oSetData.Dst.nScaleMode == 0) {
 		const double fMinTHD = pow(10.0, g_oSetData.Dst.nScaleMin / 20);
 		const double fMaxTHD = pow(10.0, g_oSetData.Dst.nScaleMax / 20);
 		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
 			double fStep;
+			double fTHD;
 			for (fTHD = fMinTHD, i = 0; fTHD <= fMaxTHD * 1.0001; fTHD += fStep, i++) {
 				y = m_nScaleBottom - (int)((dB20((double)fTHD) - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
 
@@ -170,6 +167,7 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 		const int nDist = g_oSetData.Dst.nScaleMax - g_oSetData.Dst.nScaleMin;
 		if (nDist != 0) {
 			const int nStep = GetLinearScaleStep(g_oSetData.Dst.nScaleMax, g_oSetData.Dst.nScaleMin, m_nScaleHeight);
+			int nTHD;
 			for (nTHD = g_oSetData.Dst.nScaleMin, i = 0; nTHD <= g_oSetData.Dst.nScaleMax; nTHD += nStep, i++) {
 				y = m_nScaleBottom - (int)((nTHD - g_oSetData.Dst.nScaleMin) * m_nScaleHeight / nDist);
 
@@ -258,13 +256,11 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 {
 	int i;
 	int x, y;
-	int nDotSize;
 	const int nLevelMin = min(nLevelStart, nLevelEnd);
 	const int nLevelMax = max(nLevelStart, nLevelEnd);
 	const double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
+	const int nDotSize = (m_nScaleWidth / nLevelPoint < 10) ? 2 : 3;
 	POINT *pPoint = new POINT[nLevelCount];
-
-	nDotSize = (m_nScaleWidth / nLevelPoint < 10) ? 2 : 3;
 
 	int nPointCnt = 0;
 	for (i = 0; i < nLevelCount; i++) {
@@ -300,8 +296,8 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 
 		spl.MakeTable(xp, yp, nPointCnt);
 
-		delete [] yp;
-		delete [] xp;
+		delete[] yp;
+		delete[] xp;
 
 		const int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
 		const int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
@@ -315,11 +311,11 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 
 		m_dcMem.Polyline(pSpline, nSpline);
 
-		delete [] pSpline;
+		delete[] pSpline;
 	} else
 		m_dcMem.Polyline(pPoint, nPointCnt);
 
-	delete [] pPoint;
+	delete[] pPoint;
 }
 
 void CDstLevelWnd::OnPaint()

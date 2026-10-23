@@ -198,24 +198,32 @@ BOOL CWasapiManager::CanSamplingRate(INT_PTR nWaveDevice, int nSamplesPerSec, PI
 	HRESULT ret;
 	PIMMDevice pDevice = NULL;
 	PIAudioClient pAudioClient = NULL;
-	WAVEFORMATEXTENSIBLE oWaveFormat;
 
 	ret = pDeviceCollection->Item((UINT)nWaveDevice, &pDevice);
 	if (FAILED(ret))
 		return FALSE;
 
 	// フォーマットの構築
-	ZeroMemory(&oWaveFormat, sizeof(oWaveFormat));
-	oWaveFormat.Format.cbSize = sizeof(WAVEFORMATEXTENSIBLE);
-	oWaveFormat.Format.wFormatTag			= WAVE_FORMAT_EXTENSIBLE;
-	oWaveFormat.Format.nChannels			= 2;
-	oWaveFormat.Format.nSamplesPerSec		= nSamplesPerSec;
-	oWaveFormat.Format.wBitsPerSample		= 16;
-	oWaveFormat.Format.nBlockAlign		= oWaveFormat.Format.nChannels * oWaveFormat.Format.wBitsPerSample / 8;
-	oWaveFormat.Format.nAvgBytesPerSec	= oWaveFormat.Format.nSamplesPerSec * oWaveFormat.Format.nBlockAlign;
-	oWaveFormat.Samples.wValidBitsPerSample	= oWaveFormat.Format.wBitsPerSample;
-	oWaveFormat.dwChannelMask				= SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT;
-	oWaveFormat.SubFormat					= KSDATAFORMAT_SUBTYPE_PCM;
+	constexpr WORD nChannels = 2;
+	constexpr WORD nBitsPerSample = 16;
+	constexpr WORD nBlockAlign = nChannels * nBitsPerSample / 8;
+	const DWORD nAvgBytesPerSec = (DWORD)nSamplesPerSec * nBlockAlign;
+	WAVEFORMATEXTENSIBLE oWaveFormat{
+		.Format{
+			.wFormatTag = WAVE_FORMAT_EXTENSIBLE,
+			.nChannels = nChannels,
+			.nSamplesPerSec = (DWORD)nSamplesPerSec,
+			.nAvgBytesPerSec = (DWORD)nSamplesPerSec * nBlockAlign,
+			.nBlockAlign = nBlockAlign,
+			.wBitsPerSample = nBitsPerSample,
+			.cbSize = sizeof(WAVEFORMATEXTENSIBLE),
+		},
+		.Samples{
+			.wValidBitsPerSample = nBitsPerSample
+		},
+		.dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT,
+		.SubFormat = KSDATAFORMAT_SUBTYPE_PCM,
+	};
 
 	// オーディオクライアント
 	ret = pDevice->Activate(IID_IAudioClient, CLSCTX_ALL, NULL, (void **)&pAudioClient);
@@ -539,7 +547,7 @@ DWORD CALLBACK CWasapiManager::AudioThreadEntry(LPVOID param)
 
 void CWasapiManager::AudioThread()
 {
-	HANDLE aWaitEvents[3] = {m_hEventIn, m_hEventOut, m_hEventExit};
+	HANDLE aWaitEvents[3]{ m_hEventIn, m_hEventOut, m_hEventExit };
 
 	BOOL bLoop = TRUE;
 	while (bLoop) {

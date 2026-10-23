@@ -18,9 +18,8 @@ static void rnd521()
 void init_rnd(unsigned long seed)
 {
 	int i, j;
-	unsigned long u;
 
-	u = 0;
+	unsigned long u = 0;
 	for (i = 0; i <= 16; i++) {
 		for (j = 0; j < 32; j++) {
 			seed = seed * 1566083941UL + 1;

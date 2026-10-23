@@ -494,7 +494,7 @@ void CWaveInEx::WriteWasapiSaveFile(LPWAVENOTIFY pWaveNotify)
 					if (m_pWaveFile24 != NULL) {
 						m_pWaveFile24->Write(pBlankBuf, nBlankSize);
 					}
-					delete [] pBlankBuf;
+					delete[] pBlankBuf;
 				}
 				m_nWaveFileCounter = 5;
 				break;
@@ -519,7 +519,7 @@ void CWaveInEx::WriteWasapiSaveFile(LPWAVENOTIFY pWaveNotify)
 				if (m_pWaveFile24 != NULL) {
 					m_pWaveFile24->Write(pBlankBuf, nBlankSize);
 				}
-				delete [] pBlankBuf;
+				delete[] pBlankBuf;
 
 				m_bWaveRecordEnd = TRUE;
 			}

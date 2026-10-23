@@ -11,10 +11,10 @@
 #define MIN_LEVEL_VAL	-60
 #define MAX_LEVEL_VAL	0
 
-#define MIN_FREQ_POS 0
-#define MAX_FREQ_POS 100
-#define MIN_LEVEL_POS 0
-#define MAX_LEVEL_POS (-(MIN_LEVEL_VAL))
+#define MIN_FREQ_POS	0
+#define MAX_FREQ_POS	100
+#define MIN_LEVEL_POS	0
+#define MAX_LEVEL_POS	(-(MIN_LEVEL_VAL))
 
 #define MAX_HARMONICS	30
 
@@ -106,13 +106,10 @@ LRESULT CDstManual::OnTabInitDialog(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 void CDstManual::InitFreqSlider()
 {
-	int nFreq;
-	int nPos;
-
 	m_cFreqSlider.SetRange(MIN_FREQ_POS, MAX_FREQ_POS);
 
-	for (nFreq = MIN_FREQ_VAL; nFreq <= MAX_FREQ_VAL; ) {
-		nPos = GetPosFromFreq(nFreq);
+	for (int nFreq = MIN_FREQ_VAL; nFreq <= MAX_FREQ_VAL; ) {
+		int nPos = GetPosFromFreq(nFreq);
 		m_cFreqSlider.SetTic(nPos);
 		if (nFreq < 100)
 			nFreq += 10;
@@ -283,12 +280,12 @@ void CDstManual::DispTHD()
 void CDstManual::FreeBuffers()
 {
 	if (m_pLeftDst != NULL) {
-		delete [] m_pLeftDst;
+		delete[] m_pLeftDst;
 		m_pLeftDst = NULL;
 	}
 
 	if (m_pRightDst != NULL) {
-		delete [] m_pRightDst;
+		delete[] m_pRightDst;
 		m_pRightDst = NULL;
 	}
 
@@ -328,7 +325,7 @@ HBITMAP CDstManual::GetBitmap()
 
 BOOL CDstManual::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_HARM_GRAPH, IDH_DST_MANUAL_HARM_GRAPH,
 		IDC_FREQ_SLIDER, IDH_DST_MANUAL_FREQ_SLIDER,
 		IDC_FREQ_EDIT, IDH_DST_MANUAL_FREQ_EDIT,

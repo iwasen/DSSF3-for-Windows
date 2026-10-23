@@ -41,7 +41,6 @@ BOOL CWaveIn::Open(INT_PTR nWaveDevice,
 				int nBufferNum,
 				BOOL bErrMsg)
 {
-	LPWAVEHDR pWaveHdr;
 	UINT err;
 	char errMsg[MAXERRORLENGTH];
 	int nBitsPerSample = 24;
@@ -93,7 +92,7 @@ BOOL CWaveIn::Open(INT_PTR nWaveDevice,
 
 	m_pSamplesBuffer = new double[nSamplesPerBuffer * nChannels];
 
-	pWaveHdr = m_pWaveHdr;
+	LPWAVEHDR pWaveHdr = m_pWaveHdr;
 	while (pWaveHdr != NULL) {
 		waveInAddBuffer(m_hWave, pWaveHdr, sizeof(WAVEHDR));
 
@@ -210,7 +209,7 @@ void CWaveIn::Close()
 	}
 
 	if (m_pSamplesBuffer != NULL) {
-		delete [] m_pSamplesBuffer;
+		delete[] m_pSamplesBuffer;
 		m_pSamplesBuffer = NULL;
 	}
 }
@@ -233,8 +232,6 @@ BOOL CWaveIn::AllocWaveBuffer(int nBufferNum, int nBufferSize)
 		return FALSE;
 
 	HGLOBAL hData, hWaveHdr;
-	LPSTR	pData;
-	LPWAVEHDR pWaveHdr;
 	LPWAVEHDR pWaveHdr2 = NULL;
 
 	for (int i = 0; i < nBufferNum; i++) {
@@ -249,8 +246,8 @@ BOOL CWaveIn::AllocWaveBuffer(int nBufferNum, int nBufferSize)
 			return FALSE;
 		}
 
-		pData = (LPSTR)::GlobalLock(hData);
-		pWaveHdr = (LPWAVEHDR)::GlobalLock(hWaveHdr);
+		LPSTR pData = (LPSTR)::GlobalLock(hData);
+		LPWAVEHDR pWaveHdr = (LPWAVEHDR)::GlobalLock(hWaveHdr);
 
 		m_pWaveHdr = pWaveHdr;
 

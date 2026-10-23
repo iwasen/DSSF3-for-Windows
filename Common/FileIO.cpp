@@ -39,7 +39,7 @@ void CMyPcserve::Initialize()
 
 BOOL CDbFolder::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"FOLDERID", 'I', LEN_ID,      0},
 		{"TYPE",     'C', LEN_TYPE,    0},
 		{"NAME",     'C', LEN_NAME,    0},
@@ -51,8 +51,6 @@ BOOL CDbFolder::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
-	int idx;
 	int err;
 
 Reopen:
@@ -70,6 +68,7 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nRecSize - 1 != sizeof(DbFolderBuf)) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTFOLDER, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
@@ -98,6 +97,7 @@ Reopen:
 		goto Reopen;
 	}
 
+	int idx;
 	pathName.Format("%s\\%s", dir, FN_FOLDER1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &idx) != 0) {
 		if ((err = DBIdxCreate(pathName, "FOLDERID", 1, &idx)) != 0) {
@@ -111,12 +111,13 @@ Reopen:
 
 BOOL CDbFolder::GetNewID(long *pID)
 {
-	DbFolderBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBBottom();
+
+	DbFolderBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aFolderID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atol(szID) + 1;
@@ -132,12 +133,13 @@ BOOL CDbFolder::GetNewID(long *pID)
 
 BOOL CDbFolder::ReadRecID(long id, DbFolderRec *pDbRec)
 {
-	DbFolderBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	int find;
+	CString strID;
 	MakeStrID(id, strID);
+
+	DbFolderBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		ErrorMessage(IDS_ERR_READFOLDER, err);
 		return FALSE;
@@ -153,10 +155,10 @@ BOOL CDbFolder::ReadRecID(long id, DbFolderRec *pDbRec)
 
 BOOL CDbFolder::ReadRecNext(DbFolderRec *pDbRec)
 {
-	DbFolderBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbFolderBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READFOLDER, err);
 		return FALSE;
@@ -172,9 +174,9 @@ BOOL CDbFolder::ReadRecNext(DbFolderRec *pDbRec)
 
 BOOL CDbFolder::StoreRec(const DbFolderRec *pDbRec)
 {
-	DbFolderBuf dbBuf;
 	int err;
 
+	DbFolderBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEFOLDER, err);
@@ -186,9 +188,9 @@ BOOL CDbFolder::StoreRec(const DbFolderRec *pDbRec)
 
 BOOL CDbFolder::UpdateRec(const DbFolderRec *pDbRec)
 {
-	DbFolderBuf dbBuf;
 	int err;
 
+	DbFolderBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBUpdateKey(dbBuf.aFolderID, LEN_ID, &dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEFOLDER, err);
@@ -200,7 +202,7 @@ BOOL CDbFolder::UpdateRec(const DbFolderRec *pDbRec)
 
 BOOL CDbImpulse::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"FOLDERID",   'I', LEN_ID,         0},
 		{"IMPULSEID",  'I', LEN_ID,         0},
 		{"SAMPLING",   'I', LEN_SAMPLING,   0},
@@ -220,7 +222,6 @@ BOOL CDbImpulse::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
 	int err;
 
 Reopen:
@@ -238,6 +239,7 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nRecSize - 1 != sizeof(DbImpulseBuf)) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTIRFILE, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
@@ -292,13 +294,14 @@ Reopen:
 
 int CDbImpulse::GetNewID(long *pID)
 {
-	DbImpulseBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBChgIdx(m_nIdxImpulseID);
 	DBBottom();
+
+	DbImpulseBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aImpulseID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atoi(szID) + 1;
@@ -314,12 +317,12 @@ int CDbImpulse::GetNewID(long *pID)
 
 BOOL CDbImpulse::ReadRecID(long id, DbImpulseRec *pDbRec)
 {
-	DbImpulseBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	DbImpulseBuf dbBuf;
 	if (id != -1) {
+		int find;
+		CString strID;
 		MakeStrID(id, strID);
 		DBChgIdx(m_nIdxImpulseID);
 		if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
@@ -349,10 +352,10 @@ BOOL CDbImpulse::ReadRecID(long id, DbImpulseRec *pDbRec)
 
 BOOL CDbImpulse::ReadRecNext(DbImpulseRec *pDbRec)
 {
-	DbImpulseBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbImpulseBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READIRFILE, err);
 		return FALSE;
@@ -374,12 +377,12 @@ BOOL CDbImpulse::ReadRecNext(DbImpulseRec *pDbRec)
 
 BOOL CDbImpulse::StoreRec(DbImpulseRec *pDbRec)
 {
-	DbImpulseBuf dbBuf;
 	int err;
 
 	if (pDbRec->bImpulseData)
 		pDbRec->nMeasTime += OFFSET_MEASTIME;
 
+	DbImpulseBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEIRFILE, err);
@@ -391,9 +394,9 @@ BOOL CDbImpulse::StoreRec(DbImpulseRec *pDbRec)
 
 BOOL CDbImpulse::UpdateRec(const DbImpulseRec *pDbRec)
 {
-	DbImpulseBuf dbBuf;
 	int err;
 
+	DbImpulseBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	DBChgIdx(m_nIdxImpulseID);
 	if ((err = DBUpdateKey(dbBuf.aImpulseID, LEN_ID, &dbBuf)) != 0) {
@@ -406,7 +409,7 @@ BOOL CDbImpulse::UpdateRec(const DbImpulseRec *pDbRec)
 
 BOOL CDbAcf::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"FOLDERID",   'I', LEN_ID,         0},
 		{"ACFID",      'I', LEN_ID,         0},
 		{"SAMPLING",   'I', LEN_SAMPLING,   0},
@@ -420,7 +423,6 @@ BOOL CDbAcf::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
 	int err;
 
 Reopen:
@@ -438,6 +440,7 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nRecSize - 1 != sizeof(DbAcfBuf)) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTACFFILE, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
@@ -492,14 +495,15 @@ Reopen:
 
 int CDbAcf::GetNewID(long *pID)
 {
-	DbAcfBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBChgIdx(m_nIdxAcfID);
 	DBSetFilter("ACFID>=0");
 	DBBottom();
+
+	DbAcfBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aAcfID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atoi(szID) + 1;
@@ -518,13 +522,14 @@ int CDbAcf::GetNewID(long *pID)
 
 BOOL CDbAcf::ReadRecID(long id, DbAcfRec *pDbRec)
 {
-	DbAcfBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	DBChgIdx(m_nIdxAcfID);
+
+	int find;
+	DbAcfBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		ErrorMessage(IDS_ERR_READACFFILE, err);
 		return FALSE;
@@ -540,10 +545,10 @@ BOOL CDbAcf::ReadRecID(long id, DbAcfRec *pDbRec)
 
 BOOL CDbAcf::ReadRecNext(DbAcfRec *pDbRec)
 {
-	DbAcfBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbAcfBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READACFFILE, err);
 		return FALSE;
@@ -559,9 +564,9 @@ BOOL CDbAcf::ReadRecNext(DbAcfRec *pDbRec)
 
 BOOL CDbAcf::StoreRec(const DbAcfRec *pDbRec)
 {
-	DbAcfBuf dbBuf;
 	int err;
 
+	DbAcfBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEACFFILE, err);
@@ -573,9 +578,9 @@ BOOL CDbAcf::StoreRec(const DbAcfRec *pDbRec)
 
 BOOL CDbAcf::UpdateRec(const DbAcfRec *pDbRec)
 {
-	DbAcfBuf dbBuf;
 	int err;
 
+	DbAcfBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	DBChgIdx(m_nIdxAcfID);
 	if ((err = DBUpdateKey(dbBuf.aAcfID, LEN_ID, &dbBuf)) != 0) {
@@ -588,7 +593,7 @@ BOOL CDbAcf::UpdateRec(const DbAcfRec *pDbRec)
 
 BOOL CDbNms::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"FOLDERID",  'I', LEN_ID,        0},
 		{"NMSID",     'I', LEN_ID,        0},
 		{"SAMPLING",  'I', LEN_SAMPLING,  0},
@@ -607,8 +612,6 @@ BOOL CDbNms::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
-	int nField;
 	int err;
 
 Reopen:
@@ -626,6 +629,8 @@ Reopen:
 		}
 	}
 
+	int nField;
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	DBNField(&nField);
 	if (nRecSize - 1 != sizeof(DbNmsBuf) || nField != ARRAY_SIZE(fieldInf)) {
@@ -681,13 +686,14 @@ Reopen:
 
 int CDbNms::GetNewID(long *pID)
 {
-	DbNmsBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBChgIdx(m_nIdxNmsID);
 	DBBottom();
+
+	DbNmsBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aNmsID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atoi(szID) + 1;
@@ -744,14 +750,14 @@ BOOL CDbNms::ReadRecID(long id, DbNmsRec *pDbRec, NmsConditionData *pNmsConditio
 	};
 #pragma pack()
 	DbNmsBuf dbBuf;
-	CString strID;
-	int find;
 	long nRead;
 	int err;
 
 	if (id != -1) {
+		CString strID;
 		MakeStrID(id, strID);
 		DBChgIdx(m_nIdxNmsID);
+		int find;
 		if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 			ErrorMessage(IDS_ERR_READNMSFILE, err);
 			return FALSE;
@@ -820,10 +826,10 @@ BOOL CDbNms::ReadRecID(long id, DbNmsRec *pDbRec, NmsConditionData *pNmsConditio
 
 BOOL CDbNms::ReadRecNext(DbNmsRec *pDbRec)
 {
-	DbNmsBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbNmsBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READNMSFILE, err);
 		return FALSE;
@@ -839,9 +845,9 @@ BOOL CDbNms::ReadRecNext(DbNmsRec *pDbRec)
 
 BOOL CDbNms::StoreRec(const DbNmsRec *pDbRec)
 {
-	DbNmsBuf dbBuf;
 	int err;
 
+	DbNmsBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITENMSFILE, err);
@@ -853,9 +859,9 @@ BOOL CDbNms::StoreRec(const DbNmsRec *pDbRec)
 
 BOOL CDbNms::UpdateRec(const DbNmsRec *pDbRec)
 {
-	DbNmsBuf dbBuf;
 	int err;
 
+	DbNmsBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	DBChgIdx(m_nIdxNmsID);
 	if ((err = DBUpdateKey(dbBuf.aNmsID, LEN_ID, &dbBuf)) != 0) {
@@ -868,14 +874,13 @@ BOOL CDbNms::UpdateRec(const DbNmsRec *pDbRec)
 
 BOOL CDbNsTmp::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"NSTMPID",   'I', LEN_ID,        0},
 		{"NSTMPNAME", 'C', LEN_NSTMPNAME, 0},
 		{"NSTMPDATA", 'B', 0, 0}
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
 	int err;
 
 Reopen:
@@ -893,6 +898,7 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nRecSize - 1 != sizeof(DbNsTmpBuf)) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTNSTMPFILE, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
@@ -947,13 +953,14 @@ Reopen:
 
 int CDbNsTmp::GetNewID(long *pID)
 {
-	DbNsTmpBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBChgIdx(m_nIdxNsTmpID);
 	DBBottom();
+
+	DbNsTmpBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aNsTmpID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atoi(szID) + 1;
@@ -969,15 +976,14 @@ int CDbNsTmp::GetNewID(long *pID)
 
 BOOL CDbNsTmp::ReadRecID(long id, DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 {
-	DbNsTmpBuf dbBuf;
-	CString strID;
-	int find;
-	long nRead;
 	int err;
 
+	DbNsTmpBuf dbBuf;
 	if (id != -1) {
+		CString strID;
 		MakeStrID(id, strID);
 		DBChgIdx(m_nIdxNsTmpID);
+		int find;
 		if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 			ErrorMessage(IDS_ERR_READNSTMPFILE, err);
 			return FALSE;
@@ -996,6 +1002,7 @@ BOOL CDbNsTmp::ReadRecID(long id, DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 
 	if (pNsTmpData != NULL) {
 		memset(pNsTmpData, 0, sizeof(NsTmpData));
+		long nRead;
 		if ((err = DBReadBinary("NSTMPDATA", pNsTmpData, sizeof(NsTmpData), &nRead)) != 0) {
 			ErrorMessage(IDS_ERR_READCALCFILE, err);
 			return FALSE;
@@ -1007,13 +1014,11 @@ BOOL CDbNsTmp::ReadRecID(long id, DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 
 BOOL CDbNsTmp::ReadRecNext(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 {
-	DbNsTmpBuf dbBuf;
-	long nReadBin;
-	int nRead;
 	int err;
 
 	if (pNsTmpData != NULL) {
 		memset(pNsTmpData, 0, sizeof(NsTmpData));
+		long nReadBin;
 		if ((err = DBReadBinary("NSTMPDATA", pNsTmpData, sizeof(NsTmpData), &nReadBin)) != 0) {
 			if (err != ERROR_DB_EOF)
 				ErrorMessage(IDS_ERR_READNSTMPFILE, err);
@@ -1021,6 +1026,8 @@ BOOL CDbNsTmp::ReadRecNext(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 		}
 	}
 
+	int nRead;
+	DbNsTmpBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READNSTMPFILE, err);
 		return FALSE;
@@ -1036,9 +1043,9 @@ BOOL CDbNsTmp::ReadRecNext(DbNsTmpRec *pDbRec, NsTmpData *pNsTmpData)
 
 BOOL CDbNsTmp::StoreRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 {
-	DbNsTmpBuf dbBuf;
 	int err;
 
+	DbNsTmpBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
@@ -1057,9 +1064,9 @@ BOOL CDbNsTmp::StoreRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 
 BOOL CDbNsTmp::UpdateRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 {
-	DbNsTmpBuf dbBuf;
 	int err;
 
+	DbNsTmpBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	DBChgIdx(m_nIdxNsTmpID);
 	if ((err = DBUpdateKey(dbBuf.aNsTmpID, LEN_ID, &dbBuf)) != 0) {
@@ -1079,9 +1086,9 @@ BOOL CDbNsTmp::UpdateRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 
 BOOL CDbNsTmp::DeleteRec(long id)
 {
-	CString strID;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0) {
 		ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
@@ -1093,7 +1100,7 @@ BOOL CDbNsTmp::DeleteRec(long id)
 
 BOOL CDbAcParam::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"IMPULSEID", 'I', LEN_ID,    0},
 		{"CONDSIZE",  'I', LEN_SIZE,  0},
 		{"DATASIZE",  'I', LEN_SIZE,  0},
@@ -1104,7 +1111,6 @@ BOOL CDbAcParam::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
 	int idx;
 	int err;
 
@@ -1123,6 +1129,7 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nRecSize - 1 != sizeof(DbAcParamBuf)) {
 		DBClose();
@@ -1145,12 +1152,11 @@ Reopen:
 
 BOOL CDbAcParam::ReadRecID(long id, DbAcParamRec *pDbRec)
 {
-	DbAcParamBuf dbBuf;
-	CString strID;
-	int find;
-	long nRead;
 	int err;
 
+	int find;
+	DbAcParamBuf dbBuf;
+	CString strID;
 	MakeStrID(id, strID);
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		if (err != ERROR_DB_NOKEY)
@@ -1165,6 +1171,7 @@ BOOL CDbAcParam::ReadRecID(long id, DbAcParamRec *pDbRec)
 
 	DBGetFieldBuf(&dbBuf, pDbRec);
 
+	long nRead;
 	if ((err = DBReadBinary("CONDITION", &pDbRec->dbAcParamCond, sizeof(DbAcParamCond), &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READCALCFILE, err);
 		return FALSE;
@@ -1185,11 +1192,12 @@ BOOL CDbAcParam::ReadRecID(long id, DbAcParamRec *pDbRec)
 
 BOOL CDbAcParam::SearchID(long id, BOOL bDispErr)
 {
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
 	if ((err = DBSearch2(strID, LEN_ID, &find)) != 0) {
 		if (bDispErr)
 			ErrorMessage(IDS_ERR_FINDCALCFILE, err);
@@ -1204,12 +1212,12 @@ BOOL CDbAcParam::SearchID(long id, BOOL bDispErr)
 
 BOOL CDbAcParam::StoreRec(DbAcParamRec *pDbRec)
 {
-	DbAcParamBuf dbBuf;
 	int err;
 
 	pDbRec->nConditionSize = sizeof(DbAcParamCond);
 	pDbRec->nDataSize = sizeof(DbAcParamData);
 
+	DbAcParamBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
@@ -1236,12 +1244,12 @@ BOOL CDbAcParam::StoreRec(DbAcParamRec *pDbRec)
 
 BOOL CDbAcParam::UpdateRec(DbAcParamRec *pDbRec)
 {
-	DbAcParamBuf dbBuf;
 	int err;
 
 	pDbRec->nConditionSize = sizeof(DbAcParamCond);
 	pDbRec->nDataSize = sizeof(DbAcParamData);
 
+	DbAcParamBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBUpdateKey(dbBuf.aImpulseID, LEN_ID, &dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
@@ -1268,7 +1276,7 @@ BOOL CDbAcParam::UpdateRec(DbAcParamRec *pDbRec)
 
 BOOL CDbAcfFactor::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"ACFID",     'I', LEN_ID,       0},
 		{"CONDSIZE",  'I', LEN_SIZE,     0},
 		{"FACTSIZE",  'I', LEN_SIZE,     0},
@@ -1278,9 +1286,6 @@ BOOL CDbAcfFactor::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
-	DBF_I dbfi;
-	int idx;
 	int err;
 
 Reopen:
@@ -1298,7 +1303,10 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
+
+	DBF_I dbfi;
 	DBField(5, &dbfi);
 	if (nRecSize - 1 != sizeof(DbAcfFactorBuf) || strcmp(dbfi.name, "ACFCOND2") != 0) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTCALCFILE, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
@@ -1333,6 +1341,7 @@ Reopen:
 		goto Reopen;
 	}
 
+	int idx;
 	pathName.Format("%s\\%s", dir, FN_ACFFACT1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &idx) != 0) {
 		if ((err = DBIdxCreate(pathName, "ACFID", 1, &idx)) != 0) {
@@ -1346,13 +1355,12 @@ Reopen:
 
 BOOL CDbAcfFactor::ReadRecID(long id, DbAcfFactorRec *pDbRec, AcfConditionData *pAcfConditionData, AcfFactorData **pAcfFactorData, TaunPhinData **pTaunPhinData)
 {
-	DbAcfFactorBuf dbBuf;
-	CString strID;
-	int find;
-	long nRead;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+	DbAcfFactorBuf dbBuf;
+	int find;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		if (err != ERROR_DB_NOKEY)
 			ErrorMessage(IDS_ERR_READCALCFILE, err);
@@ -1364,6 +1372,7 @@ BOOL CDbAcfFactor::ReadRecID(long id, DbAcfFactorRec *pDbRec, AcfConditionData *
 
 	DBGetFieldBuf(&dbBuf, pDbRec);
 
+	long nRead;
 	if (pAcfConditionData != NULL) {
 		memset(pAcfConditionData, 0, sizeof(AcfConditionData));
 		if ((err = DBReadBinary("ACFCOND2", pAcfConditionData, sizeof(AcfConditionData), &nRead)) != 0) {
@@ -1392,11 +1401,12 @@ BOOL CDbAcfFactor::ReadRecID(long id, DbAcfFactorRec *pDbRec, AcfConditionData *
 
 BOOL CDbAcfFactor::SearchID(long id)
 {
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
 	if ((err = DBSearch2(strID, LEN_ID, &find)) != 0) {
 		ErrorMessage(IDS_ERR_FINDCALCFILE, err);
 		return FALSE;
@@ -1410,9 +1420,9 @@ BOOL CDbAcfFactor::SearchID(long id)
 
 BOOL CDbAcfFactor::StoreRec(const DbAcfFactorRec *pDbRec)
 {
-	DbAcfFactorBuf dbBuf;
 	int err;
 
+	DbAcfFactorBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
@@ -1424,9 +1434,9 @@ BOOL CDbAcfFactor::StoreRec(const DbAcfFactorRec *pDbRec)
 
 BOOL CDbAcfFactor::UpdateRec(const DbAcfFactorRec *pDbRec)
 {
-	DbAcfFactorBuf dbBuf;
 	int err;
 
+	DbAcfFactorBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBUpdateKey(dbBuf.aAcfID, LEN_ID, &dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
@@ -1438,7 +1448,7 @@ BOOL CDbAcfFactor::UpdateRec(const DbAcfFactorRec *pDbRec)
 
 BOOL CDbAcfMarker::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"MARKERID",   'I', LEN_ID,         0},
 		{"ACFID",      'I', LEN_ID,         0},
 		{"TIME",	   'N', LEN_FLOAT,      5},
@@ -1478,13 +1488,14 @@ BOOL CDbAcfMarker::Open(LPCSTR dir)
 
 int CDbAcfMarker::GetNewID(long *pID)
 {
-	DbAcfMarkerBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBChgIdx(m_nIdxMarkerID);
 	DBBottom();
+
+	DbAcfMarkerBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aMarkerID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atoi(szID) + 1;
@@ -1502,13 +1513,14 @@ int CDbAcfMarker::GetNewID(long *pID)
 
 BOOL CDbAcfMarker::ReadRecID(long id, DbAcfMarkerRec *pDbRec)
 {
-	DbAcfMarkerBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	DBChgIdx(m_nIdxMarkerID);
+
+	int find;
+	DbAcfMarkerBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0)
 		return FALSE;
 
@@ -1522,10 +1534,10 @@ BOOL CDbAcfMarker::ReadRecID(long id, DbAcfMarkerRec *pDbRec)
 
 BOOL CDbAcfMarker::ReadRecNext(DbAcfMarkerRec *pDbRec)
 {
-	DbAcfMarkerBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbAcfMarkerBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0)
 		return FALSE;
 
@@ -1539,9 +1551,9 @@ BOOL CDbAcfMarker::ReadRecNext(DbAcfMarkerRec *pDbRec)
 
 BOOL CDbAcfMarker::StoreRec(const DbAcfMarkerRec *pDbRec)
 {
-	DbAcfMarkerBuf dbBuf;
 	int err;
 
+	DbAcfMarkerBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0)
 		return FALSE;
@@ -1551,9 +1563,9 @@ BOOL CDbAcfMarker::StoreRec(const DbAcfMarkerRec *pDbRec)
 
 BOOL CDbAcfMarker::UpdateRec(const DbAcfMarkerRec *pDbRec)
 {
-	DbAcfMarkerBuf dbBuf;
 	int err;
 
+	DbAcfMarkerBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	DBChgIdx(m_nIdxMarkerID);
 	if ((err = DBUpdateKey(dbBuf.aMarkerID, LEN_ID, &dbBuf)) != 0)
@@ -1564,9 +1576,9 @@ BOOL CDbAcfMarker::UpdateRec(const DbAcfMarkerRec *pDbRec)
 
 BOOL CDbAcfMarker::DeleteRec(long id)
 {
-	CString strID;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	DBChgIdx(m_nIdxMarkerID);
 	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0)
@@ -1578,7 +1590,6 @@ BOOL CDbAcfMarker::DeleteRec(long id)
 BOOL CDbAcfMarker::ReadRecAcfID(long id, DbAcfMarkerRec **pDbRec, int &nDataNum)
 {
 	CString strID;
-
 	MakeStrID(id, strID);
 	DBChgIdx(m_nIdxMarkerID);
 
@@ -1604,7 +1615,7 @@ BOOL CDbAcfMarker::ReadRecAcfID(long id, DbAcfMarkerRec **pDbRec, int &nDataNum)
 
 BOOL CDbIFilter::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"IFILTERID", 'I', LEN_ID,       0},
 		{"TITLE",     'C', LEN_TITLE,    0},
 		{"COMMENT",   'C', LEN_COMMENT,  0},
@@ -1617,7 +1628,6 @@ BOOL CDbIFilter::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int idx;
 	int err;
 
 	pathName.Format("%s\\%s", dir, FN_IFILTER_DBF);
@@ -1634,6 +1644,7 @@ BOOL CDbIFilter::Open(LPCSTR dir)
 		}
 	}
 
+	int idx;
 	pathName.Format("%s\\%s", dir, FN_IFILTER1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &idx) != 0) {
 		if ((err = DBIdxCreate(pathName, "IFILTERID", 1, &idx)) != 0) {
@@ -1647,12 +1658,13 @@ BOOL CDbIFilter::Open(LPCSTR dir)
 
 BOOL CDbIFilter::GetNewID(long *pID)
 {
-	DbIFilterBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBBottom();
+
+	DbIFilterBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aIFilterID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atol(szID) + 1;
@@ -1668,12 +1680,13 @@ BOOL CDbIFilter::GetNewID(long *pID)
 
 BOOL CDbIFilter::ReadRecID(long id, DbIFilterRec *pDbRec)
 {
-	DbIFilterBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
+	DbIFilterBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		ErrorMessage(IDS_ERR_READIFFILE, err);
 		return FALSE;
@@ -1689,10 +1702,10 @@ BOOL CDbIFilter::ReadRecID(long id, DbIFilterRec *pDbRec)
 
 BOOL CDbIFilter::ReadRecNext(DbIFilterRec *pDbRec)
 {
-	DbIFilterBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbIFilterBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READIFFILE, err);
 		return FALSE;
@@ -1708,9 +1721,9 @@ BOOL CDbIFilter::ReadRecNext(DbIFilterRec *pDbRec)
 
 BOOL CDbIFilter::StoreRec(const DbIFilterRec *pDbRec)
 {
-	DbIFilterBuf dbBuf;
 	int err;
 
+	DbIFilterBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEIFFILE, err);
@@ -1722,9 +1735,9 @@ BOOL CDbIFilter::StoreRec(const DbIFilterRec *pDbRec)
 
 BOOL CDbIFilter::UpdateRec(const DbIFilterRec *pDbRec)
 {
-	DbIFilterBuf dbBuf;
 	int err;
 
+	DbIFilterBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBUpdateKey(dbBuf.aIFilterID, LEN_ID, &dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEIFFILE, err);
@@ -1736,9 +1749,9 @@ BOOL CDbIFilter::UpdateRec(const DbIFilterRec *pDbRec)
 
 BOOL CDbIFilter::DeleteID(long id)
 {
-	CString strID;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0) {
 		ErrorMessage(IDS_ERR_DELETEIFFILE, err);
@@ -1750,7 +1763,7 @@ BOOL CDbIFilter::DeleteID(long id)
 
 BOOL CDbMicCal::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"MICCALID",   'I', LEN_ID,      0},
 		{"MICINFO",    'C', LEN_MICINFO, 0},
 		{"MICAMPINFO", 'C', LEN_MICAMPINFO, 0},
@@ -1802,8 +1815,6 @@ BOOL CDbMicCal::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int nRecSize;
-	int idx;
 	int err;
 
 Reopen:
@@ -1821,6 +1832,7 @@ Reopen:
 		}
 	}
 
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nRecSize - 1 != sizeof(DbMicCalBuf)) {
 		if (::AfxMessageBox(IDS_MSG_CONVERTMICCAL, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL) {
@@ -1849,6 +1861,7 @@ Reopen:
 		goto Reopen;
 	}
 
+	int idx;
 	pathName.Format("%s\\%s", dir, FN_MICCAL1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &idx) != 0) {
 		if ((err = DBIdxCreate(pathName, "MICCALID", 1, &idx)) != 0) {
@@ -1862,12 +1875,13 @@ Reopen:
 
 BOOL CDbMicCal::GetNewID(long *pID)
 {
-	DbMicCalBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBBottom();
+
+	DbMicCalBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aMicCalID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atol(szID) + 1;
@@ -1883,12 +1897,13 @@ BOOL CDbMicCal::GetNewID(long *pID)
 
 BOOL CDbMicCal::ReadRecID(long id, DbMicCalRec *pDbRec)
 {
-	DbMicCalBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
+	DbMicCalBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		ErrorMessage(IDS_ERR_READMICCAL, err);
 		return FALSE;
@@ -1904,10 +1919,10 @@ BOOL CDbMicCal::ReadRecID(long id, DbMicCalRec *pDbRec)
 
 BOOL CDbMicCal::ReadRecNext(DbMicCalRec *pDbRec)
 {
-	DbMicCalBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbMicCalBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READMICCAL, err);
 		return FALSE;
@@ -1923,9 +1938,9 @@ BOOL CDbMicCal::ReadRecNext(DbMicCalRec *pDbRec)
 
 BOOL CDbMicCal::StoreRec(const DbMicCalRec *pDbRec)
 {
-	DbMicCalBuf dbBuf;
 	int err;
 
+	DbMicCalBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEMICCAL, err);
@@ -1937,9 +1952,9 @@ BOOL CDbMicCal::StoreRec(const DbMicCalRec *pDbRec)
 
 BOOL CDbMicCal::UpdateRec(const DbMicCalRec *pDbRec)
 {
-	DbMicCalBuf dbBuf;
 	int err;
 
+	DbMicCalBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBUpdateKey(dbBuf.aMicCalID, LEN_ID, &dbBuf)) != 0) {
 		if (err != 3006 || (err = DBStore(&dbBuf)) != 0) {
@@ -1953,9 +1968,9 @@ BOOL CDbMicCal::UpdateRec(const DbMicCalRec *pDbRec)
 
 BOOL CDbMicCal::DeleteID(long id)
 {
-	CString strID;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0) {
 		ErrorMessage(IDS_ERR_DELETEMICCAL, err);
@@ -1967,11 +1982,12 @@ BOOL CDbMicCal::DeleteID(long id)
 
 BOOL CDbMicCal::SearchRecID(long id)
 {
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
 	if ((err = DBSearch2(strID, LEN_ID, &find)) != 0)
 		return FALSE;
 
@@ -1983,7 +1999,7 @@ BOOL CDbMicCal::SearchRecID(long id)
 
 BOOL CDbPreset::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"PRESETID",   'I', LEN_ID,    0},
 		{"TITLE",      'C', LEN_TITLE, 0},
 		{"OPENWINDOW", 'I', LEN_SHORT, 0},
@@ -1998,9 +2014,6 @@ BOOL CDbPreset::Open(LPCSTR dir)
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
 	BOOL bReopen = FALSE;
-	int nRecSize;
-	int nField;
-	int idx;
 	int err;
 
 Reopen:
@@ -2018,7 +2031,10 @@ Reopen:
 		}
 	}
 
+	int nField;
 	DBNField(&nField);
+
+	int nRecSize;
 	DBRecSize(&nRecSize);
 	if (nField != ARRAY_SIZE(fieldInf) || nRecSize - 1 != sizeof(DbPresetBuf)) {
 		if (bReopen) {
@@ -2054,6 +2070,7 @@ Reopen:
 		goto Reopen;
 	}
 
+	int idx;
 	pathName.Format("%s\\%s", dir, FN_PRESET1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &idx) != 0) {
 		if ((err = DBIdxCreate(pathName, "PRESETID", 1, &idx)) != 0) {
@@ -2067,12 +2084,12 @@ Reopen:
 
 BOOL CDbPreset::GetNewID(long *pID)
 {
-	DbPresetBuf dbBuf;
-	char szID[LEN_ID + 1];
 	int err;
 
 	DBBottom();
+	DbPresetBuf dbBuf;
 	if ((err = DBRead(&dbBuf)) == 0) {
+		char szID[LEN_ID + 1];
 		memcpy(szID, dbBuf.aPresetID, LEN_ID);
 		szID[LEN_ID] = '\0';
 		*pID = atol(szID) + 1;
@@ -2088,12 +2105,13 @@ BOOL CDbPreset::GetNewID(long *pID)
 
 BOOL CDbPreset::ReadRecID(long id, DbPresetRec *pDbRec)
 {
-	DbPresetBuf dbBuf;
-	CString strID;
-	int find;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
+	DbPresetBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		ErrorMessage(IDS_ERR_READPRESET, err);
 		return FALSE;
@@ -2109,10 +2127,10 @@ BOOL CDbPreset::ReadRecID(long id, DbPresetRec *pDbRec)
 
 BOOL CDbPreset::ReadRecNext(DbPresetRec *pDbRec)
 {
-	DbPresetBuf dbBuf;
-	int nRead;
 	int err;
 
+	int nRead;
+	DbPresetBuf dbBuf;
 	if ((err = DBReadNext(1, &dbBuf, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READPRESET, err);
 		return FALSE;
@@ -2128,9 +2146,9 @@ BOOL CDbPreset::ReadRecNext(DbPresetRec *pDbRec)
 
 BOOL CDbPreset::StoreRec(const DbPresetRec *pDbRec)
 {
-	DbPresetBuf dbBuf;
 	int err;
 
+	DbPresetBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBStore(&dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEPRESET, err);
@@ -2142,9 +2160,9 @@ BOOL CDbPreset::StoreRec(const DbPresetRec *pDbRec)
 
 BOOL CDbPreset::UpdateRec(const DbPresetRec *pDbRec)
 {
-	DbPresetBuf dbBuf;
 	int err;
 
+	DbPresetBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 	if ((err = DBUpdateKey(dbBuf.aPresetID, LEN_ID, &dbBuf)) != 0) {
 		ErrorMessage(IDS_ERR_WRITEPRESET, err);
@@ -2156,9 +2174,9 @@ BOOL CDbPreset::UpdateRec(const DbPresetRec *pDbRec)
 
 BOOL CDbPreset::DeleteID(long id)
 {
-	CString strID;
 	int err;
 
+	CString strID;
 	MakeStrID(id, strID);
 	if ((err = DBDeleteKey(strID, LEN_ID, 1)) != 0) {
 		ErrorMessage(IDS_ERR_DELETEPRESET, err);
@@ -2170,7 +2188,7 @@ BOOL CDbPreset::DeleteID(long id)
 
 BOOL CDbWaveForm::Open(LPCSTR dir)
 {
-	static constexpr DBF_I fieldInf[] = {
+	static constexpr DBF_I fieldInf[]{
 		{"WAVEFORMID", 'I', LEN_ID,    0},
 		{"SMOOTHFLAG", 'I', LEN_BOOL,  0},
 		{"DATANUM",    'I', LEN_WAVEFORMNUM, 0},
@@ -2178,7 +2196,6 @@ BOOL CDbWaveForm::Open(LPCSTR dir)
 	};
 	BOOL bCreateIndex = FALSE;
 	CString pathName;
-	int idx;
 	int err;
 
 	pathName.Format("%s\\%s", dir, FN_WAVEFORM_DBF);
@@ -2195,6 +2212,7 @@ BOOL CDbWaveForm::Open(LPCSTR dir)
 		}
 	}
 
+	int idx;
 	pathName.Format("%s\\%s", dir, FN_WAVEFORM1_EDX);
 	if (bCreateIndex || DBIndex(pathName, &idx) != 0) {
 		if ((err = DBIdxCreate(pathName, "WAVEFORMID", 1, &idx)) != 0) {
@@ -2208,13 +2226,13 @@ BOOL CDbWaveForm::Open(LPCSTR dir)
 
 BOOL CDbWaveForm::ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveFormData)
 {
-	int find;
-	long nRead;
 	int err;
 
-	DbWaveFormBuf dbBuf;
 	CString strID;
 	MakeStrID(id, strID);
+
+	int find;
+	DbWaveFormBuf dbBuf;
 	if ((err = DBReadKey(strID, LEN_ID, &dbBuf, 0, &find)) != 0) {
 		if (err != 3006)
 			ErrorMessage(IDS_ERR_READWAVEFORM, err);
@@ -2236,6 +2254,7 @@ BOOL CDbWaveForm::ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveF
 		break;
 	}
 
+	long nRead;
 	if ((err = DBReadBinary("DATA", pWaveFormData, nDataSize, &nRead)) != 0) {
 		ErrorMessage(IDS_ERR_READWAVEFORM, err);
 		return FALSE;
@@ -2246,12 +2265,12 @@ BOOL CDbWaveForm::ReadRecID(long id, DbWaveFormRec *pDbRec, WaveFormData *pWaveF
 
 BOOL CDbWaveForm::WriteRec(const DbWaveFormRec *pDbRec, const WaveFormData *pWaveFormData)
 {
-	DbWaveFormBuf dbBuf;
-	int find;
 	int err;
 
+	DbWaveFormBuf dbBuf;
 	DBSetFieldBuf(&dbBuf, pDbRec);
 
+	int find;
 	DBSearch2(dbBuf.aWaveFormID, LEN_ID, &find);
 	if (find != 1) {
 		if ((err = DBStore(&dbBuf)) != 0) {
@@ -2289,10 +2308,11 @@ void DeleteFolder(long nFolderID)
 	if (!dbFolder.Open())
 		return;
 
-	int find;
 	CString strFolderID;
-	DbFolderBuf dbFolderBuf;
 	MakeStrID(nFolderID, strFolderID);
+
+	int find;
+	DbFolderBuf dbFolderBuf;
 	if (dbFolder.DBReadKey(strFolderID, LEN_ID, &dbFolderBuf, 0, &find) != 0 || find == 0) {
 		::AfxMessageBox(IDS_ERR_FINDFOLDER);
 		return;
@@ -2514,9 +2534,9 @@ static void MakeStrID(long id, CString &strID)
 void ReadNsWeightData(NsWeightData *pNsWeightData)
 {
 	CString path;
-	CFile file;
-
 	path.Format("%s\\%s", g_szDefaultDir, FN_NSWEIGHT_DAT);
+
+	CFile file;
 	if (file.Open(path, CFile::modeRead | CFile::shareDenyNone)) {
 		memset(pNsWeightData, 0, sizeof(NsWeightData));
 		file.Read(pNsWeightData, sizeof(NsWeightData));
@@ -2534,9 +2554,9 @@ void ReadNsWeightData(NsWeightData *pNsWeightData)
 void WriteNsWeightData(const NsWeightData *pNsWeightData)
 {
 	CString path;
-	CFile file;
-
 	path.Format("%s\\%s", g_szDefaultDir, FN_NSWEIGHT_DAT);
+
+	CFile file;
 	if (file.Open(path, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
 		file.Write(pNsWeightData, sizeof(NsWeightData));
 }
@@ -2564,22 +2584,20 @@ void ImportIR(LPCSTR pDir)
 
 	DbFolderRec dbFolderRec;
 	DbImpulseRec dbImpulseRec;
-	long nFolderID;
 	CString str;
 	long nRec;
-	int i;
 	HANDLE hWaveData;
 
 	dbSrcFolder.DBSetFilter("TYPE=I");
 	while (dbSrcFolder.ReadRecNext(&dbFolderRec)) {
-		nFolderID = dbFolderRec.nFolderID;
+		long nFolderID = dbFolderRec.nFolderID;
 		dbDstFolder.GetNewID(&dbFolderRec.nFolderID);
 		dbDstFolder.StoreRec(&dbFolderRec);
 
 		dbSrcImpulse.DBChgIdx(dbSrcImpulse.m_nIdxImpulseID);
 		str.Format("#%d=%ld", dbSrcImpulse.m_nIdxFolderID, nFolderID);
 		dbSrcImpulse.DBSelect(str, &nRec);
-		for (i = 0; i < nRec; i++) {
+		for (int i = 0; i < nRec; i++) {
 			hWaveData = NULL;
 			MMWaveReadDB(&hWaveData, dbSrcImpulse.GetFCB(), "WAVEDATA");
 
@@ -2621,22 +2639,20 @@ void ImportACF(LPCSTR pDir)
 
 	DbFolderRec dbFolderRec;
 	DbAcfRec dbAcfRec;
-	long nFolderID;
 	CString str;
 	long nRec;
-	int i;
 	HANDLE hWaveData;
 
 	dbSrcFolder.DBSetFilter("TYPE=A");
 	while (dbSrcFolder.ReadRecNext(&dbFolderRec)) {
-		nFolderID = dbFolderRec.nFolderID;
+		long nFolderID = dbFolderRec.nFolderID;
 		dbDstFolder.GetNewID(&dbFolderRec.nFolderID);
 		dbDstFolder.StoreRec(&dbFolderRec);
 
 		dbSrcAcf.DBChgIdx(dbSrcAcf.m_nIdxAcfID);
 		str.Format("#%d=%ld", dbSrcAcf.m_nIdxFolderID, nFolderID);
 		dbSrcAcf.DBSelect(str, &nRec);
-		for (i = 0; i < nRec; i++) {
+		for (int i = 0; i < nRec; i++) {
 			hWaveData = NULL;
 			MMWaveReadDB(&hWaveData, dbSrcAcf.GetFCB(), "WAVEDATA");
 

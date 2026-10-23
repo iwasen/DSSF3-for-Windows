@@ -8,10 +8,10 @@
 #include "Calc.h"
 #include "Help\ContextHelp.h"
 
-#define COLOR_LEFT			RGB(0, 128, 255)
-#define COLOR_RIGHT			RGB(255, 64, 192)
+#define COLOR_LEFT		RGB(0, 128, 255)
+#define COLOR_RIGHT		RGB(255, 64, 192)
 
-#define SCROLL_RANGE 16384
+#define SCROLL_RANGE	16384
 #define MAX_ZOOM_TIME	512
 
 /////////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,6 @@ END_MESSAGE_MAP()
 BOOL CGraphEcho::OnInitDialog()
 {
 	CWaitCursor waitCursor;
-	CString str;
 
 	CDialogExt::OnInitDialog();
 
@@ -83,11 +82,11 @@ BOOL CGraphEcho::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(0, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
+	CString str;
 	str.LoadString(IDS_ECHOTIMEPATTERN);
 	m_cGraphIR.Initialize(80, str, 1, COLOR_LEFT, GraphCallBack, (LPARAM)this);
 	str.LoadString(IDS_DECAYCURVE);
@@ -221,8 +220,8 @@ void CGraphEcho::CalcGraphWindow()
 		m_fTsubNoise = setData.CalcParam.fTsubNoise;
 	}
 
-	double power;
 	for (i = 0; i < m_nData; i++) {
+		double power;
 		if (p2 != NULL)
 			power = p1[i] * p1[i] + p2[i] * p2[i];
 		else
@@ -299,22 +298,22 @@ void CGraphEcho::OnDestroy()
 	CDialogExt::OnDestroy();
 
 	if (m_pEchoTime != NULL) {
-		delete [] m_pEchoTime;
+		delete[] m_pEchoTime;
 		m_pEchoTime = NULL;
 	}
 
 	if (m_pEchoEnergy != NULL) {
-		delete [] m_pEchoEnergy;
+		delete[] m_pEchoEnergy;
 		m_pEchoEnergy = NULL;
 	}
 
 	if (m_pEchoData != NULL) {
-		delete [] m_pEchoData;
+		delete[] m_pEchoData;
 		m_pEchoData = NULL;
 	}
 
 	if (m_pEchoData2 != NULL) {
-		delete [] m_pEchoData2;
+		delete[] m_pEchoData2;
 		m_pEchoData2 = NULL;
 	}
 }
@@ -392,7 +391,7 @@ void CALLBACK CGraphEcho::GraphCallBack(WPARAM code, LPARAM data, double param1,
 
 BOOL CGraphEcho::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_IR, IDH_GRAPH_ECHO_GRAPH_IR,
 		IDC_GRAPH_EE, IDH_GRAPH_ECHO_GRAPH_EE,
 		IDC_ZOOM_H, IDH_GRAPH_ECHO_ZOOM_H,
@@ -463,7 +462,7 @@ void CChangeTsubDlg::EnableControls()
 
 BOOL CChangeTsubDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_CHANGE_TSUB_OK,
 		IDCANCEL, IDH_CHANGE_TSUB_CANCEL,
 		IDC_TSUB_END, IDH_CHANGE_TSUB_END,

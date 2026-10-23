@@ -8,10 +8,10 @@
 #include "Calc.h"
 #include "Help\ContextHelp.h"
 
-#define COLOR_LEFT			RGB(0, 128, 255)
-#define COLOR_RIGHT			RGB(255, 64, 192)
+#define COLOR_LEFT		RGB(0, 128, 255)
+#define COLOR_RIGHT		RGB(255, 64, 192)
 
-#define SCROLL_RANGE 16384
+#define SCROLL_RANGE	16384
 #define MAX_ZOOM_TIME	512
 
 /////////////////////////////////////////////////////////////////////////////
@@ -69,8 +69,7 @@ BOOL CGraphIR::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(0, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -327,7 +326,7 @@ void CGraphIR::OnChangeRightT1()
 
 BOOL CGraphIR::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_IR_LEFT, IDH_GRAPH_IR_LEFT,
 		IDC_ZOOM_H, IDH_GRAPH_IR_ZOOM_H,
 		IDC_SCROLL_H, IDH_GRAPH_IR_SCROLL_H,

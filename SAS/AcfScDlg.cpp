@@ -148,7 +148,7 @@ void CAcfScDlg::OnMmlib()
 
 BOOL CAcfScDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_ACF_SC_OK,
 		IDC_MMLIB, IDH_ACF_SC_MMLIB,
 		IDCANCEL, IDH_ACF_SC_CANCEL,

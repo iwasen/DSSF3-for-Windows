@@ -43,7 +43,7 @@ BOOL CSaveDlg::OnInitDialog()
 		UINT textID;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[]{
 		{IDS_TITLE, 150},
 		{IDS_NAME, 100},
 		{IDS_PLACE, 100},
@@ -51,12 +51,10 @@ BOOL CSaveDlg::OnInitDialog()
 		{IDS_COMMENT, 200}
 	};
 	int i;
-	CDbFolder dbFolder;
-	DbFolderRec dbFolderRec;
-	CString str;
 
 	m_cFolderList.SetExtendedStyle(LVS_EX_FULLROWSELECT);
 
+	CString str;
 	for (i = 0; i < ARRAY_SIZE(tColumn); i++) {
 		str.LoadString(tColumn[i].textID);
 		LV_COLUMN lvc{
@@ -68,6 +66,7 @@ BOOL CSaveDlg::OnInitDialog()
 		m_cFolderList.InsertColumn(i, &lvc);
 	}
 
+	CDbFolder dbFolder;
 	if (!dbFolder.Open())
 		return TRUE;
 
@@ -75,6 +74,7 @@ BOOL CSaveDlg::OnInitDialog()
 	strFilter.Format("TYPE=%c", FOLDER_TYPE_NMS);
 	dbFolder.DBSetFilter(strFilter);
 
+	DbFolderRec dbFolderRec;
 	for (i = 0; ; i++) {
 		if (!dbFolder.ReadRecNext(&dbFolderRec))
 			break;
@@ -125,8 +125,6 @@ int CALLBACK CSaveDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM lPara
 
 void CSaveDlg::OnOK()
 {
-	long folderID;
-
 	if (m_cTitle.IsEmpty()) {
 		::AfxMessageBox(IDS_ERR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		return;
@@ -135,6 +133,7 @@ void CSaveDlg::OnOK()
 	if (::AfxMessageBox(IDS_MSG_SAVEDATA, MB_OKCANCEL | MB_ICONQUESTION) == IDCANCEL)
 		return;
 
+	long folderID;
 	if (!MakeFolder(folderID))
 		return;
 
@@ -147,7 +146,6 @@ void CSaveDlg::OnOK()
 BOOL CSaveDlg::MakeFolder(long &nFolderID)
 {
 	CDbFolder dbFolder;
-
 	if (!dbFolder.Open())
 		return FALSE;
 
@@ -180,7 +178,6 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 	DbNmsRec dbNmsRec;
 	CString tempFileName;
 	HWAVEDATA hWaveData;
-	PWAVEDATA pWaveData;
 
 	POSITION pos = m_pItemList->GetHeadPosition();
 
@@ -197,7 +194,7 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 		if (MMWaveReadFile(&hWaveData, (LPSTR)(LPCSTR)tempFileName) != 0)
 			return FALSE;
 
-		pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
+		PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
 
 		dbNmsRec.nFolderID = nFolderID;
 		dbNmsRec.nSampling = pWaveData->nSamplesPerSec;
@@ -236,7 +233,7 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 
 BOOL CSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_SAVE_OK,
 		IDCANCEL, IDH_SAVE_CANCEL,
 		IDC_FOLDER_LIST, IDH_SAVE_FOLDER_LIST,

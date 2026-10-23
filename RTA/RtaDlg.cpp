@@ -27,7 +27,6 @@
 #include "AsioManager.h"
 #include "WasapiManager.h"
 #include "Help\ContextHelp.h"
-#include <dwmapi.h>
 
 /////////////////////////////////////////////////////////////////////////////
 // アプリケーションのバージョン情報で使われている CAboutDlg ダイアログ
@@ -134,7 +133,6 @@ void CRtaDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RA_IMP, m_cRaImp);
 	DDX_Control(pDX, IDC_RA_ACF, m_cRaAcf);
 	DDX_Control(pDX, IDC_RA_REC, m_cRaRec);
-//	DDX_Control(pDX, IDC_RA_FILTER, m_cRaFilter);
 }
 
 BEGIN_MESSAGE_MAP(CRtaDlg, CDialogAF)
@@ -215,16 +213,14 @@ BOOL CRtaDlg::OnInitDialog()
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
 	CString strAboutMenu;
 	strAboutMenu.LoadString(IDS_ABOUTBOX);
-	if (!strAboutMenu.IsEmpty())
-	{
+	if (!strAboutMenu.IsEmpty()) {
 		pSysMenu->AppendMenu(MF_SEPARATOR);
 		pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 	}
 
 	CString strOnlineUpdate;
 	strOnlineUpdate.LoadString(IDS_ONLINE_UPDATE);
-	if (!strOnlineUpdate.IsEmpty())
-	{
+	if (!strOnlineUpdate.IsEmpty()) {
 		pSysMenu->AppendMenu(MF_SEPARATOR);
 		pSysMenu->AppendMenu(MF_STRING, IDM_ONLINE_UPDATE, strOnlineUpdate);
 	}
@@ -298,7 +294,7 @@ void CRtaDlg::OnPaint()
 		const int cxIcon = GetSystemMetrics(SM_CXICON);
 		const int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
-		GetClientRect(&rect);
+		GetClientRect(rect);
 		const int x = (rect.Width() - cxIcon + 1) / 2;
 		const int y = (rect.Height() - cyIcon + 1) / 2;
 
@@ -309,7 +305,7 @@ void CRtaDlg::OnPaint()
 	{
 		CPaintDC dc(this); // 描画用のデバイス コンテキスト
 		CString sText;
-		CSize size;
+		SIZE size;
 		CRect rect;
 		CPen pen1(PS_SOLID, 0, RGB(128, 128, 128));
 
@@ -413,7 +409,6 @@ void CRtaDlg::OnRaFilter()
 void CRtaDlg::OnRaPreset()
 {
 	CPresetDlg dlg(this);
-
 	if (dlg.DoModal() == IDOK) {
 		if (dlg.m_nPresetID == 0)
 			InitialPreset();
@@ -470,7 +465,6 @@ void CRtaDlg::OpenPreset(int nPresetID)
 void CRtaDlg::OnSelchangeRaInputSelect()
 {
 	int i;
-	MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 
 	m_nSelectInput = m_cInputSelect.GetCurSel();
 
@@ -480,6 +474,7 @@ void CRtaDlg::OnSelchangeRaInputSelect()
 	}
 
 	if (m_dwMultipleItems != 0) {
+		MIXERCONTROLDETAILS_BOOLEAN mxcdb[MAX_CONTROL_ID];
 		for (i = 0; i < (int)m_dwMultipleItems; i++)
 			mxcdb[i].fValue = (i == m_nSelectInput) ? 1 : 0;
 
@@ -493,11 +488,10 @@ void CRtaDlg::OnSelchangeRaInputSelect()
 void CRtaDlg::SetSoundDevice()
 {
 	int i, n;
-	WAVEINCAPS wic;
-	WAVEOUTCAPS woc;
 	int nDevice;
 
 	// Wave入力デバイス
+	WAVEINCAPS wic;
 	nDevice = waveInGetNumDevs();
 	for (i = 0; i < nDevice; i++) {
 		waveInGetDevCaps(i, &wic, sizeof(wic));
@@ -506,6 +500,7 @@ void CRtaDlg::SetSoundDevice()
 	}
 
 	// Wave出力デバイス
+	WAVEOUTCAPS woc;
 	nDevice = waveOutGetNumDevs();
 	for (i = 0; i < nDevice; i++) {
 		waveOutGetDevCaps(i, &woc, sizeof(woc));
@@ -1098,7 +1093,6 @@ void CRtaDlg::OnOnlineUpdate()
 void CRtaDlg::OnReadme()
 {
 	CString sReadmeFile;
-
 	sReadmeFile.Format("%s\\ReadMe.txt", (LPCSTR)GetExeDir());
 	OpenURL(sReadmeFile);
 }
@@ -1140,7 +1134,6 @@ void CRtaDlg::OnRaTime()
 void CRtaDlg::OnSetting()
 {
 	CSetting dlg;
-
 	if (dlg.DoModal() == IDOK) {
 		CWaveIn::m_b16BitOnly = g_oSetData2.bInput16BitOnly;
 		CWaveOut::m_b16BitOnly = g_oSetData2.bOutput16BitOnly;
@@ -1188,7 +1181,7 @@ BOOL CRtaDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 BOOL CRtaDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_RA_SG, IDH_RTA_SG,
 		IDC_RA_FFT, IDH_RTA_FFT,
 		IDC_RA_OS, IDH_RTA_OS,
@@ -1217,7 +1210,6 @@ BOOL CRtaDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 void CRtaDlg::OnHelpFile()
 {
 	CString sHelpFile;
-
 	sHelpFile.Format("%s\\%s", (LPCSTR)GetExeDir(), (LPCSTR)GetString(IDS_HELP_FILE));
 	::HtmlHelp((HWND)m_hWnd, sHelpFile, HH_DISPLAY_TOC , NULL);
 }
@@ -1225,7 +1217,6 @@ void CRtaDlg::OnHelpFile()
 void CRtaDlg::OnPdfFile()
 {
 	CString sPdfFile;
-
 	sPdfFile.Format("%s\\%s", (LPCSTR)GetExeDir(), (LPCSTR)GetString(IDS_PDF_FILE));
 	::ShellExecute(NULL, "open", sPdfFile, NULL, NULL, SW_SHOWNORMAL);
 }
@@ -1233,14 +1224,12 @@ void CRtaDlg::OnPdfFile()
 void CRtaDlg::OnDataBackup()
 {
 	CDataBackupDlg dlg;
-
 	dlg.DoModal();
 }
 
 void CRtaDlg::OnDataRestore()
 {
 	CDataRestoreDlg dlg;
-
 	dlg.DoModal();
 }
 
@@ -1401,12 +1390,9 @@ void CRtaDlg::OpenAutoStartFile(LPCSTR pAutoRecFile)
 
 LRESULT CRtaDlg::OnAutoRecFile(WPARAM, LPARAM)
 {
-	HANDLE hMem;
-	LPCSTR pMem;
-
 	if (OpenClipboard()) {
-		if ((hMem = GetClipboardData(CF_TEXT)) != NULL) {
-			if ((pMem = (LPSTR)::GlobalLock(hMem)) != NULL) {
+		if (HANDLE hMem = GetClipboardData(CF_TEXT); hMem != NULL) {
+			if (LPCSTR pMem = (LPSTR)::GlobalLock(hMem); pMem != NULL) {
 				OpenAutoStartFile(pMem);
 				::GlobalUnlock(hMem);
 			}

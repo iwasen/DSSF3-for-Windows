@@ -186,7 +186,6 @@ void CCalcImpDlg::SetSplRefData()
 {
 	DbImpulseRec dbImpulseRec;
 	CString str;
-	LONG nRec;
 	int index = 0;
 
 	str.LoadString(IDS_ABSVALUE);
@@ -209,6 +208,7 @@ void CCalcImpDlg::SetSplRefData()
 
 	dbImpulse.DBChgIdx(dbImpulse.m_nIdxImpulseID);
 	str.Format("#%d=%ld", dbImpulse.m_nIdxFolderID, m_nFolderID);
+	LONG nRec;
 	dbImpulse.DBSelect(str, &nRec);
 
 	for (;;) {
@@ -244,7 +244,7 @@ void CCalcImpDlg::OnTsubAuto()
 
 BOOL CCalcImpDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_CALC_IMP_OK,
 		IDCANCEL, IDH_CALC_IMP_CANCEL,
 		IDC_CALC_NO, IDH_CALC_IMP_CALC_NO,

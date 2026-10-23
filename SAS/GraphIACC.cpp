@@ -38,10 +38,10 @@ END_MESSAGE_MAP()
 BOOL CGraphIACC::OnInitDialog()
 {
 	CWaitCursor waitCursor;
-	CString str;
 
 	CDialogAF::OnInitDialog();
 
+	CString str;
 	str.LoadString(IDS_CCF);
 	m_cGraphIACC.Initialize(90, str, 4);
 
@@ -64,7 +64,7 @@ void CGraphIACC::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pIACCData != NULL) {
-		delete [] m_pIACCData;
+		delete[] m_pIACCData;
 		m_pIACCData = NULL;
 	}
 }
@@ -92,10 +92,9 @@ void CGraphIACC::ReDraw()
 void CGraphIACC::DispIACCWindow(BOOL bCalc)
 {
 	if (bCalc) {
-		double fWIACCLevel;
-
 		CalcIACCData(m_pIRLeft, m_pIRRight, m_nData, m_pIACCData, m_nIACCData);
 
+		double fWIACCLevel;
 		if (m_pDbAcParamRec != NULL)
 			fWIACCLevel = m_pDbAcParamRec->dbAcParamCond.fWIACCLevel;
 		else
@@ -109,7 +108,6 @@ void CGraphIACC::DispIACCWindow(BOOL bCalc)
 void CGraphIACC::OnChangeWiacc()
 {
 	CChangeWIACCDlg dlg(this);
-
 	dlg.m_dWIACC = m_pDbAcParamRec->dbAcParamCond.fWIACCLevel;
 	if (dlg.DoModal() == IDOK) {
 		CWaitCursor waitCursor;
@@ -121,7 +119,7 @@ void CGraphIACC::OnChangeWiacc()
 
 BOOL CGraphIACC::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_IACC, IDH_GRAPH_IACC,
 		IDC_CHANGE_WIACC, IDH_GRAPH_IACC_CHANGE_WIACC,
 		0
@@ -156,7 +154,7 @@ END_MESSAGE_MAP()
 
 BOOL CChangeWIACCDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_CHANGE_WIACC_OK,
 		IDCANCEL, IDH_CHANGE_WIACC_CANCEL,
 		IDC_IACC_WLEVEL, IDH_CHANGE_WIACC_WLEVEL,

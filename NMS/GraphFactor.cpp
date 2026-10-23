@@ -69,20 +69,20 @@ BOOL CGraphFactor::OnInitDialog()
 
 	if (m_tbZoomH.Create(this, WS_CHILD | WS_VISIBLE | CBRS_SIZE_FIXED | CBRS_ALIGN_LEFT | CBRS_TOOLTIPS, ID_ZOOM_H) &&
 		m_tbZoomH.LoadToolBar(IDR_ZOOM_H)) {
-		CRect rcClient;
-		GetClientRect(rcClient);
+		RECT rcClient;
+		GetClientRect(&rcClient);
 
-		CSize sizeToolBar;
+		SIZE sizeToolBar;
 		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(0, rcClient.bottom - sizeToolBar.cy + 6, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
 	if (m_tbZoomV.Create(this, WS_CHILD | WS_VISIBLE | CBRS_SIZE_DYNAMIC | CBRS_ALIGN_RIGHT | CBRS_TOOLTIPS, ID_ZOOM_V) &&
 		m_tbZoomV.LoadToolBar(IDR_ZOOM_V)) {
-		CRect rcClient;
-		GetClientRect(rcClient);
+		RECT rcClient;
+		GetClientRect(&rcClient);
 
-		CSize sizeToolBar;
+		SIZE sizeToolBar;
 		sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomV.MoveWindow(rcClient.right - sizeToolBar.cx + 3, 0, sizeToolBar.cx, sizeToolBar.cy);
 	}
@@ -509,14 +509,14 @@ void CGraphFactor::OnDestroy()
 	CDialogExt::OnDestroy();
 
 	if (m_pfData != NULL) {
-		delete [] m_pfData;
+		delete[] m_pfData;
 		m_pfData = NULL;
 	}
 }
 
 BOOL CGraphFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_FACTOR, IDH_GRAPH_FACTOR,
 		IDC_ZOOM_V, IDH_GRAPH_FACTOR_ZOOM_V,
 		IDC_SCROLL_V, IDH_GRAPH_FACTOR_SCROLL_V,

@@ -139,13 +139,10 @@ BOOL CNmsApp::InitInstance()
 	// 設定が保存される下のレジストリ キーを変更します。
 	// TODO: この文字列を、会社名または所属など適切なものに
 	// 変更してください。
-//	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
 	LoadStdProfileSettings(0);  // 標準の INI ファイルのオプションをローﾄﾞします (MRU を含む)
 
 	g_oPcserve.Initialize();
-
-//	SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
 
 	::GetTempPath(MAX_PATH, g_sTempDir.GetBuffer(MAX_PATH));
 	g_sTempDir.ReleaseBuffer();
@@ -214,10 +211,7 @@ int CNmsApp::ExitInstance()
 
 void CNmsApp::OnOnlineUpdate()
 {
-	OnlineUpdateFunc pOnlineUpdate;
 	HINSTANCE hModule;
-	CString exeFileName;
-
 #ifdef _DEBUG
 	if ((hModule = ::LoadLibrary("YMUPDATED.DLL")) == NULL) {
 #else
@@ -227,12 +221,14 @@ void CNmsApp::OnOnlineUpdate()
 		return;
 	}
 
+	OnlineUpdateFunc pOnlineUpdate;
 	if ((pOnlineUpdate = (OnlineUpdateFunc)::GetProcAddress(hModule, "OnlineUpdate")) == NULL) {
 		::AfxMessageBox(IDS_ERR_ONLINEUPDATE);
 		::FreeLibrary(hModule);
 		return;
 	}
 
+	CString exeFileName;
 	::GetModuleFileName(m_hInstance, exeFileName.GetBuffer(MAX_PATH), MAX_PATH);
 	exeFileName.ReleaseBuffer();
 

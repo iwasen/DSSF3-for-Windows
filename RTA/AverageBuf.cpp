@@ -89,17 +89,17 @@ void CAverageBuf::Reset()
 void CAverageBuf::Free()
 {
 	if (m_pDataBuf != NULL) {
-		delete [] m_pDataBuf;
+		delete[] m_pDataBuf;
 		m_pDataBuf = NULL;
 	}
 
 	if (m_pAverageBuf != NULL) {
-		delete [] m_pAverageBuf;
+		delete[] m_pAverageBuf;
 		m_pAverageBuf = NULL;
 	}
 
 	if (m_pRingBuf != NULL) {
-		delete [] m_pRingBuf;
+		delete[] m_pRingBuf;
 		m_pRingBuf = NULL;
 	}
 }

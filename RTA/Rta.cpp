@@ -87,7 +87,7 @@ BOOL CRtaApp::InitInstance()
 				const DWORD dwCount = (DWORD)sAutoRecFile.GetLength() + 1;
 				HGLOBAL hMem = ::GlobalAlloc(GHND | GMEM_SHARE , dwCount);
 
-				PTSTR pMem = (PTSTR)::GlobalLock(hMem);
+				LPSTR pMem = (LPSTR)::GlobalLock(hMem);
 				lstrcpy(pMem , sAutoRecFile);
 				::GlobalUnlock(hMem);
 
@@ -154,14 +154,11 @@ LRESULT CRtaApp::ProcessWndProcException(CException* e, const MSG* /*pMsg*/)
 {
 	e->ReportError(MB_ICONEXCLAMATION|MB_SYSTEMMODAL);
 	exit(1);
-//	return CWinApp::ProcessWndProcException(e, pMsg);
 }
 
 void CRtaApp::OnOnlineUpdate()
 {
-	OnlineUpdateFunc pOnlineUpdate;
 	HINSTANCE hModule;
-	CString exeFileName;
 
 #ifdef _DEBUG
 	if ((hModule = ::LoadLibrary("YMUPDATED.DLL")) == NULL) {
@@ -172,12 +169,14 @@ void CRtaApp::OnOnlineUpdate()
 		return;
 	}
 
+	OnlineUpdateFunc pOnlineUpdate;
 	if ((pOnlineUpdate = (OnlineUpdateFunc)::GetProcAddress(hModule, "OnlineUpdate")) == NULL) {
 		::AfxMessageBox(IDS_ERR_ONLINEUPDATE);
 		::FreeLibrary(hModule);
 		return;
 	}
 
+	CString exeFileName;
 	::GetModuleFileName(m_hInstance, exeFileName.GetBuffer(MAX_PATH), MAX_PATH);
 	exeFileName.ReleaseBuffer();
 

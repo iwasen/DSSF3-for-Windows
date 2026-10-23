@@ -27,11 +27,10 @@ static DWORD dwOutBassVal;
 
 BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 {
-	MIXERLINE mxl{};
 	int i;
-	MIXERCAPS mxcaps;
 	const int nMixerNum = mixerGetNumDevs();
 
+	MIXERCAPS mxcaps;
 	if (nWaveOutDevice >= 0) {
 		dwMixerOutDevice = nWaveOutDevice;
 
@@ -46,8 +45,10 @@ BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 		}
 
 		// 出力マスターの LineID を取得
-		mxl.cbStruct = sizeof(mxl);
-		mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
+		MIXERLINE mxl{
+			.cbStruct = sizeof(mxl),
+			.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_SPEAKERS
+		};
 		if (mixerGetLineInfo((HMIXEROBJ)dwMixerOutDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
 			return FALSE;
 
@@ -74,8 +75,10 @@ BOOL MixerInitialize(INT_PTR nWaveInDevice, INT_PTR nWaveOutDevice)
 		}
 
 		// 録音マスターの LineID を取得
-		mxl.cbStruct = sizeof(mxl);
-		mxl.dwComponentType	= MIXERLINE_COMPONENTTYPE_DST_WAVEIN;
+		MIXERLINE mxl{
+			.cbStruct = sizeof(mxl),
+			.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_WAVEIN
+		};
 		if (mixerGetLineInfo((HMIXEROBJ)dwMixerInDevice, &mxl, MIXER_GETLINEINFOF_COMPONENTTYPE) != MMSYSERR_NOERROR)
 			return FALSE;
 
@@ -152,7 +155,6 @@ void MixerRestoreInput()
 DWORD MixerGetControlID(DWORD_PTR dwMixerDevice, DWORD dwLineID, DWORD dwControlType)
 {
 	MIXERCONTROL mxc;
-
 	if (MixerGetControlsByType(dwMixerDevice, dwLineID, dwControlType, mxc) == MMSYSERR_NOERROR)
 		return mxc.dwControlID;
 	else

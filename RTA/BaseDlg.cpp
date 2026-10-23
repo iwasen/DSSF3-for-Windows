@@ -44,10 +44,10 @@ BOOL CBaseDlg::Create(UINT nIDTemplate, int nLeft, int nTop, int nFontSize, CWnd
 		else {
 			if (::GetSystemMetrics(SM_CMONITORS) == 1) {
 				CRect rectWindow;
-				GetWindowRect(&rectWindow);
+				GetWindowRect(rectWindow);
 
 				CRect rectScreen;
-				::SystemParametersInfo(SPI_GETWORKAREA, 0, &rectScreen, 0);
+				::SystemParametersInfo(SPI_GETWORKAREA, 0, rectScreen, 0);
 
 				if (nLeft < rectScreen.left)
 					nLeft = rectScreen.left;

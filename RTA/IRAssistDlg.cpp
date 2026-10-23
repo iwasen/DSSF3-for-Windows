@@ -85,7 +85,6 @@ BOOL CIRAssistDlg::OnInitDialog()
 
 	m_nTimeSave = g_oSetData.Imp.nTime;
 
-	CString str;
 	LOGFONT font{
 #ifdef _LANG_JPN
 		.lfHeight = 200,
@@ -94,6 +93,7 @@ BOOL CIRAssistDlg::OnInitDialog()
 #endif
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font);
@@ -102,7 +102,7 @@ BOOL CIRAssistDlg::OnInitDialog()
 	m_cResult2.SetFont(&m_Font);
 	m_cResult3.SetFont(&m_Font);
 
-	static constexpr RANGE_COLOR rangeColor[] = {
+	static constexpr RANGE_COLOR rangeColor[]{
 		{-0.2, COLOR_LEFT},
 		{0.2, COLOR_GREEN},
 		{1.0, COLOR_RIGHT}
@@ -255,13 +255,12 @@ int CIRAssistDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 void CIRAssistDlg::WaveAdjustLevel(LPWAVENOTIFY pWaveNotify)
 {
-	double fAbsValue;
 	double fMaxValue = 0;
 	CRtaApp *pWinApp = (CRtaApp *)::AfxGetApp();
 
 	double *pData = pWaveNotify->pSamplesData;
 	for (int i = 0; i < m_nData * 2; i++, pData++) {
-		fAbsValue = fabs(*pData);
+		double fAbsValue = fabs(*pData);
 		if (fAbsValue > fMaxValue)
 			fMaxValue = fAbsValue;
 	}
@@ -273,7 +272,6 @@ void CIRAssistDlg::WaveAdjustLevel(LPWAVENOTIFY pWaveNotify)
 		m_fLevel = fLevel * 0.2 + m_fLevel * 0.8;
 
 	const double fMarkerPos = m_fLevel / RANGE_LEVEL;
-
 	if (fMarkerPos < -0.2) {
 		m_cResult1.SetTextColor(COLOR_BLUE);
 		m_cResult1 = "NG";
@@ -428,12 +426,12 @@ void CIRAssistDlg::OnTimer(UINT_PTR nIDEvent)
 void CIRAssistDlg::FreeBuffers()
 {
 	if (m_pCcfBuf1 != NULL) {
-		delete [] m_pCcfBuf1;
+		delete[] m_pCcfBuf1;
 		m_pCcfBuf1 = NULL;
 	}
 
 	if (m_pCcfBuf2 != NULL) {
-		delete [] m_pCcfBuf2;
+		delete[] m_pCcfBuf2;
 		m_pCcfBuf2 = NULL;
 	}
 }
@@ -442,7 +440,7 @@ void CIRAssistDlg::OnPaint()
 {
 	CPaintDC dc(this); // 描画用のデバイス コンテキスト
 	CString sText;
-	CSize size;
+	SIZE size;
 	CRect rect;
 	int y;
 	int i;
@@ -538,7 +536,7 @@ void CIRAssistDlg::OnSwitch3()
 
 BOOL CIRAssistDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_SWITCH1, IDH_IMP_ASSIST_SWITCH1,
 		IDC_RESULT1, IDH_IMP_ASSIST_RESULT1,
 		IDC_LEVEL_WND, IDH_IMP_ASSIST_LEVEL_WND,

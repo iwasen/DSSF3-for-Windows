@@ -165,11 +165,9 @@ void CFreSpot::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 void CFreSpot::InitLevelSlider()
 {
-	int nLevel;
-
 	m_cLevelSlider.SetRange(MIN_LEVEL_POS, MAX_LEVEL_POS);
 
-	for (nLevel = MIN_LEVEL_POS; nLevel <= MAX_LEVEL_POS; nLevel += 10)
+	for (int nLevel = MIN_LEVEL_POS; nLevel <= MAX_LEVEL_POS; nLevel += 10)
 		m_cLevelSlider.SetTic(nLevel);
 }
 
@@ -240,27 +238,27 @@ void CFreSpot::Redraw()
 void CFreSpot::FreeBuffers()
 {
 	if (m_pWaveLeft != NULL) {
-		delete [] m_pWaveLeft;
+		delete[] m_pWaveLeft;
 		m_pWaveLeft = NULL;
 	}
 
 	if (m_pWaveRight != NULL) {
-		delete [] m_pWaveRight;
+		delete[] m_pWaveRight;
 		m_pWaveRight = NULL;
 	}
 
 	if (m_pLeftData != NULL) {
-		delete [] m_pLeftData;
+		delete[] m_pLeftData;
 		m_pLeftData = NULL;
 	}
 
 	if (m_pRightData != NULL) {
-		delete [] m_pRightData;
+		delete[] m_pRightData;
 		m_pRightData = NULL;
 	}
 
 	if (m_pFreq != NULL) {
-		delete [] m_pFreq;
+		delete[] m_pFreq;
 		m_pFreq = NULL;
 	}
 
@@ -352,8 +350,8 @@ double CFreSpot::CalcFreqResponse(const double *pData, double fFreq, const DbMic
 
 		fFilter = pow(10.0, spline.Spline(log(fFreq)) / 20);
 
-		delete [] pFreq;
-		delete [] pLevel;
+		delete[] pFreq;
+		delete[] pLevel;
 	}
 
 	fFilter = pow(10.0, -oMicCalData.fInputSens / 20) / fFilter;
@@ -384,7 +382,6 @@ BOOL CFreSpot::CheckDataExist() const
 void CFreSpot::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
-
 	if (oCsvFile.Open(pFileName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
 		m_cGraph.CsvOutput(oCsvFile, m_pLeftData, m_pRightData, m_pFreq, m_nFreqCount, "Spot");
 }
@@ -462,7 +459,7 @@ HBITMAP CFreSpot::GetBitmap()
 
 BOOL CFreSpot::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH, IDH_FRE_SPOT_GRAPH,
 		IDC_FREQ_START, IDH_FRE_SPOT_FREQ_START,
 		IDC_FREQ_END, IDH_FRE_SPOT_FREQ_END,

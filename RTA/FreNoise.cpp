@@ -14,8 +14,8 @@
 #define MIN_LEVEL_POS 0
 #define MAX_LEVEL_POS (-(MIN_LEVEL_VAL))
 
-static constexpr int s_tFftSize[] = {32768, 16384, 8192, 4096};
-static constexpr int s_tTimeConstant[] = {1, 2, 4, 8, 16};
+static constexpr int s_tFftSize[]{ 32768, 16384, 8192, 4096 };
+static constexpr int s_tTimeConstant[]{ 1, 2, 4, 8, 16 };
 
 // CFreNoise ダイアログ
 
@@ -270,27 +270,27 @@ void CFreNoise::Redraw()
 void CFreNoise::FreeBuffers()
 {
 	if (m_pWaveLeft != NULL) {
-		delete [] m_pWaveLeft;
+		delete[] m_pWaveLeft;
 		m_pWaveLeft = NULL;
 	}
 
 	if (m_pWaveRight != NULL) {
-		delete [] m_pWaveRight;
+		delete[] m_pWaveRight;
 		m_pWaveRight = NULL;
 	}
 
 	if (m_pFreq != NULL) {
-		delete [] m_pFreq;
+		delete[] m_pFreq;
 		m_pFreq = NULL;
 	}
 
 	if (m_pFilterTblL != NULL) {
-		delete [] m_pFilterTblL;
+		delete[] m_pFilterTblL;
 		m_pFilterTblL = NULL;
 	}
 
 	if (m_pFilterTblR != NULL) {
-		delete [] m_pFilterTblR;
+		delete[] m_pFilterTblR;
 		m_pFilterTblR = NULL;
 	}
 
@@ -339,15 +339,12 @@ BOOL CFreNoise::WaveInData(const double *pData)
 
 void CFreNoise::CalcFreqResponse(double *pWave, double *pData, const double *m_pFilterTbl)
 {
-	int i, j;
-	double xt, yt;
-
 	m_cFFT.fft(m_nWaveBufSize, pWave);
 
-	for (i = 1; i < m_nFreqPoint; i++) {
-		j = i * 2;
-		xt = pWave[j] * m_pFilterTbl[i];
-		yt = pWave[j + 1] * m_pFilterTbl[i];
+	for (int i = 1; i < m_nFreqPoint; i++) {
+		int j = i * 2;
+		double xt = pWave[j] * m_pFilterTbl[i];
+		double yt = pWave[j + 1] * m_pFilterTbl[i];
 
 		*pData++ = (xt * xt + yt * yt) * i;
 	}
@@ -361,7 +358,6 @@ BOOL CFreNoise::CheckDataExist() const
 void CFreNoise::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
-
 	if (oCsvFile.Open(pFileName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
 		m_cGraph.CsvOutput(oCsvFile, m_oLeftData.GetBuf() + 1, m_nChannel == 1 ? NULL : m_oRightData.GetBuf() + 1, m_pFreq + 1, m_nFreqPoint - 1, "Pink Noise");
 }
@@ -443,7 +439,7 @@ HBITMAP CFreNoise::GetBitmap()
 
 BOOL CFreNoise::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH, IDH_FRE_NOISE_GRAPH,
 		IDC_FREQ_START, IDH_FRE_NOISE_FREQ_START,
 		IDC_FREQ_END, IDH_FRE_NOISE_FREQ_END,
@@ -471,11 +467,10 @@ void CFreNoise::OnSize(UINT nType, int cx, int cy)
 
 void CFreNoise::MakeFilterTbl()
 {
-	CFreDlg *pDlg = (CFreDlg *)GetParent();
-
 	m_pFilterTblL = new double[m_nWaveBufSize];
 	m_pFilterTblR = new double[m_nWaveBufSize];
 
+	CFreDlg *pDlg = (CFreDlg *)GetParent();
 	MakeFilterTbl3(m_pFilterTblL, m_nWaveBufSize, m_nSamplingRate, (FilterData *)pDlg->m_oMicCalDataL.aFreq, pDlg->m_oMicCalDataL.nFreqData, 20);
 	MakeFilterTbl3(m_pFilterTblR, m_nWaveBufSize, m_nSamplingRate, (FilterData *)pDlg->m_oMicCalDataR.aFreq, pDlg->m_oMicCalDataR.nFreqData, 20);
 	const double sensL = pow(10.0, -pDlg->m_oMicCalDataL.fInputSens / 20);

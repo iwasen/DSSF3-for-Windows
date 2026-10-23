@@ -27,8 +27,8 @@ static matrix new_matrix(int nrow, int ncol)
 	for (int i = 0; i < nrow; i++) {
 		a[i] = new SCALAR[ncol];
 		if (a[i] == NULL) {
-			while (--i >= 0) delete [] a[i];
-			delete [] a;  return NULL;  /* 記憶領域不足 */
+			while (--i >= 0) delete[] a[i];
+			delete[] a;  return NULL;  /* 記憶領域不足 */
 		}
 	}
 	a[nrow] = NULL;  /* 行の数を自動判断するための工夫 */
@@ -37,14 +37,14 @@ static matrix new_matrix(int nrow, int ncol)
 
 static void free_vector(vector v)
 {
-	delete [] v;
+	delete[] v;
 }
 
 static void free_matrix(matrix a)
 {
 	matrix b = a;
-	while (*b != NULL) delete [] *b++;
-	delete [] a;
+	while (*b != NULL) delete[] *b++;
+	delete[] a;
 }
 
 static double innerproduct(int n, vector u, vector v)

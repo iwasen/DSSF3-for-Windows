@@ -202,7 +202,7 @@ CView *CMainFrame::GetListView() const
 
 LRESULT CMainFrame::OnGetCheckLicense1(WPARAM wParam, LPARAM /*lParam*/)
 {
-	const char *pRegistryName;
+	LPCSTR pRegistryName;
 
 	if (m_nCheckData == GetCheckData2())
 		pRegistryName = g_sRegistryName;
@@ -214,7 +214,7 @@ LRESULT CMainFrame::OnGetCheckLicense1(WPARAM wParam, LPARAM /*lParam*/)
 
 LRESULT CMainFrame::OnGetCheckLicense2(WPARAM wParam, LPARAM /*lParam*/)
 {
-	const char *pRegistryName;
+	LPCSTR pRegistryName;
 
 	if (m_nCheckData == GetCheckData2())
 		pRegistryName = g_sRegistryName;

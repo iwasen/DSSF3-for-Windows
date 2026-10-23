@@ -23,9 +23,9 @@
 #define STATUS_RECORD	1
 #define STATUS_PLAY		2
 
-#define SCROLL_RANGE 16384
+#define SCROLL_RANGE	16384
 #define MIN_DISP_TIME	0.001
-#define MAX_ZOOM_TIME		512
+#define MAX_ZOOM_TIME	512
 
 #define INIT_TIME	10
 
@@ -117,8 +117,7 @@ BOOL CRecDlg::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(12, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -142,8 +141,8 @@ void CRecDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bMove) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Rec.nPosLeft = rect.left;
 		g_oSetData.Rec.nPosTop = rect.top;
 	}
@@ -284,9 +283,8 @@ void CRecDlg::InitRecMode(int nRecMode)
 
 void CRecDlg::InitPlayMode(int nPlayMode)
 {
-	CWaveInEx *pWaveIn;
-
 	if (nPlayMode == PLAY_MODE_OUT) {
+		CWaveInEx *pWaveIn;
 		if ((pWaveIn = CWaveInEx::GetRecWave()) != NULL) {
 			m_nPlayChannel = pWaveIn->GetChannels();
 
@@ -390,9 +388,9 @@ int CRecDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 int CRecDlg::RecordData(LPWAVENOTIFY pWaveNotify)
 {
-	const DWORD nData = pWaveNotify->nSamplesRecorded * m_nRecChannel;
+	const int nData = pWaveNotify->nSamplesRecorded * m_nRecChannel;
 	double *pData = pWaveNotify->pSamplesData;
-	DWORD i;
+	int i;
 
 	VirtualAlloc(&m_pWaveBuf[m_dwRecCount], (SIZE_T)nData * sizeof(double), MEM_COMMIT, PAGE_READWRITE);
 
@@ -628,10 +626,9 @@ void CRecDlg::LoadFile(LPCSTR pPathName)
 
 void CRecDlg::LoadWavFile(LPCSTR pPathName)
 {
-	CWaveFile waveFile;
 	PCMWAVEFORMAT waveFormat;
 	DWORD dwDataSize;
-
+	CWaveFile waveFile;
 	if (!waveFile.Open(pPathName, &waveFormat, &dwDataSize))
 		return;
 
@@ -646,7 +643,7 @@ void CRecDlg::LoadWavFile(LPCSTR pPathName)
 			} catch (...) {
 			}
 			if (pDummy != NULL) {
-				delete [] pDummy;
+				delete[] pDummy;
 				break;
 			}
 		}
@@ -733,7 +730,6 @@ void CRecDlg::OnBnClickedFileSave()
 	CFileDialog fileDlg(FALSE, "wav", "",
 			OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
 			"16bit Wave File (*.wav)|*.wav|24bit Wave File (*.wav)|*.wav||", this, 0);
-
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
@@ -914,7 +910,7 @@ void CRecDlg::OnDropFiles(HDROP hDropInfo)
 
 BOOL CRecDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_WAVE, IDH_REC_GRAPH_WAVE,
 		IDC_ZOOM_H, IDH_REC_ZOOM_H,
 		IDC_SCROLL_H, IDH_REC_SCROLL_H,

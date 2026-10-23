@@ -77,19 +77,18 @@ void CPeakLevelWnd::OnPaint()
 {
 	CPaintDC dc(this); // 描画用のデバイス コンテキスト
 	CString text;
-	CSize size;
+	SIZE size;
 	CRect rect;
-	int x;
-	CPen pen1(PS_SOLID, 0, RGB(128, 128, 128));
 
 	WINDOWPLACEMENT wp;
 	m_cPeakLevel.GetWindowPlacement(&wp);
 	m_cPeakLevel.GetClientRect(rect);
 	CFont *pFont = dc.SelectObject(GetFont());
+	CPen pen1(PS_SOLID, 0, RGB(128, 128, 128));
 	CPen *pPen = dc.SelectObject(&pen1);
 	dc.SetBkMode(TRANSPARENT);
 	for (int i = 0; i <= 8; i++) {
-		x = wp.rcNormalPosition.left + rect.Width() * i / 8;
+		int x = wp.rcNormalPosition.left + rect.Width() * i / 8;
 		dc.MoveTo(x, wp.rcNormalPosition.bottom);
 		dc.LineTo(x, wp.rcNormalPosition.bottom + 4);
 		text.Format("%d", i * 10 - 80);
@@ -102,7 +101,7 @@ void CPeakLevelWnd::OnPaint()
 
 BOOL CPeakLevelWnd::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDCANCEL, IDH_PEAK_LEVEL_CANCEL,
 		IDC_PEAK_METER, IDH_PEAK_LEVEL_METER,
 		0

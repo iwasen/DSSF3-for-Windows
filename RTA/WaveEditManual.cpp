@@ -73,8 +73,7 @@ BOOL CWaveEditManual::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(wp.rcNormalPosition.left - sizeToolBar.cx - 2, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -82,8 +81,7 @@ BOOL CWaveEditManual::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomV.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomV.MoveWindow(wp.rcNormalPosition.left - 3, wp.rcNormalPosition.top - sizeToolBar.cy, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -521,8 +519,6 @@ void CWaveEditManual::OnBnClickedSmoothing()
 
 void CWaveEditManual::OnBnClickedTest()
 {
-//	m_cBtnStart.SetWindowText(GetString(m_cBtnStart ? IDS_STOP : IDS_START));
-
 	g_oWaveForm.SetTestWaveForm((WaveForm *)&m_oWaveForm);
 
 	m_pSgDlg->StartStop(m_cBtnTest);
@@ -530,7 +526,7 @@ void CWaveEditManual::OnBnClickedTest()
 
 BOOL CWaveEditManual::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_WAVE_WND, IDH_SG_EDIT_WAVE_WND,
 		IDC_ZOOM_V, IDH_SG_EDIT_ZOOM_V,
 		IDC_SCROLL_V, IDH_SG_EDIT_SCROLL_V,

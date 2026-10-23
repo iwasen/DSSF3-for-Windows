@@ -70,7 +70,6 @@ BOOL CTempIAcf::OnInitDialog()
 void CTempIAcf::OnSetWeighting()
 {
 	NsWeightData nsWeightData;
-
 	ReadNsWeightData(&nsWeightData);
 	nsWeightData.fIACC = m_cIACCWeighting;
 	nsWeightData.fWIACC = m_cWIACCWeighting;
@@ -111,7 +110,6 @@ void CTempIAcf::OnWIACCUpperCheck()
 void CTempIAcf::ShowWeightings()
 {
 	NsWeightData nsWeightData;
-
 	ReadNsWeightData(&nsWeightData);
 	m_cIACCWeighting.Format("%.3g", nsWeightData.fIACC);
 	m_cWIACCWeighting.Format("%.3g", nsWeightData.fWIACC);
@@ -171,7 +169,7 @@ void CTempIAcf::GetData(NsTmpData &nsTmpData)
 
 BOOL CTempIAcf::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_IACC_STANDARD, IDH_TEMP_IACF_IACC_STANDARD,
 		IDC_IACC_UPPER_CHECK, IDH_TEMP_IACF_IACC_UPPER_CHECK,
 		IDC_IACC_UPPER_LIMIT, IDH_TEMP_IACF_IACC_UPPER_LIMIT,

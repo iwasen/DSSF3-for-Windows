@@ -14,11 +14,11 @@ HICON g_hIcon;
 CWaveForm g_oWaveForm;
 int g_nFilterUpdateCounter;
 
-constexpr UINT g_tFftModeId[FFT_MODE_NUM] = {
+constexpr UINT g_tFftModeId[FFT_MODE_NUM]{
 	IDS_SPECTRUM, IDS_OCTAVE, IDS_WATERFALL, IDS_CORRELATION, IDS_PHASE2, IDS_SPECTROGRAM, IDS_CROSS_SPECTRUM, IDS_COHERENCE, IDS_CEPSTRUM
 };
 
-constexpr int g_tFontSize[] = {
+constexpr int g_tFontSize[]{
 #ifdef _LANG_JPN
 	9, 10, 11, 12, 14, 16, 18, 0
 #endif
@@ -27,7 +27,7 @@ constexpr int g_tFontSize[] = {
 #endif
 };
 
-constexpr LPCSTR g_pFreqScale1[MAX_OCT1 + 1] = {
+constexpr LPCSTR g_pFreqScale1[MAX_OCT1 + 1]{
 	"ALL",
 	"16", "31.5", "63",
 	"125", "250", "500",
@@ -35,7 +35,7 @@ constexpr LPCSTR g_pFreqScale1[MAX_OCT1 + 1] = {
 	"8k", "16k", ""
 };
 
-constexpr LPCSTR g_pFreqScale3[MAX_OCT3 + 1] = {
+constexpr LPCSTR g_pFreqScale3[MAX_OCT3 + 1]{
 	"ALL",
 	"16", "20", "25", "31.5", "40", "50", "63", "80", "100", "125",
 	"160", "200", "250", "315", "400", "500", "630", "800", "1k", "1.25k",
@@ -43,15 +43,15 @@ constexpr LPCSTR g_pFreqScale3[MAX_OCT3 + 1] = {
 	"16k", "20k", "25k", "31.5k", "40k", "50k", "63k", "8k", "100k", ""
 };
 
-constexpr int g_nOctBandTbl[OCT_BAND_NUM] = {
+constexpr int g_nOctBandTbl[OCT_BAND_NUM]{
 	1, 3, 6, 12, 24
 };
 
-static constexpr LPCSTR g_tWindowFunc[WF_NUM] = {
+static constexpr LPCSTR g_tWindowFunc[WF_NUM]{
 	"Rectangular", "Triangular", "Hamming", "Hanning", "Blackman", "Blackman-Harris", "Flat-Top"
 };
 
-static constexpr UINT g_tWaveForm[N_WAVE_FORM] = {
+static constexpr UINT g_tWaveForm[N_WAVE_FORM]{
 	IDS_SINUSOIDAL, IDS_TRIANGULAR, IDS_SQUARE, IDS_SAWTOOTH
 };
 
@@ -129,11 +129,10 @@ double GetLogScaleStep(double fValue)
 
 double GetLinearScaleStep(double fRange, int nPixel, int *pStep)
 {
-	int nStep;
-
 	if (fRange <= 0)
 		return 1;
 
+	int nStep;
 	const double t1 = fRange / nPixel;
 	double fStep = pow(10.0, floor(log10(t1)));
 	const double t2 = t1 / fStep;
@@ -193,7 +192,6 @@ CString &GetString(UINT nID)
 BOOL SelectListBox(CComboBox &ctl, DWORD_PTR dwData)
 {
 	const int n = ctl.GetCount();
-
 	for (int i = 0; i < n; i++) {
 		if (ctl.GetItemData(i) == dwData) {
 			ctl.SetCurSel(i);
@@ -207,7 +205,6 @@ BOOL SelectListBox(CComboBox &ctl, DWORD_PTR dwData)
 BOOL SelectListBox(CListBox &ctl, DWORD_PTR dwData)
 {
 	const int n = ctl.GetCount();
-
 	for (int i = 0; i < n; i++) {
 		if (ctl.GetItemData(i) == dwData) {
 			ctl.SetCurSel(i);
@@ -221,7 +218,6 @@ BOOL SelectListBox(CListBox &ctl, DWORD_PTR dwData)
 CString GetNumberString(int nNumber)
 {
 	CString str;
-
 	if (nNumber < 1000)
 		str.Format("%d", nNumber);
 	else if (nNumber < 1000000)
@@ -258,15 +254,11 @@ BOOL CreateShortCut(
 		LPCSTR pszParameter)		// 起動パラメータ
 {
 	BOOL bRet = FALSE;
-	HRESULT  hResult;
-	IShellLink *psl;
-	int len, indx;
-	CString sTemp,sWorkDir;
 	char chPath[MAX_PATH];
-	LPITEMIDLIST pidl;
 	CString sShortcutPath;
 
 	//　デスクトップフォルダ
+	LPITEMIDLIST pidl;
 	::SHGetSpecialFolderLocation(::AfxGetMainWnd()->GetSafeHwnd(), CSIDL_DESKTOPDIRECTORY, &pidl);
 	::SHGetPathFromIDList(pidl, chPath);
 	sShortcutPath.Format("%s\\%s.lnk", chPath, pszShortcutFile);
@@ -275,7 +267,8 @@ BOOL CreateShortCut(
 	CoInitialize( NULL );
 
 	//  IShellLink インターフェースの取得
-	hResult = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (void **)&psl);
+	IShellLink *psl;
+	HRESULT  hResult = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (void **)&psl);
 	if (SUCCEEDED(hResult)) {
 		IPersistFile*  ppf;
 
@@ -284,10 +277,10 @@ BOOL CreateShortCut(
 		if (SUCCEEDED(hResult)) {
 			WCHAR  wszShortcutFile[MAX_PATH]; // ユニコード用のバッファ
 
-			sTemp = (CString)pszTargetFile;
-			len  = sTemp.GetLength();
-			indx = sTemp.ReverseFind('\\');
-			sWorkDir = sTemp.Mid(0, indx);
+			CString sTemp = (CString)pszTargetFile;
+			int len  = sTemp.GetLength();
+			int indx = sTemp.ReverseFind('\\');
+			CString sWorkDir = sTemp.Mid(0, indx);
 			hResult = psl->SetWorkingDirectory(sWorkDir); // 作業dir
 
 			// リンク元のファイルのパスをセットする
@@ -317,7 +310,6 @@ BOOL CreateShortCut(
 void CheckFileName(CString &fileName)
 {
 	int n;
-
 	while ((n = fileName.FindOneOf(":<>\\/*?| ")) != -1)
 		fileName.SetAt(n, '_');
 }
@@ -390,28 +382,27 @@ void GetAxisUnit(int nMode, CString &sUnitX, CString &sUnitY)
 
 LPCSTR GetRunningStatus(int nStringId, int nInputBits, int nOutputBits, int nRecordBits)
 {
-	static CString sStatus;
 	CString sRunning;
-	CString sInput;
-	CString sOutput;
-	CString sRecord;
-	CString sTemp;
-
 	sRunning.LoadString(nStringId);
 
+	CString sTemp;
+	CString sInput;
 	if (nInputBits > 0) {
 		sTemp.LoadString(IDS_INPUT);
 		sInput.Format("%s:%dbit", (LPCSTR)sTemp, nInputBits);
 	}
 
+	CString sOutput;
 	if (nOutputBits > 0) {
 		sTemp.LoadString(IDS_OUTPUT);
 		sOutput.Format("%s:%dbit", (LPCSTR)sTemp, nOutputBits);
 	}
 
+	CString sRecord;
 	if (nRecordBits > 0)
 		sRecord.Format("%dbit", nRecordBits);
 
+	static CString sStatus;
 	if (sInput.GetLength() != 0 && sOutput.GetLength() != 0)
 		sStatus.Format("%s (%s / %s)", (LPCSTR)sRunning, (LPCSTR)sInput, (LPCSTR)sOutput);
 	else if (sInput.GetLength() != 0)

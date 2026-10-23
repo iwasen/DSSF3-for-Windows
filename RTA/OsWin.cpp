@@ -170,7 +170,7 @@ void COsWin::Uninitialize2()
 	FreeOverlayBuf();
 
 	if (m_pPosTbl != NULL) {
-		delete [] m_pPosTbl;
+		delete[] m_pPosTbl;
 		m_pPosTbl = NULL;
 	}
 }
@@ -455,8 +455,6 @@ void COsWin::DispXY(const double *pData, int nData, double fLevelL, double fLeve
 	int x;
 	int y;
 	POINT *pPoint;
-	int nPoint;
-	int nPos;
 
 	if (m_pOverlayBufXY == NULL || g_oSetData.Os.nOverlay != m_nOverlayXY || m_nOverlaySize != nData) {
 		AllocOverlayXY(nData);
@@ -507,7 +505,8 @@ void COsWin::DispXY(const double *pData, int nData, double fLevelL, double fLeve
 
 	m_pOverlayCntXY[m_nOverlayPos] = nData;
 
-	nPos = m_nOverlayPos;
+	int nPoint;
+	int nPos = m_nOverlayPos;
 	for (i = 0; i < m_nOverlayNum; i++) {
 		nPos = (nPos + 1) % m_nOverlayNum;
 		nPoint = m_pOverlayCntXY[nPos];
@@ -634,14 +633,14 @@ void COsWin::ResetOverlay()
 void COsWin::AllocOverlayWave()
 {
 	int i;
-	int r, g, b;
-	double t;
 
 	FreeOverlayBuf();
 
 	m_nOverlaySize = m_nScaleWidth * 2 + 2;
 	m_nOverlayNum = max(g_oSetData.Os.nOverlay, 1);
 
+	double t;
+	int r, g, b;
 	if (m_bLch) {
 		m_pOverlayBufL = new POINT [m_nOverlaySize * m_nOverlayNum];
 		m_pOverlayCntL = new int[m_nOverlayNum];
@@ -673,9 +672,6 @@ void COsWin::AllocOverlayWave()
 
 void COsWin::AllocOverlayXY(int nData)
 {
-	int r, g, b;
-	double t;
-
 	FreeOverlayBuf();
 
 	m_nOverlaySize = nData;
@@ -684,6 +680,8 @@ void COsWin::AllocOverlayXY(int nData)
 	m_pOverlayBufXY = new POINT [m_nOverlaySize * m_nOverlayNum];
 	m_pOverlayCntXY = new int[m_nOverlayNum];
 
+	double t;
+	int r, g, b;
 	m_pPenXY = new CPen[m_nOverlayNum];
 	for (int i = 0; i < m_nOverlayNum; i++) {
 		t = pow(2.0, (double)(i - m_nOverlayNum + 1) * 3 / m_nOverlayNum);
@@ -697,47 +695,47 @@ void COsWin::AllocOverlayXY(int nData)
 void COsWin::FreeOverlayBuf()
 {
 	if (m_pOverlayBufL != NULL) {
-		delete [] m_pOverlayBufL;
+		delete[] m_pOverlayBufL;
 		m_pOverlayBufL = NULL;
 	}
 
 	if (m_pOverlayCntL != NULL) {
-		delete [] m_pOverlayCntL;
+		delete[] m_pOverlayCntL;
 		m_pOverlayCntL = NULL;
 	}
 
 	if (m_pOverlayBufR != NULL) {
-		delete [] m_pOverlayBufR;
+		delete[] m_pOverlayBufR;
 		m_pOverlayBufR = NULL;
 	}
 
 	if (m_pOverlayCntR != NULL) {
-		delete [] m_pOverlayCntR;
+		delete[] m_pOverlayCntR;
 		m_pOverlayCntR = NULL;
 	}
 
 	if (m_pOverlayBufXY != NULL) {
-		delete [] m_pOverlayBufXY;
+		delete[] m_pOverlayBufXY;
 		m_pOverlayBufXY = NULL;
 	}
 
 	if (m_pOverlayCntXY != NULL) {
-		delete [] m_pOverlayCntXY;
+		delete[] m_pOverlayCntXY;
 		m_pOverlayCntXY = NULL;
 	}
 
 	if (m_pPenLeft != NULL) {
-		delete [] m_pPenLeft;
+		delete[] m_pPenLeft;
 		m_pPenLeft = NULL;
 	}
 
 	if (m_pPenRight != NULL) {
-		delete [] m_pPenRight;
+		delete[] m_pPenRight;
 		m_pPenRight = NULL;
 	}
 
 	if (m_pPenXY != NULL) {
-		delete [] m_pPenXY;
+		delete[] m_pPenXY;
 		m_pPenXY = NULL;
 	}
 }

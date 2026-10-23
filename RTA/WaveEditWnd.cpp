@@ -79,11 +79,11 @@ void CWaveEditWnd::Initialize(CWaveEditManual *pWaveEditManual)
 	m_brushData.CreateSolidBrush(COLOR_DATA);
 	m_brushSel.CreateSolidBrush(COLOR_SEL);
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = CDpi::OriginalDpi(90, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -111,12 +111,10 @@ void CWaveEditWnd::Initialize(CWaveEditManual *pWaveEditManual)
 
 void CWaveEditWnd::SetBitmap(double fStartX, double fDispX, double fMaxY, double fMinY)
 {
-	CRect rect;
 	CString sText;
-	CSize size;
+	SIZE size;
 	int x, y;
 	double step, t, t1, t2;
-	double fValue;
 	int ns;
 	const double fRangeY = fMaxY - fMinY;
 
@@ -126,7 +124,7 @@ void CWaveEditWnd::SetBitmap(double fStartX, double fDispX, double fMaxY, double
 
 	m_nScaleZero = m_nScaleTop + m_nScaleHeight * fMaxY / fRangeY;
 
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	rect.SetRect(m_nScaleLeft, m_nScaleTop, m_nScaleRight, m_nScaleBottom);
@@ -147,7 +145,7 @@ void CWaveEditWnd::SetBitmap(double fStartX, double fDispX, double fMaxY, double
 	if (step == 0)
 		step = 1;
 
-	for (fValue = floor(fMinY / step) * step; fValue <= fMaxY + step * 1e-7; fValue += step) {
+	for (double fValue = floor(fMinY / step) * step; fValue <= fMaxY + step * 1e-7; fValue += step) {
 		y = (int)(m_nScaleZero - fValue * m_nScaleHeight / fRangeY + 0.5);
 
 		if (y <= m_nScaleBottom) {
@@ -267,8 +265,8 @@ void CWaveEditWnd::DispGraph(double fStartX, double fDispX, const WaveFormManual
 
 		spl.MakeTable(xp, yp, nPoint);
 
-		delete [] yp;
-		delete [] xp;
+		delete[] yp;
+		delete[] xp;
 
 		POINT *pSpline = new POINT[m_nScaleWidth];
 		for (i = 0; i < m_nScaleWidth; i++) {
@@ -278,7 +276,7 @@ void CWaveEditWnd::DispGraph(double fStartX, double fDispX, const WaveFormManual
 
 		m_dcMem.Polyline(pSpline, m_nScaleWidth);
 
-		delete [] pSpline;
+		delete[] pSpline;
 	} else {
 		if (pWaveForm->nDataNum >= 2)
 			m_dcMem.Polyline(pPoint, pWaveForm->nDataNum);
@@ -298,7 +296,7 @@ void CWaveEditWnd::DispGraph(double fStartX, double fDispX, const WaveFormManual
 			m_dcMem.Ellipse(x - 2, y - 2, x + 3, y + 3);
 	}
 
-	delete [] pPoint;
+	delete[] pPoint;
 
 	m_dcMem.SelectClipRgn(NULL);
 
@@ -307,7 +305,6 @@ void CWaveEditWnd::DispGraph(double fStartX, double fDispX, const WaveFormManual
 	m_dcMem.SelectObject(pBrushOrg);
 
 	Invalidate(FALSE);
-//	UpdateWindow();
 }
 
 void CWaveEditWnd::OnLButtonDown(UINT nFlags, CPoint point)

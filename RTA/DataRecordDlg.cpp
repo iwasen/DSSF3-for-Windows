@@ -84,18 +84,16 @@ void CDataRecordDlg::OnBnClickedFileSave()
 	CFileDialog fileDlg(FALSE, "csv", NULL,
 			OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
 			"CSV File (*.csv)|*.csv|Text File (*.txt)|*.txt|All Files (*.*)|*.*||", this, 0);
-
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
 	FILE *fp;
 	if (fopen_s(&fp, fileDlg.GetPathName(), "w") == 0) {
 		int i, j;
-		CHeaderCtrl *pHeaderCtrl = m_cDataList.GetHeaderCtrl();
-		const int nItem = m_cDataList.GetItemCount();
-		const int nColumn = pHeaderCtrl->GetItemCount();
 		char textBuf[32];
 
+		CHeaderCtrl *pHeaderCtrl = m_cDataList.GetHeaderCtrl();
+		const int nColumn = pHeaderCtrl->GetItemCount();
 		for (j = 0; j < nColumn; j++) {
 			if (j != 0)
 				fprintf(fp, ",");
@@ -109,6 +107,7 @@ void CDataRecordDlg::OnBnClickedFileSave()
 		}
 		fprintf(fp, "\n");
 
+		const int nItem = m_cDataList.GetItemCount();
 		for (i = 0; i < nItem; i++) {
 			for (j = 0; j < nColumn; j++) {
 				if (j != 0)
@@ -180,9 +179,9 @@ void CDataRecordDlg::InitDataList(int nOctBand, const CString *pFreqScale)
 
 void CDataRecordDlg::OnDestroy()
 {
-	CRect rect;
+	RECT rect;
+	GetWindowRect(&rect);
 
-	GetWindowRect(rect);
 	g_oSetData.Dtr.nPosLeft = rect.left;
 	g_oSetData.Dtr.nPosTop = rect.top;
 
@@ -234,13 +233,11 @@ void CDataRecordDlg::OnBnClickedDeleteData()
 
 void CDataRecordDlg::RecordData(int sec, FFTDATA *pFftData)
 {
-	CString str;
-	int i;
 	const int nItem = m_cDataList.GetItemCount();
-
 	if (nItem == 0)
 		m_cFileSave.EnableWindow(TRUE);
 
+	CString str;
 	str.Format("%d", nItem + 1);
 	m_cDataList.InsertItem(nItem, str);
 	m_cDataList.SetItemData(nItem, nItem);
@@ -248,6 +245,7 @@ void CDataRecordDlg::RecordData(int sec, FFTDATA *pFftData)
 	str.Format("%d", sec);
 	m_cDataList.SetItemText(nItem, 1, str);
 
+	int i;
 	if (g_oSetData.Fft.nChannel != CH_STEREO) {
 		if (g_oSetData.Fft.nChannel == CH_RIGHT_ONLY)
 			pFftData++;
@@ -354,7 +352,7 @@ int CALLBACK CDataRecordDlg::CompareItems(LPARAM lParam1, LPARAM lParam2, LPARAM
 
 BOOL CDataRecordDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_DATA_LIST, IDH_FFT_REC_DATA_LIST,
 		IDC_TIMING_CYCLE, IDH_FFT_REC_TIMING_CYCLE,
 		IDC_TIMING_INTERVAL, IDH_FFT_REC_TIMING_INTERVAL,

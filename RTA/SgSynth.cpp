@@ -110,13 +110,9 @@ BOOL CSgSynth::OnInitDialog()
 
 void CSgSynth::SetFreqRange()
 {
-	int	nFreq;
-	int pos;
-	int nTic;
-
 	m_cFreqSlider.ClearTics();
-	for (nFreq = (int)MIN_FREQ, nTic = 0; nFreq <= (int)MAX_FREQ; nTic++) {
-		pos = CalcSliderPos(nFreq);
+	for (int nFreq = (int)MIN_FREQ, nTic = 0; nFreq <= (int)MAX_FREQ; nTic++) {
+		int pos = CalcSliderPos(nFreq);
 		m_cFreqSlider.SetTic(pos);
 
 		if (nTic % 9 == 0)
@@ -141,7 +137,6 @@ int CSgSynth::CalcSliderPos(double fFreq)
 		fFreq = MAX_FREQ;
 
 	int nPos = (int)((log(fFreq) - log(MIN_FREQ)) * MAX_POS / (log(MAX_FREQ) - log(MIN_FREQ)) + 0.5);
-
 	if (nPos < 0)
 		nPos = 0;
 	else if (nPos > MAX_POS)
@@ -339,7 +334,7 @@ void CSgSynth::OnCbnSelchangeWaveForm()
 
 BOOL CSgSynth::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_COMP_FREQ_1, IDH_SG_SYNTH_COMP_FREQ_1_8,
 		IDC_LEVEL_SLIDER_1, IDH_SG_SYNTH_LEVEL_SLIDER_1_8,
 		IDC_COMP_LEVEL_1, IDH_SG_SYNTH_COMP_LEVEL_1_8,

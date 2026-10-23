@@ -48,7 +48,7 @@ void CSettingDevice::OnOK()
 
 BOOL CSettingDevice::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_INPUT_24BIT, IDH_SETTING_INPUT_24BIT,
 		IDC_INPUT_16BIT, IDH_SETTING_INPUT_16BIT,
 		IDC_OUTPUT_24BIT, IDH_SETTING_OUTPUT_24BIT,

@@ -6,7 +6,7 @@
 #include "SgNoise.h"
 #include "Help\ContextHelp.h"
 
-static constexpr int tMaxTimeRange[] = {10, 100, 1000};
+static constexpr int tMaxTimeRange[]{ 10, 100, 1000 };
 
 /////////////////////////////////////////////////////////////////////////////
 // CSgNoise ダイアログ
@@ -230,7 +230,7 @@ void CSgNoise::OnCbnSelchangeTimeRange()
 
 BOOL CSgNoise::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_WHITE_NOISE, IDH_SG_NOISE_WHITE_NOISE,
 		IDC_PINK_NOISE, IDH_SG_NOISE_PINK_NOISE,
 		IDC_BROWN_NOISE, IDH_SG_NOISE_BROWN_NOISE,

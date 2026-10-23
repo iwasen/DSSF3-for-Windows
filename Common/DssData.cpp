@@ -8,13 +8,12 @@ CDssData g_DssData;
 
 CDssData::CDssData()
 {
-	BOOL bRead = FALSE;
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 
+	BOOL bRead = FALSE;
 	CFile file;
 	if (file.Open(sPathName, CFile::modeRead | CFile::shareDenyNone)) {
 		file.Read(this, sizeof(CDssData));
@@ -40,7 +39,6 @@ void CDssData::SaveData() const
 {
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 

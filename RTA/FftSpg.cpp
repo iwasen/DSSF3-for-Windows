@@ -49,12 +49,11 @@ void CFftWnd::SetBitmapSpg(FFTWINDOW *pFftWindow)
 void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, LPCSTR pText)
 {
 	int	nFreq;
-	int time;
 	int x, y;
 	const int nWidth = nRight - nLeft;
 	const int nHeight = nBottom - nTop;
 	CString sText;
-	CSize size;
+	SIZE size;
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushBlack);
@@ -67,7 +66,7 @@ void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(m_penMidGray);
 
-	for (time = 0; time <= g_oSetData.Fft.nTimeRange; time++) {
+	for (int time = 0; time <= g_oSetData.Fft.nTimeRange; time++) {
 		x = nLeft + time * nWidth / g_oSetData.Fft.nTimeRange;
 
 		if (x > nLeft && x < nRight) {
@@ -137,11 +136,10 @@ void CFftWnd::DrawScaleSpg(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 void CFftWnd::DrawLevelScale(const FFTWINDOW *pFftWindow, int /*nLeft*/, int nTop, int nRight, int nBottom)
 {
 	int y;
-	int nLevel;
 	const int nHeight = nBottom - nTop;
 	const int nLevelRange = m_nMaxLevel - m_nMinLevel;
 	CString sText;
-	CSize size;
+	SIZE size;
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushBlack);
@@ -153,7 +151,7 @@ void CFftWnd::DrawLevelScale(const FFTWINDOW *pFftWindow, int /*nLeft*/, int nTo
 	m_dcMem.SetTextColor(COLOR_TEXT);
 
 	const int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight * 3 / 5);
-	for (nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
+	for (int nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
 		y = nTop - (nLevel - m_nMaxLevel) * nHeight / nLevelRange;
 
 		sText.Format("%d", nLevel);
@@ -176,10 +174,9 @@ void CFftWnd::DrawLevelScale(const FFTWINDOW *pFftWindow, int /*nLeft*/, int nTo
 
 COLORREF CFftWnd::GetLevelColor(double fLevel) const
 {
-	int r, g, b;
-
 	fLevel = (fLevel - m_nMinLevel) / (m_nMaxLevel - m_nMinLevel);
 
+	int r, g, b;
 	if (g_oSetData.Fft.nColorScale == 0) {
 		if (fLevel >= 0.8) {
 			r = 255;
@@ -259,7 +256,6 @@ void CFftWnd::CalcSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBitma
 	double nLevel = 0;
 	const int nFftSize2 = m_nFftSize / 2;
 	int nCount = 0;
-	int t1, t2, t3;
 
 	memset(m_pSpgLevel, 0, sizeof(double) * pFftWindow->m_nScaleHeight);
 
@@ -298,6 +294,7 @@ void CFftWnd::CalcSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBitma
 		nCount++;
 	}
 
+	int t1, t2, t3;
 	for (i = 0; i < pFftWindow->m_nScaleHeight; i++) {
 		if (m_pSpgLevel[i] == 0) {
 			for (t1 = i; t1 >= 0 && m_pSpgLevel[t1] == 0; t1--)
@@ -350,7 +347,6 @@ void CFftWnd::DispSpgInfo(const FFTWINDOW *pFftWindow)
 void CFftWnd::DispSpgInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId)
 {
 	CString sFreq, sLevel;
-
 	sLevel.Format("%.2lf", dB10(pFftData->m_fFftAllPower));
 	sFreq = "ALL";
 
@@ -415,7 +411,6 @@ void CFftWnd::RedrawSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBit
 	double nLevel = 0;
 	const int nFftSize2 = m_nFftSize / 2;
 	int nCount = 0;
-	int t1, t2, t3;
 
 	memset(m_pSpgLevel, 0, sizeof(double) * pFftWindow->m_nScaleHeight);
 
@@ -454,6 +449,7 @@ void CFftWnd::RedrawSpgSub(const FFTWINDOW *pFftWindow, const double *pBuf, CBit
 		nCount++;
 	}
 
+	int t1, t2, t3;
 	for (i = 0; i < pFftWindow->m_nScaleHeight; i++) {
 		if (m_pSpgLevel[i] == 0) {
 			for (t1 = i; t1 >= 0 && m_pSpgLevel[t1] == 0; t1--)

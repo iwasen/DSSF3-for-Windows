@@ -125,7 +125,6 @@ void CWaveViewWnd::DispGraphManual(const WaveFormManual *pWaveForm)
 
 	if (pWaveForm->bSmoothing) {
 		const int nPoint = pWaveForm->nDataNum;
-		CSpline spl;
 		double *xp = new double[nPoint];
 		double *yp = new double[nPoint];
 
@@ -134,10 +133,11 @@ void CWaveViewWnd::DispGraphManual(const WaveFormManual *pWaveForm)
 			yp[i] = pPoint[i].y;
 		}
 
+		CSpline spl;
 		spl.MakeTable(xp, yp, nPoint);
 
-		delete [] yp;
-		delete [] xp;
+		delete[] yp;
+		delete[] xp;
 
 		POINT *pSpline = new POINT[m_nScaleWidth];
 		for (i = 0; i < m_nScaleWidth; i++) {
@@ -151,13 +151,13 @@ void CWaveViewWnd::DispGraphManual(const WaveFormManual *pWaveForm)
 
 		m_dcMem.Polyline(pSpline, m_nScaleWidth);
 
-		delete [] pSpline;
+		delete[] pSpline;
 	} else {
 		if (pWaveForm->nDataNum >= 2)
 			m_dcMem.Polyline(pPoint, pWaveForm->nDataNum);
 	}
 
-	delete [] pPoint;
+	delete[] pPoint;
 
 	m_dcMem.SelectObject(pBitmapOrg);
 	m_dcMem.SelectObject(pPenOrg);
@@ -185,7 +185,7 @@ void CWaveViewWnd::DispGraphFM(const WaveFormFM *pWaveForm)
 
 	m_dcMem.Polyline(pPoint, m_nScaleWidth);
 
-	delete [] pPoint;
+	delete[] pPoint;
 
 	m_dcMem.SelectObject(pBitmapOrg);
 	m_dcMem.SelectObject(pPenOrg);

@@ -6,7 +6,7 @@
 #include "GraphWave.h"
 #include "Help\ContextHelp.h"
 
-#define SCROLL_RANGE 16384
+#define SCROLL_RANGE	 16384
 #define MAX_ZOOM_TIME	512
 #define MAX_ZOOM_VALUE	512
 #define ZOOM_LOWER		0
@@ -38,7 +38,7 @@ CGraphWave::CGraphWave(CWnd* pParent /*=NULL*/)
 CGraphWave::~CGraphWave()
 {
 	if (m_pTempBuf != NULL)
-		delete [] m_pTempBuf;
+		delete[] m_pTempBuf;
 }
 
 void CGraphWave::DoDataExchange(CDataExchange* pDX)
@@ -110,8 +110,7 @@ BOOL CGraphWave::OnInitDialog()
 		CRect rcClient;
 		GetClientRect(rcClient);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(0, rcClient.bottom - sizeToolBar.cy + 6, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -120,8 +119,7 @@ BOOL CGraphWave::OnInitDialog()
 		CRect rcClient;
 		GetClientRect(rcClient);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomV.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomV.MoveWindow(rcClient.right - sizeToolBar.cx + 3, 0, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -313,11 +311,8 @@ void CGraphWave::SetHScroll()
 
 void CGraphWave::SetVScroll()
 {
-	int nScrollSize;
-	int nScrollPos;
-
-	nScrollSize = (int)(m_fDispValue / m_fTotalValue * SCROLL_RANGE);
-	nScrollPos = (int)((m_fStartValue - m_fMinValue) / m_fTotalValue * SCROLL_RANGE);
+	int nScrollSize = (int)(m_fDispValue / m_fTotalValue * SCROLL_RANGE);
+	int nScrollPos = (int)((m_fStartValue - m_fMinValue) / m_fTotalValue * SCROLL_RANGE);
 
 	if (nScrollSize != m_nVScrollSize || nScrollPos != m_nVScrollPos) {
 		m_nVScrollSize = nScrollSize;
@@ -401,7 +396,7 @@ void CALLBACK CGraphWave::GraphCallBack(WPARAM code, LPARAM data, double param1,
 
 BOOL CGraphWave::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_LEFT, IDH_GRAPH_WAVE_LEFT,
 		IDC_GRAPH_RIGHT, IDH_GRAPH_WAVE_RIGHT,
 		IDC_ZOOM_V, IDH_GRAPH_WAVE_ZOOM_V,

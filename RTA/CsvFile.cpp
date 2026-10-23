@@ -41,7 +41,6 @@ void CCsvFile::Output()
 BOOL CCsvFile::Input()
 {
 	CString sBuf;
-
 	if (!ReadString(sBuf)) {
 		return FALSE;
 	}

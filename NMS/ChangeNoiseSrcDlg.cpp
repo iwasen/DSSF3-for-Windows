@@ -42,7 +42,6 @@ BOOL CChangeNoiseSrcDlg::OnInitDialog()
 void CChangeNoiseSrcDlg::OnOK()
 {
 	int nIndex;
-
 	if ((nIndex = m_cNoiseSrcList.GetCurSel()) == LB_ERR)
 		return;
 
@@ -61,14 +60,12 @@ void CChangeNoiseSrcDlg::OnOK()
 
 void CChangeNoiseSrcDlg::SetNsTmpList(long nID)
 {
-	int nIndex;
-
 	m_cNoiseSrcList.ResetContent();
 
 	CString str;
 	str.LoadString(IDS_UNKNOWN);
 	str = "(" + str + ")";
-	nIndex = m_cNoiseSrcList.AddString(str);
+	int nIndex = m_cNoiseSrcList.AddString(str);
 	m_cNoiseSrcList.SetItemData(nIndex, (DWORD_PTR)-1);
 	if (nID == -1)
 		m_cNoiseSrcList.SetCurSel(-1);
@@ -106,7 +103,7 @@ void CChangeNoiseSrcDlg::OnDblclkNoiseSrcList()
 
 BOOL CChangeNoiseSrcDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_CHANGE_NOISE_OK,
 		IDCANCEL, IDH_CHANGE_NOISE_CANCEL,
 		IDC_ADD_NEW, IDH_CHANGE_NOISE_ADD_NEW,

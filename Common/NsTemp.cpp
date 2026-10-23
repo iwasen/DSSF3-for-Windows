@@ -6,19 +6,15 @@
 
 void UpdateNsWeightData()
 {
-	DbNsTmpRec dbNsTmpRec;
-	NsTmpData nsTmpData;
-	NsWeightData nsWeightData;
-	float fSd1Phi0, fSd1Taue, fSd1Tau1, fSd1Phi1, fSd1IACC, fSd1TIACC, fSd1WIACC;
-	float fSd2Phi0, fSd2Taue, fSd2Tau1, fSd2Phi1, fSd2IACC, fSd2TIACC, fSd2WIACC;
-	float fTmpPhi0, fTmpTaue, fTmpTau1, fTmpPhi1, fTmpIACC, fTmpTIACC, fTmpWIACC;
-	float fData;
-	float fMax;
-
 	// 騒音源テンプレートファイルオープン
 	CDbNsTmp dbNsTmp;
 	if (!dbNsTmp.Open())
 		return;
+
+	float fSd1Phi0, fSd1Taue, fSd1Tau1, fSd1Phi1, fSd1IACC, fSd1TIACC, fSd1WIACC;
+	float fSd2Phi0, fSd2Taue, fSd2Tau1, fSd2Phi1, fSd2IACC, fSd2TIACC, fSd2WIACC;
+	float fTmpPhi0, fTmpTaue, fTmpTau1, fTmpPhi1, fTmpIACC, fTmpTIACC, fTmpWIACC;
+	float fData;
 
 	// 変数初期化
 	fSd1Phi0 = fSd1Taue = fSd1Tau1 = fSd1Phi1 = fSd1IACC = fSd1TIACC = fSd1WIACC = 0;
@@ -27,6 +23,9 @@ void UpdateNsWeightData()
 	int nRec = 0;
 
 	// 分散値を求めるために騒音源テンプレートファイルを読む
+	DbNsTmpRec dbNsTmpRec;
+	NsTmpData nsTmpData;
+	NsWeightData nsWeightData;
 	for (;;) {
 		if (!dbNsTmp.ReadRecNext(&dbNsTmpRec, &nsTmpData))
 			break;
@@ -110,7 +109,6 @@ void UpdateNsWeightData()
 	::ReadNsWeightData(&nsWeightData);
 
 	// sqrt(異なる騒音源間の分散／同一騒音源の分散）を求める
-//	nsWeightData.fPhi0 = (float)sqrt((fSd1Phi0 != 0) ? fSd2Phi0 / fSd1Phi0 : 1);
 	nsWeightData.fTaue = (float)sqrt((fSd1Taue != 0) ? fSd2Taue / fSd1Taue : 1);
 	nsWeightData.fTau1 = (float)sqrt((fSd1Tau1 != 0) ? fSd2Tau1 / fSd1Tau1 : 1);
 	nsWeightData.fPhi1 = (float)sqrt((fSd1Phi1 != 0) ? fSd2Phi1 / fSd1Phi1 : 1);
@@ -119,8 +117,7 @@ void UpdateNsWeightData()
 	nsWeightData.fWIACC = (float)sqrt((fSd1WIACC != 0) ? fSd2WIACC / fSd1WIACC : 1);
 
 	// 最大の係数を求める
-//	fMax = nsWeightData.fPhi0;
-	fMax = 0;
+	float fMax = 0;
 	if (nsWeightData.fTaue > fMax)
 		fMax = nsWeightData.fTaue;
 	if (nsWeightData.fTau1 > fMax)
@@ -135,7 +132,6 @@ void UpdateNsWeightData()
 		fMax = nsWeightData.fWIACC;
 
 	// 最大の係数を１として正規化
-//	nsWeightData.fPhi0 /= fMax;
 	nsWeightData.fTaue /= fMax;
 	nsWeightData.fTau1 /= fMax;
 	nsWeightData.fPhi1 /= fMax;

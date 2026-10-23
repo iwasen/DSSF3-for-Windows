@@ -396,14 +396,8 @@ void SasApp::RegistExportFileIcon()
 {
 	HKEY hKey;
 	DWORD dwDisposition;
-
 	if (RegCreateKeyEx(HKEY_CURRENT_USER, "SoftWare\\Classes\\.dssf", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hKey, &dwDisposition) != ERROR_SUCCESS)
 		return;
-
-//	if (dwDisposition == REG_OPENED_EXISTING_KEY) {
-//		CloseHandle(hKey);
-//		return;
-//	}
 
 	if (RegSetValueEx(hKey, "", 0, REG_SZ, (BYTE *)"DSSF.File", 10) != ERROR_SUCCESS) {
 		CloseHandle(hKey);

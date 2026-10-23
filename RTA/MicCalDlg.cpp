@@ -88,8 +88,8 @@ BOOL CMicCalDlg::OnInitDialog()
 	m_WindowSize.cx = rectDlg.Width();
 	m_WindowSize.cy = rectDlg.Height();
 
-	CRect rectSeparator;
-	m_cSeparator.GetWindowRect(rectSeparator);
+	RECT rectSeparator;
+	m_cSeparator.GetWindowRect(&rectSeparator);
 
 	SetWindowPos(NULL, 0, 0, m_WindowSize.cx, rectSeparator.top - rectDlg.top, SWP_NOZORDER | SWP_NOMOVE);
 
@@ -112,7 +112,7 @@ void CMicCalDlg::InitMicCalList()
 		UINT textID;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[]{
 		{IDS_MICINFO, 150},
 		{IDS_MICAMPINFO, 150},
 		{IDS_COMMENT, 150}
@@ -197,7 +197,6 @@ void CMicCalDlg::OnRegist()
 void CMicCalDlg::OnChange()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1) {
 		::AfxMessageBox(IDS_MSG_SELECTMICCAL);
 		return;
@@ -230,7 +229,6 @@ void CMicCalDlg::OnChange()
 void CMicCalDlg::OnDelete()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1) {
 		::AfxMessageBox(IDS_MSG_SELECTMICCAL);
 		return;
@@ -271,7 +269,6 @@ void CMicCalDlg::OnSetting()
 int CMicCalDlg::GetCurSel()
 {
 	const int itemCount = m_cMicCalList.GetItemCount();
-
 	for (int i = 0; i < itemCount; i++) {
 		if (m_cMicCalList.GetItemState(i, LVIS_SELECTED) != 0)
 			return i;
@@ -281,12 +278,11 @@ int CMicCalDlg::GetCurSel()
 
 void CMicCalDlg::SetCurSel(DWORD lParam)
 {
-	int index;
-
 	LV_FINDINFO findInfo{
 		.flags = LVFI_PARAM,
 		.lParam = (LPARAM)lParam
 	};
+	int index;
 	if ((index = m_cMicCalList.FindItem(&findInfo)) != -1)
 		m_cMicCalList.SetItemState(index, LVIS_SELECTED, LVIS_SELECTED);
 }
@@ -333,7 +329,6 @@ void CMicCalDlg::OnOK()
 void CMicCalDlg::OnRead()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1) {
 		::AfxMessageBox(IDS_MSG_SELECTMICCAL);
 		return;
@@ -396,10 +391,9 @@ void CMicCalDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 {
 	const double fAngleStep = 1000.0 / SAMPLING_RATE;
 	double *pWaveBuf = pWaveNotify->pSamplesData;
-	double s;
 
 	for (int i = 0; i < WAVEBUF_SAMPLESPERBUFFER; i++) {
-		s = sin(2 * M_PI * m_fAngle);
+		double s = sin(2 * M_PI * m_fAngle);
 		*pWaveBuf++ = s;
 		*pWaveBuf++ = s;
 		m_fAngle += fAngleStep;
@@ -411,7 +405,6 @@ void CMicCalDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 void CMicCalDlg::SaveCheck()
 {
 	int index;
-
 	if ((index = GetCurSel()) == -1)
 		return;
 
@@ -432,7 +425,6 @@ void CMicCalDlg::SetTabCtrl()
 	if (m_bSetting) {
 		int index;
 		int nMicCalID;
-
 		if ((index = GetCurSel()) != -1)
 			nMicCalID = (int)m_cMicCalList.GetItemData(index);
 		else
@@ -490,7 +482,7 @@ void CMicCalDlg::OnBnClickedSeparateRl()
 
 BOOL CMicCalDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_MICCAL_LIST, IDH_MICCAL_LIST,
 		IDC_READ, IDH_MICCAL_READ,
 		IDC_RESET, IDH_MICCAL_RESET,

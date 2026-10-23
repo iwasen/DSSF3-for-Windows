@@ -31,15 +31,13 @@ void CIRALevelWnd::OnPaint()
 	dc.FillRect(&dc.m_ps.rcPaint, &m_brushBkgnd);
 
 	if (IsWindowEnabled()) {
-		int i, y;
-
-		CRect rect;
-		GetClientRect(rect);
+		RECT rect;
+		GetClientRect(&rect);
 
 		CPen *pPenOrg = dc.SelectObject(&m_penRangeColor[0]);
 
-		for (y = rect.bottom; y >= m_nMarkerPos; y -= 2) {
-			for (i = 0; i < m_nRangeColor; i++) {
+		for (int y = rect.bottom; y >= m_nMarkerPos; y -= 2) {
+			for (int i = 0; i < m_nRangeColor; i++) {
 				if (y > m_nRangeLevel[i]) {
 					dc.SelectObject(m_penRangeColor[i]);
 					break;
@@ -79,8 +77,8 @@ void CIRALevelWnd::SetMarker(double fMarkerPos)
 	if (fMarkerPos < -1)
 		fMarkerPos = -1;
 
-	CRect rect;
-	GetClientRect(rect);
+	RECT rect;
+	GetClientRect(&rect);
 
 	m_nMarkerPos = (int)((rect.bottom - rect.bottom * fMarkerPos) / 2);
 
@@ -108,8 +106,8 @@ void CIRAPositionWnd::OnPaint()
 {
 	CPaintDC dc(this); // 描画用のデバイス コンテキスト
 
-	CRect rect;
-	GetClientRect(rect);
+	RECT rect;
+	GetClientRect(&rect);
 
 	CRgn rgn;
 	rgn.CreateRectRgn(rect.left, rect.top, rect.right, rect.bottom);
@@ -156,8 +154,8 @@ void CIRAPositionWnd::SetMarker(double fMarkerPos, COLORREF nMarkerColor, int nL
 	if (fMarkerPos < -1)
 		fMarkerPos = -1;
 
-	CRect rect;
-	GetClientRect(rect);
+	RECT rect;
+	GetClientRect(&rect);
 
 	m_nMarkerPos = (int)((rect.bottom - rect.bottom * fMarkerPos) / 2);
 	m_nMarkerColor = nMarkerColor;

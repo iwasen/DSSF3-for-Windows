@@ -73,12 +73,11 @@ void CSettingFont::OnOK()
 
 void CSettingFont::SetFontSizeList(CComboBox &cmb, int nFontSize)
 {
-	int index;
 	CString str;
 
 	for (int i = 0; i < g_tFontSize[i] != 0; i++) {
 		str.Format("%d", g_tFontSize[i]);
-		index = cmb.AddString(str);
+		int index = cmb.AddString(str);
 		cmb.SetItemData(index, g_tFontSize[i]);
 	}
 
@@ -91,7 +90,6 @@ void CSettingFont::SetFontSizeList(CComboBox &cmb, int nFontSize)
 void CSettingFont::SetDefault(CComboBox &cmb)
 {
 	CString str;
-
 	cmb.GetLBText(0, str);
 	cmb.SetWindowText(str);
 }
@@ -99,14 +97,13 @@ void CSettingFont::SetDefault(CComboBox &cmb)
 int CSettingFont::GetFontSize(CComboBox &cmb)
 {
 	CString str;
-
 	cmb.GetWindowText(str);
 	return atoi(str);
 }
 
 BOOL CSettingFont::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_FONT_SIZE_SG, IDH_SETTING_FONT_SIZE_SG,
 		IDC_FONT_SIZE_FFT, IDH_SETTING_FONT_SIZE_FFT,
 		IDC_FONT_SIZE_OS, IDH_SETTING_FONT_SIZE_OS,

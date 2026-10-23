@@ -43,7 +43,7 @@ void CWaveFile::Write(const double *pData, int nSamplesNum)
 		CopyWaveFromDouble(pWaveBuf, pData, NULL, nSamplesNum, m_oPcmWaveFormat.wBitsPerSample);
 
 		m_oWaveFile.Write(pWaveBuf, nDataSize);
-		delete [] pWaveBuf;
+		delete[] pWaveBuf;
 
 		m_nDataSize += nDataSize;
 		m_bWriteDataSize = TRUE;
@@ -86,7 +86,6 @@ BOOL CWaveFile::ReadHeader(LPPCMWAVEFORMAT pWaveFormat, DWORD *pDataSize)
 		DWORD	ckSize;
 		DWORD	formType;
 	} riff;
-	WAVEFORMATEXTENSIBLE waveFormatExtensible;
 
 	if (m_oWaveFile.Read(&riff, sizeof(riff)) != sizeof(riff))
 		return FALSE;
@@ -97,6 +96,7 @@ BOOL CWaveFile::ReadHeader(LPPCMWAVEFORMAT pWaveFormat, DWORD *pDataSize)
 	if (riff.formType != FORMTYPE_WAVE)
 		return FALSE;
 
+	WAVEFORMATEXTENSIBLE waveFormatExtensible;
 	if (!ReadChunk(mmioFOURCC('f', 'm', 't', ' '), &waveFormatExtensible, sizeof(WAVEFORMATEXTENSIBLE)))
 		return FALSE;
 
@@ -121,7 +121,6 @@ BOOL CWaveFile::ReadHeader(LPPCMWAVEFORMAT pWaveFormat, DWORD *pDataSize)
 BOOL CWaveFile::ReadChunk(DWORD ckID, void *pData, DWORD nSize)
 {
 	DWORD	ckSize;
-
 	if (!SearchChunk(ckID, &ckSize))
 		return FALSE;
 
@@ -142,7 +141,6 @@ BOOL CWaveFile::SearchChunk(DWORD ckID, DWORD *ckSize)
 		FOURCC	ckID;
 		DWORD	ckSize;
 	} chunk;
-	DWORD	size;
 
 	for (;;) {
 		if (m_oWaveFile.Read(&chunk, sizeof(chunk)) != sizeof(chunk))
@@ -153,7 +151,7 @@ BOOL CWaveFile::SearchChunk(DWORD ckID, DWORD *ckSize)
 			break;
 		}
 
-		size = (chunk.ckSize + 1) & ~0x01L;
+		DWORD size = (chunk.ckSize + 1) & ~0x01L;
 		m_oWaveFile.Seek(size, CFile::current);
 	}
 
@@ -167,6 +165,6 @@ void CWaveFile::Read(double *pData, int nSamplesNum)
 		BYTE *pWaveBuf = new BYTE[nDataSize];
 		m_oWaveFile.Read(pWaveBuf, nDataSize);
 		CopyWaveToDouble(pWaveBuf, pData, NULL, nSamplesNum, m_oPcmWaveFormat.wBitsPerSample);
-		delete [] pWaveBuf;
+		delete[] pWaveBuf;
 	}
 }

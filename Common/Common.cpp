@@ -24,7 +24,7 @@ static struct SAMPLING_RATE {
 	DWORD dwSamplingRate;
 	DWORD dwFormat;
 	DWORD dwAvail;
-} tSamplingRate[] = {
+} tSamplingRate[]{
 	{192000, 0},
 	{ 96000, WAVE_FORMAT_96M16 | WAVE_FORMAT_96S16},
 	{ 88200, 0},
@@ -62,10 +62,6 @@ void ResetSamplingRate()
 
 void SetSamplingRateList(CComboBox &combo, int nInOut, INT_PTR nDeviceIn, INT_PTR nDeviceOut, int &nDefault)
 {
-	CString strBuf;
-	int nIndex = -1;
-	int nSelect = -1;
-
 	if (nInOut & WAVE_IN) {
 		if (!bCheckSamplingRateIn) {
 			CheckSamplingRateIn(nDeviceIn);
@@ -82,6 +78,9 @@ void SetSamplingRateList(CComboBox &combo, int nInOut, INT_PTR nDeviceIn, INT_PT
 
 	combo.ResetContent();
 
+	int nSelect = -1;
+	int nIndex = -1;
+	CString strBuf;
 	for (int i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 		if ((tSamplingRate[i].dwAvail & nInOut) == (DWORD)nInOut) {
 			strBuf.Format("%.3f kHz", (double)tSamplingRate[i].dwSamplingRate / 1000);
@@ -235,7 +234,7 @@ int GetSamplingRateIndex(int nSamplingRate)
 
 void SetFilterNameList(CComboBox &combo)
 {
-	static constexpr int tFilterName[] = {
+	static constexpr int tFilterName[]{
 	//	"Flat", "A“Á«", "B“Á«", "C“Á«"
 		IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING
 	};
@@ -249,11 +248,10 @@ void SetFilterNameList(CComboBox &combo)
 
 double GetCeilValue(double fValue)
 {
-	double a;
 	double x;
 
 	if (fValue != 0) {
-		a = fabs(fValue);
+		double a = fabs(fValue);
 		x = pow(10.0, floor(log10(a)));
 		x = ceil(a / x) * x;
 		if (fValue < 0)
@@ -267,7 +265,6 @@ double GetCeilValue(double fValue)
 int MessageBoxID(CWnd *pWnd, UINT nIDPrompt, UINT nType)
 {
 	CString msg;
-
 	msg.LoadString(nIDPrompt);
 	if (pWnd != NULL)
 		return pWnd->MessageBox(msg, NULL, nType);
@@ -311,10 +308,9 @@ BOOL ExecMMLib(CWnd *pWnd)
 
 BOOL FindMMLib()
 {
-	CString sProgramFiles;
-	CString sProgramFilesX86;
 	CString sMMLib;
 
+	CString sProgramFiles;
 	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, NULL, sProgramFiles.GetBuffer(MAX_PATH)))) {
 		sProgramFiles.ReleaseBuffer();
 		if (FindMMLibSub(sProgramFiles, sMMLib)) {
@@ -324,6 +320,7 @@ BOOL FindMMLib()
 		}
 	}
 
+	CString sProgramFilesX86;
 	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILESX86, NULL, NULL, sProgramFilesX86.GetBuffer(MAX_PATH)))) {
 		sProgramFilesX86.ReleaseBuffer();
 		if (sProgramFilesX86 != sProgramFiles) {
@@ -340,10 +337,9 @@ BOOL FindMMLib()
 
 BOOL FindMMLibSub(const CString sDir, CString &sFindPath, int nLevel)
 {
-	CFileFind oFileFind;
-
 	CString sSearchFile = sDir + "\\*";
 
+	CFileFind oFileFind;
 	if (!oFileFind.FindFile(sSearchFile))
 		return FALSE;
 
@@ -474,7 +470,7 @@ BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pD
 
 	::DdeDisconnect(hConv);
 
-	delete [] pMmlibData;
+	delete[] pMmlibData;
 
 	::DdeFreeStringHandle(idInst, hService);
 	::DdeFreeStringHandle(idInst, hTopic);
@@ -492,13 +488,13 @@ HDDEDATA EXPENTRY DdeCallback(WORD /*wType*/, WORD /*wFmt*/, HCONV /*hConv*/, HS
 
 void LoadBimapStretch(CBitmap &bitmapDst, UINT nID, int nWidth, int nHeight)
 {
-	CBitmap bitmapSrc;
 	CWnd *pWnd = CWnd::GetDesktopWindow();
 	CDC *pDC = pWnd->GetDC();
 	CDC dcSrc, dcDst;
 	dcSrc.CreateCompatibleDC(pDC);
 	dcDst.CreateCompatibleDC(pDC);
 
+	CBitmap bitmapSrc;
 	bitmapSrc.LoadBitmap(nID);
 	bitmapDst.DeleteObject();
 	bitmapDst.CreateCompatibleBitmap(pDC, nWidth, nHeight);
@@ -572,7 +568,6 @@ HWAVEDATA MakeWaveDataHandle(int nSamplesPerSec, int nBitsPerSample, int nChanne
 void OpenURL(UINT nID)
 {
 	CString str;
-
 	str.LoadString(nID);
 	::ShellExecute(NULL, "open", str, NULL, NULL, SW_SHOWNORMAL);
 }
@@ -694,7 +689,7 @@ void ScreenShot(HWND hWnd)
 		return;
 
 	CRect rect;
-	pWnd->GetWindowRect(&rect);
+	pWnd->GetWindowRect(rect);
 	const int nWidth = rect.Width();
 	const int nHeight = rect.Height();
 
@@ -727,7 +722,6 @@ void ScreenShot(HWND hWnd)
 
 void DispContextHelp(const HELPINFO* pHelpInfo, const UINT *pIDs)
 {
-	UINT nHelpId = 0;
 	UINT nCtrlId = 0;
 
 	if (pHelpInfo->iCtrlId == ID_ZOOM_H || pHelpInfo->iCtrlId == ID_ZOOM_V) {
@@ -740,6 +734,7 @@ void DispContextHelp(const HELPINFO* pHelpInfo, const UINT *pIDs)
 	} else
 		nCtrlId = pHelpInfo->iCtrlId;
 
+	UINT nHelpId = 0;
 	while (*pIDs) {
 		if (*pIDs == nCtrlId) {
 			nHelpId = pIDs[1];
@@ -942,7 +937,6 @@ CString GetExeDir()
 void SetFileType(LPCSTR ext, LPCSTR docname, LPCSTR doctype, LPCSTR exepath)
 {
 	CRegKey reg;
-
 	if (reg.SetValue(HKEY_CLASSES_ROOT, ext, docname) != ERROR_SUCCESS)
 		return;
 

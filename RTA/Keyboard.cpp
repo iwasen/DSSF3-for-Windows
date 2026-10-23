@@ -131,12 +131,12 @@ void CKeyboard::SetMarker(int nOctave, int nKey)
 void CKeyboard::PreSubclassWindow()
 {
 	int i;
-	CRect rect;
-	GetClientRect(rect);
+	RECT rect;
+	GetClientRect(&rect);
 
 	int nOctave, nKey, nIndex;
-	static constexpr int tWhiteKey[7] = {0, 2, 4, 5, 7, 9, 11};
-	static constexpr int tBlackKey[5] = {1, 3, 6, 8, 10};
+	static constexpr int tWhiteKey[7]{ 0, 2, 4, 5, 7, 9, 11 };
+	static constexpr int tBlackKey[5]{ 1, 3, 6, 8, 10 };
 
 	const double nWhiteKeyWidth = rect.right / 52.0;
 	const int nWhiteKeyHeight = rect.bottom;
@@ -150,8 +150,8 @@ void CKeyboard::PreSubclassWindow()
 		m_nKey[nIndex] = tWhiteKey[(i + 5) % 7];
 	}
 
-	static constexpr int key[5] = {1, 2, 4, 5, 6};
-	static constexpr int pos[5] = {0, 1, 0, 0, 0};
+	static constexpr int key[5]{ 1, 2, 4, 5, 6 };
+	static constexpr int pos[5]{ 0, 1, 0, 0, 0 };
 
 	for (i = 0; i < 36; i++) {
 		nOctave = (i + 4) / 5;
@@ -163,8 +163,6 @@ void CKeyboard::PreSubclassWindow()
 		m_nOctave[nIndex] = nOctave;
 		m_nKey[nIndex] = tBlackKey[nKey];
 	}
-
-//	SetWindowPos(NULL, 0, 0, nWhiteKeyWidth * 52, nWhiteKeyHeight, SWP_NOMOVE | SWP_NOZORDER);
 
 	CWnd::PreSubclassWindow();
 }

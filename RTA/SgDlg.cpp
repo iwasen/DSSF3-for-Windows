@@ -197,7 +197,6 @@ void CSgDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	switch (pScrollBar->GetDlgCtrlID()) {
 	case IDC_SG_DSLIDER:
-//		m_pWaveOut->Reset();
 		SetDLevel(((CSliderCtrl *)pScrollBar)->GetPos());
 		break;
 	}
@@ -235,7 +234,6 @@ void CSgDlg::OnStart()
 void CSgDlg::OnSelchangeSamplingRate()
 {
 	int index;
-
 	if ((index = m_cSamplingRate.GetCurSel()) != CB_ERR) {
 		g_oSetData.Sg.nSamplingRate = (int)m_cSamplingRate.GetItemData(index);
 		m_cSgTab.NotifyChildDlg(TN_CHANGE_SAMPLING_RATE);
@@ -363,7 +361,6 @@ void CSgDlg::SetVolume()
 int CSgDlg::GetChannel()
 {
 	int nChannel = 1;
-
 	switch (g_oSetData.Sg.nMode) {
 	case SG_MODE_TONE:
 	case SG_MODE_NOISE:
@@ -387,8 +384,8 @@ void CSgDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bMove) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Sg.nPosLeft = rect.left;
 		g_oSetData.Sg.nPosTop = rect.top;
 	}
@@ -409,7 +406,7 @@ void CSgDlg::ChangeWaveDevice(int nInOut)
 
 BOOL CSgDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_BTN_START, IDH_SG_START,
 		IDC_SG_TIME, IDH_SG_TIME,
 		IDC_SAMPLING_RATE, IDH_SG_SAMPLING_RATE,

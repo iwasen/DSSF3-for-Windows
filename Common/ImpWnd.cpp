@@ -36,7 +36,7 @@ CImpWnd::CImpWnd()
 CImpWnd::~CImpWnd()
 {
 	if (m_pPoint != NULL)
-		delete [] m_pPoint;
+		delete[] m_pPoint;
 }
 
 BEGIN_MESSAGE_MAP(CImpWnd, CWnd)
@@ -67,7 +67,6 @@ void CImpWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF rgb
 	ReleaseDC(pDC);
 
 	m_penWave.CreatePen(PS_SOLID, 0, rgbWaveColor);
-//	m_penLine.CreatePen(PS_SOLID, 0, rgbLineColor);
 	m_penBlack.CreatePen(PS_SOLID, 0, RGB(0, 0, 0));
 	m_penGray.CreatePen(PS_SOLID, 0, RGB(128, 128, 128));
 	m_penLightGray.CreatePen(PS_SOLID, 0, RGB(192, 192, 192));
@@ -77,11 +76,11 @@ void CImpWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF rgb
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 	m_brushSelectArea.CreateSolidBrush(RGB(255, 255, 128));
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_fontNormal.CreatePointFontIndirect(&font, &m_dcMem);
@@ -160,7 +159,7 @@ void CImpWnd::Uninitialize2()
 	m_rgnScale.DeleteObject();
 
 	if (m_pPoint != NULL) {
-		delete [] m_pPoint;
+		delete[] m_pPoint;
 		m_pPoint = NULL;
 	}
 }
@@ -173,20 +172,17 @@ void CImpWnd::Resize()
 
 void CImpWnd::SetBitmap(double startTime, double dispTime)
 {
-	CString sText;
-	CSize size;
-	int x, y;
-	int ns;
-
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_fontNormal);
 
-	CRect rect(0, 0, m_nWidth, m_nHeight);
-	m_dcMem.FillRect(rect, &m_brushWhite);
+	RECT rect(0, 0, m_nWidth, m_nHeight);
+	m_dcMem.FillRect(&rect, &m_brushWhite);
 
+	SIZE size;
+	CString sText;
 	for (int i = 100; i >= -100; i -= 20) {
-		y = m_nScaleCenter - (i * (m_nScaleHeight / 2) / 100);
+		int y = m_nScaleCenter - (i * (m_nScaleHeight / 2) / 100);
 		if (i == 0 || i == 100 || i == -100)
 			m_dcMem.SelectObject(&m_penBlack);
 		else
@@ -203,6 +199,7 @@ void CImpWnd::SetBitmap(double startTime, double dispTime)
 	const double t1 = dispTime / m_nScaleWidth * 75;
 	double step = pow(10.0, floor(log10(t1)));
 	const double t2 = t1 / step;
+	int ns;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -212,7 +209,7 @@ void CImpWnd::SetBitmap(double startTime, double dispTime)
 		ns = 5;
 
 	for (double t = floor(startTime / step) * step; t < startTime + dispTime; t += step) {
-		x = m_nScaleLeft + int((t - startTime) * m_nScaleWidth / dispTime);
+		int x = m_nScaleLeft + int((t - startTime) * m_nScaleWidth / dispTime);
 		if (x >= m_nScaleLeft) {
 			if (int(t / step + 0.5) % ns == 0) {
 				if (x > m_nScaleLeft) {
@@ -259,18 +256,15 @@ void CImpWnd::OnPaint()
 	CPaintDC dc(this); // 描画用のデバイス コンテキスト
 
 	if (IsWindowEnabled()) {
-		int x;
-		CBitmap *pBitmapOrg;
-		CPen *pPenOrg;
-
-		pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
+		CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 		dc.BitBlt(0, 0, m_nWidth, m_nHeight, &m_dcMem, 0, 0, SRCCOPY);
 
+		int x;
 		if (m_fT0 >= 0) {
 			x = (int)((m_fT0 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 			if (x >= m_nScaleLeft && x < m_nScaleRight) {
 				dc.SetBkMode(TRANSPARENT);
-				pPenOrg = dc.SelectObject(&m_penT0);
+				CPen *pPenOrg = dc.SelectObject(&m_penT0);
 				dc.MoveTo(x, m_nScaleTop);
 				dc.LineTo(x, m_nScaleBottom);
 				dc.SelectObject(pPenOrg);
@@ -280,7 +274,7 @@ void CImpWnd::OnPaint()
 			x = (int)((m_fT1 - m_fStartTime) / m_fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 			if (x >= m_nScaleLeft && x < m_nScaleRight) {
 				dc.SetBkMode(TRANSPARENT);
-				pPenOrg = dc.SelectObject(&m_penT1);
+				CPen *pPenOrg = dc.SelectObject(&m_penT1);
 				dc.MoveTo(x, m_nScaleTop);
 				dc.LineTo(x, m_nScaleBottom);
 				dc.SelectObject(pPenOrg);
@@ -298,11 +292,6 @@ void CImpWnd::OnPaint()
 
 void CImpWnd::DispImpulse(double totalTime, double startTime, double dispTime, const double *pData, int nData, BOOL bHScroll)
 {
-	int i, i2;
-	int x, x2;
-	int y;
-	int ymin, ymax;
-
 	if (!IsWindowEnabled())
 		return;
 
@@ -325,11 +314,12 @@ void CImpWnd::DispImpulse(double totalTime, double startTime, double dispTime, c
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penWave);
 
 	int nPoint = 0;
-	x2 = 0;
+	int x2 = 0;
+	int ymin, ymax;
 	ymin = ymax = m_nScaleCenter;
-	i2 = int(startTime / totalTime * nData + 0.99);
-	for (i = i2; i < nData - 1; i++) {
-		x = (int)((i * totalTime / nData - startTime) / dispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+	int i2 = int(startTime / totalTime * nData + 0.99);
+	for (int i = i2; i < nData - 1; i++) {
+		int x = (int)((i * totalTime / nData - startTime) / dispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
 		if (x2 == 0)
 			x2 = x;
@@ -360,7 +350,7 @@ void CImpWnd::DispImpulse(double totalTime, double startTime, double dispTime, c
 			x2 = x;
 		}
 
-		y = (int)(m_nScaleCenter - pData[i] * m_nScaleHeight / 2 / fMaxVal + 0.5);
+		int y = (int)(m_nScaleCenter - pData[i] * m_nScaleHeight / 2 / fMaxVal + 0.5);
 		if (y < ymin)
 			ymin = y;
 		if (y > ymax)

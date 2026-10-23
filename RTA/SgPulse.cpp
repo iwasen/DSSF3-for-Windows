@@ -160,7 +160,7 @@ void CSgPulse::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 BOOL CSgPulse::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_PULSE_WIDTH, IDH_SG_PULSE_WIDTH,
 		IDC_PULSE_NUM, IDH_SG_PULSE_NUM,
 		IDC_PULSE_CONTINUE, IDH_SG_PULSE_CONTINUE,

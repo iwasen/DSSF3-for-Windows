@@ -164,8 +164,8 @@ double CSG::GetUserWaveFormManual(const WaveFormManual *pWaveForm, SWorkData &oW
 
 			m_oSpline.MakeTable(xp, yp, nPoint);
 
-			delete [] yp;
-			delete [] xp;
+			delete[] yp;
+			delete[] xp;
 		}
 
 		return m_oSpline.Spline(oWorkData.fAngle);
@@ -256,7 +256,7 @@ int CSG::WaveOutNoise(LPWAVENOTIFY pWaveNotify)
 		break;
 	}
 
-	delete [] buf;
+	delete[] buf;
 
 	return SG_SPB;
 }
@@ -399,8 +399,8 @@ int CSG::WaveOutSynth(LPWAVENOTIFY pWaveNotify)
 	for (i = 0; i < SG_SPB; i++)
 		pWaveBuf[i] = (fMax > 1.0) ? waveBuf[i] / fMax : waveBuf[i];
 
-	delete [] buf;
-	delete [] waveBuf;
+	delete[] buf;
+	delete[] waveBuf;
 
 	return SG_SPB;
 }
@@ -429,7 +429,7 @@ void CSG::Init()
 		break;
 	case SG_MODE_NOISE:
 		if (m_pRingBuf != NULL)
-			delete [] m_pRingBuf;
+			delete[] m_pRingBuf;
 		m_nRingBufSize = SG_SPB + g_oSetData.Sg.nSamplingRate + 1;
 		m_pRingBuf = new double[m_nRingBufSize]();
 		m_nRingBufPtr = 0;

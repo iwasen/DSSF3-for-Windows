@@ -22,7 +22,7 @@ CTSP::~CTSP()
 
 void CTSP::InitMethod(int nStage)
 {
-	static constexpr int tMParam[] = {10, 12, 13, 14, 15, 15, 15, 15, 15, 15};
+	static constexpr int tMParam[]{ 10, 12, 13, 14, 15, 15, 15, 15, 15, 15 };
 
 	if (nStage == m_nStage)
 		return;
@@ -73,7 +73,7 @@ void CTSP::GenerateSequence(double *pData, int nAtt)
 		for ( ; i < m_nN; i++)
 			m_pSignal[i] = f1[i - (m_nN - nShift)] * nLevel;
 
-		delete [] f1;
+		delete[] f1;
 	}
 
 	memcpy(pData, m_pSignal, sizeof(double) * m_nN);
@@ -117,7 +117,7 @@ void CTSP::CalcImpulse(double *pData)
 	memcpy(pData, f1 + (m_nN - nShift), sizeof(double) * nShift);
 	memcpy(pData + nShift, f1, sizeof(double) * (m_nN - nShift));
 
-	delete [] f1;
+	delete[] f1;
 
 	PolarityCheck(m_nN, pData);
 }
@@ -125,7 +125,7 @@ void CTSP::CalcImpulse(double *pData)
 void CTSP::FreeBuffers()
 {
 	if (m_pSignal != NULL) {
-		delete [] m_pSignal;
+		delete[] m_pSignal;
 		m_pSignal = NULL;
 	}
 }

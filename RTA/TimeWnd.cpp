@@ -122,8 +122,8 @@ BOOL CTimeWnd::OnEraseBkgnd(CDC* /*pDC*/)
 
 void CTimeWnd::OnDestroy()
 {
-	CRect rect;
-	GetWindowRect(rect);
+	RECT rect;
+	GetWindowRect(&rect);
 	g_oSetData.Tim.nPosLeft = rect.left;
 	g_oSetData.Tim.nPosTop = rect.top;
 
@@ -133,7 +133,6 @@ void CTimeWnd::OnDestroy()
 void CTimeWnd::CreateFont()
 {
 	CString str;
-
 	str.LoadString(IDS_DEFAULTFONT);
 	m_Font.DeleteObject();
 	m_Font.CreatePointFont(g_oSetData.Tim.nFontSize, str, NULL);
@@ -184,8 +183,8 @@ void CTimeWnd::CreateBitmap()
 
 	CBrush brush;
 	brush.CreateSolidBrush(RGB(255, 255, 225));
-	CRect rect(0, 0, m_nWidth, m_nHeight);
-	m_dcMem.FillRect(rect, &brush);
+	RECT rect(0, 0, m_nWidth, m_nHeight);
+	m_dcMem.FillRect(&rect, &brush);
 
 	m_dcMem.TextOut(XMARGIN, YMARGIN, time);
 
@@ -196,7 +195,6 @@ void CTimeWnd::CreateBitmap()
 void CTimeWnd::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	WINDOWPLACEMENT wpl;
-
 	GetWindowPlacement(&wpl);
 	m_Rect = wpl.rcNormalPosition;
 	m_Point = point;
@@ -238,7 +236,6 @@ void CTimeWnd::PostNcDestroy()
 void CTimeWnd::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	POINT posScreen;
-
 	::GetCursorPos(&posScreen);
 
 	CMenu menu;

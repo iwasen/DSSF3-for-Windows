@@ -12,8 +12,8 @@
 #define MIN_LEVEL_VAL	-60
 #define MAX_LEVEL_VAL	0
 
-#define MIN_LEVEL_POS 0
-#define MAX_LEVEL_POS (-(MIN_LEVEL_VAL))
+#define MIN_LEVEL_POS	0
+#define MAX_LEVEL_POS	(-(MIN_LEVEL_VAL))
 
 #define RESOLUTION	10
 
@@ -241,27 +241,27 @@ void CFreSweep::Redraw()
 void CFreSweep::FreeBuffers()
 {
 	if (m_pWaveLeft != NULL) {
-		delete [] m_pWaveLeft;
+		delete[] m_pWaveLeft;
 		m_pWaveLeft = NULL;
 	}
 
 	if (m_pWaveRight != NULL) {
-		delete [] m_pWaveRight;
+		delete[] m_pWaveRight;
 		m_pWaveRight = NULL;
 	}
 
 	if (m_pLeftData != NULL) {
-		delete [] m_pLeftData;
+		delete[] m_pLeftData;
 		m_pLeftData = NULL;
 	}
 
 	if (m_pRightData != NULL) {
-		delete [] m_pRightData;
+		delete[] m_pRightData;
 		m_pRightData = NULL;
 	}
 
 	if (m_pFreq != NULL) {
-		delete [] m_pFreq;
+		delete[] m_pFreq;
 		m_pFreq = NULL;
 	}
 
@@ -349,8 +349,8 @@ double CFreSweep::CalcFreqResponse(const double *pData, double fFreq, const DbMi
 
 		fFilter = pow(10.0, spline.Spline(log(fFreq)) / 20);
 
-		delete [] pFreq;
-		delete [] pLevel;
+		delete[] pFreq;
+		delete[] pLevel;
 	}
 
 	fFilter = pow(10.0, -oMicCalData.fInputSens / 20) / fFilter;
@@ -377,7 +377,6 @@ BOOL CFreSweep::CheckDataExist() const
 void CFreSweep::CsvOutput(LPCSTR pFileName)
 {
 	CCsvFile oCsvFile;
-
 	if (oCsvFile.Open(pFileName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
 		m_cGraph.CsvOutput(oCsvFile, m_pLeftData, m_pRightData, m_pFreq, m_nFreqCount, "Sweep");
 }
@@ -454,7 +453,7 @@ HBITMAP CFreSweep::GetBitmap()
 
 BOOL CFreSweep::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH, IDH_FRE_SWEEP_GRAPH,
 		IDC_FREQ_START, IDH_FRE_SWEEP_FREQ_START,
 		IDC_FREQ_END, IDH_FRE_SWEEP_FREQ_END,
@@ -513,7 +512,6 @@ BOOL CFreSweep::CheckDataHold()
 void CFreSweep::SaveHoldData(CFile &oFile)
 {
 	const INT32 count = (INT32)m_oHoldDataList.GetCount();
-
 	oFile.Write(&count, sizeof(count));
 
 	while (!m_oHoldDataList.IsEmpty()) {

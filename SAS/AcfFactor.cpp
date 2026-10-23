@@ -18,7 +18,6 @@
 #define CLM_TAUE	2
 #define CLM_TAU1	3
 #define CLM_PHI1	4
-//#define CLM_SPL		5
 #define CLM_IACC	5
 #define CLM_TIACC	6
 #define CLM_WIACC	7
@@ -103,7 +102,7 @@ CAcfFactor::~CAcfFactor()
 	FreeBuffers();
 
 	if (m_pAcfMarkerRec != NULL) {
-		delete [] m_pAcfMarkerRec;
+		delete[] m_pAcfMarkerRec;
 		m_pAcfMarkerRec = NULL;
 	}
 
@@ -298,14 +297,14 @@ void CAcfFactor::DispGraph()
 		return;
 
 	if (m_pAcfFactor != NULL)
-		delete [] m_pAcfFactor;
+		delete[] m_pAcfFactor;
 
 	m_pAcfFactor = new AcfFactor[m_dbAcfFactorRec.nAcfFactor];
 	for (i = 0; i < m_dbAcfFactorRec.nAcfFactor; i++)
 		m_pAcfFactor[i] = m_pAcfFactorData[i].Acf;
 
 	if (m_pIAcfFactor != NULL)
-		delete [] m_pIAcfFactor;
+		delete[] m_pIAcfFactor;
 
 	m_pIAcfFactor = new IAcfFactor[m_dbAcfFactorRec.nAcfFactor];
 	for (i = 0; i < m_dbAcfFactorRec.nAcfFactor; i++)
@@ -368,15 +367,6 @@ void CAcfFactor::DispGraph()
 	m_cGraph.AddPage(m_pGraphPhi1, IDD_GRAPH_FACTOR, IDS_PHI1);
 
 	if (m_dbAcfRec.nChannel == 2) {
-/*
-		m_pGraphSPL = new CGraphFactor;
-		m_pGraphSPL->m_nFactor = FACTOR_SPL;
-		m_pGraphSPL->m_pIAcfFactor = m_pIAcfFactor;
-		m_pGraphSPL->m_nData = m_dbAcfFactorRec.nAcfFactor;
-		m_pGraphSPL->m_fStepTime = m_AcfConditionData.AcfCondition.fRunningStep;
-		m_pGraphSPL->m_fAdjustPhi0 = 0;
-		m_cGraph.AddPage(m_pGraphSPL, IDD_GRAPH_FACTOR, "SPL");
-*/
 		m_pGraphIACC = new CGraphFactor;
 		m_pGraphIACC->m_nFactor = FACTOR_IACC;
 		m_pGraphIACC->m_pIAcfFactor = m_pIAcfFactor;
@@ -488,13 +478,13 @@ void CAcfFactor::InitAcfFactorList()
 		LPCSTR text;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumnHeader1[] = {
+	static constexpr LISTCOLUMN tColumnHeader1[]{
 		{0, "Time", 68},
 		{IDS_PHI0, NULL, 64},
 		{IDS_TAUE, NULL, 64},
 		{IDS_TAU1, NULL, 64},
 		{IDS_PHI1, NULL, 64}
-	}, tColumnHeader2[] = {
+	}, tColumnHeader2[]{
 		{0, "Time", 56},
 		{IDS_PHI0, NULL, 59},
 		{IDS_TAUE, NULL, 59},
@@ -503,7 +493,7 @@ void CAcfFactor::InitAcfFactorList()
 		{0, "IACC", 59},
 		{IDS_TIACC, NULL, 59},
 		{0, "W_IACC", 59}
-	}, tColumnHeaderTau[] = {
+	}, tColumnHeaderTau[]{
 		{0, "Time", 56},
 		{IDS_TAU1, NULL, 42},
 		{IDS_TAU2, NULL, 42},
@@ -515,7 +505,7 @@ void CAcfFactor::InitAcfFactorList()
 		{IDS_TAU8, NULL, 42},
 		{IDS_TAU9, NULL, 42},
 		{IDS_TAU10, NULL, 43}
-	}, tColumnHeaderPhi[] = {
+	}, tColumnHeaderPhi[]{
 		{0, "Time", 56},
 		{IDS_PHI1, NULL, 42},
 		{IDS_PHI2, NULL, 42},
@@ -529,7 +519,7 @@ void CAcfFactor::InitAcfFactorList()
 		{IDS_PHI10, NULL, 43}
 	};
 	const LISTCOLUMN *pColumnHeader;
-	static constexpr LPCSTR tUnit1[] = {" [s]", " [dB]", " [ms]", " [ms]", ""};
+	static constexpr LPCSTR tUnit1[]{ " [s]", " [dB]", " [ms]", " [ms]", "" };
 
 	m_cFactorList.DeleteAllItems();
 
@@ -700,7 +690,7 @@ void CAcfFactor::ReDispAcfFactorList()
 
 		CRect rect;
 		m_cFactorList.GetItemRect(0, rect, LVIR_BOUNDS);
-		const SIZE size = {0, nTopIndex * rect.Height()};
+		const SIZE size = { 0, nTopIndex * rect.Height() };
 		m_cFactorList.SetRedraw(TRUE);
 		m_cFactorList.Scroll(size);
 	}
@@ -708,7 +698,7 @@ void CAcfFactor::ReDispAcfFactorList()
 
 void CAcfFactor::DispCalcParam()
 {
-	static constexpr int tFilterName[] = {IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING};
+	static constexpr int tFilterName[]{ IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING };
 
 	if (m_bCalculated) {
 		AcfCondition *pAcfCondition = &m_AcfConditionData.AcfCondition;
@@ -816,17 +806,17 @@ void CAcfFactor::DeleteGraphWindow()
 void CAcfFactor::FreeBuffers()
 {
 	if (m_pAcfFactorData != NULL) {
-		delete [] m_pAcfFactorData;
+		delete[] m_pAcfFactorData;
 		m_pAcfFactorData = NULL;
 	}
 
 	if (m_pAcfFactor != NULL) {
-		delete [] m_pAcfFactor;
+		delete[] m_pAcfFactor;
 		m_pAcfFactor = NULL;
 	}
 
 	if (m_pIAcfFactor != NULL) {
-		delete [] m_pIAcfFactor;
+		delete[] m_pIAcfFactor;
 		m_pIAcfFactor = NULL;
 	}
 
@@ -836,7 +826,7 @@ void CAcfFactor::FreeBuffers()
 	}
 
 	if (m_pTaunPhinData != NULL) {
-		delete [] m_pTaunPhinData;
+		delete[] m_pTaunPhinData;
 		m_pTaunPhinData = NULL;
 	}
 }
@@ -924,12 +914,6 @@ int CALLBACK CAcfFactor::CompareItems1(LPARAM lParam1, LPARAM lParam2, LPARAM lP
 		d = pAcfFactorData[lParam1].Acf.fPhi1 -
 			pAcfFactorData[lParam2].Acf.fPhi1;
 		break;
-/*
-	case CLM_SPL:
-		d = pAcfFactorData[lParam1].IAcf.fSPL -
-			pAcfFactorData[lParam2].IAcf.fSPL;
-		break;
-*/
 	case CLM_IACC:
 		d = pAcfFactorData[lParam1].IAcf.fIACC -
 			pAcfFactorData[lParam2].IAcf.fIACC;
@@ -997,10 +981,8 @@ void CAcfFactor::OnCancel()
 
 void CAcfFactor::CloseAll()
 {
-	CWnd *pWnd;
-
 	while (!m_WindowList.IsEmpty()) {
-		pWnd = (CWnd *)m_WindowList.GetHead();
+		CWnd *pWnd = (CWnd *)m_WindowList.GetHead();
 		if (pWnd != NULL)
 			pWnd->DestroyWindow();
 	}
@@ -1020,8 +1002,6 @@ void CAcfFactor::OnSelchangeGraph(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 void CAcfFactor::OnItemchangedFactorList(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-
-	//m_cFactorList.UpdateWindow();
 
 	if (pNMListView->uNewState & LVIS_SELECTED && m_nCurrentDataNo != pNMListView->lParam && !m_bChangeData) {
 		m_nCurrentDataNo = (int)pNMListView->lParam;
@@ -1047,10 +1027,7 @@ void CAcfFactor::RedrawGraph()
 
 	if (m_pGraphPhi1 != NULL)
 		m_pGraphPhi1->ReDraw(m_nCurrentDataNo);
-/*
-	if (m_pGraphSPL != NULL)
-		m_pGraphSPL->ReDraw(m_nCurrentDataNo);
-*/
+
 	if (m_pGraphIACC != NULL)
 		m_pGraphIACC->ReDraw(m_nCurrentDataNo);
 
@@ -1091,12 +1068,11 @@ void CAcfFactor::OnScreenCopy()
 	case IDOK:
 		{
 			CString filter;
-			CString title;
-
 			filter.LoadString(IDS_IMAGE_FILE);
 			filter += " (*.png)|*.png||";
 			CFileDialog dlg(FALSE, "png", NULL, OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY, filter, this, 0);
 
+			CString title;
 			title.LoadString(IDS_SAVE_IMAGE_FILE);
 			dlg.m_ofn.lpstrTitle = title;
 			if (dlg.DoModal() == IDOK) {
@@ -1381,7 +1357,7 @@ void CAcfFactor::OnBnClickedCsvOutput()
 
 BOOL CAcfFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDCANCEL, IDH_ACF_FACTOR_CANCEL,
 		IDC_SELECT_DATA, IDH_ACF_FACTOR_SELECT_DATA,
 		IDC_PREV_DATA, IDH_ACF_FACTOR_PREV_DATA,
@@ -1424,7 +1400,6 @@ static CProgressDlg *pProgressDlg;
 BOOL CAcfFactor::CalcMeasurementAcf()
 {
 	CCalcAcfDlg dlg;
-
 	dlg.m_AcfCondition = setData.AcfCondition;
 	dlg.m_nFolderID = m_nFolderID;
 	if (dlg.DoModal() == IDCANCEL)
@@ -1485,7 +1460,7 @@ LRESULT CAcfFactor::OnRightButton(WPARAM wParam, LPARAM /*lParam*/)
 		CMenu menu;
 		menu.LoadMenu(IDR_ADD_MARKER);
 		CMenu *pPopup = menu.GetSubMenu(0);
-		CPoint point;
+		POINT point;
 		GetCursorPos(&point);
 		pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
 
@@ -1517,7 +1492,6 @@ void CAcfFactor::OnEnterIdle(UINT nWhy, CWnd* pWho)
 void CAcfFactor::OnAddAcfMarker()
 {
 	CAcfMarkerDlg dlg(this);
-
 	dlg.m_nAcfID = m_nAcfID;
 	dlg.m_fTime = m_fCurrentMarkerTime;
 	if (dlg.DoModal() == IDOK) {
@@ -1532,10 +1506,9 @@ void CAcfFactor::OnAddAcfMarker()
 void CAcfFactor::ReadAcfMarker()
 {
 	CDbAcfMarker dbAcfMarker;
-
 	if (dbAcfMarker.Open()) {
 		if (m_pAcfMarkerRec != NULL) {
-			delete [] m_pAcfMarkerRec;
+			delete[] m_pAcfMarkerRec;
 			m_pAcfMarkerRec = NULL;
 		}
 
@@ -1551,7 +1524,7 @@ LRESULT CAcfFactor::OnSelectMarker(WPARAM wParam, LPARAM /*lParam*/)
 	CMenu menu;
 	menu.LoadMenu(IDR_EDIT_MARKER);
 	CMenu* pPopup = menu.GetSubMenu(0);
-	CPoint point;
+	POINT point;
 	GetCursorPos(&point);
 	pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
 
@@ -1561,7 +1534,6 @@ LRESULT CAcfFactor::OnSelectMarker(WPARAM wParam, LPARAM /*lParam*/)
 void CAcfFactor::OnEditAcfMarker()
 {
 	CAcfMarkerDlg dlg(this);
-
 	dlg.m_nAcfID = m_nAcfID;
 	dlg.m_nAcfMarkerID = m_nSelectedMarkerID;
 	if (dlg.DoModal() == IDOK) {

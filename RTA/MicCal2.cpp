@@ -6,10 +6,10 @@
 #include "RtaDlg.h"
 #include "MicCal2.h"
 
-#define NFREQ_RATE	44100
-#define NFREQ_MIN	20
-#define NFREQ_MAX	(NFREQ_RATE / 2)
-#define NFFT_SIZE	4096
+#define NFREQ_RATE		44100
+#define NFREQ_MIN		20
+#define NFREQ_MAX		(NFREQ_RATE / 2)
+#define NFFT_SIZE		4096
 
 #define MIN_LEVEL_BAR	600
 #define MAX_LEVEL_BAR	1400
@@ -36,7 +36,7 @@ CMicCal2::CMicCal2(CWnd* pParent /*=NULL*/)
 CMicCal2::~CMicCal2()
 {
 	if (m_pFilterTbl != NULL)
-		delete [] m_pFilterTbl;
+		delete[] m_pFilterTbl;
 }
 
 void CMicCal2::DoDataExchange(CDataExchange* pDX)
@@ -80,11 +80,11 @@ BOOL CMicCal2::OnInitDialog()
 	m_cLevelBar.SetScrollRange(MIN_LEVEL_BAR, MAX_LEVEL_BAR, FALSE);
 	m_cLevelBar.SetScrollPos((int)(m_fInputSens * 10), FALSE);
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = 140,
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 
@@ -111,7 +111,7 @@ void CMicCal2::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pFreqData != NULL) {
-		delete [] m_pFreqData;
+		delete[] m_pFreqData;
 		m_pFreqData = NULL;
 	}
 }
@@ -122,7 +122,7 @@ void CMicCal2::InitFreqList()
 		UINT textID;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumn[] = {
+	static constexpr LISTCOLUMN tColumn[]{
 		{IDS_FREQUENCY, 55},
 		{IDS_LEVEL, 55}
 	};
@@ -248,8 +248,6 @@ void CMicCal2::OnItemchangedFreqList(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CMicCal2::OnFreqRegist()
 {
-	int index;
-
 	UpdateData(TRUE);
 
 	if (m_fFreq <= 0) {
@@ -264,6 +262,7 @@ void CMicCal2::OnFreqRegist()
 		.flags = LVFI_STRING,
 		.psz = str
 	};
+	int index;
 	if ((index = m_cFreqList.FindItem(&findInfo)) == -1) {
 		if (m_cFreqList.GetItemCount() == MICCAL_NFREQ) {
 			str.FormatMessage(IDS_MSG_INPUTNDATA, MICCAL_NFREQ);
@@ -286,8 +285,6 @@ void CMicCal2::OnFreqRegist()
 
 void CMicCal2::OnFreqDelete()
 {
-	int index;
-
 	UpdateData(TRUE);
 
 	CString str;
@@ -297,6 +294,7 @@ void CMicCal2::OnFreqDelete()
 		.flags = LVFI_STRING,
 		.psz = str
 	};
+	int index;
 	if ((index = m_cFreqList.FindItem(&findInfo)) != -1) {
 		m_cFreqList.DeleteItem(index);
 	}
@@ -428,7 +426,7 @@ void CMicCal2::WaveInData(double *pData)
 		fPower += xt * xt + yt * yt;
 	}
 
-	delete [] pFftBuf;
+	delete[] pFftBuf;
 
 	m_fMeanBuf[m_nMeanBufPtr] = fPower * 4;
 	if (++m_nMeanBufPtr >= N_MEAN)
@@ -495,7 +493,7 @@ void CMicCal2::SetFilter(const FilterData *pFilterData, int nFilterData)
 		MakeFilterTbl2(pFilter, WAVEBUF_SAMPLESPERBUFFER, SAMPLING_RATE, nFilter, 20);
 		for (i = 0; i < WAVEBUF_SAMPLESPERBUFFER; i++)
 			m_pFilterTbl[i] *= pFilter[i];
-		delete [] pFilter;
+		delete[] pFilter;
 	}
 }
 

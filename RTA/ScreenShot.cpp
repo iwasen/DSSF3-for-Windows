@@ -40,7 +40,6 @@ void CScreenShot::ShowScreenShot(LPCSTR pTitle, HBITMAP hBmp, BOOL bCopy)
 void CScreenShot::CloseScreenShot(CScreenShotWnd *pWnd)
 {
 	POSITION pos;
-
 	if ((pos = m_ItemList.Find(pWnd)) != NULL)
 		m_ItemList.RemoveAt(pos);
 
@@ -49,9 +48,8 @@ void CScreenShot::CloseScreenShot(CScreenShotWnd *pWnd)
 
 CScreenShot::~CScreenShot()
 {
-	CWnd *pWnd;
 	while (!m_ItemList.IsEmpty()) {
-		pWnd = (CWnd *)m_ItemList.GetHead();
+		CWnd *pWnd = (CWnd *)m_ItemList.GetHead();
 		pWnd->DestroyWindow();
 	}
 }
@@ -59,8 +57,6 @@ CScreenShot::~CScreenShot()
 void CScreenShot::OutputImageFile(CWnd *pWnd, CBitmap &bitmap)
 {
 	CFileDialog dlg(FALSE, "png", "", OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY, "PNG|*.png||", pWnd);
-
-	//dlg.m_ofn.lpstrTitle = GetString(IDS_EXPORT_FILE);
 	if (dlg.DoModal() == IDOK) {
 		HANDLE hDIB;
 		MMPictureGetBitmap(&hDIB, (HBITMAP)bitmap.m_hObject);
@@ -105,6 +101,7 @@ void CScreenShotWnd::OnPaint()
 
 	CDC dcSrc;
 	dcSrc.CreateCompatibleDC(&dc);
+
 	CBitmap *pBitmapOrg = dcSrc.SelectObject(&m_bitmap);
 	dc.BitBlt(0, 0, m_nWidth, m_nHeight, &dcSrc, 0, 0, SRCCOPY);
 	dcSrc.SelectObject(pBitmapOrg);
@@ -121,6 +118,7 @@ void CScreenShotWnd::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	CMenu menu;
 	menu.LoadMenu(IDR_SCREEN_SHOT_MENU);
+
 	CMenu* pPopup = menu.GetSubMenu(0);
 	ClientToScreen(&point);
 	pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);

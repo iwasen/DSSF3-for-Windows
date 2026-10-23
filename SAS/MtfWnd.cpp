@@ -90,7 +90,7 @@ void CMtfWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF col
 void CMtfWnd::SetBitmap()
 {
 	CString text;
-	CSize size;
+	SIZE size;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
@@ -176,7 +176,6 @@ void CMtfWnd::DispGraph(const double *pMtfData, const double *pMtfFreq)
 {
 	const double fMaxFreqLog = log((double)MAX_FREQ);
 	const double fMinFreqLog = log((double)MIN_FREQ);
-	int x, y;
 
 	SetBitmap();
 
@@ -187,8 +186,8 @@ void CMtfWnd::DispGraph(const double *pMtfData, const double *pMtfFreq)
 	const double fTmp1 = (double)m_nScaleWidth / (fMaxFreqLog - fMinFreqLog);
 
 	for (int i = 0; i < N_MTF_FREQ; i++) {
-		x = m_nScaleLeft + (int)((log(pMtfFreq[i]) - fMinFreqLog) * fTmp1 + 0.5);
-		y = m_nScaleBottom - (int)(pMtfData[i] * m_nScaleHeight + 0.5);
+		int x = m_nScaleLeft + (int)((log(pMtfFreq[i]) - fMinFreqLog) * fTmp1 + 0.5);
+		int y = m_nScaleBottom - (int)(pMtfData[i] * m_nScaleHeight + 0.5);
 
 		if (i == 0)
 			m_dcMem.MoveTo(x, y);

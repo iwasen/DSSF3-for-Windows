@@ -245,8 +245,8 @@ BOOL CLeftView::SelectItem(HTREEITEM hItem, DWORD dwItemData)
 void CLeftView::OnFileOpen()
 {
 	CTreeCtrl &tc = GetTreeCtrl();
-	HTREEITEM hItem;
 
+	HTREEITEM hItem;
 	if ((hItem = tc.GetSelectedItem()) != NULL)
 		tc.Expand(hItem, TVE_TOGGLE);
 }
@@ -254,9 +254,9 @@ void CLeftView::OnFileOpen()
 void CLeftView::OnUpdateFileOpen(CCmdUI* pCmdUI)
 {
 	CTreeCtrl &tc = GetTreeCtrl();
-	HTREEITEM hItem;
 	BOOL bEnable = FALSE;
 
+	HTREEITEM hItem;
 	if ((hItem = tc.GetSelectedItem()) != NULL) {
 		switch ((tc.GetItemData(hItem) & ID_KIND)) {
 		case ID_DB_IR:
@@ -367,9 +367,9 @@ void CLeftView::OnUpdateFileChangeTitle(CCmdUI *pCmdUI)
 
 void CLeftView::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
 	CTreeCtrl &tc = GetTreeCtrl();
 
+	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
 	if (((long)tc.GetItemData(pTVDispInfo->item.hItem) & ID_KIND) == ID_FOLDER) {
 		m_cEditTitle.SetMaxLength(LEN_TITLE);
 		m_cEditTitle.SubclassWindow(tc.GetEditControl()->GetSafeHwnd());
@@ -381,11 +381,10 @@ void CLeftView::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CLeftView::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
-
 	CTreeCtrl &tc = GetTreeCtrl();
 	CSasDoc *pDoc = GetDocument();
 
+	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
 	CString sTitle = m_cEditTitle;
 	pDoc->ChangeTitle((long)tc.GetItemData(pTVDispInfo->item.hItem), sTitle);
 
@@ -398,7 +397,7 @@ void CLeftView::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CLeftView::OnNMRclick(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 {
-	CPoint posCursor;
+	POINT posCursor;
 	::GetCursorPos(&posCursor);
 
 	CMenu menu;

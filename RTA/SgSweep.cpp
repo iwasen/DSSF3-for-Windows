@@ -109,7 +109,7 @@ void CSgSweep::OnEnChangeEndLevel()
 
 BOOL CSgSweep::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_START_FREQ, IDH_SG_SWEEP_START_FREQ,
 		IDC_END_FREQ, IDH_SG_SWEEP_END_FREQ,
 		IDC_START_LEVEL, IDH_SG_SWEEP_START_LEVEL,

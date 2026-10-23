@@ -22,7 +22,7 @@ COsCalDlg::~COsCalDlg()
 	m_pWaveIn->ReleaseInstance();
 
 	if (m_pWaveData != NULL)
-		delete [] m_pWaveData;
+		delete[] m_pWaveData;
 }
 
 void COsCalDlg::DoDataExchange(CDataExchange* pDX)
@@ -143,7 +143,7 @@ void COsCalDlg::OnDestroy()
 
 BOOL COsCalDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_EDIT_CAL_VALUE, IDH_OS_CAL_VALUE,
 		IDC_EDIT_UNIT, IDH_OS_CAL_UNIT,
 		IDC_RADIO_EFECTIVE, IDH_OS_CAL_EFECTIVE,

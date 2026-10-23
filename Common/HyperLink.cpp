@@ -45,13 +45,12 @@ BOOL CHyperLink::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/
 
 void CHyperLink::SetHyperLinkURL(LPCSTR pLinkURL, LPCSTR pFontName, int nFontSize)
 {
-	LOGFONT font{};
-
 	if (pLinkURL == NULL)
 		GetWindowText(m_sLinkURL);
 	else
 		m_sLinkURL = pLinkURL;
 
+	LOGFONT font{};
 	if (pFontName == NULL) {
 		CFont *pFont = GetFont();
 		pFont->GetLogFont(&font);

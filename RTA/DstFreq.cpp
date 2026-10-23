@@ -9,8 +9,8 @@
 #define MIN_LEVEL_VAL	-60
 #define MAX_LEVEL_VAL	0
 
-#define MIN_LEVEL_POS 0
-#define MAX_LEVEL_POS (-(MIN_LEVEL_VAL))
+#define MIN_LEVEL_POS	0
+#define MAX_LEVEL_POS	(-(MIN_LEVEL_VAL))
 
 // CDstFreq ダイアログ
 
@@ -120,11 +120,9 @@ LRESULT CDstFreq::OnTabInitDialog(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 void CDstFreq::InitLevelSlider()
 {
-	int nLevel;
-
 	m_cLevelSlider.SetRange(MIN_LEVEL_POS, MAX_LEVEL_POS);
 
-	for (nLevel = MIN_LEVEL_POS; nLevel <= MAX_LEVEL_POS; nLevel += 10)
+	for (int nLevel = MIN_LEVEL_POS; nLevel <= MAX_LEVEL_POS; nLevel += 10)
 		m_cLevelSlider.SetTic(nLevel);
 }
 
@@ -266,18 +264,18 @@ void CDstFreq::FreeBuffers()
 {
 	for (int i = 0; i < 3; i++) {
 		if (m_pLeftDst[i] != NULL) {
-			delete [] m_pLeftDst[i];
+			delete[] m_pLeftDst[i];
 			m_pLeftDst[i] = NULL;
 		}
 
 		if (m_pRightDst[i] != NULL) {
-			delete [] m_pRightDst[i];
+			delete[] m_pRightDst[i];
 			m_pRightDst[i] = NULL;
 		}
 	}
 
 	if (m_pFreq != NULL) {
-		delete [] m_pFreq;
+		delete[] m_pFreq;
 		m_pFreq = NULL;
 	}
 
@@ -356,7 +354,7 @@ HBITMAP CDstFreq::GetBitmap()
 
 BOOL CDstFreq::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_HARM_GRAPH, IDH_DST_FREQ_HARM_GRAPH,
 		IDC_FREQ_START, IDH_DST_FREQ_START,
 		IDC_FREQ_END, IDH_DST_FREQ_END,
@@ -414,7 +412,6 @@ void CDstFreq::DelDataHold(BOOL bRedraw)
 {
 	while (!m_oHoldDataList.IsEmpty()) {
 		CDstHoldData oHoldData = m_oHoldDataList.RemoveTail();
-
 		oHoldData.FreeBuffers();
 	}
 
@@ -430,7 +427,6 @@ BOOL CDstFreq::CheckDataHold()
 void CDstFreq::SaveHoldData(CFile &oFile)
 {
 	const INT32 count = (INT32)m_oHoldDataList.GetCount();
-
 	oFile.Write(&count, sizeof(count));
 
 	while (!m_oHoldDataList.IsEmpty()) {

@@ -12,7 +12,7 @@
 #define N_INTERPOLATION 15
 #define MAX_LEVEL 50000
 
-static const double tSweepTime[] = {
+static constexpr double tSweepTime[]{
 	1,
 	0.5, 0.2, 0.1,
 	0.05, 0.02, 0.01,
@@ -21,7 +21,7 @@ static const double tSweepTime[] = {
 	0.00005, 0.00002, 0.00001
 };
 
-static const int tInterpolation[] = {
+static constexpr int tInterpolation[]{
 	1,
 	1, 1, 1,
 	1, 1, 1,
@@ -30,7 +30,7 @@ static const int tInterpolation[] = {
 	4, 8, 16
 };
 
-static const int tLevelRange[] = {
+static constexpr int tLevelRange[]{
 	1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000
 };
 
@@ -65,6 +65,9 @@ COsDlg::COsDlg(CWnd* pParent /*=NULL*/)
 COsDlg::~COsDlg()
 {
 	m_pWaveIn->ReleaseInstance();
+
+	delete[] m_pInterpolationBufL;
+	delete[] m_pInterpolationBufR;
 }
 
 void COsDlg::DoDataExchange(CDataExchange* pDX)
@@ -152,7 +155,6 @@ END_MESSAGE_MAP()
 
 BOOL COsDlg::OnInitDialog()
 {
-	CString str;
 	int i, n;
 
 	CBaseDlg::OnInitDialog();
@@ -160,9 +162,9 @@ BOOL COsDlg::OnInitDialog()
 	CreateStatusBar();
 	SetStatusBar(IDS_STATUS_STOP);
 
-	CRect rectSeparator;
-	CRect rectControl;
-	GetDlgItem(IDC_SEPARATOR_LINE)->GetWindowRect(rectSeparator);
+	RECT rectSeparator;
+	RECT rectControl;
+	GetDlgItem(IDC_SEPARATOR_LINE)->GetWindowRect(&rectSeparator);
 	CWnd *pWnd = GetTopWindow();
 	while (pWnd != NULL) {
 		switch (pWnd->GetDlgCtrlID()) {
@@ -173,7 +175,7 @@ BOOL COsDlg::OnInitDialog()
 			SetCtlPosition(pWnd, 0, 1, 1, 1);
 			break;
 		default:
-			pWnd->GetWindowRect(rectControl);
+			pWnd->GetWindowRect(&rectControl);
 			if (rectControl.top < rectSeparator.top)
 				SetCtlPosition(pWnd, 1, 0, 1, 0);
 			else
@@ -222,6 +224,7 @@ BOOL COsDlg::OnInitDialog()
 	m_cOsDelay.SetTicFreq(10);
 	m_cOsDelay.SetPageSize(10);
 
+	CString str;
 	for (i = 0; i < 4; i++) {
 		str.Format("%d ms", (int)pow(10.0, i));
 		m_cOsDelayRange.AddString(str);
@@ -254,7 +257,7 @@ BOOL COsDlg::OnInitDialog()
 
 	SetSamplingRateList(m_cSamplingRate, WAVE_IN, g_oSetData.Pc.nInputDevice, 0, g_oSetData.Os.nSamplingRate);
 
-	static constexpr int tChannel[] = {IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE};
+	static constexpr int tChannel[]{ IDS_MONO, IDS_STEREO, IDS_LEFT_ONLY, IDS_RIGHT_ONLY, IDS_DIFFERENCE };
 	for (i = 0; i < ARRAY_SIZE(tChannel); i++) {
 		str.LoadString(tChannel[i]);
 		m_cOsChannel.AddString(str);
@@ -624,7 +627,6 @@ void COsDlg::GetWaveData(double *pInData)
 	int nDataCounter = 0;
 	int nSweepCounter = 0;
 	double fOffset;
-	int nBlockSize;
 	int nOffset = -1;
 
 	switch (g_oSetData.Os.nChannel) {
@@ -658,7 +660,7 @@ void COsDlg::GetWaveData(double *pInData)
 		return;
 	}
 
-	nBlockSize = Interpolation(pInData);
+	int nBlockSize = Interpolation(pInData);
 
 	if (g_oSetData.Os.bTrigLowCut) {
 		if (g_oSetData.Os.nTrigChannel == 0) {
@@ -919,7 +921,6 @@ void COsDlg::SetPosR()
 void COsDlg::AutoTrigAdjust(const double *pInData)
 {
 	double fLeftSum = 0, fRightSum = 0;
-
 	for (int i = 0; i < m_nBlockSize; i++) {
 		fLeftSum += *pInData++;
 		fRightSum += *pInData++;
@@ -993,12 +994,9 @@ void COsDlg::OnDestroy()
 		Stop();
 
 	if (m_pInterpolationFilter != NULL) {
-		delete [] m_pInterpolationFilter;
+		delete[] m_pInterpolationFilter;
 		m_pInterpolationFilter = NULL;
 	}
-
-	delete [] m_pInterpolationBufL;
-	delete [] m_pInterpolationBufR;
 
 	FreeDataBuf();
 }
@@ -1008,8 +1006,8 @@ void COsDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized && !IsIconic()) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Os.nPosLeft = rect.left;
 		g_oSetData.Os.nPosTop = rect.top;
 	}
@@ -1032,7 +1030,7 @@ void COsDlg::ShowChildWindow(BOOL bShow)
 void COsDlg::MakeInterpolationFilter(int n)
 {
 	if (m_pInterpolationFilter != NULL) {
-		delete [] m_pInterpolationFilter;
+		delete[] m_pInterpolationFilter;
 		m_pInterpolationFilter = NULL;
 	}
 
@@ -1108,12 +1106,12 @@ void COsDlg::AllocDataBuf()
 void COsDlg::FreeDataBuf()
 {
 	if (m_pLeftData != NULL) {
-		delete [] m_pLeftData;
+		delete[] m_pLeftData;
 		m_pLeftData = NULL;
 	}
 
 	if (m_pRightData != NULL) {
-		delete [] m_pRightData;
+		delete[] m_pRightData;
 		m_pRightData = NULL;
 	}
 }
@@ -1241,7 +1239,7 @@ void COsDlg::OnStnDblclickOsScreen()
 
 BOOL COsDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_OS_SCREEN, IDH_OS_SCREEN,
 		IDC_BTN_START, IDH_OS_START,
 		IDC_OS_TIME, IDH_OS_TIME,
@@ -1329,7 +1327,6 @@ CString COsDlg::AddNumberPrefix(double fNumber)
 		sPrefix = "m";
 	} else {
 		fMul = 1;
-		sPrefix.Empty();
 	}
 
 	sNumber.Format("%g%s", fNumber * fMul, (LPCSTR)sPrefix);

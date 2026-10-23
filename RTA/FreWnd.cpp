@@ -32,8 +32,6 @@ void CFreWnd::OnPaint()
 
 void CFreWnd::Initialize(int nMode, int nFreqStart, int nFreqEnd)
 {
-	CString str;
-
 	m_nMode = nMode;
 
 	CDC *pDC = GetDC();
@@ -49,6 +47,7 @@ void CFreWnd::Initialize(int nMode, int nFreqStart, int nFreqEnd)
 		.lfHeight = CDpi::OriginalDpi(90, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -63,6 +62,7 @@ void CFreWnd::Initialize(int nMode, int nFreqStart, int nFreqEnd)
 void CFreWnd::Initialize2()
 {
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
+
 	TEXTMETRIC tm;
 	m_dcMem.GetTextMetrics(&tm);
 	m_dcMem.SelectObject(pFontOrg);
@@ -112,14 +112,12 @@ void CFreWnd::DrawScale(int nLeft, int nTop, int nRight, int nBottom, int nFreqS
 	int x, y;
 	const int nWidth = nRight - nLeft;
 	const int nHeight = nBottom - nTop;
-	CPen *pPenOrg;
-	CSize size;
+	SIZE size;
 	CString sText;
-	int nLevel;
 
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
-	pPenOrg = m_dcMem.SelectObject(&m_penBlack);
+	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 
 	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
@@ -165,7 +163,7 @@ void CFreWnd::DrawScale(int nLeft, int nTop, int nRight, int nBottom, int nFreqS
 	const int nDist = g_oSetData.Fre.nMaxLevel - g_oSetData.Fre.nMinLevel;
 	if (nDist > 0) {
 		const int nStep = GetLinearScaleStep(g_oSetData.Fre.nMaxLevel, g_oSetData.Fre.nMinLevel, m_nScaleHeight);
-		for (nLevel = GetScaleStartValue(g_oSetData.Fre.nMinLevel, nStep); nLevel <= g_oSetData.Fre.nMaxLevel; nLevel += nStep) {
+		for (int nLevel = GetScaleStartValue(g_oSetData.Fre.nMinLevel, nStep); nLevel <= g_oSetData.Fre.nMaxLevel; nLevel += nStep) {
 			y = m_nScaleBottom - (int)((nLevel - g_oSetData.Fre.nMinLevel) * m_nScaleHeight / nDist);
 
 			if (nLevel / 10 * 10 == nLevel) {
@@ -256,27 +254,25 @@ void CFreWnd::DispGraph(const double *pLeftFre, const double *pRightFre, const d
 
 void CFreWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCount, int nFreqStart, int nFreqEnd, int nFreqPoint)
 {
-	int x, y;
-	int nDotSize;
-	const int nFreqMin = min(nFreqStart, nFreqEnd);
-	const int nFreqMax = max(nFreqStart, nFreqEnd);
-	const double fLogFreqMin = log((double)nFreqMin);
-	const double fLogFreqMax = log((double)nFreqMax);
-	const double yStep = (double)m_nScaleHeight / (g_oSetData.Fre.nMinLevel - g_oSetData.Fre.nMaxLevel);
 	POINT *pPoint = new POINT[nFreqCount];
-
+	int nDotSize;
 	if (nFreqPoint != 0)
 		nDotSize = (m_nScaleWidth / nFreqPoint < 10) ? 2 : 3;
 	else
 		nDotSize = 0;
 
+	const int nFreqMin = min(nFreqStart, nFreqEnd);
+	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const double fLogFreqMin = log((double)nFreqMin);
+	const double fLogFreqMax = log((double)nFreqMax);
+	const double yStep = (double)m_nScaleHeight / (g_oSetData.Fre.nMinLevel - g_oSetData.Fre.nMaxLevel);
 	int nPointCnt = 0;
 	int x2 = 0;
 	int y2 = 0;
 	for (int i = 0; i < nFreqCount; i++) {
 		if (pFreq[i] + 0.5 >= nFreqMin && pFreq[i] - 0.5 <= nFreqMax) {
-			x =  (int)((log((double)pFreq[i]) - fLogFreqMin) * m_nScaleWidth / (fLogFreqMax - fLogFreqMin) + m_nScaleLeft + 0.5);
-			y = (int)((dB10(pData[i]) - g_oSetData.Fre.nMaxLevel) * yStep + 0.5) + m_nScaleTop;
+			int x =  (int)((log((double)pFreq[i]) - fLogFreqMin) * m_nScaleWidth / (fLogFreqMax - fLogFreqMin) + m_nScaleLeft + 0.5);
+			int y = (int)((dB10(pData[i]) - g_oSetData.Fre.nMaxLevel) * yStep + 0.5) + m_nScaleTop;
 
 			if (nDotSize > 0)
 				m_dcMem.Ellipse(x - 2, y - 2, x + nDotSize, y + nDotSize);
@@ -293,14 +289,13 @@ void CFreWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCount,
 
 	m_dcMem.Polyline(pPoint, nPointCnt);
 
-	delete [] pPoint;
+	delete[] pPoint;
 }
 
 void CFreWnd::DrawLine2(const double *pData, const double *pFreq, int nFreqCount, int nFreqStart, int nFreqEnd)
 {
-	int x, y;
-	int nFreqMin = min(nFreqStart, nFreqEnd);
-	int nFreqMax = max(nFreqStart, nFreqEnd);
+	const int nFreqMin = min(nFreqStart, nFreqEnd);
+	const int nFreqMax = max(nFreqStart, nFreqEnd);
 	const double fLogFreqMin = log((double)nFreqMin);
 	const double fLogFreqMax = log((double)nFreqMax);
 	const double yStep = (double)m_nScaleHeight / (g_oSetData.Fre.nMinLevel - g_oSetData.Fre.nMaxLevel);
@@ -311,7 +306,7 @@ void CFreWnd::DrawLine2(const double *pData, const double *pFreq, int nFreqCount
 	double fData = 0;
 	int nAddCount = 0;
 	for (int i = 0; i < nFreqCount; i++) {
-		x =  (int)((log((double)pFreq[i]) - fLogFreqMin) * m_nScaleWidth / (fLogFreqMax - fLogFreqMin) + m_nScaleLeft + 0.5);
+		int x =  (int)((log((double)pFreq[i]) - fLogFreqMin) * m_nScaleWidth / (fLogFreqMax - fLogFreqMin) + m_nScaleLeft + 0.5);
 		if (i == 0)
 			x2 = x;
 		else if (i == nFreqCount - 1) {
@@ -323,7 +318,7 @@ void CFreWnd::DrawLine2(const double *pData, const double *pFreq, int nFreqCount
 		nAddCount++;
 
 		if (x != x2) {
-			y = (int)((dB10(fData / nAddCount) - g_oSetData.Fre.nMaxLevel) * yStep + 0.5) + m_nScaleTop;
+			int y = (int)((dB10(fData / nAddCount) - g_oSetData.Fre.nMaxLevel) * yStep + 0.5) + m_nScaleTop;
 			pPoint[nPointCnt].x = x2;
 			pPoint[nPointCnt].y = y;
 			nPointCnt++;
@@ -335,7 +330,7 @@ void CFreWnd::DrawLine2(const double *pData, const double *pFreq, int nFreqCount
 
 	m_dcMem.Polyline(pPoint, nPointCnt);
 
-	delete [] pPoint;
+	delete[] pPoint;
 }
 
 void CFreWnd::CsvOutput(CCsvFile &oCsvFile, const double *pLeftData, const double *pRightData, const double *pFreq, int nFreqCount, LPCSTR pTitle)

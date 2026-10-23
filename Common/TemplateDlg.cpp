@@ -59,7 +59,6 @@ void CTemplateDlg::OnOK()
 void CTemplateDlg::OnUpdateTemplate()
 {
 	int nIndex;
-
 	if ((nIndex = m_cTemplateList.GetCurSel()) == LB_ERR)
 		return;
 
@@ -69,7 +68,6 @@ void CTemplateDlg::OnUpdateTemplate()
 void CTemplateDlg::OnDeleteTemplate()
 {
 	int nIndex;
-
 	if ((nIndex = m_cTemplateList.GetCurSel()) == LB_ERR)
 		return;
 
@@ -84,7 +82,6 @@ void CTemplateDlg::OnDeleteTemplate()
 void CTemplateDlg::OnSelchangeTemplateList()
 {
 	int nIndex;
-
 	if ((nIndex = m_cTemplateList.GetCurSel()) == LB_ERR)
 		return;
 
@@ -166,7 +163,6 @@ void CTemplateDlg::SaveNoiseTemplate(long nID)
 void CTemplateDlg::OnImport()
 {
 	CTempImportDlg dlg(this);
-
 	if (dlg.DoModal() == IDOK) {
 		int nIndex;
 		long nID;
@@ -185,8 +181,8 @@ void CTemplateDlg::OnImport()
 void CTemplateDlg::OnExport()
 {
 	CTempExportDlg dlg(this);
-	int nIndex;
 
+	int nIndex;
 	if ((nIndex = m_cTemplateList.GetCurSel()) != LB_ERR)
 		dlg.m_nSelectID = (long)m_cTemplateList.GetItemData(nIndex);
 
@@ -195,7 +191,7 @@ void CTemplateDlg::OnExport()
 
 BOOL CTemplateDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_TEMPLATE_OK,
 		IDC_UPDATE_TEMPLATE, IDH_TEMPLATE_UPDATE_TEMPLATE,
 		IDC_DELETE_TEMPLATE, IDH_TEMPLATE_DELETE_TEMPLATE,

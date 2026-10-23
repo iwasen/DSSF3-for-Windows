@@ -59,21 +59,16 @@ BOOL CScreenCopyBtn::OnClicked()
 
 void CScreenCopyBtn::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 {
-	COleDataSource *pods = new COleDataSource;
-	DROPFILES *pDropFiles;
-	HANDLE hGlobal;
-	LPSTR pFileName;
-	SYSTEMTIME st;
-	char tempPath[MAX_PATH];
-
 	if (!m_TempFile.IsEmpty())
 		::DeleteFile(m_TempFile);
 
+	char tempPath[MAX_PATH];
 	::GetTempPath(sizeof(tempPath), tempPath);
 	size_t len = strlen(tempPath);
 	if (tempPath[len - 1] != '\\')
 		strcat_s(tempPath, "\\");
 
+	SYSTEMTIME st;
 	GetLocalTime(&st);
 	m_TempFile.Format("%s%02d%02d%02d%02d%02d%02d.png", tempPath, st.wYear % 100, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 	HDIB hDIB = CreateDIB(GetParent());
@@ -81,17 +76,19 @@ void CScreenCopyBtn::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 	::GlobalFree(hDIB);
 
 	const int nLength = m_TempFile.GetLength();
+	HANDLE hGlobal;
 	if ((hGlobal = ::GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, sizeof(DROPFILES) + nLength + 2)) != NULL) {
-		pDropFiles = (DROPFILES *)::GlobalLock(hGlobal);
+		DROPFILES *pDropFiles = (DROPFILES *)::GlobalLock(hGlobal);
 		pDropFiles->pFiles = sizeof(DROPFILES);
 		pDropFiles->fWide = FALSE;
-		pFileName = (char *)pDropFiles + sizeof(DROPFILES);
+		LPSTR pFileName = (char *)pDropFiles + sizeof(DROPFILES);
 		strcpy_s(pFileName, nLength + 1, m_TempFile);
 		pFileName[nLength + 1] = '\0';
 
 		::GlobalUnlock(hGlobal);
 	}
 
+	COleDataSource *pods = new COleDataSource;
 	pods->CacheGlobalData(CF_HDROP, hGlobal);
 	pods->DoDragDrop(DROPEFFECT_COPY);
 
@@ -101,7 +98,7 @@ void CScreenCopyBtn::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 HDIB CScreenCopyBtn::CreateDIB(CWnd *pWnd)
 {
 	CRect rect;
-	pWnd->GetWindowRect(&rect);
+	pWnd->GetWindowRect(rect);
 	const int nWidth = rect.Width();
 	const int nHeight = rect.Height();
 

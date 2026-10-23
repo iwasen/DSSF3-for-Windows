@@ -54,7 +54,7 @@ void CGraphIACF::OnDestroy()
 	CDialogAF::OnDestroy();
 
 	if (m_pIAcfData != NULL) {
-		delete [] m_pIAcfData;
+		delete[] m_pIAcfData;
 		m_pIAcfData = NULL;
 	}
 }
@@ -87,30 +87,24 @@ void CGraphIACF::ReDraw(int nStep)
 void CGraphIACF::CalcGraphWindow()
 {
 	CWaitCursor waitCursor;
-	double *pWaveBuf1;
-	double *pWaveBuf2;
-	int nIntegrationSize;
-	int nFftSize, nFftSize2;
-	double *pFilterTbl;
-	double *pIAcfData;
 	int i;
-	double fSPL;
 
 	// 積分データ数取得
-	nIntegrationSize = (int)(m_pAcfCondition->fIntegrationTime * m_fRate);
+	const int nIntegrationSize = (int)(m_pAcfCondition->fIntegrationTime * m_fRate);
 
 	// Wave データ取得
-	pWaveBuf1 = new double[nIntegrationSize];
-	pWaveBuf2 = new double[nIntegrationSize];
+	double *pWaveBuf1 = new double[nIntegrationSize];
+	double *pWaveBuf2 = new double[nIntegrationSize];
 	ReadWaveData(m_hWaveData, pWaveBuf1, pWaveBuf2, nIntegrationSize, (int)(m_nStep * m_pAcfCondition->fRunningStep * m_fRate));
 
 	// FFT バッファサイズ取得
-	nFftSize2 = (int)((m_pAcfCondition->fIntegrationTime + m_pAcfCondition->fMaxDelayTime) * m_fRate);
+	const int nFftSize2 = (int)((m_pAcfCondition->fIntegrationTime + m_pAcfCondition->fMaxDelayTime) * m_fRate);
+	int nFftSize;
 	for (nFftSize = 1; nFftSize < nFftSize2; nFftSize *= 2)
 		;
 
 	// フィルタ作成
-	pFilterTbl = new double[nFftSize];
+	double *pFilterTbl = new double[nFftSize];
 	if (m_pNmsMicCal != NULL) {
 		double *pCalibration = new double[nFftSize];
 		MakeFilterTbl3(pCalibration, nFftSize, m_fRate, (FilterData *)m_pNmsMicCal->freq, m_pNmsMicCal->nFreqData, 20);
@@ -119,22 +113,22 @@ void CGraphIACF::CalcGraphWindow()
 		MakeFilterTbl2(pFilterTbl, nFftSize, m_fRate, m_pAcfCondition->nFreqWeighting, 20);
 		for (i = 0; i < nFftSize; i++)
 			pFilterTbl[i] *= sens / pCalibration[i];
-		delete [] pCalibration;
+		delete[] pCalibration;
 	} else
 		MakeFilterTbl2(pFilterTbl, nFftSize, m_fRate, m_pAcfCondition->nFreqWeighting, 20);
 
 	// IACF計算
-	pIAcfData = CalcIAcf(pWaveBuf1, pWaveBuf2, nIntegrationSize, nFftSize, pFilterTbl);
+	double *pIAcfData = CalcIAcf(pWaveBuf1, pWaveBuf2, nIntegrationSize, nFftSize, pFilterTbl);
 	memcpy(m_pIAcfData, pIAcfData + (nFftSize - m_nData / 2), (m_nData / 2) * sizeof(double));
 	memcpy(m_pIAcfData + m_nData / 2, pIAcfData, (m_nData / 2 + 1) * sizeof(double));
-	delete [] pIAcfData;
+	delete[] pIAcfData;
 
 	// SPLを計算
-	fSPL = CalcSPL(pWaveBuf1, pWaveBuf2, nIntegrationSize, nFftSize, pFilterTbl);
+	double fSPL = CalcSPL(pWaveBuf1, pWaveBuf2, nIntegrationSize, nFftSize, pFilterTbl);
 
-	delete [] pFilterTbl;
-	delete [] pWaveBuf1;
-	delete [] pWaveBuf2;
+	delete[] pFilterTbl;
+	delete[] pWaveBuf1;
+	delete[] pWaveBuf2;
 
 	for (i = 0; i < m_nData; i++)
 		m_pIAcfData[i] /= fSPL;
@@ -160,7 +154,7 @@ void CGraphIACF::DispGraphWindow()
 
 BOOL CGraphIACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_ACF, IDH_GRAPH_ACF,
 		0
 	};

@@ -63,11 +63,11 @@ void CIACCWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark)
 
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = nFontSize,
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -124,7 +124,7 @@ void CIACCWnd::SetBitmap()
 	int i;
 	int x, y;
 	CString text;
-	CSize size;
+	SIZE size;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);

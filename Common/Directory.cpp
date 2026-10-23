@@ -11,13 +11,12 @@
 
 BOOL CreateDirectoryAll(LPCSTR pDirPath)
 {
-	LPSTR p;
-
 	if (!::CreateDirectory(pDirPath, NULL)) {
 		DWORD err = ::GetLastError();
 		if (err == ERROR_ALREADY_EXISTS)
 			return TRUE;
 		else if (err == ERROR_PATH_NOT_FOUND) {
+			LPSTR p;
 			char buf[MAX_PATH];
 			strcpy_s(buf, pDirPath);
 			if ((p = strrchr(buf, '\\')) != NULL) {
@@ -88,7 +87,6 @@ static void GetFolder(LPSTR pPath)
 void GetDataDirectory(CString &sDataDirectory)
 {
 	char szPath[MAX_PATH];
-
 	GetFolder(szPath);
 	::PathAppend(szPath, DATA_DIRECTORY);
 
@@ -101,7 +99,6 @@ void GetDataDirectory(CString &sDataDirectory)
 void GetDefaultDatabaseDirectory(CString &sDatabaseDirectory)
 {
 	CString sDataDirectory;
-
 	GetDataDirectory(sDataDirectory);
 	sDatabaseDirectory.Format("%s\\%s", (LPCSTR)sDataDirectory, "DataBase");
 }
@@ -109,7 +106,6 @@ void GetDefaultDatabaseDirectory(CString &sDatabaseDirectory)
 void GetDefaultBackupDirectory(CString &sBackupDirectory)
 {
 	CString sDataDirectory;
-
 	GetDataDirectory(sDataDirectory);
 	sBackupDirectory.Format("%s\\%s", (LPCSTR)sDataDirectory, "Backup");
 }

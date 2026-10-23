@@ -170,7 +170,7 @@ void CTempImportDlg::MergeTemplate(NsTmpData *pNsTmpData1, const NsTmpData *pNsT
 
 BOOL CTempImportDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_TEMP_IMPORT_OK,
 		IDCANCEL, IDH_TEMP_IMPORT_CANCEL,
 		IDC_TEMPLATE_LIST, IDH_TEMP_IMPORT_TEMPLATE_LIST,

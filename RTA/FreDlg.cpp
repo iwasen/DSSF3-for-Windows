@@ -133,7 +133,6 @@ void CFreDlg::RestoreHoldData()
 {
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME_HOLDDATA);
 
@@ -222,7 +221,6 @@ void CFreDlg::OnBnClickedStart()
 void CFreDlg::OnCbnSelchangeSamplingRate()
 {
 	int nIndex;
-
 	if ((nIndex = m_cSamplingRate.GetCurSel()) != CB_ERR) {
 		BOOL bStart = m_bStart;
 
@@ -293,7 +291,6 @@ void CFreDlg::OnEnChangeMinLevel()
 void CFreDlg::OnTcnSelchangeFreTab(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 {
 	int	n;
-
 	if ((n = m_cFreTab.GetCurSel()) != -1) {
 		g_oSetData.Fre.nMode = n;
 		Stop();
@@ -308,11 +305,11 @@ void CFreDlg::OnBnClickedScreenShot()
 {
 	CString sTitle;
 	CString sTab;
-	HBITMAP hBmp = NULL;
 	m_cFreTab.GetCurrentTitle(sTab);
 	const int nTimeCount = (int)m_fTimeCount;
 	sTitle.Format("%s - %d:%02d:%02d", (LPCSTR)sTab, nTimeCount / 3600, nTimeCount / 60 % 60, nTimeCount % 60);
 
+	HBITMAP hBmp = NULL;
 	switch (g_oSetData.Fre.nMode) {
 	case MODE_SWEEP:
 		hBmp = m_oFreSweep.GetBitmap();
@@ -333,7 +330,6 @@ void CFreDlg::OnBnClickedCsvOutput()
 	CFileDialog fileDlg(FALSE, "csv", NULL,
 			OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
 			"CSV File (*.csv)|*.csv|Text File (*.txt)|*.txt|All Files (*.*)|*.*||", this);
-
 	if (fileDlg.DoModal() == IDOK) {
 		switch (g_oSetData.Fre.nMode) {
 		case MODE_SWEEP:
@@ -355,7 +351,6 @@ void CFreDlg::OnBnClickedCsvInput()
 	CFileDialog fileDlg(TRUE, "csv", NULL,
 			OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
 			"CSV File (*.csv)|*.csv|Text File (*.txt)|*.txt|All Files (*.*)|*.*||", this);
-
 	if (fileDlg.DoModal() == IDOK) {
 		CCsvFile oCsvFile;
 
@@ -549,7 +544,7 @@ BOOL CFreDlg::CheckDataHold()
 
 BOOL CFreDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_BTN_START, IDH_FRE_START,
 		IDC_ELP_TIME, IDH_FRE_ELP_TIME,
 		IDC_SAMPLING_RATE, IDH_FRE_SAMPLING_RATE,
@@ -578,8 +573,8 @@ void CFreDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized && !IsIconic()) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Fre.nPosLeft = rect.left;
 		g_oSetData.Fre.nPosTop = rect.top;
 	}
@@ -588,10 +583,9 @@ void CFreDlg::OnMove(int x, int y)
 void CFreDlg::OnBnClickedSetCalibration()
 {
 	int nInputDevice, nInputVolume;
-	CMicCalDlg dlg(this);
-
 	GetInputDevice(&nInputDevice, &nInputVolume);
 
+	CMicCalDlg dlg(this);
 	dlg.m_MicCalID = g_oSetData.Fre.nMicCalID;
 	if (dlg.DoModal() == IDOK) {
 		g_oSetData.Fre.nMicCalID = dlg.m_MicCalID;
@@ -631,7 +625,6 @@ void CFreDlg::SetMicCalData()
 {
 	if (g_oSetData.Fre.nMicCalID != -1) {
 		CDbMicCal dbMicCal;
-
 		if (dbMicCal.Open()) {
 			if (dbMicCal.ReadRecID(g_oSetData.Fre.nMicCalID, &m_oMicCalDataL)) {
 				if (dbMicCal.SearchRecID(-g_oSetData.Fre.nMicCalID - 1))
@@ -713,7 +706,6 @@ BOOL CFreDlg::DestroyWindow()
 {
 	CString sDataDirectory;
 	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME_HOLDDATA);
 

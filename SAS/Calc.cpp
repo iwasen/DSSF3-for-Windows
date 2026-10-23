@@ -9,7 +9,60 @@
 #include "SetData.h"
 #include <numbers>
 
-const FREQBAND g_tFilterTbl[2] = {
+#define BANDWIDTH 1.1224620483094	// pow(2.0, 1.0 / 6)
+
+#define FREQ_12 15.8489319246111	// pow(10.0, 1.2)
+#define FREQ_13 19.9526231496888	// pow(10.0, 1.3)
+#define FREQ_14 25.1188643150958	// pow(10.0, 1.4)
+#define FREQ_15 31.6227766016838	// pow(10.0, 1.5)
+#define FREQ_16 39.8107170553497	// pow(10.0, 1.6)
+#define FREQ_17 50.1187233627272	// pow(10.0, 1.7)
+#define FREQ_18 63.0957344480193	// pow(10.0, 1.8)
+#define FREQ_19 79.4328234724281	// pow(10.0, 1.9)
+#define FREQ_20 100.000000000000	// pow(10.0, 2.0)
+#define FREQ_21 125.892541179416	// pow(10.0, 2.1)
+#define FREQ_22 158.489319246111	// pow(10.0, 2.2)
+#define FREQ_23 199.526231496887	// pow(10.0, 2.3)
+#define FREQ_24 251.188643150958	// pow(10.0, 2.4)
+#define FREQ_25 316.227766016838	// pow(10.0, 2.5)
+#define FREQ_26 398.107170553497	// pow(10.0, 2.6)
+#define FREQ_27 501.187233627272	// pow(10.0, 2.7)
+#define FREQ_28 630.957344480193	// pow(10.0, 2.8)
+#define FREQ_29 794.328234724281	// pow(10.0, 2.9)
+#define FREQ_30 1000.00000000000	// pow(10.0, 3.0)
+#define FREQ_31 1258.92541179416	// pow(10.0, 3.1)
+#define FREQ_32 1584.89319246111	// pow(10.0, 3.2)
+#define FREQ_33 1995.26231496887	// pow(10.0, 3.3)
+#define FREQ_34 2511.88643150957	// pow(10.0, 3.4)
+#define FREQ_35 3162.27766016837	// pow(10.0, 3.5)
+#define FREQ_36 3981.07170553497	// pow(10.0, 3.6)
+#define FREQ_37 5011.87233627272	// pow(10.0, 3.7)
+#define FREQ_38 6309.57344480193	// pow(10.0, 3.8)
+#define FREQ_39 7943.28234724281	// pow(10.0, 3.9)
+#define FREQ_40 10000.0000000000	// pow(10.0, 4.0)
+#define FREQ_41 12589.2541179416	// pow(10.0, 4.1)
+#define FREQ_42 15848.9319246111	// pow(10.0, 4.2)
+#define FREQ_43 19952.6231496887	// pow(10.0, 4.3)
+
+constexpr FREQBAND g_tFilterTbl[2]{
+	{12, std::numbers::sqrt2,
+		{0, 15.625, 31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000},
+		{0, 16, 31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000}},
+	{33, BANDWIDTH,
+		{0, FREQ_12, FREQ_13, FREQ_14,
+		FREQ_15, FREQ_16, FREQ_17, FREQ_18, FREQ_19,
+		FREQ_20, FREQ_21, FREQ_22, FREQ_23, FREQ_24,
+		FREQ_25, FREQ_26, FREQ_27, FREQ_28, FREQ_29,
+		FREQ_30, FREQ_31, FREQ_32, FREQ_33, FREQ_34,
+		FREQ_35, FREQ_36, FREQ_37, FREQ_38, FREQ_39,
+		FREQ_40, FREQ_41, FREQ_42, FREQ_43},
+		{0, 16, 20, 25, 31.5, 40, 50, 63, 80, 100, 125,
+		160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250,
+		1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500,
+		16000, 20000}}
+};
+/*
+constexpr FREQBAND g_tFilterTbl[2]{
 	{12, std::numbers::sqrt2,
 		{0, 15.625, 31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000},
 		{0, 16, 31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000}},
@@ -26,11 +79,10 @@ const FREQBAND g_tFilterTbl[2] = {
 		1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500,
 		16000, 20000}}
 };
-
+*/
 // STI •Ï’²Žü”g”
-constexpr double g_tMtfFreq[N_MTF_FREQ] = {
-	0.63, 0.8, 1.0, 1.25, 1.6, 2.0, 2.5,
-	3.15, 4.0, 5.0, 6.3, 8.0, 10.0, 12.5
+constexpr double g_tMtfFreq[N_MTF_FREQ]{
+	0.63, 0.8, 1.0, 1.25, 1.6, 2.0, 2.5, 3.15, 4.0, 5.0, 6.3, 8.0, 10.0, 12.5
 };
 
 extern CRFFT g_oRFFT;
@@ -38,17 +90,17 @@ static CMSeq g_oMSeq;
 static CTSP g_oTSP;
 
 // STI Žü”g”ƒoƒ“ƒh
-static constexpr double tMtfBand[N_MTF_BAND] = {
+static constexpr double tMtfBand[N_MTF_BAND]{
 	125, 250, 500, 1000, 2000, 4000, 8000
 };
 
 // RASTI 500Hzƒoƒ“ƒh•Ï’²Žü”g”
-static constexpr double tMtf500[N_MTF_500] = {
+static constexpr double tMtf500[N_MTF_500]{
 	1.0, 2.0, 4.0, 8.0
 };
 
 // RASTI 2kHzƒoƒ“ƒh•Ï’²Žü”g”
-static constexpr double tMtf2000[N_MTF_2000] = {
+static constexpr double tMtf2000[N_MTF_2000]{
 	0.7, 1.4, 2.8, 5.6, 11.2
 };
 
@@ -68,21 +120,20 @@ static double CalcParamSTISub(const double *pMTI, const double *pTbl1, const dou
 
 void CalcEchoData(const double *pIRData1, const double *pIRData2, double *pEchoData, int nData, double fRate,  double t1, double noise)
 {
-	double l2, r2, sum, noisePower, power;
-	int i, start, end;
-	double zero;
+	int i;
 
-	noisePower = CalcNoisePower(pIRData1, pIRData2, nData, noise);
+	const double noisePower = CalcNoisePower(pIRData1, pIRData2, nData, noise);
 
-	start = (int)(t1 / 1000 * fRate);
-	end = (int)(nData * (1 - noise));
+	const int start = (int)(t1 / 1000 * fRate);
+	const int end = (int)(nData * (1 - noise));
 
-	sum = 0;
+	double power;
+	double sum = 0;
 	for (i = nData - 1; i >= 0; i--) {
 		if (i < end) {
-			l2 = (double)pIRData1[i] * (double)pIRData1[i];
+			double l2 = (double)pIRData1[i] * (double)pIRData1[i];
 			if (pIRData2 != NULL) {
-				r2 = (double)pIRData2[i] * (double)pIRData2[i];
+				double r2 = (double)pIRData2[i] * (double)pIRData2[i];
 				power = (l2 + r2) / 2;
 			} else
 				power = l2;
@@ -96,7 +147,7 @@ void CalcEchoData(const double *pIRData1, const double *pIRData2, double *pEchoD
 		pEchoData[i] = sum;
 	}
 
-	zero = pEchoData[start];
+	const double zero = pEchoData[start];
 	for (i = 0; i < nData; i++) {
 		if (pEchoData[i] > 0)
 			pEchoData[i] = dB10(pEchoData[i] / zero);
@@ -126,24 +177,21 @@ double CalcNoisePower(const double *pIRData1, const double *pIRData2, int nData,
 
 void CalcIACCData(const double *pIRLeft, const double *pIRRight, int nData, double *pOutData, int nOutData)
 {
-	double leftPower, rightPower, totalPower;
 	int i, j;
-	int offset;
-	int nFftSize, nTemp;
-	double xt1, yt1, xt2, yt2;
 
+	int nFftSize, nTemp;
 	for (nFftSize = 1, nTemp = nData - 1; nTemp != 0; nFftSize <<= 1, nTemp >>= 1)
 		;
 
-	leftPower = 0;
+	double leftPower = 0;
 	for (i = 0; i < nData; i++)
 		leftPower += (double)pIRLeft[i] * (double)pIRLeft[i];
 
-	rightPower = 0;
+	double rightPower = 0;
 	for (i = 0; i < nData; i++)
 		rightPower += (double)pIRRight[i] * (double)pIRRight[i];
 
-	totalPower = 2 / (sqrt(leftPower * rightPower) * nFftSize);
+	double totalPower = 2 / (sqrt(leftPower * rightPower) * nFftSize);
 
 	double *pTemp1 = new double[nFftSize];
 	double *pTemp2 = new double[nFftSize];
@@ -163,6 +211,7 @@ void CalcIACCData(const double *pIRLeft, const double *pIRRight, int nData, doub
 	pTemp1[0] = 0;
 	pTemp1[1] = 0;
 
+	double xt1, yt1, xt2, yt2;
 	for (i = 1; i < nFftSize / 2; i++) {
 		j = i * 2;
 
@@ -179,24 +228,23 @@ void CalcIACCData(const double *pIRLeft, const double *pIRRight, int nData, doub
 	g_oRFFT.ifft(nFftSize, pTemp1);
 
 	for (i = 0; i < nOutData; i++) {
-		offset = i - nOutData / 2 + nFftSize;
+		int offset = i - nOutData / 2 + nFftSize;
 		pOutData[i] = pTemp1[offset % nFftSize] * totalPower;
 	}
 
-	delete [] pTemp1;
-	delete [] pTemp2;
+	delete[] pTemp1;
+	delete[] pTemp2;
 }
 
 BOOL MakeFilterTbl1(double *pFilterTbl, int nData, double fRate, double fFreqLow, double fFreqHigh)
 {
-	double fFreqStep, f;
 	BOOL rc = FALSE;
 
-	fFreqStep = fRate / nData;
+	const double fFreqStep = fRate / nData;
 
 	pFilterTbl[0] = 0;
 	for (int i = 1; i <= nData / 2; i++) {
-		f = fFreqStep * i;
+		double f = fFreqStep * i;
 		pFilterTbl[i] = pFilterTbl[nData - i] = 1 / ((1 + pow(fFreqLow / f, 16)) * (1 + pow(f / fFreqHigh, 16)));
 		rc = TRUE;
 	}
@@ -236,13 +284,12 @@ BOOL CalcFilterAuto(double *pWaveLeft, double *pWaveRight, int nData, double fRa
 	const int nData2 = nData * 2;
 	FREQBAND const *pFreqBand = &g_tFilterTbl[band];
 	double *pFilterTbl = new double[nData2];
-	double *pTmpLeft = NULL;
-	double *pTmpRight = NULL;
 	BOOL rc;
 
-	pTmpLeft = new double[nData2];
+	double *pTmpLeft = new double[nData2];
 	memcpy(pTmpLeft, pWaveLeft, nData * sizeof(double));
 	memset(pTmpLeft + nData, 0, nData * sizeof(double));
+	double *pTmpRight = NULL;
 	if (pWaveRight != NULL) {
 		pTmpRight = new double[nData2];
 		memcpy(pTmpRight, pWaveRight, nData * sizeof(double));
@@ -258,13 +305,13 @@ BOOL CalcFilterAuto(double *pWaveLeft, double *pWaveRight, int nData, double fRa
 	if (rc)
 		CalcFilter(pTmpLeft, pTmpRight, nData2, pFilterTbl);
 
-	delete [] pFilterTbl;
+	delete[] pFilterTbl;
 
 	memcpy(pWaveLeft, pTmpLeft, nData * sizeof(double));
-	delete [] pTmpLeft;
+	delete[] pTmpLeft;
 	if (pWaveRight != NULL) {
 		memcpy(pWaveRight, pTmpRight, nData * sizeof(double));
-		delete [] pTmpRight;
+		delete[] pTmpRight;
 	}
 
 	return rc;
@@ -286,22 +333,19 @@ void GetDispFreq(int nFreq, int band, CString &str, BOOL bKiro)
 
 double CalcParamSpl(const double *pData, int nData, int nMultiplier)
 {
-	double fLevel;
-	double power;
-	double tmp;
 	int i;
 
 	if (nMultiplier == 0)
 		nMultiplier = 1;
 
-	fLevel = 0;
+	double fLevel = 0;
 	for (i = 0; i < nData; i++)
 		fLevel += (double)pData[i];
 	fLevel /= nData;
 
-	power = 0;
+	double power = 0;
 	for (i = 0; i < nData; i++) {
-		tmp = (double)(pData[i] - fLevel) * nMultiplier;
+		double tmp = (double)(pData[i] - fLevel) * nMultiplier;
 		power += tmp * tmp;
 	}
 
@@ -382,10 +426,8 @@ void CalcParamDeltaT1(const double *pData, int nData, double fRate, double minTi
 double CalcParamTSub(const double *pData1, const double *pData2, int nData, double fRate, double t1, double endLevel, BOOL bAuto, double noise, double *pDev, double *pAVal, double *pEndTime)
 {
 	double l2, r2;
-	double fLevel;
 	int i, j, k;
 	int endPos;
-	double a;
 
 	double *pEchoData = new double[nData];
 	CalcEchoData(pData1, pData2, pEchoData, nData, fRate, t1, noise);
@@ -418,7 +460,7 @@ double CalcParamTSub(const double *pData1, const double *pData2, int nData, doub
 
 		endPos = 0;
 		for (i = startPos; i < noisePos; i++) {
-			fLevel = 0;
+			double fLevel = 0;
 			for (j = 0; j < NAVR; j++) {
 				k = i + j;
 				if (k < nData) {
@@ -456,9 +498,9 @@ double CalcParamTSub(const double *pData1, const double *pData2, int nData, doub
 	if (startPos >= endPos)
 		endPos = (startPos < noisePos) ? noisePos : nData - 1;
 
-	a = Regress1(pEchoData + startPos, endPos - startPos, 0, (double)1 / fRate);
+	double a = Regress1(pEchoData + startPos, endPos - startPos, 0, (double)1 / fRate);
 
-	delete [] pEchoData;
+	delete[] pEchoData;
 
 	if (pDev != NULL)
 		*pDev = a;
@@ -472,8 +514,7 @@ double CalcParamTSub(const double *pData1, const double *pData2, int nData, doub
 #define MAX_WIACC	50
 void CalcParamIACC(const double *pIACCData, int nIACCData, double fRate, double *pIACC, double *pTIACC, double *pWIACC, double wLevel, double *pWIACC1, double *pWIACC2)
 {
-	int i, nIACCPos = 0;
-	int wPos1, wPos2;
+	int i;
 	double wt1, wt2;
 
 	int nT1 = nIACCData / 2 - (int)(fRate / 1000);
@@ -484,6 +525,7 @@ void CalcParamIACC(const double *pIACCData, int nIACCData, double fRate, double 
 		nT2 = nIACCData;
 
 	double IACC = -1;
+	int nIACCPos = 0;
 	for (i = nT1; i < nT2; i++) {
 		if (pIACCData[i] > IACC) {
 			IACC = pIACCData[i];
@@ -499,7 +541,7 @@ void CalcParamIACC(const double *pIACCData, int nIACCData, double fRate, double 
 
 	if (wLevel > 0) {
 		wLevel = (1 - wLevel) * IACC;
-		wPos1 = 0;
+		int wPos1 = 0;
 		for (i = nIACCPos; i >= 0; i--) {
 			if (pIACCData[i] < wLevel) {
 				wPos1 = i;
@@ -508,7 +550,7 @@ void CalcParamIACC(const double *pIACCData, int nIACCData, double fRate, double 
 		}
 		wt1 = (nIACCPos - wPos1 - (wLevel - pIACCData[wPos1]) / (pIACCData[wPos1 + 1] - pIACCData[wPos1])) / fRate * 1000;
 
-		wPos2 = nIACCData;
+		int wPos2 = nIACCData;
 		for (i = nIACCPos; i < nIACCData; i++) {
 			if (pIACCData[i] < wLevel) {
 				wPos2 = i;
@@ -548,7 +590,7 @@ void CalcParamTx(const double *pData1, const double *pData2, int nData, double f
 	*pTCustom = CalcRT(pEcho, nData, fRate, fTCustom1, fTCustom2);
 	*pEDT = CalcEDT(pEcho, nData, fRate, nT0Pos);
 
-	delete [] pEcho;
+	delete[] pEcho;
 }
 
 void CalcParamTx2(const double *pData1, const double *pData2, int nData, double fRate, int nT0Pos, double *pT20Reg0, double *pT20Reg1, double *pT30Reg0, double *pT30Reg1, double *pEDTReg0, double *pEDTReg1)
@@ -564,15 +606,14 @@ void CalcParamTx2(const double *pData1, const double *pData2, int nData, double 
 	CalcRT(pEcho, nData, fRate, -5, -35, pT30Reg0, pT30Reg1);
 	CalcEDT(pEcho, nData, fRate, nT0Pos, pEDTReg0, pEDTReg1);
 
-	delete [] pEcho;
+	delete[] pEcho;
 }
 
 double CalcRT(const double *pEcho, int nData, double fRate, double fStartLevel, double fEndLevel, double *pReg0, double *pReg1)
 {
 	int i;
-	int nStartPos = 0;
-	int nEndPos = nData - 1;
 
+	int nStartPos = 0;
 	for (i = 0; i < nData; i++) {
 		if (pEcho[i] <= fStartLevel) {
 			nStartPos = i;
@@ -580,6 +621,7 @@ double CalcRT(const double *pEcho, int nData, double fRate, double fStartLevel, 
 		}
 	}
 
+	int nEndPos = nData - 1;
 	for (; i < nData; i++) {
 		if (pEcho[i] <= fEndLevel) {
 			nEndPos = i;
@@ -668,7 +710,6 @@ double CalcC(const double *pData, int nData, double fRate, int nT0Pos, double t,
 
 double CalcD(const double *pData, int nData, double fRate, int nT0Pos, double t, double fNoisePower)
 {
-	double p1 = 0;
 	double pw;
 	int i;
 
@@ -680,6 +721,7 @@ double CalcD(const double *pData, int nData, double fRate, int nT0Pos, double t,
 	if (nPos > nData)
 		nPos = nData;
 
+	double p1 = 0;
 	for (i = 0; i < nPos; i++) {
 		pw = (double)pData[i] * pData[i] - fNoisePower;
 		if (pw < 0)
@@ -700,16 +742,14 @@ double CalcD(const double *pData, int nData, double fRate, int nT0Pos, double t,
 
 double CalcTs(const double *pData, int nData, double fRate, int nT0Pos, double fNoisePower)
 {
-	double s1 = 0;
-	double s2 = 0;
-	double pw;
-
 	// ’¼Ú‰¹‚ÌˆÊ’u‚ðŒ´“_‚É•â³
 	pData += nT0Pos;
 	nData -= nT0Pos;
 
+	double s1 = 0;
+	double s2 = 0;
 	for (int i = 0; i < nData; i++) {
-		pw = (double)pData[i] * pData[i] - fNoisePower;
+		double pw = (double)pData[i] * pData[i] - fNoisePower;
 		if (pw < 0)
 			pw = 0;
 
@@ -733,13 +773,12 @@ double CalcIACCSub(const double *pDataL, const double *pDataR, int nData, double
 	int nIACCSize = (int)(fRate / 1000);
 	nIACCSize += nIACCSize - 1;
 	double *pIACCData = new double[nIACCSize];
-	const int nT1Pos = nT0Pos + (int)(t1 * fRate);
-	int nT2Pos = nT0Pos + (int)(t2 * fRate);
-	double fIACC;
 
+	const int nT1Pos = nT0Pos + (int)(t1 * fRate);
 	if (nT1Pos > nData)
 		return 0;
 
+	int nT2Pos = nT0Pos + (int)(t2 * fRate);
 	if (nT2Pos > nData)
 		nT2Pos = nData;
 
@@ -751,25 +790,22 @@ double CalcIACCSub(const double *pDataL, const double *pDataR, int nData, double
 	pDataR += nT1Pos;
 
 	CalcIACCData(pDataL, pDataR, nData, pIACCData, nIACCSize);
+
+	double fIACC;
 	CalcParamIACC(pIACCData, nIACCSize, fRate, &fIACC, NULL, NULL, 0, NULL, NULL);
 
-	delete [] pIACCData;
+	delete[] pIACCData;
 
 	return fIACC;
 }
 
 BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamRec *pDbAcParamRec, double fRate, CProgressDlg *pProgressDlg)
 {
-	const FREQBAND *pFreqBand;
 	int i, j;
-	double *pIACCData = NULL;
+
+	const int nData = 1 << pDbImpulseRec->nMeasTime;
 	int nIACCData = 0;
-	CString str, str2;
-	BOOL bAbort = FALSE;
-	int nT0PosL = 0, nT0PosR = 0;
-
-	int nData = 1 << pDbImpulseRec->nMeasTime;
-
+	double *pIACCData = NULL;
 	double *pIRLeft = new double[nData];
 	double *pIRLeft2 = new double[nData];
 	double *pIRRight = NULL;
@@ -782,7 +818,7 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 		pIACCData = new double[nIACCData];
 	}
 
-	int nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
+	const int nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
 
 	const int nMethod = pDbImpulseRec->nBit & 0x03;
 	CIRMethod *pMethod;
@@ -796,7 +832,7 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 	if (pIRRight != NULL)
 		pMethod->CalcImpulse(pIRRight);
 
-	pFreqBand = &g_tFilterTbl[setData.CalcParam.nFreqBand];
+	const FREQBAND *pFreqBand = &g_tFilterTbl[setData.CalcParam.nFreqBand];
 
 	pDbAcParamRec->nImpulseID = pDbAcParamRec->nImpulseID;
 	pDbAcParamRec->dbAcParamCond.nFreqBand = setData.CalcParam.nFreqBand;
@@ -823,9 +859,12 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 	double fMTI500R = 0;
 	double fMTI2000R = 0;
 
+	BOOL bAbort = FALSE;
 	int n = 0;
 	int nFreqIndex = 0;
+	int nT0PosL = 0, nT0PosR = 0;
 	int nFreq;
+	CString str, str2;
 	for (i = 0; nFreqIndex < pFreqBand->nData; i++) {
 		if (i == 0)
 			nFreq = FREQ_ALL;
@@ -1002,26 +1041,26 @@ BOOL CalcAcParam(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcPar
 	}
 
 	if (pIRLeft != NULL)
-		delete [] pIRLeft;
+		delete[] pIRLeft;
 
 	if (pIRRight != NULL)
-		delete [] pIRRight;
+		delete[] pIRRight;
 
 	if (pIRLeft2 != NULL)
-		delete [] pIRLeft2;
+		delete[] pIRLeft2;
 
 	if (pIRRight2 != NULL)
-		delete [] pIRRight2;
+		delete[] pIRRight2;
 
 	if (pIACCData != NULL)
-		delete [] pIACCData;
+		delete[] pIACCData;
 
 	return bAbort;
 }
 
 void CalcTsub(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamRec *pDbAcParamRec, double fRate)
 {
-	int nData = 1 << pDbImpulseRec->nMeasTime;
+	const int nData = 1 << pDbImpulseRec->nMeasTime;
 
 	double *pIRLeft = new double[nData];
 	double *pIRLeft2 = new double[nData];
@@ -1032,7 +1071,7 @@ void CalcTsub(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamR
 		pIRRight2 = new double[nData];
 	}
 
-	int nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
+	const int nData2 = ReadWaveData(hWaveData, pIRLeft, pIRRight, nData);
 
 	const int nMethod = pDbImpulseRec->nBit & 0x03;
 	CIRMethod *pMethod;
@@ -1061,16 +1100,16 @@ void CalcTsub(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamR
 	}
 
 	if (pIRLeft != NULL)
-		delete [] pIRLeft;
+		delete[] pIRLeft;
 
 	if (pIRRight != NULL)
-		delete [] pIRRight;
+		delete[] pIRRight;
 
 	if (pIRLeft2 != NULL)
-		delete [] pIRLeft2;
+		delete[] pIRLeft2;
 
 	if (pIRRight2 != NULL)
-		delete [] pIRRight2;
+		delete[] pIRRight2;
 }
 
 void CalcIACC(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamRec *pDbAcParamRec, double fRate)
@@ -1120,19 +1159,19 @@ void CalcIACC(const DbImpulseRec *pDbImpulseRec, HWAVEDATA hWaveData, DbAcParamR
 	}
 
 	if (pIRLeft != NULL)
-		delete [] pIRLeft;
+		delete[] pIRLeft;
 
 	if (pIRRight != NULL)
-		delete [] pIRRight;
+		delete[] pIRRight;
 
 	if (pIRLeft2 != NULL)
-		delete [] pIRLeft2;
+		delete[] pIRLeft2;
 
 	if (pIRRight2 != NULL)
-		delete [] pIRRight2;
+		delete[] pIRRight2;
 
 	if (pIACCData != NULL)
-		delete [] pIACCData;
+		delete[] pIACCData;
 }
 
 void CalcPowerSpectrum(const double *pWaveLeft, const double *pWaveRight, double *pFreqLeft, double *pFreqRight, int nData, BOOL bAdjust)
@@ -1252,14 +1291,15 @@ double GetAdjustSPL(long folderID, long nSplRefData, double fSplRefLevel)
 		if (!dbAcParam.Open())
 			return 0;
 
-		DbImpulseRec dbImpulseRec;
-		DbAcParamRec dbAcParamRec;
 		CString str;
 		long nRec;
 		double fMaxSPL = 0;
 
 		str.Format("#%d=%ld", dbImpulse.m_nIdxFolderID, folderID);
 		dbImpulse.DBSelect(str, &nRec);
+
+		DbImpulseRec dbImpulseRec;
+		DbAcParamRec dbAcParamRec;
 		for (int i = 0; ; i++) {
 			if (!dbImpulse.ReadRecNext(&dbImpulseRec))
 				break;
@@ -1294,8 +1334,6 @@ double GetAdjustSPL(long folderID, long nSplRefData, double fSplRefLevel)
 void CalcMTF(const double *pIR, int nData, double fRate, const double *pMtfFreq, int nMtfFreq, double *pMTF, BOOL bSN, double fSN)
 {
 	int i, j;
-	double fTmp1, fTmp2, fTmp3;
-	double t;
 
 	double fSum1 = 0;
 	for (i = 0; i < nData; i++)
@@ -1305,10 +1343,10 @@ void CalcMTF(const double *pIR, int nData, double fRate, const double *pMtfFreq,
 		double fSum2R = 0;
 		double fSum2I = 0;
 		for (j = 0; j < nData; j++) {
-			t = j / fRate;
-			fTmp1 = cos(2 * M_PI * pMtfFreq[i] * t);
-			fTmp2 = sin(2 * M_PI * pMtfFreq[i] * t);
-			fTmp3 = pIR[j] * pIR[j];
+			double t = j / fRate;
+			double fTmp1 = cos(2 * M_PI * pMtfFreq[i] * t);
+			double fTmp2 = sin(2 * M_PI * pMtfFreq[i] * t);
+			double fTmp3 = pIR[j] * pIR[j];
 			fSum2R += fTmp1 * fTmp3;
 			fSum2I += fTmp2 * fTmp3;
 		}
@@ -1344,19 +1382,19 @@ double CalcMTI(const double *pIR, int nData, double fRate, const double *pMtfFre
 
 void CalcParamSTI(const double *pMTI, double fMTI500, double fMTI2000, double *pSTI, double *pSTI_m, double *pSTI_f, double *pRASTI)
 {
-	static constexpr double tSTI[N_MTF_BAND] = {
+	static constexpr double tSTI[N_MTF_BAND]{
 		0.129, 0.143, 0.114, 0.114, 0.186, 0.171, 0.143
 	};
-	static constexpr double tSTI_m1[N_MTF_BAND] = {
+	static constexpr double tSTI_m1[N_MTF_BAND]{
 		0.085, 0.127, 0.230, 0.233, 0.309, 0.224, 0.173
 	};
-	static constexpr double tSTI_m2[N_MTF_BAND - 1] = {
+	static constexpr double tSTI_m2[N_MTF_BAND - 1]{
 		0.085, 0.078, 0.065, 0.011, 0.047, 0.095
 	};
-	static constexpr double tSTI_f1[N_MTF_BAND] = {
+	static constexpr double tSTI_f1[N_MTF_BAND]{
 		0, 0.117, 0.223, 0.216, 0.328, 0.250, 0.194
 	};
-	static constexpr double tSTI_f2[N_MTF_BAND - 1] = {
+	static constexpr double tSTI_f2[N_MTF_BAND - 1]{
 		0, 0.099, 0.066, 0.062, 0.025, 0.076
 	};
 
@@ -1377,13 +1415,13 @@ void CalcParamSTI(const double *pMTI, double fMTI500, double fMTI2000, double *p
 
 double CalcParamSTISub(const double *pMTI, const double *pTbl1, const double *pTbl2)
 {
-	double fSTI1 = 0;
-	double fSTI2 = 0;
 	int i;
 
+	double fSTI1 = 0;
 	for (i = 0; i < N_MTF_BAND; i++)
 		fSTI1 += pTbl1[i] * pMTI[i];
 
+	double fSTI2 = 0;
 	for (i = 0; i < N_MTF_BAND - 1; i++)
 		fSTI2 += pTbl2[i] * sqrt(pMTI[i] * pMTI[i + 1]);
 

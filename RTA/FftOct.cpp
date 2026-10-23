@@ -9,13 +9,13 @@
 void CFftWnd::SetBitmapOct(FFTWINDOW *pFftWindow)
 {
 	int i, j;
-	double fFreqLow, fFreqCenter, fFreqHigh;
 
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
 	TEXTMETRIC tm;
 	m_dcMem.GetTextMetrics(&tm);
 
+	double fFreqLow, fFreqCenter, fFreqHigh;
 	if (g_oSetData.Fft.nOctaveBand == 0) {
 		// 1/1オクターブ
 		m_aFreqScale[0] = g_pFreqScale1[0];
@@ -128,11 +128,10 @@ void CFftWnd::SetBitmapOct(FFTWINDOW *pFftWindow)
 void CFftWnd::DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX, TEXTMETRIC &tm, LPCSTR pText)
 {
 	int	nLevel;
-	int y;
 	int i, j;
 	const int nWidth = nRight - nLeft;
 	const int nHeight = nBottom - nTop;
-	CSize size;
+	SIZE size;
 	CString sText;
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
@@ -176,7 +175,7 @@ void CFftWnd::DrawScaleOct(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	const int step = GetLinearScaleStep(m_nMaxLevel, m_nMinLevel, nHeight);
 	const double fSpanLevel = m_nMaxLevel - m_nMinLevel;
 	for (nLevel = GetScaleStartValue(m_nMinLevel, step); nLevel <= m_nMaxLevel; nLevel += step) {
-		y = nBottom - (int)((nLevel - m_nMinLevel) * nHeight / fSpanLevel + 0.5);
+		int y = nBottom - (int)((nLevel - m_nMinLevel) * nHeight / fSpanLevel + 0.5);
 
 		if (y > nTop && y < nBottom) {
 			m_dcMem.MoveTo(nLeft, y);
@@ -227,7 +226,6 @@ void CFftWnd::CalcOct(FFTDATA *pFftData) const
 	double *pOctData = pFftData->m_fOctData;
 	double const *pOctTbl = m_fOctTbl;
 	int nOctData[MAX_OCT];
-	int t1, t2, t3;
 
 	if (m_nOctBand > 0) {
 		memset(pOctData, 0, m_nOctBand * sizeof(double));
@@ -252,6 +250,7 @@ void CFftWnd::CalcOct(FFTDATA *pFftData) const
 			pOctData[i] = pOctData[i] ? dB10(pOctData[i] / nOctData[i] * ((pOctTbl[i] - pOctTbl[i - 1]) / m_fFreqStep)) : m_nMinLevel;
 	}
 
+	int t1, t2, t3;
 	for (i = 1; i < m_nOctBand; i++) {
 		if (nOctData[i] == 0) {
 			for (t1 = i; t1 > 0 && nOctData[t1] == 0; t1--)
@@ -288,8 +287,6 @@ void CFftWnd::DispOctInfo(const FFTWINDOW *pFftWindow)
 
 void CFftWnd::DispOctInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId)
 {
-	CString sFreq, sLevel;
-
 	if (g_oSetData.Fft.bPeakDisp) {
 		double *pOctData = pFftData->m_fOctData;
 		double maxLevel = MIN_VALUE;
@@ -301,6 +298,7 @@ void CFftWnd::DispOctInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int
 		}
 	}
 
+	CString sFreq, sLevel;
 	sLevel.Format("%.2lf", pFftData->m_fOctData[pFftData->m_nOctDispBand]);
 	sFreq = m_aFreqScale[pFftData->m_nOctDispBand];
 

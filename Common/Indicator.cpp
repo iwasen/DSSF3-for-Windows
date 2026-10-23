@@ -90,7 +90,6 @@ void CIndicator::Clear()
 
 void CIndicator::WaveData(LPWAVENOTIFY pWaveNotify)
 {
-	RECT rect;
 	BOOL bLeftColorChange = FALSE;
 	BOOL bRightColorChange = FALSE;
 
@@ -105,6 +104,8 @@ void CIndicator::WaveData(LPWAVENOTIFY pWaveNotify)
 
 	if (m_nLevelLeft < 0)
 		m_nLevelLeft = 0;
+
+	RECT rect;
 	if (pWaveNotify->nChannels == 2) {
 		fMaxData = GetMaxData(pWaveNotify->pSamplesData + 1, pWaveNotify->nSamplesNum, pWaveNotify->nChannels);
 		if (fMaxData != 0)

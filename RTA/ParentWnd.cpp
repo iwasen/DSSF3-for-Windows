@@ -37,7 +37,6 @@ void CParentWnd::PostNcDestroy()
 LRESULT CParentWnd::OnGetCheckLicense1(WPARAM wParam, LPARAM /*lParam*/)
 {
 	LPCSTR pRegistryName;
-
 	if (m_nCheckData == GetCheckData2())
 		pRegistryName = g_sRegistryName;
 	else
@@ -49,7 +48,6 @@ LRESULT CParentWnd::OnGetCheckLicense1(WPARAM wParam, LPARAM /*lParam*/)
 LRESULT CParentWnd::OnGetCheckLicense2(WPARAM wParam, LPARAM /*lParam*/)
 {
 	LPCSTR pRegistryName;
-
 	if (m_nCheckData == GetCheckData2())
 		pRegistryName = g_sRegistryName;
 	else

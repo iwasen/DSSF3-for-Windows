@@ -12,7 +12,7 @@
 struct FreqRange {
 	int nMinFreq;
 	int nMaxFreq;
-} tFreqRange[] = {
+} tFreqRange[]{
 	{10, 20000},
 	{10, 100},
 	{100, 1000},
@@ -85,10 +85,7 @@ BOOL CSgTone::OnInitDialog()
 	SetFreqRange(FALSE);
 
 	m_cEFreqL = g_oSetData.Sg.fFreqL;
-//	m_SFreqL.SetPos(CalcSliderPos(g_oSetData.Sg.fFreqL));
-
 	m_cEFreqR = g_oSetData.Sg.fFreqR;
-//	m_SFreqR.SetPos(CalcSliderPos(g_oSetData.Sg.fFreqR));
 
 	m_cRendouF = g_oSetData.Sg.bRendouF;
 
@@ -266,16 +263,12 @@ void CSgTone::OnCbnSelchangeWaveForm()
 
 void CSgTone::SetFreqScale()
 {
-	int	nFreq;
-	int pos;
-	int nTic;
-
 	m_nMinFreq = tFreqRange[g_oSetData.Sg.nFreqRange].nMinFreq;
 	m_nMaxFreq = tFreqRange[g_oSetData.Sg.nFreqRange].nMaxFreq;
 
 	m_cSFreqR.ClearTics();
-	for (nFreq = m_nMinFreq, nTic = 0; nFreq <= m_nMaxFreq; nTic++) {
-		pos = CalcSliderPos(nFreq);
+	for (int nFreq = m_nMinFreq, nTic = 0; nFreq <= m_nMaxFreq; nTic++) {
+		int pos = CalcSliderPos(nFreq);
 		m_cSFreqR.SetTic(pos);
 
 		if (g_oSetData.Sg.nFreqRange == 0) {
@@ -317,7 +310,6 @@ void CSgTone::SetPresetFreq(int nPresetNo)
 void CSgTone::DispPresetFreq(int nPresetNo)
 {
 	CString str;
-
 	str = GetNumberString(g_oSetData.Sg.fPresetFreq[nPresetNo]);
 
 	switch (nPresetNo) {
@@ -365,7 +357,6 @@ void CSgTone::OnBnClickedPreset4()
 void CSgTone::SetPhaseRange()
 {
 	CString str;
-
 	for (int i = 0, nTic = 0; i <= 360; i += 45, nTic++) {
 		m_cPhaseSlider.SetTic(i / 5);
 
@@ -410,20 +401,17 @@ void CSgTone::OnBnClickedPhase0()
 
 void CSgTone::SetFreqRange(BOOL bSetSlider)
 {
-	CString str;
-
 	const int nMaxFreq = (int)(g_oSetData.Sg.nSamplingRate / 2);
 
 	tFreqRange[0].nMaxFreq = nMaxFreq;
 
 	if (nMaxFreq > 10000) {
 		m_nFreqRange = 5;
-//		tFreqRange[4].nMaxFreq = nMaxFreq;
 	} else {
 		m_nFreqRange = 4;
-//		tFreqRange[3].nMaxFreq = nMaxFreq;
 	}
 
+	CString str;
 	m_cFreqRange.ResetContent();
 	for (int i = 0; i < m_nFreqRange; i++) {
 		str.Format("%sHz-%sHz", (LPCSTR)GetNumberString(tFreqRange[i].nMinFreq), (LPCSTR)GetNumberString(tFreqRange[i].nMaxFreq));
@@ -444,7 +432,7 @@ void CSgTone::SetFreqRange(BOOL bSetSlider)
 
 BOOL CSgTone::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_SFREQ_L, IDH_SG_TONE_SFREQ_L,
 		IDC_EFREQ_L, IDH_SG_TONE_EFREQ_L,
 		IDC_SFREQ_R, IDH_SG_TONE_SFREQ_R,

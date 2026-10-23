@@ -358,7 +358,7 @@ void CAsioManager::FreeBufferIn()
 {
 	for (int i = 0; i < 2; i++) {
 		if (m_pWaveInBuf[i] != NULL) {
-			delete [] m_pWaveInBuf[i];
+			delete[] m_pWaveInBuf[i];
 			m_pWaveInBuf[i] = NULL;
 		}
 	}
@@ -368,7 +368,7 @@ void CAsioManager::FreeBufferOut()
 {
 	for (int i = 0; i < 2; i++) {
 		if (m_pWaveOutBuf[i] != NULL) {
-			delete [] m_pWaveOutBuf[i];
+			delete[] m_pWaveOutBuf[i];
 			m_pWaveOutBuf[i] = NULL;
 		}
 	}

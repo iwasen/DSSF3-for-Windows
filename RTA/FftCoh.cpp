@@ -30,14 +30,6 @@ void CFftWnd::SetBitmapCoh(FFTWINDOW *pFftWindow)
 
 void CFftWnd::DrawScaleCoh(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int nRight, int nBottom, BOOL bAxisX)
 {
-	int	nFreq;
-	int x, y;
-	const int nWidth = nRight - nLeft;
-	const int nHeight = nBottom - nTop;
-	CString sText;
-	CSize size;
-	int i;
-
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushGraph);
 
@@ -48,6 +40,12 @@ void CFftWnd::DrawScaleCoh(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(&m_Font);
 
+	const int nWidth = nRight - nLeft;
+	const int nHeight = nBottom - nTop;
+	SIZE size;
+	int	nFreq;
+	CString sText;
+	int x, y;
 	if (g_oSetData.Fft.nFftScale == 0) {
 		const int step = GetLogScaleStep(m_nMinFreq);
 		for (nFreq = GetScaleStartValue(m_nMinFreq, step); nFreq <= m_nMaxFreq; nFreq += GetLogScaleStep(nFreq)) {
@@ -94,7 +92,7 @@ void CFftWnd::DrawScaleCoh(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 
 	m_dcMem.SelectObject(m_penGray);
 
-	for (i = 0; i <= 100; i += 10) {
+	for (int i = 0; i <= 100; i += 10) {
 		y = (int)(nBottom - (i * ((double)pFftWindow->m_nScaleHeight) / 100) + 0.5);
 		if (i != 100 && i != 0) {
 			m_dcMem.MoveTo(nLeft, y);
@@ -200,7 +198,6 @@ int CFftWnd::CalcCoh(const FFTWINDOW *pFftWindow, const double *pBuf, POINT *pPo
 
 void CFftWnd::DispCohInfo(const FFTWINDOW *pFftWindow)
 {
-	CString sFreq, sLevel;
 	double *pBuf = m_pCoherenceBuf;
 
 	if (g_oSetData.Fft.nFftScale == 0)
@@ -209,6 +206,7 @@ void CFftWnd::DispCohInfo(const FFTWINDOW *pFftWindow)
 		m_nCohFreqPos = (int)((m_fFreqStep * m_nCohDispFreq - m_nMinFreq) * ((double)pFftWindow->m_nFrameWidth / (m_nMaxFreq - m_nMinFreq)));
 	m_nCohLevelPos = pFftWindow->m_nScaleHeight - (int)(pBuf[m_nCohDispFreq] * pFftWindow->m_nScaleHeight);
 
+	CString sFreq, sLevel;
 	if (m_nCohDispFreq == 0) {
 		sLevel.Empty();
 		sFreq.Empty();
@@ -244,7 +242,6 @@ void CFftWnd::PaintCoh(const FFTWINDOW *pFftWindow, int nChannel)
 void CFftWnd::SetDispFreqCoh(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	int n;
-
 	if (g_oSetData.Fft.nFftScale == 0)
 		n = (int)(exp((point.x - pFftWindow->m_nFrameLeft) * (m_fLogMaxFreq - m_fLogMinFreq) / pFftWindow->m_nScaleWidth + m_fLogMinFreq) / m_fFreqStep);
 	else

@@ -6,16 +6,16 @@
 
 CSetData::CSetData()
 {
-	CFile oSetDataFile;
-	BOOL bRead = FALSE;
-	CFileStatus st;
 	CString sDataDirectory;
-	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
+
+	CString sPathName;
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 
+	BOOL bRead = FALSE;
+	CFile oSetDataFile;
 	if (oSetDataFile.Open(sPathName, CFile::modeRead | CFile::shareDenyNone)) {
+		CFileStatus st;
 		oSetDataFile.GetStatus(st);
 		if (st.m_size == sizeof(CSetData)) {
 			oSetDataFile.Read(this, sizeof(CSetData));
@@ -42,13 +42,13 @@ CSetData::CSetData()
 
 CSetData::~CSetData()
 {
-	CFile setDataFile;
 	CString sDataDirectory;
-	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
+
+	CString sPathName;
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 
+	CFile setDataFile;
 	if (setDataFile.Open(sPathName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
 		setDataFile.Write((char *)this, sizeof(CSetData));
 }
@@ -210,10 +210,9 @@ void CSetData::Init()
 CSetData2::CSetData2()
 {
 	CString sDataDirectory;
-	CString sPathName;
-	char buf[256];
-
 	GetDataDirectory(sDataDirectory);
+
+	CString sPathName;
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, INI_FILE);
 
 	nFontSizeSg = nFontSizeSgOrg = GetPrivateProfileInt(SECTION_FONT_SIZE, "SG", 0, sPathName);
@@ -227,6 +226,7 @@ CSetData2::CSetData2()
 	bInput16BitOnly = bInput16BitOnlyOrg = GetPrivateProfileInt(SECTION_DEVICE_BIT, "Input16bitOnly", 0, sPathName);
 	bOutput16BitOnly = bOutput16BitOnlyOrg = GetPrivateProfileInt(SECTION_DEVICE_BIT, "Output16bitOnly", 0, sPathName);
 
+	char buf[256];
 	GetPrivateProfileString(SECTION_AUTO_REC, "Folder", "", buf, sizeof(buf), sPathName);
 	sAutoRecFolder = sAutoRecFolderOrg = buf;
 	bAutoRecInput = bAutoRecInputOrg = GetPrivateProfileInt(SECTION_AUTO_REC, "Input", 0, sPathName);
@@ -236,9 +236,9 @@ CSetData2::CSetData2()
 CSetData2::~CSetData2()
 {
 	CString sDataDirectory;
-	CString sPathName;
-
 	GetDataDirectory(sDataDirectory);
+
+	CString sPathName;
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, INI_FILE);
 
 	if (nFontSizeSg != nFontSizeSgOrg)
@@ -281,7 +281,6 @@ CSetData2::~CSetData2()
 void CSetData2::WritePrivateProfileInt(LPCSTR lpAppName, LPCSTR lpKeyName, int nData, LPCSTR lpFileName)
 {
 	CString str;
-
 	str.Format("%d", nData);
 	WritePrivateProfileString(lpAppName, lpKeyName, str, lpFileName);
 }

@@ -51,7 +51,7 @@ void CFftWnd::DrawScalePws(const FFTWINDOW *pFftWindow, int nLeft, int nTop, int
 	const int nWidth = nRight - nLeft;
 	const int nHeight = nBottom - nTop;
 	CString sText;
-	CSize size;
+	SIZE size;
 
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushGraph);
@@ -158,16 +158,14 @@ void CFftWnd::GetWaveDataPws(const FFTWINDOW *pFftWindow)
 
 void CFftWnd::CalcPws(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 {
-	double fLevel;
 	double *pPowerSpecBuf = pFftData->m_oPowerSpecBuf.GetBuf();
-	const int nFftSize2 = m_nFftSize / 2;
-
 	pFftData->m_nPwsPointCount = CalcPwsSub(pFftWindow, pPowerSpecBuf, pFftData->m_pPwsPoint);
 
 	if (g_oSetData.Fft.bPeakHold) {
+		const int nFftSize2 = m_nFftSize / 2;
 		double *pPeakLevel = pFftData->m_pPwsPeakLevel;
 		for (int i = 0; i < nFftSize2; i++) {
-			fLevel = pPowerSpecBuf[i];
+			double fLevel = pPowerSpecBuf[i];
 			if (fLevel > *pPeakLevel || m_bPeakReset)
 				*pPeakLevel = fLevel;
 
@@ -180,18 +178,17 @@ void CFftWnd::CalcPws(const FFTWINDOW *pFftWindow, FFTDATA *pFftData)
 
 int CFftWnd::CalcPwsSub(const FFTWINDOW *pFftWindow, const double *pBuf, POINT *pPoint)
 {
-	int x;
-	int x2 = 0;
 	const double fStepY = (double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel);
 	const double fTmp1 = (double)pFftWindow->m_nScaleWidth / (m_fLogMaxFreq - m_fLogMinFreq);
 	const double fTmp2 = (double)pFftWindow->m_nScaleWidth / (m_nMaxFreq - m_nMinFreq);
-	double fLevel;
-	const int nFftSize2 = m_nFftSize / 2;
 	int nPointCount = 0;
+	int x2 = 0;
 	double ymin = pBuf[0];
 	double ymax = pBuf[0];
 
+	const int nFftSize2 = m_nFftSize / 2;
 	for (int i = 0; i < nFftSize2; i++) {
+		int x;
 		if (g_oSetData.Fft.nFftScale == 0)
 			x = (int)((m_pLogFreqTbl[i] - m_fLogMinFreq) * fTmp1 + 0.5);
 		else
@@ -216,7 +213,7 @@ int CFftWnd::CalcPwsSub(const FFTWINDOW *pFftWindow, const double *pBuf, POINT *
 			ymax = 0;
 		}
 
-		fLevel = pBuf[i];
+		double fLevel = pBuf[i];
 		if (fLevel < ymin)
 			ymin = fLevel;
 		if (fLevel > ymax)
@@ -237,9 +234,7 @@ void CFftWnd::DispPwsInfo(const FFTWINDOW *pFftWindow)
 
 void CFftWnd::DispPwsInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int nMessageId)
 {
-	CString sFreq, sLevel;
 	double *pBuf = pFftData->m_oPowerSpecBuf.GetBuf();
-
 	if (g_oSetData.Fft.bPeakDisp) {
 		const int nFftSize2 = m_nFftSize / 2;
 		double fPeakLevel = 0;
@@ -258,6 +253,7 @@ void CFftWnd::DispPwsInfoSub(const FFTWINDOW *pFftWindow, FFTDATA *pFftData, int
 		pFftData->m_nPwsFreqPos = (int)((m_fFreqStep * pFftData->m_nPwsDispFreq - m_nMinFreq) * ((double)pFftWindow->m_nFrameWidth / (m_nMaxFreq - m_nMinFreq)));
 	pFftData->m_nPwsLevelPos = (int)((dB10(pBuf[pFftData->m_nPwsDispFreq]) - m_nMaxLevel) * ((double)pFftWindow->m_nScaleHeight / (m_nMinLevel - m_nMaxLevel)));
 
+	CString sFreq, sLevel;
 	if (pFftData->m_nPwsDispFreq == 0) {
 		if (pFftData->m_fFftAllPower != 0)
 			sLevel.Format("%.2lf", dB10(pFftData->m_fFftAllPower));
@@ -307,7 +303,6 @@ void CFftWnd::SetDispFreqPws(const FFTWINDOW *pFftWindow, CPoint point)
 {
 	if (!g_oSetData.Fft.bPeakDisp) {
 		int n;
-
 		if (g_oSetData.Fft.nFftScale == 0)
 			n = (int)(exp((point.x - pFftWindow->m_nFrameLeft) * (m_fLogMaxFreq - m_fLogMinFreq) / pFftWindow->m_nScaleWidth + m_fLogMinFreq) / m_fFreqStep);
 		else

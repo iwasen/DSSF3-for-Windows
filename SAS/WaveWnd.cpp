@@ -6,11 +6,11 @@
 #include "common.h"
 #include "WaveWnd.h"
 
-#define COLOR_LEFT			RGB(0, 128, 255)
-#define COLOR_RIGHT			RGB(255, 64, 192)
-#define COLOR_SEL	RGB(192, 255, 255)
+#define COLOR_LEFT		RGB(0, 128, 255)
+#define COLOR_RIGHT		RGB(255, 64, 192)
+#define COLOR_SEL		RGB(192, 255, 255)
 #define COLOR_MARKER	RGB(0, 192, 0)
-#define COLOR_DRAG	RGB(192, 0, 0)
+#define COLOR_DRAG		RGB(192, 0, 0)
 #define COLOR_ZOOMAREA	RGB(255, 240, 240)
 
 #define MOUSE_NORMAL			0
@@ -36,14 +36,13 @@ CWaveWnd::CWaveWnd()
 	m_nMarkerIndex = -1;
 	m_pNotifyWnd = NULL;
 	m_sizeCurrent = 0;
-	m_rectZoom.SetRect(0, 0, 0, 0);
 	m_hCursor = NULL;
 }
 
 CWaveWnd::~CWaveWnd()
 {
 	if (m_pPointBuf != NULL)
-		delete [] m_pPointBuf;
+		delete[] m_pPointBuf;
 }
 
 BEGIN_MESSAGE_MAP(CWaveWnd, CWnd)
@@ -93,12 +92,13 @@ void CWaveWnd::OnPaint()
 		}
 
 		if (m_nMouseMode == MOUSE_DRAG) {
-			CPoint point[5];
-			point[0] = m_pointDragStart;
-			point[1].SetPoint(m_pointDragStart.x, m_pointDragEnd.y);
-			point[2] = m_pointDragEnd;
-			point[3].SetPoint(m_pointDragEnd.x, m_pointDragStart.y);
-			point[4] = m_pointDragStart;
+			CPoint point[5]{
+				{ m_pointDragStart },
+				{ m_pointDragStart.x, m_pointDragEnd.y },
+				{ m_pointDragEnd },
+				{ m_pointDragEnd.x, m_pointDragStart.y },
+				{ m_pointDragStart }
+			};
 			CPen *pPenOrg = m_dcMem2.SelectObject(&m_penDrag);
 			m_dcMem2.Polyline(point, 5);
 			m_dcMem2.SelectObject(pPenOrg);
@@ -178,8 +178,7 @@ void CWaveWnd::Initialize(int nChannel, LPCSTR pTitle, PFNGRAPH pCallBackFunc, L
 void CWaveWnd::SetSize(int nFontSize)
 {
 	CRect rect;
-
-	GetClientRect(&rect);
+	GetClientRect(rect);
 
 	if (rect.Size() == m_sizeCurrent)
 		return;
@@ -201,11 +200,11 @@ void CWaveWnd::SetSize(int nFontSize)
 	m_bitmapMem2.CreateCompatibleBitmap(pDC, m_nWidth, m_nHeight);
 	ReleaseDC(pDC);
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = nFontSize,
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.DeleteObject();
@@ -233,38 +232,31 @@ void CWaveWnd::SetSize(int nFontSize)
 	m_Rgn.CreateRectRgn(m_nScaleLeft, m_nScaleTop, m_nScaleRight + 1, m_nScaleBottom + 1);
 
 	if (m_pPointBuf != NULL)
-		delete [] m_pPointBuf;
+		delete[] m_pPointBuf;
 
 	m_pPointBuf = new POINT[m_nScaleWidth * 2 + 2];
 }
 
 void CWaveWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, double fMinValue)
 {
-	CRect rect;
-	CString text;
-	CSize size;
-	int x, y;
-	double step, t, t1, t2;
-	double fValue;
-	int ns;
-	const double fLevelRange = fMaxValue - fMinValue;
-
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penBlack);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);
 
+	const double fLevelRange = fMaxValue - fMinValue;
 	m_nScaleZero = m_nScaleTop + m_nScaleHeight * fMaxValue / fLevelRange;
 
-	rect.SetRect(0, 0, m_nWidth, m_nHeight);
+	CRect rect(0, 0, m_nWidth, m_nHeight);
 	m_dcMem.FillRect(rect, &m_brushWhite);
 
 	rect.SetRect(m_nScaleLeft, m_nScaleTop, m_nScaleRight, m_nScaleBottom);
 	m_dcMem.SelectStockObject(NULL_BRUSH);
 	m_dcMem.Rectangle(rect);
 
-	t1 = fLevelRange / 3 + fLevelRange / 1000;
-	step = pow(10.0, floor(log10(t1)));
-	t2 = t1 / step;
+	double t1 = fLevelRange / 3 + fLevelRange / 1000;
+	double step = pow(10.0, floor(log10(t1)));
+	double t2 = t1 / step;
+	int ns;
 	if (t2 < 2) {
 		step *= 0.5;
 		ns = 2;
@@ -276,8 +268,10 @@ void CWaveWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, 
 	if (step == 0)
 		step = 1;
 
-	for (fValue = floor(fMinValue / step) * step; fValue <= fMaxValue + step * 1e-7; fValue += step) {
-		y = (int)(m_nScaleZero - fValue * m_nScaleHeight / fLevelRange + 0.5);
+	SIZE size;
+	CString text;
+	for (double fValue = floor(fMinValue / step) * step; fValue <= fMaxValue + step * 1e-7; fValue += step) {
+		int y = (int)(m_nScaleZero - fValue * m_nScaleHeight / fLevelRange + 0.5);
 
 		if (y <= m_nScaleBottom) {
 			if (int(fabs(fValue) / step + 0.5) % ns == 0) {
@@ -315,8 +309,8 @@ void CWaveWnd::SetBitmap(double fStartTime, double fDispTime, double fMaxValue, 
 	if (step == 0)
 		step = 1;
 
-	for (t = floor(fStartTime / step) * step; t < fStartTime + fDispTime; t += step) {
-		x = m_nScaleLeft + int((t - fStartTime) * m_nScaleWidth / fDispTime + 0.5);
+	for (double t = floor(fStartTime / step) * step; t < fStartTime + fDispTime; t += step) {
+		int x = m_nScaleLeft + int((t - fStartTime) * m_nScaleWidth / fDispTime + 0.5);
 		if (x >= m_nScaleLeft) {
 			if (int(t / step + 0.5) % ns == 0) {
 				if (x > m_nScaleLeft && x < m_nScaleRight) {
@@ -365,23 +359,19 @@ void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime,
 		return;
 	}
 
-	int i;
-	int x;
-	int y;
-	int nPoint = 0;
-	const double fLevelRange = fMaxValue - fMinValue;
-
 	m_dcMem.SelectClipRgn(&m_Rgn);
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penData);
 
+	const double fLevelRange = fMaxValue - fMinValue;
+	int nPoint = 0;
 	int x2 = 0;
 	int ymin = m_nScaleBottom;
 	int ymax = m_nScaleTop;
 	const int i2 = int(fStartTime / fTotalTime * nData + 0.99);
-	for (i = i2; i < nData; i++) {
-		x = (int)((i * fTotalTime / nData - fStartTime) / fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
+	for (int i = i2; i < nData; i++) {
+		int x = (int)((i * fTotalTime / nData - fStartTime) / fDispTime * m_nScaleWidth + 0.5) + m_nScaleLeft;
 
 		if (x2 == 0)
 			x2 = x;
@@ -403,7 +393,7 @@ void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime,
 				break;
 		}
 
-		y = (int)(m_nScaleZero - pData[i * nChannel] * m_nScaleHeight / fLevelRange + 0.5);
+		int y = (int)(m_nScaleZero - pData[i * nChannel] * m_nScaleHeight / fLevelRange + 0.5);
 		if (y < ymin)
 			ymin = y;
 		if (y > ymax)
@@ -434,29 +424,28 @@ void CWaveWnd::DispGraph(double fTotalTime, double fStartTime, double fDispTime,
 	m_arrayMarker.RemoveAll();
 	if (nAcfMarkerRec != 0) {
 		const double fEndTime = fStartTime + fDispTime;
-		for (i = 0; i < nAcfMarkerRec; i++) {
+		for (int i = 0; i < nAcfMarkerRec; i++) {
 			if (pAcfMarkerRec[i].fTime > fStartTime && pAcfMarkerRec[i].fTime < fEndTime) {
-				x = m_nScaleLeft + (int)((pAcfMarkerRec[i].fTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
+				int x = m_nScaleLeft + (int)((pAcfMarkerRec[i].fTime - fStartTime) / fDispTime * m_nScaleWidth + 0.5);
 
 				m_dcMem.SelectObject(&m_penMarkerDot);
 				m_dcMem.MoveTo(x, m_nScaleTop);
 				m_dcMem.LineTo(x, m_nScaleBottom);
 
-				CPoint point[3];
-				point[0].x = x;
-				point[0].y = m_nScaleTop - 2;
-				point[1].x = x - 5;
-				point[1].y = m_nScaleTop - 9;
-				point[2].x = x + 5;
-				point[2].y = m_nScaleTop - 9;
+				POINT point[3]{
+					{ .x = x, .y = m_nScaleTop - 2 },
+					{ .x = x - 5,.y = m_nScaleTop - 9 },
+					{ .x = x + 5,.y = m_nScaleTop - 9 }
+				};
 				m_dcMem.SelectObject(&m_penGray);
 				m_dcMem.SelectObject(&m_brushMarker);
 				m_dcMem.Polygon(point, 3);
 
-				SMarker marker;
-				marker.nMarkerID = pAcfMarkerRec[i].nMarkerID;
-				marker.sTitle = pAcfMarkerRec[i].sTitle;
-				marker.rectMarker.SetRect(point[1].x, point[1].y, point[2].x, point[0].y);
+				SMarker marker{
+					.nMarkerID = pAcfMarkerRec[i].nMarkerID,
+					.sTitle = pAcfMarkerRec[i].sTitle,
+					.rectMarker{ point[1].x, point[1].y, point[2].x, point[0].y }
+				};
 				m_arrayMarker.Add(marker);
 			}
 		}
@@ -514,9 +503,8 @@ void CWaveWnd::OnLButtonUp(UINT nFlags, CPoint point)
 			m_nMouseMode = MOUSE_NORMAL;
 
 			if (m_pointDragStart.x != m_pointDragEnd.x && m_pointDragStart.y != m_pointDragEnd.y) {
-				CPoint pointStart, pointEnd;
-				pointStart.SetPoint(min(m_pointDragStart.x, m_pointDragEnd.x), min(m_pointDragStart.y, m_pointDragEnd.y));
-				pointEnd.SetPoint(max(m_pointDragStart.x, m_pointDragEnd.x), max(m_pointDragStart.y, m_pointDragEnd.y));
+				POINT pointStart{ min(m_pointDragStart.x, m_pointDragEnd.x), min(m_pointDragStart.y, m_pointDragEnd.y) };
+				POINT pointEnd{ max(m_pointDragStart.x, m_pointDragEnd.x), max(m_pointDragStart.y, m_pointDragEnd.y) };
 				SGraphDrag drag{
 					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
 					.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight,
@@ -555,9 +543,8 @@ void CWaveWnd::OnMouseMove(UINT nFlags, CPoint point)
 			break;
 		case MOUSE_ZOOM_AREA:
 			{
-				CPoint pointStart, pointEnd;
-				pointStart = point - m_pointZoomArea;
-				pointEnd = pointStart + m_rectZoom.Size();
+				CPoint pointStart{ point - m_pointZoomArea };
+				CPoint pointEnd{ pointStart + m_rectZoom.Size() };
 
 				SGraphDrag drag{
 					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
@@ -620,7 +607,7 @@ void CWaveWnd::OnRButtonDown(UINT nFlags, CPoint point)
 	if (m_pCallBackFunc != NULL) {
 		int i;
 		for (i = 0; i < m_arrayMarker.GetCount(); i++) {
-CRect rect = m_arrayMarker[i].rectMarker;
+			CRect rect = m_arrayMarker[i].rectMarker;
 			if (m_arrayMarker[i].rectMarker.PtInRect(point))
 				break;
 		}
@@ -659,8 +646,8 @@ void CWaveWnd::HideMarkerCursor()
 BOOL CWaveWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if (pMsg->message == WM_MOUSEMOVE) {
+		const POINT point{ GET_X_LPARAM(pMsg->lParam), GET_Y_LPARAM(pMsg->lParam) };
 		int i;
-		CPoint point(GET_X_LPARAM(pMsg->lParam), GET_Y_LPARAM(pMsg->lParam));
 		for (i = 0; i < m_arrayMarker.GetCount(); i++) {
 			if (m_arrayMarker[i].rectMarker.PtInRect(point)) {
 				if (i != m_nMarkerIndex) {

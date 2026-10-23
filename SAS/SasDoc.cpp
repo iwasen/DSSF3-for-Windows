@@ -97,7 +97,6 @@ void CSasDoc::ParamCalc(int nCalcData)
 void CSasDoc::CalcIR(int nCalcData)
 {
 	CCalcImpDlg dlg;
-
 	dlg.m_CalcParam = setData.CalcParam;
 	dlg.m_nFolderID = m_nFolderID;
 	dlg.m_iCalcData = nCalcData;
@@ -194,7 +193,6 @@ static CProgressDlg *pProgressDlg;
 void CSasDoc::CalcAcf(int nCalcData)
 {
 	CCalcAcfDlg dlg;
-
 	dlg.m_AcfCondition = setData.AcfCondition;
 	dlg.m_nFolderID = m_nFolderID;
 	dlg.m_iCalcData = nCalcData;
@@ -299,8 +297,8 @@ void CSasDoc::CalcAcf(int nCalcData)
 		dbAcfFactor.DBWriteBinary("ACFFACTOR", pAcfFactorData, sizeof(AcfFactorData) * nFactor);
 		dbAcfFactor.DBWriteBinary(NULL, pTaunPhinData, sizeof(TaunPhinData) * nFactor);
 
-		delete [] pAcfFactorData;
-		delete [] pTaunPhinData;
+		delete[] pAcfFactorData;
+		delete[] pTaunPhinData;
 	}
 
 	UpdateAllViews(NULL);
@@ -309,7 +307,6 @@ void CSasDoc::CalcAcf(int nCalcData)
 void CSasDoc::CalcNms(int nCalcData)
 {
 	CCalcNmsDlg dlg;
-
 	dlg.m_AcfCondition = setData.NmsCondition.AcfCondition;
 	dlg.m_IdentCondition = setData.NmsCondition.IdentCondition;
 	dlg.m_nFolderID = m_nFolderID;
@@ -413,7 +410,7 @@ void CSasDoc::CalcNms(int nCalcData)
 		dbNms.DBSetFieldBuf(&dbNmsBuf, &dbNmsRec);
 		dbNms.DBUpdate(&dbNmsBuf);
 
-		delete [] pNmsFactorData;
+		delete[] pNmsFactorData;
 	}
 
 	UpdateAllViews(NULL);

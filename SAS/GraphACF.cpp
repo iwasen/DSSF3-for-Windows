@@ -8,7 +8,7 @@
 #include "MakeFilter.h"
 #include "Help\ContextHelp.h"
 
-#define SCROLL_RANGE 16384
+#define SCROLL_RANGE	16384
 #define MAX_ZOOM_TIME	512
 
 /////////////////////////////////////////////////////////////////////////////
@@ -61,8 +61,7 @@ BOOL CGraphACF::OnInitDialog()
 		CRect rcClient;
 		GetClientRect(rcClient);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(0, rcClient.bottom - sizeToolBar.cy + 6, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -132,12 +131,12 @@ void CGraphACF::OnDestroy()
 	CDialogExt::OnDestroy();
 
 	if (m_pAcfData != NULL) {
-		delete [] m_pAcfData;
+		delete[] m_pAcfData;
 		m_pAcfData = NULL;
 	}
 
 	if (m_pAcfDataLog != NULL) {
-		delete [] m_pAcfDataLog;
+		delete[] m_pAcfDataLog;
 		m_pAcfDataLog = NULL;
 	}
 }
@@ -167,7 +166,7 @@ void CGraphACF::CalcGraphWindow()
 	double *pWaveBuf = new double[nIntegrationSize2];
 	double *pWaveBufTemp = new double[nIntegrationSize2];
 	ReadWaveData(m_hWaveData, pWaveBuf, pWaveBufTemp, nIntegrationSize2, (int)(m_nStep * m_pAcfCondition->fRunningStep * m_fRate));
-	delete [] pWaveBufTemp;
+	delete[] pWaveBufTemp;
 
 	// FFT バッファサイズ取得
 	int nFftSize;
@@ -184,7 +183,7 @@ void CGraphACF::CalcGraphWindow()
 		MakeFilterTbl2(pFilterTbl, nFftSize, m_fRate, m_pAcfCondition->nFreqWeighting, 20);
 		for (i = 0; i < nFftSize; i++)
 			pFilterTbl[i] *= sens / pCalibration[i];
-		delete [] pCalibration;
+		delete[] pCalibration;
 	} else
 		MakeFilterTbl2(pFilterTbl, nFftSize, m_fRate, m_pAcfCondition->nFreqWeighting, 20);
 
@@ -192,9 +191,9 @@ void CGraphACF::CalcGraphWindow()
 	double *pAcfData = CalcAcf1(pWaveBuf, nIntegrationSize1, nIntegrationSize2, nFftSize, pFilterTbl);
 	memcpy(m_pAcfData, pAcfData, m_nData * sizeof(double));
 
-	delete [] pAcfData;
-	delete [] pFilterTbl;
-	delete [] pWaveBuf;
+	delete[] pAcfData;
+	delete[] pFilterTbl;
+	delete[] pWaveBuf;
 
 	const double fPhi0 = m_pAcfData[0];
 	for (i = 0; i < m_nData; i++)
@@ -296,7 +295,7 @@ void CALLBACK CGraphACF::GraphCallBack(WPARAM code, LPARAM data, double param1, 
 
 BOOL CGraphACF::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH_ACF, IDH_GRAPH_ACF,
 		IDC_ZOOM_H, IDH_GRAPH_ACF_ZOOM_H,
 		IDC_SCROLL_H, IDH_GRAPH_ACF_SCROLL_H,

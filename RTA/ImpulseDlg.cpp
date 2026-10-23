@@ -155,8 +155,7 @@ BOOL CImpulseDlg::OnInitDialog()
 		WINDOWPLACEMENT wp;
 		m_cZoomH.GetWindowPlacement(&wp);
 
-		CSize sizeToolBar;
-		sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
+		SIZE sizeToolBar = m_tbZoomH.CalcFixedLayout(FALSE, FALSE);
 		m_tbZoomH.MoveWindow(10, wp.rcNormalPosition.top - 8, sizeToolBar.cx, sizeToolBar.cy);
 	}
 
@@ -166,11 +165,11 @@ BOOL CImpulseDlg::OnInitDialog()
 	str.LoadString(IDS_RIGHTCHANNEL);
 	m_cImpulseR.Initialize(90, str, 1, COLOR_RIGHT, GraphCallBack, (LPARAM)this);
 
-	CRect rectImpulseL;
-	CRect rectImpulseR;
-	CRect rectControl;
-	m_cImpulseL.GetWindowRect(rectImpulseL);
-	m_cImpulseR.GetWindowRect(rectImpulseR);
+	RECT rectImpulseL;
+	RECT rectImpulseR;
+	RECT rectControl;
+	m_cImpulseL.GetWindowRect(&rectImpulseL);
+	m_cImpulseR.GetWindowRect(&rectImpulseR);
 	CWnd *pWnd = GetTopWindow();
 	while (pWnd != NULL) {
 		switch (pWnd->GetDlgCtrlID()) {
@@ -184,7 +183,7 @@ BOOL CImpulseDlg::OnInitDialog()
 			SetCtlPosition(pWnd, 0, 0.5, 1, 0.5);
 			break;
 		default:
-			pWnd->GetWindowRect(rectControl);
+			pWnd->GetWindowRect(&rectControl);
 			if (rectControl.left > rectImpulseL.right)
 				SetCtlPosition(pWnd, 1, 0, 1, 0);
 			else if (rectControl.top < rectImpulseR.top)
@@ -242,12 +241,11 @@ void CImpulseDlg::OnStart()
 
 void CImpulseDlg::StartMeasuring()
 {
-	CString time;
-
 	SYSTEMTIME st;
 	GetLocalTime(&st);
-	time.Format("%04d%02d%02d%02d%02d%02d", st.wYear, st.wMonth, st.wDay,
-					st.wHour, st.wMinute, st.wSecond);
+
+	CString time;
+	time.Format("%04d%02d%02d%02d%02d%02d", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 
 	UpdateData(TRUE);
 	SetMeasuringParameters(g_oSetData.Imp.nSamplingRate, TOPMSEQPARAM + g_oSetData.Imp.nTime, g_oSetData.Imp.nMeasureNum, g_oSetData.Imp.nChannel + 1, 16, time, g_oSetData.Imp.nMethod);
@@ -373,32 +371,32 @@ void CImpulseDlg::Stop()
 void CImpulseDlg::FreeBuffers()
 {
 	if (m_pWaveOutData != NULL) {
-		delete [] m_pWaveOutData;
+		delete[] m_pWaveOutData;
 		m_pWaveOutData = NULL;
 	}
 
 	if (m_pLeftInputData != NULL) {
-		delete [] m_pLeftInputData;
+		delete[] m_pLeftInputData;
 		m_pLeftInputData = NULL;
 	}
 
 	if (m_pRightInputData != NULL) {
-		delete [] m_pRightInputData;
+		delete[] m_pRightInputData;
 		m_pRightInputData = NULL;
 	}
 
 	if (m_pLeftImpulseData != NULL) {
-		delete [] m_pLeftImpulseData;
+		delete[] m_pLeftImpulseData;
 		m_pLeftImpulseData = NULL;
 	}
 
 	if (m_pRightImpulseData != NULL) {
-		delete [] m_pRightImpulseData;
+		delete[] m_pRightImpulseData;
 		m_pRightImpulseData = NULL;
 	}
 
 	if (m_pCheckBuf != NULL) {
-		delete [] m_pCheckBuf;
+		delete[] m_pCheckBuf;
 		m_pCheckBuf = NULL;
 	}
 
@@ -528,7 +526,6 @@ void CImpulseDlg::EndProcess()
 	ShiftCopy(m_pLeftImpulseData, m_pLeftInputData, m_nData, nTimeOffset);
 	m_pMethod->CalcImpulse(m_pLeftImpulseData);
 	if (m_nChannel == 2) {
-		//memcpy(m_pRightImpulseData, m_pRightInputData, m_nData * sizeof(double));
 		ShiftCopy(m_pRightImpulseData, m_pRightInputData, m_nData, nTimeOffset);
 		m_pMethod->CalcImpulse(m_pRightImpulseData);
 	}
@@ -565,9 +562,6 @@ void CImpulseDlg::ShiftCopy(double *pTo, double *pFrom, int nData, int nShift)
 
 int CImpulseDlg::TimingCheck(const double *pData1, const double *pData2, int nCheckDataNum)
 {
-	int i, j;
-	double xt1, yt1, xt2, yt2;
-
 	double *pBuf1 = new double[nCheckDataNum];
 	double *pBuf2 = new double[nCheckDataNum];
 
@@ -580,6 +574,8 @@ int CImpulseDlg::TimingCheck(const double *pData1, const double *pData2, int nCh
 	pBuf1[0] = 0;
 	pBuf1[1] = 0;
 
+	int i, j;
+	double xt1, yt1, xt2, yt2;
 	for (i = 1; i < nCheckDataNum / 2; i++) {
 		j = i * 2;
 
@@ -606,8 +602,8 @@ int CImpulseDlg::TimingCheck(const double *pData1, const double *pData2, int nCh
 	if (index > nCheckDataNum / 2)
 		index = nCheckDataNum - index;
 
-	delete [] pBuf1;
-	delete [] pBuf2;
+	delete[] pBuf1;
+	delete[] pBuf2;
 
 	return index;
 }
@@ -652,7 +648,6 @@ void CImpulseDlg::OnTimer(UINT_PTR nIDEvent)
 void CImpulseDlg::OnSelchangeSamplingRate()
 {
 	int nIndex;
-
 	if ((nIndex = m_cSamplingRate.GetCurSel()) != CB_ERR) {
 		g_oSetData.Imp.nSamplingRate = (int)m_cSamplingRate.GetItemData(nIndex);
 		SetTimeList();
@@ -756,7 +751,6 @@ void CImpulseDlg::OnZoomFullH()
 
 void CImpulseDlg::InitDispTime()
 {
-//	m_fTotalTime = double(1 << tMSeqParam[g_oSetData.Imp.nTime].nBit) / g_tSamplingRate[g_oSetData.Imp.nSamplingRate];
 	m_fDispTime = m_fTotalTime * g_oSetData.Imp.nScrollSize / SCROLL_RANGE;
 	m_fStartTime = m_fTotalTime * g_oSetData.Imp.nScrollPos / SCROLL_RANGE;
 }
@@ -845,7 +839,6 @@ void CImpulseDlg::OnFileSave()
 	HWAVEDATA hWaveData = MakeWaveDataHandle(m_nRate, m_nBitsPerSample, m_nChannel, m_nData, m_pLeftInputData, m_pRightInputData);
 
 	CSaveIR dlg(this);
-
 	dlg.m_Time = m_sTime;
 	dlg.m_hWaveData = hWaveData;
 	dlg.m_iSampling = m_nRate;
@@ -858,7 +851,6 @@ void CImpulseDlg::OnFileSave()
 	dlg.m_nMultiplier = m_nMultiplier;
 	dlg.m_bImpulseData = m_bImpulseData;
 	dlg.m_nMethod = m_nMethod;
-
 	dlg.DoModal();
 
 	::GlobalFree(hWaveData);
@@ -870,7 +862,6 @@ void CImpulseDlg::OnFileLoad()
 		return;
 
 	CLoadIR dlg(this);
-
 	switch (dlg.DoModal()) {
 	case IDOK:
 		LoadImpulseData(dlg.m_nImpulseID);
@@ -994,7 +985,7 @@ void CImpulseDlg::OnDestroy()
 	FreeBuffers();
 
 	if (m_pIFilter != NULL) {
-		delete [] m_pIFilter;
+		delete[] m_pIFilter;
 		m_pIFilter = NULL;
 	}
 
@@ -1021,7 +1012,6 @@ void CImpulseDlg::ValidData(BOOL bValid)
 
 	m_cFileSave.EnableWindow(bValid);
 	m_cWaveOut.EnableWindow(bValid);
-//	m_cAdjust.EnableWindow(bValid);
 	m_cIfaSave.EnableWindow(bValid);
 	m_cPlayback.EnableWindow(bValid);
 	m_cLaunchSA.EnableWindow(bValid);
@@ -1053,7 +1043,6 @@ void CImpulseDlg::WaveFileOut()
 	const int nBitsPerSample = fileDlg.m_pOFN->nFilterIndex == 1 ? 16 : 24;
 
 	HWAVEDATA hWaveData;
-
 	switch (g_oSetData.Imp.nFileType) {
 	case 0:		// インパルス応答
 		hWaveData = MakeWaveDataHandle(m_nRate, nBitsPerSample, m_nChannel, m_nData, m_pLeftImpulseData, m_pRightImpulseData, TRUE);
@@ -1082,13 +1071,11 @@ void CImpulseDlg::TextFileOut()
 	CFileDialog fileDlg(FALSE, "txt", NULL,
 			OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
 			"Text File (*.txt; *.csv)|*.txt;*.csv|CSV File (*.csv)|*.csv|All Files (*.*)|*.*||", this, 0);
-
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
 	double fMul;
 	double *pLeftData = NULL, *pRightData = NULL;
-
 	switch (g_oSetData.Imp.nFileType) {
 	case 0:		// インパルス応答
 		pLeftData = m_pLeftImpulseData;
@@ -1181,7 +1168,7 @@ void CImpulseDlg::InverseConvolution(double *pWaveData, int nWaveData, const dou
 		}
 	}
 
-	delete [] pFilterData;
+	delete[] pFilterData;
 
 	m_oRFFT.ifft(nWaveData, pWaveData);
 
@@ -1202,7 +1189,7 @@ void CImpulseDlg::OnIfaSet()
 	IfaSetDlg.m_nIFilterID = m_nIFilterID;
 	if (IfaSetDlg.DoModal() == IDOK) {
 		if (m_pIFilter != NULL)
-			delete [] m_pIFilter;
+			delete[] m_pIFilter;
 
 		m_nIFilterID = IfaSetDlg.m_nIFilterID;
 		m_nIFilter = IfaSetDlg.m_nEndPos - IfaSetDlg.m_nStartPos;
@@ -1223,7 +1210,7 @@ void CImpulseDlg::OnIfaSet()
 void CImpulseDlg::OnIfaCancel()
 {
 	if (m_pIFilter != NULL) {
-		delete [] m_pIFilter;
+		delete[] m_pIFilter;
 		m_pIFilter = NULL;
 
 		m_cIfaMessage.LoadString(IDS_NONE_HOSEI);
@@ -1248,8 +1235,8 @@ void CImpulseDlg::OnMove(int x, int y)
 	CBaseDlg::OnMove(x, y);
 
 	if (m_bInitialized) {
-		CRect rect;
-		GetWindowRect(rect);
+		RECT rect;
+		GetWindowRect(&rect);
 		g_oSetData.Imp.nPosLeft = rect.left;
 		g_oSetData.Imp.nPosTop = rect.top;
 	}
@@ -1305,11 +1292,10 @@ void CImpulseDlg::OnAssist()
 {
 	CIRAssistDlg dlg(this);
 
-	m_pAssistDlg = &dlg;
-
 	BOOL bAutoRetrySave = g_oSetData.Imp.bAutoRetry;
 	g_oSetData.Imp.bAutoRetry = FALSE;
 
+	m_pAssistDlg = &dlg;
 	if (dlg.DoModal() != -1) {
 		if (((CRtaApp *)::AfxGetApp())->m_pWndRta->m_pWndImp != NULL) {
 			SetTimeList();
@@ -1375,7 +1361,7 @@ void CImpulseDlg::ChangeWaveDevice(int /*nInOut*/)
 
 BOOL CImpulseDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_IMPALSE_L, IDH_IMP_IMPALSE_L,
 		IDC_IMPALSE_R, IDH_IMP_IMPALSE_R,
 		IDC_ZOOM_H, IDH_IMP_ZOOM_H,
@@ -1451,10 +1437,10 @@ void CImpulseDlg::OnBnClickedLaunchSa()
 	HWAVEDATA hWaveData = MakeWaveDataHandle(m_nRate, m_nBitsPerSample, m_nChannel, m_nData, m_pLeftInputData, m_pRightInputData);
 	if (hWaveData != NULL) {
 		if (SaveImpulse(hWaveData)) {
-			STARTUPINFO si;
+			STARTUPINFO si{
+				.cb = sizeof(si)
+			};
 			PROCESS_INFORMATION pi;
-			ZeroMemory(&si, sizeof(si));
-			si.cb = sizeof(si);
 			CString sCommand = "SAS /IMP";
 			::CreateProcess(NULL, sCommand.GetBuffer(), NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi);
 			::CloseHandle(pi.hProcess);
@@ -1474,23 +1460,23 @@ BOOL CImpulseDlg::SaveImpulse(HWAVEDATA hWaveData)
 	CString sTitle;
 	sTitle.LoadString(IDS_MEASUREMENT_DATA);
 
-	DbImpulseRec dbImpulseRec;
-	dbImpulseRec.nImpulseID = -2;
-	dbImpulseRec.nFolderID = -2;
-	dbImpulseRec.nSampling = m_nRate;
-	dbImpulseRec.nMeasTime = m_nStage;
-	dbImpulseRec.nMeasNum = m_nMeasureNum;
-	dbImpulseRec.nChannel = m_nChannel;
-	dbImpulseRec.nBit = m_nBitsPerSample | m_nMethod;
-	dbImpulseRec.sTime = m_sTime;
-	dbImpulseRec.sTitle= sTitle;
-	dbImpulseRec.sComment.Empty();
-	dbImpulseRec.nUseFilter = (m_pIFilter != NULL) ? TRUE : FALSE;
-	dbImpulseRec.nIFilterID = m_nIFilterID;
-	dbImpulseRec.fTemperature = 0.0;
-	dbImpulseRec.fHumidity = 0.0;
-	dbImpulseRec.nMultiplier = m_nMultiplier;
-	dbImpulseRec.bImpulseData = m_bImpulseData;
+	DbImpulseRec dbImpulseRec{
+		.nFolderID = -2,
+		.nImpulseID = -2,
+		.nSampling = m_nRate,
+		.nMeasTime = m_nStage,
+		.nMeasNum = m_nMeasureNum,
+		.nChannel = m_nChannel,
+		.nBit = m_nBitsPerSample | m_nMethod,
+		.sTime = m_sTime,
+		.sTitle = sTitle,
+		.nUseFilter = (m_pIFilter != NULL) ? TRUE : FALSE,
+		.nIFilterID = m_nIFilterID,
+		.fTemperature = 0.0,
+		.fHumidity = 0.0,
+		.nMultiplier = m_nMultiplier,
+		.bImpulseData = m_bImpulseData
+	};
 
 	dbImpulse.DBChgIdx(dbImpulse.m_nIdxImpulseID);
 	dbImpulse.DBDeleteKey("-2", 2, 1);

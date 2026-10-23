@@ -53,11 +53,12 @@ void CDataBackupDlg::OnOK()
 		sTo.Format("%s\\%s", (LPCSTR)g_DssData.m_sBackupFolder, (LPCSTR)time.Format("%Y%m%d_%H%M%S"));
 		CreateDirectoryAll(sTo);
 
-		SHFILEOPSTRUCT sfo = { 0 };
-		sfo.wFunc = FO_COPY;
-		sfo.pFrom = sFrom;
-		sfo.pTo = sTo;
-		sfo.fFlags = FOF_NOCONFIRMATION;
+		SHFILEOPSTRUCT sfo{
+			.wFunc = FO_COPY,
+			.pFrom = sFrom,
+			.pTo = sTo,
+			.fFlags = FOF_NOCONFIRMATION
+		};
 		::SHFileOperation(&sfo);
 
 		CString sIniFileName;
@@ -80,10 +81,11 @@ void CDataBackupDlg::OnBnClickedDeleteBackup()
 			sPathName.Format("%s\t", (LPCSTR)m_oBackupList.ElementAt(m_cListBackup.GetItemData(m_cListBackup.GetNextSelectedItem(pos))));
 			sPathName.Replace('\t', '\0');
 
-			SHFILEOPSTRUCT sfo = { 0 };
-			sfo.wFunc = FO_DELETE;
-			sfo.pFrom = sPathName;
-			sfo.fFlags = FOF_NOCONFIRMATION;
+			SHFILEOPSTRUCT sfo{
+				.wFunc = FO_DELETE,
+				.pFrom = sPathName,
+				.fFlags = FOF_NOCONFIRMATION
+			};
 			::SHFileOperation(&sfo);
 
 			SetBackupList(m_cListBackup, m_oBackupList);
@@ -94,7 +96,7 @@ void CDataBackupDlg::OnBnClickedDeleteBackup()
 
 BOOL CDataBackupDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_EDIT_COMMENT, IDH_BACKUP_EDIT_COMMENT,
 		IDC_LIST_BACKUP, IDH_BACKUP_LIST_BACKUP,
 		IDOK, IDH_BACKUP_EXEC,

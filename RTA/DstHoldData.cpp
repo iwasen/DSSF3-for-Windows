@@ -42,18 +42,18 @@ void CDstHoldData::FreeBuffers()
 {
 	for (int i = 0; i < 3; i++) {
 		if (m_pLeftData[i] != NULL) {
-			delete [] m_pLeftData[i];
+			delete[] m_pLeftData[i];
 			m_pLeftData[i] = NULL;
 		}
 
 		if (m_pRightData[i] != NULL) {
-			delete [] m_pRightData[i];
+			delete[] m_pRightData[i];
 			m_pRightData[i] = NULL;
 		}
 	}
 
 	if (m_pValue != NULL) {
-		delete [] m_pValue;
+		delete[] m_pValue;
 		m_pValue = NULL;
 	}
 }

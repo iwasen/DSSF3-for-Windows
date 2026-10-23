@@ -63,7 +63,6 @@ BOOL CListViewEx::SetFullRowSel(BOOL bFullRowSel)
 	m_bFullRowSel = bFullRowSel;
 
 	BOOL bRet;
-
 	if (m_bFullRowSel)
 		bRet = ModifyStyle(0L, LVS_OWNERDRAWFIXED);
 	else
@@ -122,11 +121,11 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 // アイテムが選択された場合、色を設定します。
 
-	CRect rcAllLabels;
-	ListCtrl.GetItemRect(nItem, rcAllLabels, LVIR_BOUNDS);
+	RECT rcAllLabels;
+	ListCtrl.GetItemRect(nItem, &rcAllLabels, LVIR_BOUNDS);
 
-	CRect rcLabel;
-	ListCtrl.GetItemRect(nItem, rcLabel, LVIR_LABEL);
+	RECT rcLabel;
+	ListCtrl.GetItemRect(nItem, &rcLabel, LVIR_LABEL);
 
 	rcAllLabels.left = rcLabel.left;
 	if (m_bClientWidthSel && rcAllLabels.right<m_cxClient)
@@ -138,7 +137,7 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		clrBkSave = pDC->SetBkColor(::GetSysColor(COLOR_HIGHLIGHT));
 
 		CBrush brush(::GetSysColor(COLOR_HIGHLIGHT));
-		pDC->FillRect(rcAllLabels, &brush);
+		pDC->FillRect(&rcAllLabels, &brush);
 	} else {
 		clrTextSave = pDC->SetTextColor(RGB(
 				(lvi.iIndent & ITEM_COLOR_RED) ? 255 : 0,
@@ -146,7 +145,7 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 				(lvi.iIndent & ITEM_COLOR_BLUE) ? 255 : 0));
 
 		CBrush brush(m_clrTextBk);
-		pDC->FillRect(rcAllLabels, &brush);
+		pDC->FillRect(&rcAllLabels, &brush);
 	}
 
 // 色を設定してアイコンをマスクします。
@@ -178,8 +177,8 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 // 通常のアイコンとオーバーレイ アイコンを描画します。
 
-	CRect rcIcon;
-	ListCtrl.GetItemRect(nItem, rcIcon, LVIR_ICON);
+	RECT rcIcon;
+	ListCtrl.GetItemRect(nItem, &rcIcon, LVIR_ICON);
 
 	pImageList = ListCtrl.GetImageList(LVSIL_SMALL);
 	if (pImageList)
@@ -205,7 +204,7 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	rcLabel.left += OFFSET_FIRST;
 	rcLabel.right -= OFFSET_FIRST;
 
-	pDC->DrawText(pszText,-1,rcLabel,DT_LEFT | DT_SINGLELINE | DT_NOPREFIX | DT_NOCLIP | DT_VCENTER);
+	pDC->DrawText(pszText, -1, &rcLabel, DT_LEFT | DT_SINGLELINE | DT_NOPREFIX | DT_NOCLIP | DT_VCENTER);
 
 // 特別なカラム用のラベルを描きます。
 
@@ -245,14 +244,13 @@ void CListViewEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		rcLabel.left += OFFSET_OTHER;
 		rcLabel.right -= OFFSET_OTHER;
 
-		pDC->DrawText(pszText, -1, rcLabel,
-			nJustify | DT_SINGLELINE | DT_NOPREFIX | DT_NOCLIP | DT_VCENTER);
+		pDC->DrawText(pszText, -1, &rcLabel, nJustify | DT_SINGLELINE | DT_NOPREFIX | DT_NOCLIP | DT_VCENTER);
 	}
 
 // アイテムがフォーカスを持っている場合に、フォーカスのある矩形を描画します。
 
 	if (lvi.state & LVIS_FOCUSED && bFocus)
-		pDC->DrawFocusRect(rcAllLabels);
+		pDC->DrawFocusRect(&rcAllLabels);
 
 // アイテムが選択された場合、オリジナル カラーに設定します。
 
@@ -297,7 +295,7 @@ LPCSTR CListViewEx::MakeShortString(CDC* pDC, LPCSTR lpszLong, int nColumnLen, i
 void CListViewEx::RepaintSelectedItems()
 {
 	CListCtrl& ListCtrl = GetListCtrl();
-	CRect rcItem, rcLabel;
+	RECT rcItem, rcLabel;
 
 // フォーカスされたアイテムを無効にすることにより、正しく再描画できます。
 
@@ -305,11 +303,11 @@ void CListViewEx::RepaintSelectedItems()
 
 	if(nItem != -1)
 	{
-		ListCtrl.GetItemRect(nItem, rcItem, LVIR_BOUNDS);
-		ListCtrl.GetItemRect(nItem, rcLabel, LVIR_LABEL);
+		ListCtrl.GetItemRect(nItem, &rcItem, LVIR_BOUNDS);
+		ListCtrl.GetItemRect(nItem, &rcLabel, LVIR_LABEL);
 		rcItem.left = rcLabel.left;
 
-		InvalidateRect(rcItem, FALSE);
+		InvalidateRect(&rcItem, FALSE);
 	}
 
 // 選択されたアイテムが保存されない場合は、それらを無効にします。
@@ -319,11 +317,11 @@ void CListViewEx::RepaintSelectedItems()
 		for(nItem = ListCtrl.GetNextItem(-1, LVNI_SELECTED);
 			nItem != -1; nItem = ListCtrl.GetNextItem(nItem, LVNI_SELECTED))
 		{
-			ListCtrl.GetItemRect(nItem, rcItem, LVIR_BOUNDS);
-			ListCtrl.GetItemRect(nItem, rcLabel, LVIR_LABEL);
+			ListCtrl.GetItemRect(nItem, &rcItem, LVIR_BOUNDS);
+			ListCtrl.GetItemRect(nItem, &rcLabel, LVIR_LABEL);
 			rcItem.left = rcLabel.left;
 
-			InvalidateRect(rcItem, FALSE);
+			InvalidateRect(&rcItem, FALSE);
 		}
 	}
 
@@ -406,8 +404,8 @@ void CListViewEx::OnPaint()
 		(GetStyle() & LVS_TYPEMASK) == LVS_REPORT &&
 		GetFullRowSel())
 	{
-		CRect rcAllLabels;
-		GetListCtrl().GetItemRect(0, rcAllLabels, LVIR_BOUNDS);
+		RECT rcAllLabels;
+		GetListCtrl().GetItemRect(0, &rcAllLabels, LVIR_BOUNDS);
 
 		if(rcAllLabels.right < m_cxClient)
 		{
@@ -415,13 +413,13 @@ void CListViewEx::OnPaint()
 			// を呼び出す必要があります。
 			CPaintDC dc(this);
 
-			CRect rcClip;
-			dc.GetClipBox(rcClip);
+			RECT rcClip;
+			dc.GetClipBox(&rcClip);
 
 			rcClip.left = min(rcAllLabels.right-1, rcClip.left);
 			rcClip.right = m_cxClient;
 
-			InvalidateRect(rcClip, FALSE);
+			InvalidateRect(&rcClip, FALSE);
 			// EndPaint は CPaintDC d-tor 内で呼び出されます。
 		}
 	}

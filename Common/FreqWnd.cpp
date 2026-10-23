@@ -48,11 +48,11 @@ void CFreqWnd::Initialize(int nFontSize, LPCSTR pTitle, int nRemark, COLORREF fr
 
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = CDpi::OriginalDpi(nFontSize, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -94,7 +94,7 @@ void CFreqWnd::SetBitmap(int nScale, int nMinFreq, int nMaxFreq, int nMinLevel, 
 	int	nFreq, nLevel;
 	int x, y;
 	CString sText;
-	CSize size;
+	SIZE size;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
 	CFont *pFontOrg = m_dcMem.SelectObject(&m_Font);

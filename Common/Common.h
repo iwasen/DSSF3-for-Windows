@@ -74,14 +74,14 @@
 #define FREQ_AFILTER	-1
 
 // インパルス応答測定方法
-#define METHOD_MSEQ			0
-#define METHOD_TSP			1
+#define METHOD_MSEQ		0
+#define METHOD_TSP		1
 
-#define STAGE_OFFSET		10
-#define STAGE_NUM			10
+#define STAGE_OFFSET	10
+#define STAGE_NUM		10
 
-#define SA_IR_TITLE			"Impulse Response (RA)"
-#define SA_ACF_TITLE		"ACF (RA)"
+#define SA_IR_TITLE		"Impulse Response (RA)"
+#define SA_ACF_TITLE	"ACF (RA)"
 
 // 対数変換
 #define dB10(x)	(log10((double)(x)) * 10)

@@ -33,12 +33,13 @@ void CDialogExt::SetCtlPosition(CWnd *pWnd, double fLeft, double fTop, double fR
 		return;
 
 	// 設定情報を構造体に設定
-	SDlgCtlPosition cDlgCtlPosition;
-	cDlgCtlPosition.hWnd = hWnd;
-	cDlgCtlPosition.fLeft = fLeft;
-	cDlgCtlPosition.fTop = fTop;
-	cDlgCtlPosition.fRight = fRight;
-	cDlgCtlPosition.fBottom = fBottom;
+	SDlgCtlPosition cDlgCtlPosition{
+		.hWnd = hWnd,
+		.fLeft = fLeft,
+		.fTop = fTop,
+		.fRight = fRight,
+		.fBottom = fBottom
+	};
 
 	// 現在のウィンドウ位置を取得
 	WINDOWPLACEMENT wp;
@@ -136,15 +137,15 @@ void CDialogExt::SetMaximunControl(HWND hMaximunCtrl)
 {
 	m_hMaximunCtrl = hMaximunCtrl;
 
-	CRect rect;
-	GetClientRect(rect);
+	RECT rect;
+	GetClientRect(&rect);
 	RepositionControls(rect.right, rect.bottom);
 }
 
 void CDialogExt::CreateStatusBar()
 {
 	if (m_wndStatusBar.Create(this)) {
-		const UINT ind[2] = {0};
+		const UINT ind[2]{};
 
 		m_wndStatusBar.SetIndicators(ind, 1);
 		m_wndStatusBar.SetPaneInfo(0, 0, SBPS_STRETCH, 0);

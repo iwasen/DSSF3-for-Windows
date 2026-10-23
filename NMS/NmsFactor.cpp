@@ -201,7 +201,7 @@ void CNmsFactor::InitNmsFactorList()
 		LPCSTR text;
 		int width;
 	};
-	static constexpr LISTCOLUMN tColumnHeader[] = {
+	static constexpr LISTCOLUMN tColumnHeader[]{
 		{0, "Time", 53},
 		{IDS_PHI0, NULL, 53},
 		{IDS_TAUE, NULL, 53},
@@ -212,12 +212,12 @@ void CNmsFactor::InitNmsFactorList()
 		{IDS_TIACC, NULL, 53},
 		{0, "W_IACC", 53}
 	};
-	static constexpr LPCSTR tUnit[] = {" [sec]", " [dB]", " [ms]", " [ms]", "", "", "", ""};
-	CString str;
+	static constexpr LPCSTR tUnit[]{ " [sec]", " [dB]", " [ms]", " [ms]", "", "", "", "" };
 
 	const LISTCOLUMN *pColumnHeader = tColumnHeader;
 	const int size = ARRAY_SIZE(tColumnHeader);
 
+	CString str;
 	for (int i = 0; i < size; i++, pColumnHeader++) {
 		if (pColumnHeader->nID == 0)
 			str = pColumnHeader->text;
@@ -235,10 +235,9 @@ void CNmsFactor::InitNmsFactorList()
 
 void CNmsFactor::DispNmsFactorList()
 {
-	CString str;
-
 	m_cFactorList.DeleteAllItems();
 
+	CString str;
 	double time = 0;
 	for (int i = 0; i < m_nNmsFactorData; i++) {
 		str.Format("%g", time);
@@ -322,12 +321,12 @@ void CNmsFactor::DeleteGraphWindow()
 void CNmsFactor::FreeBuffers()
 {
 	if (m_pAcfFactor != NULL) {
-		delete [] m_pAcfFactor;
+		delete[] m_pAcfFactor;
 		m_pAcfFactor = NULL;
 	}
 
 	if (m_pIAcfFactor != NULL) {
-		delete [] m_pIAcfFactor;
+		delete[] m_pIAcfFactor;
 		m_pIAcfFactor = NULL;
 	}
 }
@@ -428,7 +427,7 @@ LRESULT CNmsFactor::OnSelectData(WPARAM wParam, LPARAM /*lParam*/)
 
 BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDC_GRAPH, IDH_NMS_FACTOR_GRAPH,
 		IDC_FACTOR_LIST, IDH_NMS_FACTOR_LIST,
 		IDC_PLAY_BACK, IDH_NMS_FACTOR_PLAY_BACK,

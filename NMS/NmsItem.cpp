@@ -29,7 +29,7 @@ CNmsItem::CNmsItem()
 CNmsItem::~CNmsItem()
 {
 	if (m_pNmsFactorData != NULL)
-		delete [] m_pNmsFactorData;
+		delete[] m_pNmsFactorData;
 }
 
 void CNmsItem::LearningNoiseSrc()

@@ -48,17 +48,17 @@ void CFreHoldData::Set(COLORREF colorLeft, COLORREF colorRight, int nFreqPoint, 
 void CFreHoldData::FreeBuffers()
 {
 	if (m_pLeftData != NULL) {
-		delete [] m_pLeftData;
+		delete[] m_pLeftData;
 		m_pLeftData = NULL;
 	}
 
 	if (m_pRightData != NULL) {
-		delete [] m_pRightData;
+		delete[] m_pRightData;
 		m_pLeftData = NULL;
 	}
 
 	if (m_pFreq != NULL) {
-		delete [] m_pFreq;
+		delete[] m_pFreq;
 		m_pLeftData = NULL;
 	}
 }

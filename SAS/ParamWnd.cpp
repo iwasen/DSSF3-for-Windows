@@ -69,11 +69,11 @@ void CParamWnd::Initialize(int nFontSize)
 	m_brushRight.CreateSolidBrush(COLOR_RIGHT);
 	m_brushWhite.CreateSolidBrush(RGB(255, 255, 255));
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = nFontSize,
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_Font.CreatePointFontIndirect(&font, &m_dcMem);
@@ -92,7 +92,7 @@ void CParamWnd::SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double
 	int x, y;
 	double a;
 	CString text;
-	CSize size;
+	SIZE size;
 	const int nLine = (nData > 16) ? 2 : 1;
 
 	CBitmap *pBitmapOrg = m_dcMem.SelectObject(&m_bitmapMem);
@@ -109,8 +109,8 @@ void CParamWnd::SetBitmap(const int *pDataFreq, int nFreqBand, int nData, double
 	m_nScaleWidth = m_nScaleRight - m_nScaleLeft;
 	m_nScaleHeight = m_nScaleBottom - m_nScaleTop;
 
-	CRect rect(0, 0, m_nWidth, m_nHeight);
-	m_dcMem.FillRect(rect, &m_brushWhite);
+	RECT rect(0, 0, m_nWidth, m_nHeight);
+	m_dcMem.FillRect(&rect, &m_brushWhite);
 
 	for (i = 0; i < nData; i++) {
 		x = m_nScaleLeft + (i + 1) * m_nScaleWidth / (nData + 1);
@@ -189,13 +189,12 @@ void CParamWnd::DispGraph(const int *pDataFreq, int nFreqBand, const double *pDa
 
 void CParamWnd::DispGraphSub(const int *pDataFreq, const double *pData, int nData, double scaleMin, double scaleMax, int channel)
 {
-	int x, y;
 	POINT point[3];
 	BOOL bFirst = TRUE;
 
 	for (int i = 0; i < nData; i++) {
-		x = m_nScaleLeft + (i + 1) * m_nScaleWidth / (nData + 1);
-		y = m_nScaleBottom - (int)((pData[i] - scaleMin) * m_nScaleHeight / (scaleMax - scaleMin) + 0.5);
+		int x = m_nScaleLeft + (i + 1) * m_nScaleWidth / (nData + 1);
+		int y = m_nScaleBottom - (int)((pData[i] - scaleMin) * m_nScaleHeight / (scaleMax - scaleMin) + 0.5);
 
 		switch (channel) {
 		case 0:

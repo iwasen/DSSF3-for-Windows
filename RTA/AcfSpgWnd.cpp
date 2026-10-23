@@ -21,7 +21,7 @@ CAcfSpgWnd::CAcfSpgWnd()
 CAcfSpgWnd::~CAcfSpgWnd()
 {
 	if (m_pSpgLevel != NULL)
-		delete [] m_pSpgLevel;
+		delete[] m_pSpgLevel;
 }
 
 BEGIN_MESSAGE_MAP(CAcfSpgWnd, CWnd)
@@ -47,11 +47,11 @@ void CAcfSpgWnd::Initialize()
 	m_dcGraph.CreateCompatibleDC(pDC);
 	m_bmpGraph.CreateCompatibleBitmap(pDC, m_rectView.Width(), m_rectView.Height());
 
-	CString str;
 	LOGFONT font{
 		.lfHeight = CDpi::OriginalDpi(90, 88),
 		.lfCharSet = DEFAULT_CHARSET
 	};
+	CString str;
 	str.LoadString(IDS_DEFAULTFONT);
 	strcpy_s(font.lfFaceName, str);
 	m_fontGraph.CreatePointFontIndirect(&font, &m_dcGraph);
@@ -131,15 +131,9 @@ void CAcfSpgWnd::DispGraph(const double *pData, int nFreqData, int nTimeData, in
 
 void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqMin, int nFreqMax, BOOL bFreqLog, int nLevelMin, int nLevelMax)
 {
-	int	nFreq;
-	double fTime;
 	int x, y;
-	CString sText;
-	CSize sizeText;
 	const double fTimeSpan = fTimeMax - fTimeMin;
-	int ns;
 	const double fLevelRange = nLevelMax - nLevelMin;
-	double fLevel;
 	const int nHeight = m_rectScale.Height();
 
 	// 描画オブジェクトをセット
@@ -152,8 +146,11 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 	dc.GetTextMetrics(&tm);
 
 	// 横軸を描画
+	SIZE sizeText;
+	CString sText;
+	int ns;
 	double fStep = GetLinearScaleStep(fTimeSpan, 8, &ns);
-	for (fTime = GetScaleStartValue(fTimeMin, fStep); fTime <= fTimeMin + fTimeSpan; fTime += fStep) {
+	for (double fTime = GetScaleStartValue(fTimeMin, fStep); fTime <= fTimeMin + fTimeSpan; fTime += fStep) {
 		x = m_rectScale.left + int((fTime - fTimeMin) * m_rectScale.Width() / fTimeSpan);
 		if (x >= m_rectScale.left && x <= m_rectScale.right) {
 			if (int(fTime / fStep + 0.5) % ns == 0) {
@@ -169,6 +166,7 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 	}
 
 	// 縦軸を描画
+	int	nFreq;
 	if (bFreqLog) {
 		const int step = GetLogScaleStep(nFreqMin);
 		const double fLogFreqMax = log((double)nFreqMax);
@@ -228,7 +226,7 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 
 	// カラースケールの文字を描画
 	fStep = GetLinearScaleStep(fLevelRange, 2);
-	for (fLevel = GetScaleStartValue((double)nLevelMin, fStep); fLevel <= nLevelMax; fLevel += fStep) {
+	for (double fLevel = GetScaleStartValue((double)nLevelMin, fStep); fLevel <= nLevelMax; fLevel += fStep) {
 		y = m_rectScale.top - (int)((fLevel - nLevelMax) * m_rectScale.Height() / fLevelRange + 0.5);
 
 		sText.Format("%g", fLevel);
@@ -254,8 +252,6 @@ void CAcfSpgWnd::DrawScale(CDC &dc, double fTimeMin, double fTimeMax, int nFreqM
 
 COLORREF CAcfSpgWnd::GetLevelColor(double fLevel, double fLevelMin, double fLevelMax)
 {
-	int r, g, b;
-
 	if (fLevel < fLevelMin)
 		fLevel = fLevelMin;
 
@@ -264,6 +260,7 @@ COLORREF CAcfSpgWnd::GetLevelColor(double fLevel, double fLevelMin, double fLeve
 
 	fLevel = (fLevel - fLevelMin) / (fLevelMax - fLevelMin);
 
+	int r, g, b;
 	if (fLevel >= 0.8) {
 		r = 255;
 		g = 255 - (int)((fLevel - 0.8) * 5 * 255 + 0.5);
@@ -293,7 +290,6 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 {
 	int i;
 	int x, y;
-	int y2 = 0;
 	const int nScaleWidth = m_rectScale.Width();
 	const int nScaleHeight = m_rectScale.Height();
 	const double fLogFreqMax = log((double)nFreqMax);
@@ -301,14 +297,14 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 	const double fTmp1 = (double)nScaleHeight / (fLogFreqMax - fLogFreqMin);
 	const double fTmp2 = (double)nScaleHeight / (nFreqMax - nFreqMin);
 	const double fTmp3 = exp(0.5 / fTmp1);
-	double nLevel = 0;
-	int nCount = 0;
-	int t1, t2, t3;
 	const double fFreqStep = (double)nSampleRate / nFreqData / 2;
 	const int nTimeStep = (int)ceil((double)nScaleWidth / nTimeData);
 
 	memset(m_pSpgLevel, 0, sizeof(double) * nScaleHeight);
 
+	int nCount = 0;
+	int y2 = 0;
+	double nLevel = 0;
 	for (i = 1; i < nFreqData; i++) {
 		if (bFreqLog)
 			y = (int)((fLogFreqMax - log(fFreqStep * i)) * fTmp1 + 0.5);
@@ -344,6 +340,7 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 		nCount++;
 	}
 
+	int t1, t2, t3;
 	for (i = 0; i < nScaleHeight; i++) {
 		if (m_pSpgLevel[i] == 0) {
 			for (t1 = i; t1 >= 0 && m_pSpgLevel[t1] == 0; t1--)

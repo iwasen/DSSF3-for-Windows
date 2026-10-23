@@ -153,7 +153,7 @@ void CNmsScDlg::OnMmlib()
 
 BOOL CNmsScDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 {
-	static constexpr UINT aIDs[] = {
+	static constexpr UINT aIDs[]{
 		IDOK, IDH_NMS_SC_OK,
 		IDC_MMLIB, IDH_NMS_SC_MMLIB,
 		IDCANCEL, IDH_NMS_SC_CANCEL,

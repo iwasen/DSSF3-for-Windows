@@ -141,7 +141,7 @@ void CDssDlg::OnPaint()
 		const int cxIcon = GetSystemMetrics(SM_CXICON);
 		const int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
-		GetClientRect(&rect);
+		GetClientRect(rect);
 		const int x = (rect.Width() - cxIcon + 1) / 2;
 		const int y = (rect.Height() - cyIcon + 1) / 2;
 
