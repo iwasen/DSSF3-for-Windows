@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="EngDeb" />
+    <BuildType Name="EngRel" />
+    <BuildType Name="JpnDeb" />
+    <BuildType Name="JpnRel" />
+    <Platform Name="Win32" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="DSS/DSS.vcxproj" Id="cd1d3050-1ecf-46e1-a2f4-c8f4e2baff2d" />
+  <Project Path="NMS/NMS.vcxproj" Id="044c166f-cc4a-4ad9-ae4d-3b9837d1802f" />
+  <Project Path="RTA/RTA.vcxproj" Id="80fe1c08-0219-4e35-b70b-01c2492acb0d" />
+  <Project Path="SAS/SAS.vcxproj" Id="13a465eb-4b4f-4037-9e8b-c30f6c1f5274" />
+</Solution>
