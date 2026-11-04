@@ -20,7 +20,7 @@ public:
 
 protected:
 	ULONG m_nCheckData;
-	const char *m_pRegistryName;
+	LPCSTR m_pRegistryName;
 
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL InitInstance();

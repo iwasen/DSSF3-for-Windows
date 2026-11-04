@@ -142,7 +142,6 @@ void CFolderDlg::OnChange()
 void CFolderDlg::OnDelete()
 {
 	DbFolderRec *pDbFolderRec;
-
 	if ((pDbFolderRec = m_cFolderList.GetSelFolderRec()) == NULL) {
 		::AfxMessageBox(IDS_MSG_SELECTFOLDER);
 		return;
@@ -441,10 +440,7 @@ void CLoadIR::OnDblclkDataList()
 
 void CLoadIR::OnWaveFile()
 {
-	CFileDialog fileDlg(TRUE, "wav", "*.wav",
-			OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
-			"Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
-
+	CFileDialog fileDlg(TRUE, "wav", "*.wav", OFN_HIDEREADONLY | OFN_NOCHANGEDIR, "Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
@@ -454,10 +450,7 @@ void CLoadIR::OnWaveFile()
 
 void CLoadIR::OnImportData()
 {
-	CFileDialog fileDlg(TRUE, "dbf", "folder.dbf",
-			OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
-			"Sound Data File|folder.dbf||", this, 0);
-
+	CFileDialog fileDlg(TRUE, "dbf", "folder.dbf", OFN_HIDEREADONLY | OFN_NOCHANGEDIR, "Sound Data File|folder.dbf||", this, 0);
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
@@ -610,10 +603,7 @@ void CLoadACF::OnDblclkDataList()
 
 void CLoadACF::OnImportData()
 {
-	CFileDialog fileDlg(TRUE, "dbf", "folder.dbf",
-			OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
-			"Sound Data File|folder.dbf||", this, 0);
-
+	CFileDialog fileDlg(TRUE, "dbf", "folder.dbf", OFN_HIDEREADONLY | OFN_NOCHANGEDIR, "Sound Data File|folder.dbf||", this, 0);
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
@@ -623,10 +613,7 @@ void CLoadACF::OnImportData()
 
 void CLoadACF::OnWaveFile()
 {
-	CFileDialog fileDlg(TRUE, "wav", "*.wav",
-			OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
-			"Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
-
+	CFileDialog fileDlg(TRUE, "wav", "*.wav", OFN_HIDEREADONLY | OFN_NOCHANGEDIR, "Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
 	if (fileDlg.DoModal() == IDCANCEL)
 		return;
 
@@ -767,10 +754,7 @@ void CSaveACF::OnOK()
 
 void CSaveACF::OnWaveFile()
 {
-	CFileDialog fileDlg(FALSE, "wav", "",
-			OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR,
-			"Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
-
+	CFileDialog fileDlg(FALSE, "wav", "", OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR, "Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
 	if (fileDlg.DoModal() == IDOK) {
 		if (MMWaveWriteFile(m_hWaveData, (LPSTR)(LPCSTR)fileDlg.GetPathName()) != 0)
 			::AfxMessageBox(IDS_ERR_WRITEWAVEFILE, MB_OK | MB_ICONEXCLAMATION);

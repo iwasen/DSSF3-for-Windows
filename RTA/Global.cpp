@@ -248,7 +248,7 @@ CString GetNumberString(double fNumber)
 }
 
 BOOL CreateShortCut(
-		LPCSTR pszShortcutFile,	// 作成する[*.lnk]のファイル名
+		LPCSTR pszShortcutFile,		// 作成する[*.lnk]のファイル名
 		LPCSTR pszDescription,		// ディスクリプション名
 		LPCSTR pszTargetFile,		// リンク元のファイルのフルパス名
 		LPCSTR pszParameter)		// 起動パラメータ

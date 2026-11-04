@@ -363,13 +363,13 @@ BOOL CMeasurement::SaveSampleData()
 	pWaveData->dataSize = nDataSize * nBytesPerSample;
 	const int nCopySize = m_bRingBufFill ? (m_nRingBufSize - m_nRingBufPtr) : 0;
 	CopyWaveFromDouble(pWaveData->waveData, (double *)(m_pRingBuf + m_nRingBufPtr), NULL, nCopySize * m_oWaveFormat.Format.nChannels, m_oWaveFormat.Format.wBitsPerSample);
-	CopyWaveFromDouble((char *)pWaveData->waveData + (nCopySize * nBytesPerSample), (double *)m_pRingBuf, NULL, m_nRingBufPtr * m_oWaveFormat.Format.nChannels, m_oWaveFormat.Format.wBitsPerSample);
+	CopyWaveFromDouble((LPSTR)pWaveData->waveData + (nCopySize * nBytesPerSample), (double *)m_pRingBuf, NULL, m_nRingBufPtr * m_oWaveFormat.Format.nChannels, m_oWaveFormat.Format.wBitsPerSample);
 
 	::GlobalUnlock(hWaveData);
 
 	CString tempFileName;
 	tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, m_nSaveCounter);
-	if (MMWaveWriteFile(hWaveData, (LPSTR)(LPCSTR)tempFileName) != 0) {
+	if (MMWaveWriteFile(hWaveData, (LPCSTR)tempFileName) != 0) {
 		::GlobalFree(hWaveData);
 		return FALSE;
 	}

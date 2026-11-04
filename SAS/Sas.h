@@ -43,7 +43,7 @@ public:
 
 protected:
 	ULONG m_nCheckData;
-	const char *m_pRegistryName;
+	LPCSTR m_pRegistryName;
 
 	void AdjustDialogSize();
 	void SetDialogFontSize(UINT nIDTemplate, int nFontSize);

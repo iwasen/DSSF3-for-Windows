@@ -81,7 +81,7 @@ void CScreenCopyBtn::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 		DROPFILES *pDropFiles = (DROPFILES *)::GlobalLock(hGlobal);
 		pDropFiles->pFiles = sizeof(DROPFILES);
 		pDropFiles->fWide = FALSE;
-		LPSTR pFileName = (char *)pDropFiles + sizeof(DROPFILES);
+		LPSTR pFileName = (LPSTR)pDropFiles + sizeof(DROPFILES);
 		strcpy_s(pFileName, nLength + 1, m_TempFile);
 		pFileName[nLength + 1] = '\0';
 

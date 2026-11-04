@@ -44,5 +44,5 @@ void CDssData::SaveData() const
 
 	CFile file;
 	if (file.Open(sPathName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
-		file.Write((char *)this, sizeof(CDssData));
+		file.Write(this, sizeof(CDssData));
 }

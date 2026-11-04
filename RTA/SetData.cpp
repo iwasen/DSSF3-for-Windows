@@ -50,7 +50,7 @@ CSetData::~CSetData()
 
 	CFile setDataFile;
 	if (setDataFile.Open(sPathName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
-		setDataFile.Write((char *)this, sizeof(CSetData));
+		setDataFile.Write(this, sizeof(CSetData));
 }
 
 void CSetData::Init()

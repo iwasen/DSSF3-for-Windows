@@ -950,7 +950,7 @@ void COsDlg::DispInfo()
 	sprintf_s(text, "SamplingRate:%gkHz", (double)g_oSetData.Os.nSamplingRate / 1000);
 	m_cOsScreen.DispText(text, 0);
 
-	LPCSTR p = text;
+	LPSTR p = text;
 	size_t nLen;
 
 	if (m_bLch) {
@@ -967,21 +967,21 @@ void COsDlg::DispInfo()
 			break;
 		}
 
-		sprintf_s((char *const)p, nSize, "%s:%s%s/div  ", p2, (LPCSTR)AddNumberPrefix(m_nLevelL * m_fLevelRangeMul), (LPCSTR)g_oSetData.Os.sCalUnit);
+		sprintf_s(p, nSize, "%s:%s%s/div  ", p2, (LPCSTR)AddNumberPrefix(m_nLevelL * m_fLevelRangeMul), (LPCSTR)g_oSetData.Os.sCalUnit);
 		nLen = strlen(p);
 		p += nLen;
 		nSize -= nLen;
 	}
 
 	if (m_bRch) {
-		sprintf_s((char* const)p, nSize, "Rch:%s%s/div  ", (LPCSTR)AddNumberPrefix(m_nLevelR * m_fLevelRangeMul), (LPCSTR)g_oSetData.Os.sCalUnit);
+		sprintf_s(p, nSize, "Rch:%s%s/div  ", (LPCSTR)AddNumberPrefix(m_nLevelR * m_fLevelRangeMul), (LPCSTR)g_oSetData.Os.sCalUnit);
 		nLen = strlen(p);
 		p += nLen;
 		nSize -= nLen;
 	}
 
 	if (!g_oSetData.Os.bXY)
-		sprintf_s((char* const)p, nSize, "Time:%gms/div  Delay:%gms", m_fSweepDiv, m_fDelayTime);
+		sprintf_s(p, nSize, "Time:%gms/div  Delay:%gms", m_fSweepDiv, m_fDelayTime);
 
 	m_cOsScreen.DispText(text, 1);
 }

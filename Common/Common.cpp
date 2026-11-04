@@ -109,12 +109,10 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 	if (nDevice >= 0) {
 		// WAVE
 		WAVEINCAPS wic;
-		DWORD dwAvail;
-
 		waveInGetDevCaps(nDevice, &wic, sizeof(wic));
 
 		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
-			dwAvail = 0;
+			DWORD dwAvail = 0;
 
 			if (tSamplingRate[i].dwFormat) {
 				if (tSamplingRate[i].dwFormat & wic.dwFormats)
@@ -122,17 +120,17 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 			}
 
 			if (dwAvail == 0) {
-				const int nChannels = 2;
-				const int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
-				const int nBitsPerSample = 16;
+				const WORD nChannels = 2;
+				const WORD nBitsPerSample = 16;
+				const DWORD nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
 
 				WAVEFORMATEX waveFormat{
 					.wFormatTag = WAVE_FORMAT_PCM,
-					.nChannels = (WORD)nChannels,
-					.nSamplesPerSec = (DWORD)nSamplesPerSec,
-					.nAvgBytesPerSec = (DWORD)(nSamplesPerSec * nChannels * (nBitsPerSample / 8)),
-					.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8)),
-					.wBitsPerSample = (WORD)nBitsPerSample,
+					.nChannels = nChannels,
+					.nSamplesPerSec = nSamplesPerSec,
+					.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8),
+					.nBlockAlign = nChannels * (nBitsPerSample / 8),
+					.wBitsPerSample = nBitsPerSample,
 					.cbSize = sizeof(waveFormat)
 				};
 				if (waveInOpen(NULL, (UINT)nDevice, &waveFormat, 0, 0, WAVE_FORMAT_QUERY) == MMSYSERR_NOERROR)
@@ -167,12 +165,10 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 	if (nDevice >= 0) {
 		// WAVE
 		WAVEOUTCAPS woc;
-		DWORD dwAvail;
-
 		waveOutGetDevCaps(nDevice, &woc, sizeof(woc));
 
 		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
-			dwAvail = 0;
+			DWORD dwAvail = 0;
 
 			if (tSamplingRate[i].dwFormat) {
 				if (tSamplingRate[i].dwFormat & woc.dwFormats)
@@ -180,17 +176,17 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 			}
 
 			if (dwAvail == 0) {
-				const int nChannels = 2;
-				const int nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
-				const int nBitsPerSample = 16;
+				const WORD nChannels = 2;
+				const WORD nBitsPerSample = 16;
+				const DWORD nSamplesPerSec = tSamplingRate[i].dwSamplingRate;
 
 				WAVEFORMATEX waveFormat{
 					.wFormatTag = WAVE_FORMAT_PCM,
-					.nChannels = (WORD)nChannels,
-					.nSamplesPerSec = (DWORD)nSamplesPerSec,
-					.nAvgBytesPerSec = (DWORD)(nSamplesPerSec * nChannels * (nBitsPerSample / 8)),
-					.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8)),
-					.wBitsPerSample = (WORD)nBitsPerSample,
+					.nChannels = nChannels,
+					.nSamplesPerSec = nSamplesPerSec,
+					.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8),
+					.nBlockAlign = nChannels * (nBitsPerSample / 8),
+					.wBitsPerSample = nBitsPerSample,
 					.cbSize = sizeof(waveFormat)
 				};
 				if (waveOutOpen(NULL, (UINT)nDevice, &waveFormat, 0, 0, WAVE_FORMAT_QUERY) == MMSYSERR_NOERROR)
@@ -238,8 +234,8 @@ void SetFilterNameList(CComboBox &combo)
 	//	"Flat", "A“Á«", "B“Á«", "C“Á«"
 		IDS_FLAT, IDS_AWEIGHTING, IDS_BWEIGHTING, IDS_CWEIGHTING
 	};
-	CString str;
 
+	CString str;
 	for (int i = 0; i < 4; i++) {
 		if (str.LoadString(tFilterName[i]))
 			combo.AddString(str);
@@ -368,11 +364,8 @@ BOOL FindMMLibSub(const CString sDir, CString &sFindPath, int nLevel)
 BOOL CheckMMLib()
 {
 	DWORD idInst = 0L;
-	if (DdeInitialize(&idInst,
-				(PFNCALLBACK)MakeProcInstance(
-				(FARPROC)DdeCallback, hInstance),
-				APPCMD_CLIENTONLY, 0) != 0) {
-			return FALSE;
+	if (DdeInitialize(&idInst, (PFNCALLBACK)MakeProcInstance((FARPROC)DdeCallback, hInstance), APPCMD_CLIENTONLY, 0) != 0) {
+		return FALSE;
 	}
 
 	HSZ hService = DdeCreateStringHandle(idInst, "MMLIB", 0);
@@ -404,8 +397,6 @@ BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pD
 {
 	UINT	err;
 
-#pragma warning(push)
-#pragma warning(disable : 4200)
 	struct MMLIBDATA {
 		struct {
 			char	title[64];
@@ -419,7 +410,6 @@ BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pD
 		DWORD	size;
 		char	dib[0];
 	} *pMmlibData;
-#pragma warning(pop)
 
 	DWORD idInst = 0L;
 	if ((err = ::DdeInitialize(&idInst,

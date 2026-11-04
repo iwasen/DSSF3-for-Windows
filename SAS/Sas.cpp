@@ -315,11 +315,11 @@ void SasApp::SetDialogFontSize(UINT nIDTemplate, int nFontSize)
 	LPDLGTEMPLATEEX lpDlgTemplateEx = (LPDLGTEMPLATEEX)::LockResource(hRes);
 	if (lpDlgTemplateEx->signature == 0xffff) {
 		dwStyle = lpDlgTemplateEx->style;
-		lpDlgTmp = (LPWORD)((char *)lpDlgTemplateEx + sizeof(DLGTEMPLATEEX));
+		lpDlgTmp = (LPWORD)((LPSTR)lpDlgTemplateEx + sizeof(DLGTEMPLATEEX));
 	} else {
 		LPDLGTEMPLATE lpDlgTemplate = (LPDLGTEMPLATE)lpDlgTemplateEx;
 		dwStyle = lpDlgTemplate->style;
-		lpDlgTmp = (LPWORD)((char *)lpDlgTemplate + sizeof(DLGTEMPLATE));
+		lpDlgTmp = (LPWORD)((LPSTR)lpDlgTemplate + sizeof(DLGTEMPLATE));
 	}
 
 	if (dwStyle & DS_SETFONT) {

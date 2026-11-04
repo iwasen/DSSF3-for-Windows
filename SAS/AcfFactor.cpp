@@ -529,7 +529,7 @@ void CAcfFactor::InitAcfFactorList()
 	if (!m_bCalculated)
 		return;
 
-	const char *const *pUnit = NULL;
+	LPCSTR const *pUnit = NULL;
 	CString str;
 	switch (m_nListKind) {
 	case 1:

@@ -942,7 +942,7 @@ HDIB CNmsFactor::GraphCopy()
 	HDIB hDIB = ::GlobalAlloc(GMEM_MOVEABLE, nSize);
 	BITMAPINFO *pBmi = (BITMAPINFO *)::GlobalLock(hDIB);
 
-	char *lpvBits = (LPSTR)pBmi + sizeof(BITMAPINFOHEADER);
+	LPVOID lpvBits = (LPSTR)pBmi + sizeof(BITMAPINFOHEADER);
 
 	memset(pBmi, 0, sizeof(BITMAPINFOHEADER));
 	pBmi->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);

@@ -78,5 +78,5 @@ CSetData::~CSetData()
 	sPathName.Format("%s\\%s", (LPCSTR)sDataDirectory, FILENAME);
 
 	if (g_SetDataFile.Open(sPathName, CFile::modeCreate | CFile::modeWrite | CFile::shareDenyNone))
-		g_SetDataFile.Write((char *)this, sizeof(CSetData));
+		g_SetDataFile.Write(this, sizeof(CSetData));
 }
