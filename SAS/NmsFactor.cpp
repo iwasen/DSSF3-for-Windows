@@ -879,7 +879,7 @@ HDIB CNmsFactor::GraphCopy()
 	if (nGraph == 0)
 		return NULL;
 
-	int nCol = min(setData.NmsSC.nColumns, nGraph);
+	int nCol = std::min(setData.NmsSC.nColumns, nGraph);
 	int nRow = (nGraph + setData.NmsSC.nColumns - 1) / setData.NmsSC.nColumns;
 
 	CRect rect;

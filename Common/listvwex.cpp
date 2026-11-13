@@ -416,7 +416,7 @@ void CListViewEx::OnPaint()
 			RECT rcClip;
 			dc.GetClipBox(&rcClip);
 
-			rcClip.left = min(rcAllLabels.right-1, rcClip.left);
+			rcClip.left = std::min(rcAllLabels.right-1, rcClip.left);
 			rcClip.right = m_cxClient;
 
 			InvalidateRect(&rcClip, FALSE);

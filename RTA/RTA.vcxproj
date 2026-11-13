@@ -177,7 +177,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -211,7 +211,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -241,7 +241,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -277,7 +277,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -308,7 +308,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -342,7 +342,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -371,7 +371,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -407,7 +407,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat />
       <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>6031;26495;6011;6387</DisableSpecificWarnings>
+      <DisableSpecificWarnings>6011;6031;6297;26495;28183</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>

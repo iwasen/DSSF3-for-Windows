@@ -648,7 +648,7 @@ void CFftWnd::GetWaveData(double *pData)
 		m_fSmoothing2 = 0;
 		m_bSmoothingReset = FALSE;
 	} else {
-		m_fSmoothing2 = pow(1 / M_E, (m_fTimeStep2 * 1000) / (g_oSetData.Fft.nSmoothing));
+		m_fSmoothing2 = pow(1 / std::numbers::e, (m_fTimeStep2 * 1000) / (g_oSetData.Fft.nSmoothing));
 		m_fSmoothing1 = 1 - m_fSmoothing2;
 	}
 

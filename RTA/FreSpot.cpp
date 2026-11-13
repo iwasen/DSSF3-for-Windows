@@ -276,13 +276,13 @@ BOOL CFreSpot::WaveOutData(double *pData, int nBitsPerSample)
 		bReset = TRUE;
 	}
 
-	const double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * M_PI;
+	const double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * std::numbers::pi;
 	for (int i = 0; i < m_nWaveBufSize; i++) {
 		*pData++ = sin(m_fAngle) * m_fLevel + GetDither(nBitsPerSample);
 
 		m_fAngle += fAngleStep;
-		while (m_fAngle >= 2 * M_PI)
-			m_fAngle -= 2 * M_PI;
+		while (m_fAngle >= 2 * std::numbers::pi)
+			m_fAngle -= 2 * std::numbers::pi;
 	}
 
 	m_cFreqCurrent.Format("%.0f", m_fFreqCurrent);
@@ -358,14 +358,14 @@ double CFreSpot::CalcFreqResponse(const double *pData, double fFreq, const DbMic
 
 	double fSinSum = 0;
 	double fCosSum = 0;
-	const double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * M_PI;
+	const double fAngleStep = m_fFreqCurrent / m_nSamplingRate * 2 * std::numbers::pi;
 	for (i = 0; i < m_nSamplingRate; i++) {
 		fSinSum += pData[i] * sin(m_fAngle);
 		fCosSum += pData[i] * cos(m_fAngle);
 
 		m_fAngle += fAngleStep;
-		while (m_fAngle >= 2 * M_PI)
-			m_fAngle -= 2 * M_PI;
+		while (m_fAngle >= 2 * std::numbers::pi)
+			m_fAngle -= 2 * std::numbers::pi;
 	}
 
 	fSinSum = fSinSum * fFilter / m_nSamplingRate;

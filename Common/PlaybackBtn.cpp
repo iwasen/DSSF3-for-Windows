@@ -55,7 +55,7 @@ int CPlaybackBtn::ModeHwave(LPWAVENOTIFY pWaveNotify)
 {
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(m_hWaveData);
 
-	const int nData = min(WAVEBUF_SIZE, m_nData - m_nOffset);
+	const int nData = std::min(WAVEBUF_SIZE, m_nData - m_nOffset);
 	const int nBytesPerSample = (pWaveData->nBitsPerSample / 8) * pWaveData->nChannels;
 	CopyWaveToDouble((BYTE *)pWaveData->waveData + m_nOffset * nBytesPerSample, pWaveNotify->pSamplesData, NULL, nData * pWaveData->nChannels, pWaveData->nBitsPerSample);
 	m_nOffset += nData;

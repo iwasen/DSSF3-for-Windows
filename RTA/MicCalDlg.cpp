@@ -393,7 +393,7 @@ void CMicCalDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 
 	for (int i = 0; i < WAVEBUF_SAMPLESPERBUFFER; i++) {
-		double s = sin(2 * M_PI * m_fAngle);
+		double s = sin(2 * std::numbers::pi * m_fAngle);
 		*pWaveBuf++ = s;
 		*pWaveBuf++ = s;
 		m_fAngle += fAngleStep;

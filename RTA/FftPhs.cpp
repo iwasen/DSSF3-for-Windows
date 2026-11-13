@@ -148,17 +148,17 @@ void CFftWnd::GetWaveDataPhs(const FFTWINDOW *pFftWindow)
 
 			double fPhase = atan2(xt2 * yt1 - xt1 * yt2, xt1 * xt2 + yt1 * yt2);
 
-			if (fPhase - m_pPhaseBuf[i] < -M_PI * 1.1)
-				fPhase += 2 * M_PI;
-			else if (fPhase - m_pPhaseBuf[i] > M_PI * 1.1)
-				fPhase -= 2 * M_PI;
+			if (fPhase - m_pPhaseBuf[i] < -std::numbers::pi * 1.1)
+				fPhase += 2 * std::numbers::pi;
+			else if (fPhase - m_pPhaseBuf[i] > std::numbers::pi * 1.1)
+				fPhase -= 2 * std::numbers::pi;
 
 			fPhase = fPhase * m_fSmoothing1 + m_pPhaseBuf[i] * m_fSmoothing2;
 
-			if (fPhase < -M_PI)
-				fPhase += 2 * M_PI;
-			else if (fPhase > M_PI)
-				fPhase -= 2 * M_PI;
+			if (fPhase < -std::numbers::pi)
+				fPhase += 2 * std::numbers::pi;
+			else if (fPhase > std::numbers::pi)
+				fPhase -= 2 * std::numbers::pi;
 
 			m_pPhaseBuf[i] = fPhase;
 		}
@@ -195,11 +195,11 @@ int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *p
 		if (x != x2) {
 			if (x >= 0) {
 				pPoint[nPointCount].x = x2;
-				pPoint[nPointCount].y = nCenter - (int)(ymin / M_PI * pFftWindow->m_nScaleHeight / 2);
+				pPoint[nPointCount].y = nCenter - (int)(ymin / std::numbers::pi * pFftWindow->m_nScaleHeight / 2);
 				nPointCount++;
 				if (ymax != ymin) {
 					pPoint[nPointCount].x = x2;
-					pPoint[nPointCount].y = nCenter - (int)(ymax / M_PI * pFftWindow->m_nScaleHeight / 2);
+					pPoint[nPointCount].y = nCenter - (int)(ymax / std::numbers::pi * pFftWindow->m_nScaleHeight / 2);
 					nPointCount++;
 				}
 				if (x2 >= pFftWindow->m_nScaleWidth)
@@ -207,8 +207,8 @@ int CFftWnd::CalcPhsSub(const FFTWINDOW *pFftWindow, double *pPhaseBuf, POINT *p
 			}
 
 			x2 = x;
-			ymin = M_PI;
-			ymax = -M_PI;
+			ymin = std::numbers::pi;
+			ymax = -std::numbers::pi;
 		}
 
 		double fPhase = pPhaseBuf[i];
@@ -230,14 +230,14 @@ void CFftWnd::DispPhsInfo(const FFTWINDOW *pFftWindow)
 		m_nPhsFreqPos = (int)((m_pLogFreqTbl[m_nPhsDispFreq] - m_fLogMinFreq) * ((double)pFftWindow->m_nFrameWidth / (m_fLogMaxFreq - m_fLogMinFreq)));
 	else
 		m_nPhsFreqPos = (int)((m_fFreqStep * m_nPhsDispFreq - m_nMinFreq) * ((double)pFftWindow->m_nFrameWidth / (m_nMaxFreq - m_nMinFreq)));
-	m_nPhsLevelPos = (pFftWindow->m_nScaleHeight / 2) - (int)(pBuf[m_nPhsDispFreq] / M_PI * pFftWindow->m_nScaleHeight / 2);
+	m_nPhsLevelPos = (pFftWindow->m_nScaleHeight / 2) - (int)(pBuf[m_nPhsDispFreq] / std::numbers::pi * pFftWindow->m_nScaleHeight / 2);
 
 	CString sFreq, sLevel;
 	if (m_nPhsDispFreq == 0) {
 		sLevel.Empty();
 		sFreq.Empty();
 	} else {
-		sLevel.Format("%.2lf", pBuf[m_nPhsDispFreq] / M_PI * 180);
+		sLevel.Format("%.2lf", pBuf[m_nPhsDispFreq] / std::numbers::pi * 180);
 		sFreq.Format("%.1lf",  m_fFreqStep * m_nPhsDispFreq);
 	}
 
@@ -303,7 +303,7 @@ void CFftWnd::CsvOutputPhs(CCsvFile &oCsvFile)
 	for (int i = 1; i < nFftSize2; i++) {
 		oCsvFile.SetData(m_fFreqStep * i);
 
-		oCsvFile.SetData(m_pPhaseBuf[i] / M_PI * 180);
+		oCsvFile.SetData(m_pPhaseBuf[i] / std::numbers::pi * 180);
 
 		oCsvFile.Output();
 	}
@@ -346,7 +346,7 @@ void CFftWnd::CsvInputPhs(CCsvFile &oCsvFile)
 	for (int i = 0; i < nBufSize && !oCsvDataList.IsEmpty(); i++) {
 		oCsvData = oCsvDataList.RemoveHead();
 
-		*pBuf1++ = oCsvData.fData[1] * M_PI / 180;
+		*pBuf1++ = oCsvData.fData[1] * std::numbers::pi / 180;
 	}
 
 	FFTWINDOW *pFftWindow = GetFftWindow(FFT_MODE_PHS);

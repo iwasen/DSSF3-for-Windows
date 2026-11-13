@@ -503,8 +503,8 @@ void CWaveWnd::OnLButtonUp(UINT nFlags, CPoint point)
 			m_nMouseMode = MOUSE_NORMAL;
 
 			if (m_pointDragStart.x != m_pointDragEnd.x && m_pointDragStart.y != m_pointDragEnd.y) {
-				POINT pointStart{ min(m_pointDragStart.x, m_pointDragEnd.x), min(m_pointDragStart.y, m_pointDragEnd.y) };
-				POINT pointEnd{ max(m_pointDragStart.x, m_pointDragEnd.x), max(m_pointDragStart.y, m_pointDragEnd.y) };
+				POINT pointStart{ std::min(m_pointDragStart.x, m_pointDragEnd.x), std::min(m_pointDragStart.y, m_pointDragEnd.y) };
+				POINT pointEnd{ std::max(m_pointDragStart.x, m_pointDragEnd.x), std::max(m_pointDragStart.y, m_pointDragEnd.y) };
 				SGraphDrag drag{
 					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,
 					.fStartY = (double)(pointStart.y - m_nScaleTop) / m_nScaleHeight,

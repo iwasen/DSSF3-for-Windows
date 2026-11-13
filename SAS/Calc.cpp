@@ -762,7 +762,7 @@ double CalcTs(const double *pData, int nData, double fRate, int nT0Pos, double f
 
 void CalcParamIACCx(const double *pDataL, const double *pDataR, int nData, double fRate, int nT0PosL, int nT0PosR, double *pIACCE, double *pIACCL)
 {
-	const int nT0Pos = min(nT0PosL, nT0PosR);
+	const int nT0Pos = std::min(nT0PosL, nT0PosR);
 
 	*pIACCE = CalcIACCSub(pDataL, pDataR, nData, fRate, nT0Pos, 0, 0.08);
 	*pIACCL = CalcIACCSub(pDataL, pDataR, nData, fRate, nT0Pos, 0.08, 0.750);
@@ -1344,8 +1344,8 @@ void CalcMTF(const double *pIR, int nData, double fRate, const double *pMtfFreq,
 		double fSum2I = 0;
 		for (j = 0; j < nData; j++) {
 			double t = j / fRate;
-			double fTmp1 = cos(2 * M_PI * pMtfFreq[i] * t);
-			double fTmp2 = sin(2 * M_PI * pMtfFreq[i] * t);
+			double fTmp1 = cos(2 * std::numbers::pi * pMtfFreq[i] * t);
+			double fTmp2 = sin(2 * std::numbers::pi * pMtfFreq[i] * t);
 			double fTmp3 = pIR[j] * pIR[j];
 			fSum2R += fTmp1 * fTmp3;
 			fSum2I += fTmp2 * fTmp3;

@@ -176,7 +176,7 @@ void CWaveViewWnd::DispGraphFM(const WaveFormFM *pWaveForm)
 	POINT *pPoint = new POINT[m_nScaleWidth];
 
 	for (int i = 0; i < m_nScaleWidth; i++) {
-		const double fAngle = 8 * M_PI * i / m_nScaleWidth;
+		const double fAngle = 8 * std::numbers::pi * i / m_nScaleWidth;
 		const double fAmp = sin(fAngle + pWaveForm->fModAmp * sin(pWaveForm->fModFreq * fAngle));
 
 		pPoint[i].x = m_nScaleLeft + i;

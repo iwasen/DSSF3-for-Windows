@@ -1043,13 +1043,13 @@ void COsDlg::MakeInterpolationFilter(int n)
 	double h;
 	for (int i = 0; i < kn; i++) {
 		const int k = i - kn / 2;
-		const double a = k * M_PI / n;
+		const double a = k * std::numbers::pi / n;
 		if (a == 0)
 			h = 1;
 		else
 			h = sin(a) / a;
 
-		h *= (0.54 - 0.46 * cos(2 * M_PI * i / (kn - 1)));
+		h *= (0.54 - 0.46 * cos(2 * std::numbers::pi * i / (kn - 1)));
 
 		m_pInterpolationFilter[i] = h;
 	}

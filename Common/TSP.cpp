@@ -46,7 +46,7 @@ void CTSP::GenerateSequence(double *pData, int nAtt)
 		f1[0] = 1.0;
 		f1[1] = 1.0;
 		for (i = 1; i < m_nN / 2; i++) {
-			e = 4 * M_PI * m_nM * i * i / ((double)m_nN * m_nN);
+			e = 4 * std::numbers::pi * m_nM * i * i / ((double)m_nN * m_nN);
 			j = i * 2;
 			f1[j] = cos(e);
 			f1[j + 1] = -sin(e);
@@ -92,7 +92,7 @@ void CTSP::CalcImpulse(double *pData)
 	f1[0] = 1.0;
 	f1[1] = 1.0;
 	for (i = 1; i < m_nN / 2; i++) {
-		e = 4 * M_PI * m_nM * i * i / ((double)m_nN * m_nN);
+		e = 4 * std::numbers::pi * m_nM * i * i / ((double)m_nN * m_nN);
 		j = i * 2;
 		f1[j] = cos(e);
 		f1[j + 1] = sin(e);

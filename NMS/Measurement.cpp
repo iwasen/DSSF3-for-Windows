@@ -169,7 +169,7 @@ void CMeasurement::AutoMeasuring(LPWAVENOTIFY pWaveNotify)
 	double *pData = pWaveNotify->pSamplesData;
 	int nCount = pWaveNotify->nSamplesRecorded;
 	while (nCount) {
-		int nCopy = min(nCount, m_nRingBufSize - m_nRingBufPtr);
+		int nCopy = std::min(nCount, m_nRingBufSize - m_nRingBufPtr);
 		memcpy(&m_pRingBuf[m_nRingBufPtr], pData, nCopy * sizeof(WaveData));
 		pData += nCopy * 2;
 		nCount -= nCopy;
@@ -287,7 +287,7 @@ void CMeasurement::ManualMeasuring(LPWAVENOTIFY pWaveNotify)
 
 	if (m_bMeasuring) {
 		pData = pWaveNotify->pSamplesData;
-		int nCopy = min(pWaveNotify->nSamplesRecorded, m_nRingBufSize - m_nRingBufPtr);
+		int nCopy = std::min(pWaveNotify->nSamplesRecorded, m_nRingBufSize - m_nRingBufPtr);
 		memcpy(&m_pRingBuf[m_nRingBufPtr], pData, nCopy * sizeof(WaveData));
 		m_nRingBufPtr += nCopy;
 

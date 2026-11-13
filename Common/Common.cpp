@@ -412,12 +412,9 @@ BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pD
 	} *pMmlibData;
 
 	DWORD idInst = 0L;
-	if ((err = ::DdeInitialize(&idInst,
-				(PFNCALLBACK)MakeProcInstance(
-				(FARPROC)DdeCallback, hInstance),
-				APPCMD_CLIENTONLY, 0)) != 0) {
-			MessageBoxID(pWnd, IDS_ERR_DDE_INITIALIZE, MB_OK);
-			return FALSE;
+	if ((err = ::DdeInitialize(&idInst, (PFNCALLBACK)MakeProcInstance((FARPROC)DdeCallback, hInstance), APPCMD_CLIENTONLY, 0)) != 0) {
+		MessageBoxID(pWnd, IDS_ERR_DDE_INITIALIZE, MB_OK);
+		return FALSE;
 	}
 
 	HSZ	hService = ::DdeCreateStringHandle(idInst, "MMLIB", 0);
@@ -447,9 +444,10 @@ BOOL SendMMLib(CWnd *pWnd, LPCSTR pFolderTitle, LPCSTR pFolderComment, LPCSTR pD
 	strcpy_s(pMmlibData->text, pText);
 	pMmlibData->size = nDibSize;
 
-	LPBYTE pDib = (LPBYTE)::GlobalLock(hDIB);
-	memcpy(pMmlibData->dib, pDib, nDibSize);
-	::GlobalUnlock(hDIB);
+	if (LPBYTE pDib = (LPBYTE)::GlobalLock(hDIB); pDib != NULL) {
+		memcpy(pMmlibData->dib, pDib, nDibSize);
+		::GlobalUnlock(hDIB);
+	}
 
 	const UINT uFmt = ::RegisterClipboardFormat("MMLIB_DATA");
 	HDDEDATA hMmlibData = ::DdeCreateDataHandle(idInst, (LPBYTE)pMmlibData, nDataSize, 0, 0, uFmt, 0);
@@ -511,7 +509,7 @@ int ReadWaveData(HWAVEDATA hWaveData, double *pLeftData, double *pRightData, int
 	if (PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData); pWaveData != NULL) {
 		const int nBytesPerSample = pWaveData->nChannels * (pWaveData->nBitsPerSample / 8);
 		const int nWaveSize = pWaveData->dataSize / nBytesPerSample;
-		const int nReadSize = min(nWaveSize - nOffset, nData);
+		const int nReadSize = std::min(nWaveSize - nOffset, nData);
 
 		CopyWaveToDouble((BYTE *)pWaveData->waveData + nOffset * nBytesPerSample, pLeftData, pWaveData->nChannels == 2 ? pRightData : NULL, nReadSize, pWaveData->nBitsPerSample);
 
@@ -534,7 +532,7 @@ HWAVEDATA MakeWaveDataHandle(int nSamplesPerSec, int nBitsPerSample, int nChanne
 {
 	const int nBytes = nDataNum * (nBitsPerSample / 8) * (pRightData == NULL ? 1 : nChannel);
 	HWAVEDATA hWaveData = ::GlobalAlloc(GHND, sizeof(WAVEDATA) + nBytes);
-	if (PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData); pWaveData!= NULL) {
+	if (PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData); pWaveData != NULL) {
 		pWaveData->nChannels = (WORD)nChannel;
 		pWaveData->nBitsPerSample = (WORD)nBitsPerSample;
 		pWaveData->nSamplesPerSec = nSamplesPerSec;
@@ -645,21 +643,21 @@ void MakeWindowFunc(int type, int size, double *data, double fMul)
 			*data++ = (double)(1.0 - abs(size / 2 - i) / (double)(size / 2)) * m;
 			break;
 		case WF_HAMMING:
-			*data++ = (double)(0.54 - 0.46 * cos(2 * M_PI * i / (size1))) * m;
+			*data++ = (double)(0.54 - 0.46 * cos(2 * std::numbers::pi * i / (size1))) * m;
 			break;
 		case WF_HANNING:
-			*data++ = (double)(0.5 - 0.5 * cos(2 * M_PI * i / (size1))) * m;
+			*data++ = (double)(0.5 - 0.5 * cos(2 * std::numbers::pi * i / (size1))) * m;
 			break;
 		case WF_BLACKMAN:
-			fTemp = 2 * M_PI * i / size1;
+			fTemp = 2 * std::numbers::pi * i / size1;
 			*data++ = (double)(0.42 - 0.5 * cos(fTemp) + 0.08 * cos(2 * fTemp)) * m;
 			break;
 		case WF_BLACKMANHARRIS:
-			fTemp = 2 * M_PI * i / size1;
+			fTemp = 2 * std::numbers::pi * i / size1;
 			*data++ = (double)(0.35875 - 0.48829 * cos(fTemp) + 0.14128 * cos(2 * fTemp) - 0.01168 * cos(3 * fTemp)) * m;
 			break;
 		case WF_FLATTOP:
-			fTemp = 2 * M_PI * i / size1;
+			fTemp = 2 * std::numbers::pi * i / size1;
 			*data++ = (double)(1 - 1.93 * cos(fTemp) + 1.29 * cos(2 * fTemp) - 0.388 * cos(3 * fTemp) + 0.032 * cos(4 * fTemp)) * m;
 			break;
 		}
@@ -912,7 +910,7 @@ double GetMaxData(const double *pLeftData, const double *pRightData, int nData)
 	const double fLeftMaxData = GetMaxData(pLeftData, nData, 1);
 	const double fRightMaxData = GetMaxData(pRightData, nData, 1);
 
-	return max(fLeftMaxData, fRightMaxData);
+	return std::max(fLeftMaxData, fRightMaxData);
 }
 
 CString GetExeDir()

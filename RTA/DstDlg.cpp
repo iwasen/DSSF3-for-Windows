@@ -302,7 +302,7 @@ void CDstDlg::MakeSinTable()
 	m_pSinTable = new double[m_nSample];
 
 	for (int i = 0; i < m_nSample; i++)
-		m_pSinTable[i] = sin(2 * M_PI * i / m_nSample);
+		m_pSinTable[i] = sin(2 * std::numbers::pi * i / m_nSample);
 }
 
 int CDstDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)

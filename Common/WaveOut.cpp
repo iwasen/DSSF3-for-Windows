@@ -142,7 +142,7 @@ int CWaveOut::NotifyMessage(int nCode, LPWAVEHDR pWaveHdr)
 
 void CWaveOut::ConvertDoubleToWave(LPWAVEHDR pWaveHdr, int rc)
 {
-	const int nDataNum = min((int)pWaveHdr->dwBufferLength, rc) / (m_oWaveFormat.Format.wBitsPerSample / 8);
+	const int nDataNum = std::min((int)pWaveHdr->dwBufferLength, rc) / (m_oWaveFormat.Format.wBitsPerSample / 8);
 	double *pSamplesData = m_pSamplesBuffer;
 	BYTE *bp;
 	short *sp;

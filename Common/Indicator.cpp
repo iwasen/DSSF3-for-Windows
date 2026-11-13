@@ -119,8 +119,8 @@ void CIndicator::WaveData(LPWAVENOTIFY pWaveNotify)
 			rect.left = 0;
 			rect.right = m_Rect.right;
 		} else {
-			rect.left = min(m_nPrevLeft, m_nLevelLeft);
-			rect.right = max(m_nPrevLeft, m_nLevelLeft);
+			rect.left = std::min(m_nPrevLeft, m_nLevelLeft);
+			rect.right = std::max(m_nPrevLeft, m_nLevelLeft);
 		}
 		rect.top = 0;
 		rect.bottom = m_Rect.bottom / 2;
@@ -130,8 +130,8 @@ void CIndicator::WaveData(LPWAVENOTIFY pWaveNotify)
 			rect.left = 0;
 			rect.right = m_Rect.right;
 		} else {
-			rect.left = min(m_nPrevRight, m_nLevelRight);
-			rect.right = max(m_nPrevRight, m_nLevelRight);
+			rect.left = std::min(m_nPrevRight, m_nLevelRight);
+			rect.right = std::max(m_nPrevRight, m_nLevelRight);
 		}
 		rect.top = m_Rect.bottom / 2;
 		rect.bottom = m_Rect.bottom;
@@ -146,9 +146,9 @@ void CIndicator::WaveData(LPWAVENOTIFY pWaveNotify)
 
 		if (bLeftColorChange) {
 			rect.left = 0;
-			rect.right = max(m_nPrevLeft, m_nLevelLeft);
+			rect.right = std::max(m_nPrevLeft, m_nLevelLeft);
 		} else {
-			rect.left = min(m_nPrevLeft, m_nLevelLeft);
+			rect.left = std::min(m_nPrevLeft, m_nLevelLeft);
 			rect.right = m_Rect.right;
 		}
 		rect.top = 0;

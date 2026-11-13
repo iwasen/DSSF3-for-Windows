@@ -344,7 +344,7 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 
 	// ƒÑeŽæ“¾
 	const int nInterval = (int)(pAcfCondition->fTaueInterval / 1000 * fSamplingRate);
-	const int nEndTime = (int)(min(pAcfCondition->fTaueEndTime / 1000, pAcfCondition->fIntegrationTime) * fSamplingRate);
+	const int nEndTime = (int)(std::min(pAcfCondition->fTaueEndTime / 1000, pAcfCondition->fIntegrationTime) * fSamplingRate);
 	int nIntervalPos;
 	if (pAcfCondition->bTaueOrigin)
 		nIntervalPos = 0;

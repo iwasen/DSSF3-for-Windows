@@ -124,7 +124,7 @@ BOOL CWaveFile::ReadChunk(DWORD ckID, void *pData, DWORD nSize)
 	if (!SearchChunk(ckID, &ckSize))
 		return FALSE;
 
-	const DWORD nRead = min(ckSize, nSize);
+	const DWORD nRead = std::min(ckSize, nSize);
 
 	if (m_oWaveFile.Read(pData, nRead) != nRead)
 		return FALSE;

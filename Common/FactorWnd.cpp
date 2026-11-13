@@ -364,7 +364,7 @@ void CFactorWnd::DispGraph(double fStepTime, double fStartTime, double fDispTime
 	CPen *pPenOrg = m_dcMem.SelectObject(&m_penData);
 	CBrush *pBrushOrg = m_dcMem.SelectObject(&m_brushData);
 
-	const int nDotSize1 = min(int(m_nScaleWidth * fStepTime / fDispTime) / 4, 2);
+	const int nDotSize1 = std::min(int(m_nScaleWidth * fStepTime / fDispTime) / 4, 2);
 	const int nDotSize2 = nDotSize1 ? nDotSize1 + 1 : 0;
 
 	int nSelX = 0, nSelY = 0;
@@ -525,12 +525,12 @@ void CFactorWnd::OnLButtonUp(UINT nFlags, CPoint point)
 
 			if (m_pointDragStart.x != m_pointDragEnd.x && m_pointDragStart.y != m_pointDragEnd.y) {
 				POINT pointStart{
-					.x = min(m_pointDragStart.x, m_pointDragEnd.x),
-					.y = min(m_pointDragStart.y, m_pointDragEnd.y)
+					.x = std::min(m_pointDragStart.x, m_pointDragEnd.x),
+					.y = std::min(m_pointDragStart.y, m_pointDragEnd.y)
 				};
 				POINT pointEnd{
-					.x = max(m_pointDragStart.x, m_pointDragEnd.x),
-					.y = max(m_pointDragStart.y, m_pointDragEnd.y)
+					.x = std::max(m_pointDragStart.x, m_pointDragEnd.x),
+					.y = std::max(m_pointDragStart.y, m_pointDragEnd.y)
 				};
 				SGraphDrag drag{
 					.fStartX = (double)(pointStart.x - m_nScaleLeft) / m_nScaleWidth,

@@ -81,16 +81,16 @@ void CDigitalFilter::InitIIR(EDFShape eShape, EDFBand eBand, int nOrder, double 
 
 	double fa, ang;
 	if (m_eBand == EDF_HPF) {
-		ang = fFreq1 * M_PI / fSamplingFreq;
+		ang = fFreq1 * std::numbers::pi / fSamplingFreq;
 		fa = fSamplingFreq / 2.0;
 	} else {
-		ang = (fFreq1 - fFreq2) * M_PI / fSamplingFreq;
+		ang = (fFreq1 - fFreq2) * std::numbers::pi / fSamplingFreq;
 		fa = fFreq1;
 	}
 
 	const double wc = tan(ang);
-	const double cgam = cos(M_PI * (fa + fFreq2) / fSamplingFreq) / cos(ang);
-	fa = 2.0 * M_PI * fFreq1 / fSamplingFreq;
+	const double cgam = cos(std::numbers::pi * (fa + fFreq2) / fSamplingFreq) / cos(ang);
+	fa = 2.0 * std::numbers::pi * fFreq1 / fSamplingFreq;
 	const double cbp = (cgam - cos(fa)) / sin(fa);
 
 	int np, nz;
@@ -151,8 +151,8 @@ double CDigitalFilter::GetLevel(double fFreq) const
 	fFreq = fFreq / m_fSamplingFreq;
 
 	for (int i = 0; i < (m_nZOrder + 1) / 2; i++) {
-		complex<double> cZ1 = exp(complex<double>(0, -2 * M_PI * fFreq));
-		complex<double> cZ2 = exp(complex<double>(0, -4 * M_PI * fFreq));
+		complex<double> cZ1 = exp(complex<double>(0, -2 * std::numbers::pi * fFreq));
+		complex<double> cZ2 = exp(complex<double>(0, -4 * std::numbers::pi * fFreq));
 		cH *= (bkm[0][i] + bkm[1][i] * cZ1 + bkm[2][i] * cZ2) / (1.0 - akm[0][i] * cZ1 - akm[1][i] * cZ2);
 	}
 
@@ -162,10 +162,10 @@ double CDigitalFilter::GetLevel(double fFreq) const
 // ButterworthÇ∆ChebyshevÇÃã§í èàóù
 void CDigitalFilter::ButChe(int order, int np, double a, double b)
 {
-	double theta = (order & 1) ? 0.0 : M_PI / (2.0 * order);
+	double theta = (order & 1) ? 0.0 : std::numbers::pi / (2.0 * order);
 	for (int j = 0; j < np; j++) {
 		s_pz[j] = complex<double>(-a * cos(theta), b * sin(theta));
-		theta = theta + M_PI / order;
+		theta = theta + std::numbers::pi / order;
 	}
 }
 

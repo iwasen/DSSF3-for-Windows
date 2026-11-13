@@ -927,14 +927,14 @@ int CInputDeviceDlg::OnWaveNotify(int nCode, LPWAVENOTIFY pWaveNotify)
 
 void CInputDeviceDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 {
-	const double fAngleStep = 1000.0 * M_PI * 2 / SAMPLING_RATE;
+	const double fAngleStep = 1000.0 * std::numbers::pi * 2 / SAMPLING_RATE;
 	double *pWaveBuf = pWaveNotify->pSamplesData;
 
 	for (int i = 0; i < WAVEBUF_SIZE; i++) {
 		*pWaveBuf++ = sin(m_fAngle);
 		m_fAngle += fAngleStep;
-		while (m_fAngle >= M_PI * 2)
-			m_fAngle -= M_PI * 2;
+		while (m_fAngle >= std::numbers::pi * 2)
+			m_fAngle -= std::numbers::pi * 2;
 	}
 }
 

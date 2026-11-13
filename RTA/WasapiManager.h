@@ -3,7 +3,7 @@
 #include <mmdeviceapi.h>
 #include <Audioclient.h>
 #include <FunctionDiscoveryKeys_devpkey.h>
-#include <afxmt.h>
+//#include <afxmt.h>
 #include "WaveNotify.h"
 
 typedef IMMDeviceEnumerator *PIMMDeviceEnumerator;

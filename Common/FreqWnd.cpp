@@ -268,7 +268,7 @@ void CFreqWnd::DispGraph(const double *pFreqData, int nData, double fRate, int n
 			else
 				x = m_nScaleLeft + (int)((i * fFreqStep - nMinFreq) * fTmp2 + 0.5);
 
-			y = m_nScaleCenter - (int)(pPhaseData[i] / M_PI * m_nScaleHeight / 2);
+			y = m_nScaleCenter - (int)(pPhaseData[i] / std::numbers::pi * m_nScaleHeight / 2);
 
 			if (i == 1)
 				m_dcMem.MoveTo(x, y);

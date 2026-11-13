@@ -1458,7 +1458,7 @@ HDIB CImpFactor::GraphCopy()
 	if (nGraph == 0)
 		return NULL;
 
-	int nCol = min(setData.ImpSC.nColumns, nGraph);
+	int nCol = std::min(setData.ImpSC.nColumns, nGraph);
 	int nRow = (nGraph + setData.ImpSC.nColumns - 1) / setData.ImpSC.nColumns;
 
 	CRect rect;

@@ -278,7 +278,7 @@ BOOL CFreSweep::WaveOutData(double *pData, int nBitsPerSample)
 
 	for (int i = 0; i < m_nWaveBufSize; i++) {
 		if (m_fSweepFreq <= m_fSweepEnd) {
-			*pData++ = sin(2 * M_PI * m_fSweepAngle) * m_fLevel + GetDither(nBitsPerSample);
+			*pData++ = sin(2 * std::numbers::pi * m_fSweepAngle) * m_fLevel + GetDither(nBitsPerSample);
 
 			const double fAngleStep = m_fSweepFreq / m_nSamplingRate;
 			m_fSweepAngle += fAngleStep;

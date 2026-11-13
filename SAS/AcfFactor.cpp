@@ -1144,7 +1144,7 @@ HDIB CAcfFactor::GraphCopy()
 	if (nGraph == 0)
 		return NULL;
 
-	int nCol = min(setData.AcfSC.nColumns, nGraph);
+	int nCol = std::min(setData.AcfSC.nColumns, nGraph);
 	int nRow = (nGraph + setData.AcfSC.nColumns - 1) / setData.AcfSC.nColumns;
 
 	CRect rect;

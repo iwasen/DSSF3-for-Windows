@@ -93,7 +93,7 @@ void CSG::GenerateTone(double *pWaveBuf, int nChannel, int nWaveForm, double fFr
 	for (int i = 0; i < SG_SPB; i++) {
 		switch (nWaveForm) {
 		case WAVE_SIN:
-			*pWaveBuf = sin(2 * M_PI * oWorkData.fAngle) * fLevel + GetDither(m_nBitsPerSample);
+			*pWaveBuf = sin(2 * std::numbers::pi * oWorkData.fAngle) * fLevel + GetDither(m_nBitsPerSample);
 			break;
 		case WAVE_TRIANGLE:
 			if (oWorkData.fAngle < 0.5)
@@ -199,7 +199,7 @@ double CSG::GetUserWaveFormFM(const WaveFormFM *pWaveForm, SWorkData &oWorkData)
 	if (oWorkData.fModAngle >= 1.0)
 		oWorkData.fModAngle -= 1.0;
 
-	return sin(2 * M_PI * oWorkData.fAngle + pWaveForm->fModAmp * sin(2 * M_PI * oWorkData.fModAngle));
+	return sin(2 * std::numbers::pi * oWorkData.fAngle + pWaveForm->fModAmp * sin(2 * std::numbers::pi * oWorkData.fModAngle));
 }
 
 int CSG::WaveOutNoise(LPWAVENOTIFY pWaveNotify)
@@ -306,7 +306,7 @@ int CSG::WaveOutSweep(LPWAVENOTIFY pWaveNotify)
 
 		switch (g_oSetData.Sg.nSweepWave) {
 		case WAVE_SIN:
-			*pWaveBuf++ = sin(2 * M_PI * oWorkData.fAngle) * fLevel + GetDither(m_nBitsPerSample);
+			*pWaveBuf++ = sin(2 * std::numbers::pi * oWorkData.fAngle) * fLevel + GetDither(m_nBitsPerSample);
 			break;
 		case WAVE_TRIANGLE:
 			if (oWorkData.fAngle < 0.5)
