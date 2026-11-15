@@ -778,46 +778,49 @@ int ConvertToInt(double fData, int nBits)
 
 void CopyWaveFromDouble(void *pWaveData, const double *pLeftData, const double *pRightData, int nDataNum, int nBits, double fMul)
 {
-	BYTE *bp;
-	short *sp;
-	float *fp;
 	int i;
-	union {
-		int i;
-		BYTE b[4];
-	} ib;
 
 	switch (nBits) {
 	case 16:
-		sp = (short *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			*sp++ = (short)ConvertToInt(*pLeftData++ * fMul, 16);
-			if (pRightData != NULL)
-				*sp++ = (short)ConvertToInt(*pRightData++ * fMul, 16);
+		{
+			short *sp = (short *)pWaveData;
+			for (i = 0; i < nDataNum; i++) {
+				*sp++ = (short)ConvertToInt(*pLeftData++ * fMul, 16);
+				if (pRightData != NULL)
+					*sp++ = (short)ConvertToInt(*pRightData++ * fMul, 16);
+			}
 		}
 		break;
 	case 24:
-		bp = (BYTE *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			ib.i = ConvertToInt(*pLeftData++ * fMul, 24);
-			*bp++ = ib.b[0];
-			*bp++ = ib.b[1];
-			*bp++ = ib.b[2];
-
-			if (pRightData != NULL) {
-				ib.i = ConvertToInt(*pRightData++ * fMul, 24);
+		{
+			BYTE *bp = (BYTE *)pWaveData;
+			union {
+				int i;
+				BYTE b[4];
+			} ib{};
+			for (i = 0; i < nDataNum; i++) {
+				ib.i = ConvertToInt(*pLeftData++ * fMul, 24);
 				*bp++ = ib.b[0];
 				*bp++ = ib.b[1];
 				*bp++ = ib.b[2];
+
+				if (pRightData != NULL) {
+					ib.i = ConvertToInt(*pRightData++ * fMul, 24);
+					*bp++ = ib.b[0];
+					*bp++ = ib.b[1];
+					*bp++ = ib.b[2];
+				}
 			}
 		}
 		break;
 	case 32:
-		fp = (float *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			*fp++ = (float)(*pLeftData++ * fMul);
-			if (pRightData != NULL)
-				*fp++ = (float)(*pRightData++ * fMul);
+		{
+			float *fp = (float *)pWaveData;
+			for (i = 0; i < nDataNum; i++) {
+				*fp++ = (float)(*pLeftData++ * fMul);
+				if (pRightData != NULL)
+					*fp++ = (float)(*pRightData++ * fMul);
+			}
 		}
 		break;
 	}
@@ -825,64 +828,72 @@ void CopyWaveFromDouble(void *pWaveData, const double *pLeftData, const double *
 
 void CopyWaveToDouble(const void *pWaveData, double *pLeftData, double *pRightData, int nDataNum, int nBits)
 {
-	BYTE *bp;
-	short *sp;
-	float *fp;
 	int i;
-	union {
-		int i;
-		BYTE b[4];
-	} ib;
+	double div;
 
 	switch (nBits) {
 	case 8:
-		bp = (BYTE *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			*pLeftData++ = (char)(*bp++ - 128) / PowDouble(8);
-			if (pRightData != NULL)
-				*pRightData++ = (char)(*bp++ - 128) / PowDouble(8);
+		{
+			div = PowDouble(8);
+			BYTE *bp = (BYTE *)pWaveData;
+			for (i = 0; i < nDataNum; i++) {
+				*pLeftData++ = (char)(*bp++ - 128) / div;
+				if (pRightData != NULL)
+					*pRightData++ = (char)(*bp++ - 128) / div;
+			}
 		}
 		break;
 	case 16:
-		sp = (short *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			*pLeftData++ = *sp++ / PowDouble(16);
-			if (pRightData != NULL)
-				*pRightData++ = *sp++ / PowDouble(16);
+		{
+			div = PowDouble(16);
+			short *sp = (short *)pWaveData;
+			for (i = 0; i < nDataNum; i++) {
+				*pLeftData++ = *sp++ / div;
+				if (pRightData != NULL)
+					*pRightData++ = *sp++ / div;
+			}
 		}
 		break;
 	case 24:
-		bp = (BYTE *)pWaveData;
-		ib.b[0] = 0;
-		for (i = 0; i < nDataNum; i++) {
-			ib.b[1] = *bp++;
-			ib.b[2] = *bp++;
-			ib.b[3] = *bp++;
-			*pLeftData++ = ib.i / PowDouble(32);
-
-			if (pRightData != NULL) {
+		{
+			div = PowDouble(32);
+			BYTE *bp = (BYTE *)pWaveData;
+			union {
+				int i;
+				BYTE b[4];
+			} ib{};
+			for (i = 0; i < nDataNum; i++) {
 				ib.b[1] = *bp++;
 				ib.b[2] = *bp++;
 				ib.b[3] = *bp++;
-				*pRightData++ = ib.i / PowDouble(32);
+				*pLeftData++ = ib.i / div;
+
+				if (pRightData != NULL) {
+					ib.b[1] = *bp++;
+					ib.b[2] = *bp++;
+					ib.b[3] = *bp++;
+					*pRightData++ = ib.i / div;
+				}
 			}
 		}
 		break;
 	case 32:
-		fp = (float *)pWaveData;
-
-		double fAdj = 1;
-		for (i = 0; i < nDataNum; i++) {
-			if (fp[i] > 1.0) {
-				fAdj = 1.0 / PowDouble(16);
-				break;
+		{
+			div = PowDouble(16);
+			float *fp = (float *)pWaveData;
+			double fAdj = 1;
+			for (i = 0; i < nDataNum; i++) {
+				if (fp[i] > 1.0) {
+					fAdj = 1.0 / div;
+					break;
+				}
 			}
-		}
 
-		for (i = 0; i < nDataNum; i++) {
-			*pLeftData++ = *fp++ * fAdj;
-			if (pRightData != NULL)
-				*pRightData++ = *fp++ * fAdj;
+			for (i = 0; i < nDataNum; i++) {
+				*pLeftData++ = *fp++ * fAdj;
+				if (pRightData != NULL)
+					*pRightData++ = *fp++ * fAdj;
+			}
 		}
 		break;
 	}

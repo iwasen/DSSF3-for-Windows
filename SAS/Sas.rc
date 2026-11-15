@@ -105,8 +105,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 5,2,0,20
- PRODUCTVERSION 5,2,0,20
+ FILEVERSION 5,2,0,21
+ PRODUCTVERSION 5,2,0,21
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -124,13 +124,13 @@ BEGIN
             VALUE "Comments", "Written by Shinichi Aizawa"
             VALUE "CompanyName", "Yoshimasa Electronic Inc."
             VALUE "FileDescription", "Diagnostic System for Sound Fields Version 5"
-            VALUE "FileVersion", "5.2.0.20"
+            VALUE "FileVersion", "5.2.0.21"
             VALUE "InternalName", "SA"
             VALUE "LegalCopyright", "Copyright (C) 2000-2026 Yoshimasa Electronic Inc."
             VALUE "LegalTrademarks", "YMEC"
             VALUE "OriginalFilename", "SAS.EXE"
             VALUE "ProductName", "Sound Analyzer [SA]"
-            VALUE "ProductVersion", "5.2.0.20"
+            VALUE "ProductVersion", "5.2.0.21"
         END
     END
     BLOCK "VarFileInfo"
@@ -2898,7 +2898,7 @@ BEGIN
     IDM_TEMPLATE            "Setting of noise source template\nNoise source template"
     IDM_FILE_DELETE         "Delete the folder or the selected data\nDelete"
     IDM_FILE_TITLE_CHANGE   "Change the folder or the selected data title\nChange title"
-    IDM_FILE_CHANGE_TITLE   "Change the folder or the selected data title\\Change title"
+    IDM_FILE_CHANGE_TITLE   "Change the folder or the selected data title\Change title"
 END
 
 STRINGTABLE
@@ -2912,7 +2912,7 @@ END
 STRINGTABLE
 BEGIN
     IDM_FILE_EXPORT         "Export selected data\nExport"
-    IDM_FILE_IMPORT         "Import file\\Import"
+    IDM_FILE_IMPORT         "Import file\Import"
 END
 
 #endif    // âpåÍ (ïƒçë) resources

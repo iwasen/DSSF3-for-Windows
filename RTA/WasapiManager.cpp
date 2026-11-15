@@ -665,47 +665,50 @@ void CWasapiManager::ConvertDoubleToWave(LPVOID pWaveData, int nSize)
 {
 	double *pSamplesData = m_pSamplesBufferOut;
 	const int nDataNum = nSize * m_nChannelsOut;
-	BYTE *bp;
-	short *sp;
-	long *lp;
 	int i;
-	union {
-		int i;
-		BYTE b[4];
-	} ib;
 
 	switch (m_oWaveFormatOut.Format.wBitsPerSample) {
 	case 16:
-		sp = (short *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			short s = (short)ConvertToInt(*pSamplesData++, 16);
-			*sp++ = s;
-			if (m_nChannelsOut == 1)
+		{
+			short *sp = (short *)pWaveData;
+			for (i = 0; i < nDataNum; i++) {
+				short s = (short)ConvertToInt(*pSamplesData++, 16);
 				*sp++ = s;
+				if (m_nChannelsOut == 1)
+					*sp++ = s;
+			}
 		}
 		break;
 	case 24:
-		bp = (BYTE *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			ib.i = ConvertToInt(*pSamplesData++, 24);
-			*bp++ = ib.b[0];
-			*bp++ = ib.b[1];
-			*bp++ = ib.b[2];
-			if (m_nChannelsOut == 1) {
+		{
+			BYTE *bp = (BYTE *)pWaveData;
+			union {
+				int i;
+				BYTE b[4];
+			} ib{};
+			for (i = 0; i < nDataNum; i++) {
+				ib.i = ConvertToInt(*pSamplesData++, 24);
 				*bp++ = ib.b[0];
 				*bp++ = ib.b[1];
 				*bp++ = ib.b[2];
+				if (m_nChannelsOut == 1) {
+					*bp++ = ib.b[0];
+					*bp++ = ib.b[1];
+					*bp++ = ib.b[2];
+				}
 			}
 		}
 		break;
 	case 32:
-		lp = (long *)pWaveData;
-		long mask = 0xffffffff << (32 - m_oWaveFormatOut.Samples.wValidBitsPerSample);
-		for (i = 0; i < nDataNum; i++) {
-			const long l = ConvertToInt(*pSamplesData++, 32) & mask;
-			*lp++ = l;
-			if (m_nChannelsOut == 1)
+		{
+			long *lp = (long *)pWaveData;
+			long mask = 0xffffffff << (32 - m_oWaveFormatOut.Samples.wValidBitsPerSample);
+			for (i = 0; i < nDataNum; i++) {
+				const long l = ConvertToInt(*pSamplesData++, 32) & mask;
 				*lp++ = l;
+				if (m_nChannelsOut == 1)
+					*lp++ = l;
+			}
 		}
 		break;
 	}
@@ -715,47 +718,49 @@ void CWasapiManager::ConvertWaveToDouble(LPVOID pWaveData, int nSize)
 {
 	double *pSamplesData = m_pSamplesBufferIn;
 	const int nDataNum = nSize * m_nChannelsIn;
-	BYTE *bp;
-	short *sp;
-	long *lp;
 	int i;
-	union {
-		int i;
-		BYTE b[4];
-	} ib;
 	double div;
 
 	switch (m_oWaveFormatIn.Format.wBitsPerSample) {
 	case 16:
-		div = PowDouble(16);
-		sp = (short *)pWaveData;
-		for (i = 0; i < nDataNum; i++) {
-			*pSamplesData++ = *sp++ / div;
-			if (m_nChannelsIn == 1)
-				sp++;
+		{
+			div = PowDouble(16);
+			short *sp = (short *)pWaveData;
+			for (i = 0; i < nDataNum; i++) {
+				*pSamplesData++ = *sp++ / div;
+				if (m_nChannelsIn == 1)
+					sp++;
+			}
 		}
 		break;
 	case 24:
-		div = PowDouble(32);
-		bp = (BYTE *)pWaveData;
-		ib.b[0] = 0;
-		for (i = 0; i < nDataNum; i++) {
-			ib.b[1] = *bp++;
-			ib.b[2] = *bp++;
-			ib.b[3] = *bp++;
-			*pSamplesData++ = ib.i / div;
-			if (m_nChannelsIn == 1)
-				bp += 3;
+		{
+			div = PowDouble(32);
+			BYTE *bp = (BYTE *)pWaveData;
+			union {
+				int i;
+				BYTE b[4];
+			} ib{};
+			for (i = 0; i < nDataNum; i++) {
+				ib.b[1] = *bp++;
+				ib.b[2] = *bp++;
+				ib.b[3] = *bp++;
+				*pSamplesData++ = ib.i / div;
+				if (m_nChannelsIn == 1)
+					bp += 3;
+			}
 		}
 		break;
 	case 32:
-		div = PowDouble(32);
-		lp = (long *)pWaveData;
-		long mask = 0xffffffff << (32 - m_oWaveFormatIn.Samples.wValidBitsPerSample);
-		for (i = 0; i < nDataNum; i++) {
-			*pSamplesData++ = (*lp++ & mask) / div;
-			if (m_nChannelsIn == 1)
-				lp++;
+		{
+			div = PowDouble(32);
+			long *lp = (long *)pWaveData;
+			long mask = 0xffffffff << (32 - m_oWaveFormatIn.Samples.wValidBitsPerSample);
+			for (i = 0; i < nDataNum; i++) {
+				*pSamplesData++ = (*lp++ & mask) / div;
+				if (m_nChannelsIn == 1)
+					lp++;
+			}
 		}
 		break;
 	}
