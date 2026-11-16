@@ -145,20 +145,17 @@ void CWaveIn::ConvertWaveToDouble(LPWAVEHDR pWaveHdr)
 	const int nDataNum = pWaveHdr->dwBytesRecorded / (m_oWaveFormat.Format.wBitsPerSample / 8);
 	double *pSamplesData = m_pSamplesBuffer;
 	int i;
-	double div;
 
 	switch (m_oWaveFormat.Format.wBitsPerSample) {
 	case 16:
 		{
-			div = PowDouble(16);
 			short *sp = (short *)pWaveHdr->lpData;
 			for (i = 0; i < nDataNum; i++)
-				*pSamplesData++ = *sp++ / div;
+				*pSamplesData++ = *sp++ * PowDoubleR(16);
 		}
 		break;
 	case 24:
 		{
-			div = PowDouble(32);
 			BYTE *bp = (BYTE *)pWaveHdr->lpData;
 			union {
 				int i;
@@ -168,16 +165,15 @@ void CWaveIn::ConvertWaveToDouble(LPWAVEHDR pWaveHdr)
 				ib.b[1] = *bp++;
 				ib.b[2] = *bp++;
 				ib.b[3] = *bp++;
-				*pSamplesData++ = ib.i / div;
+				*pSamplesData++ = ib.i * PowDoubleR(32);
 			}
 		}
 		break;
 	case 32:
 		{
-			div = PowDouble(32);
 			long *lp = (long *)pWaveHdr->lpData;
 			for (i = 0; i < nDataNum; i++)
-				*pSamplesData++ = *lp++ / div;
+				*pSamplesData++ = *lp++ * PowDoubleR(32);
 		}
 		break;
 	}

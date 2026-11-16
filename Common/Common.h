@@ -89,6 +89,7 @@
 
 // ‚×‚«æ
 #define PowDouble(v) ((double)((unsigned long)1 << (v - 1)))
+#define PowDoubleR(v) (1.0 / (double)((unsigned long)1 << (v - 1)))
 
 // Wave“ü—Í^o—Í
 #define WAVE_IN		0x01

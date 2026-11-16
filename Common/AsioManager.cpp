@@ -301,6 +301,8 @@ void CAsioManager::CloseDriver()
 	m_cAsioDriver.ASIOStop();
 	m_cAsioDriver.ASIODisposeBuffers();
 
+	UnLoadAsioDriver();
+
 	m_bAsioStart = FALSE;
 }
 
@@ -841,7 +843,7 @@ void *CAsioManager::ConverToDouble(int nType, int nSize, void *pInData, double *
 	switch (nType) {
 	case ASIOSTInt16LSB:
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
-			*pOutData = (double)*in.s++ / PowDouble(16);
+			*pOutData = (double)*in.s++ * PowDoubleR(16);
 		}
 		break;
 	case ASIOSTInt24LSB:		// used for 20 bits as well
@@ -853,13 +855,13 @@ void *CAsioManager::ConverToDouble(int nType, int nSize, void *pInData, double *
 				pt[1] = *in.c++;
 				pt[2] = *in.c++;
 				pt[3] = *in.c++;
-				*pOutData = (double)t / PowDouble(32);
+				*pOutData = (double)t * PowDoubleR(32);
 			}
 		}
 		break;
 	case ASIOSTInt32LSB:
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			*pOutData = (double)*in.l++ / PowDouble(32);
+			*pOutData = (double)*in.l++ * PowDoubleR(32);
 		}
 		break;
 	case ASIOSTFloat32LSB:		// IEEE 754 32 bit float, as found on Intel x86 architecture
@@ -874,28 +876,28 @@ void *CAsioManager::ConverToDouble(int nType, int nSize, void *pInData, double *
 		break;
 	case ASIOSTInt32LSB16:		// 32 bit data with 18 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			*pOutData = (double)*in.l++ / PowDouble(16);
+			*pOutData = (double)*in.l++ * PowDoubleR(16);
 		}
 		break;
 	case ASIOSTInt32LSB18:		// 32 bit data with 18 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			*pOutData = (double)*in.l++ / PowDouble(18);
+			*pOutData = (double)*in.l++ * PowDoubleR(18);
 		}
 		break;
 	case ASIOSTInt32LSB20:		// 32 bit data with 20 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			*pOutData = (double)*in.l++ / PowDouble(20);
+			*pOutData = (double)*in.l++ * PowDoubleR(20);
 		}
 		break;
 	case ASIOSTInt32LSB24:		// 32 bit data with 24 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
-			*pOutData = (double)*in.l++ / PowDouble(24);
+			*pOutData = (double)*in.l++ * PowDoubleR(24);
 		}
 		break;
 	case ASIOSTInt16MSB:
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
 			const WORD t = *in.s++;
-			*pOutData = (double)SwapShort(t) / PowDouble(16);
+			*pOutData = (double)SwapShort(t) * PowDoubleR(16);
 		}
 		break;
 	case ASIOSTInt24MSB:		// used for 20 bits as well
@@ -907,38 +909,38 @@ void *CAsioManager::ConverToDouble(int nType, int nSize, void *pInData, double *
 				pt[2] = *in.c++;
 				pt[1] = *in.c++;
 				pt[0] = 0;
-				*pOutData = (double)t / PowDouble(32);
+				*pOutData = (double)t * PowDoubleR(32);
 			}
 		}
 		break;
 	case ASIOSTInt32MSB:
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
 			const DWORD t = *in.l++;
-			*pOutData = (double)SwapLong(t) / PowDouble(32);
+			*pOutData = (double)SwapLong(t) * PowDoubleR(32);
 		}
 		break;
 	case ASIOSTInt32MSB16:		// 32 bit data with 18 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
 			const DWORD t = *in.l++;
-			*pOutData = (double)SwapLong(t) / PowDouble(16);
+			*pOutData = (double)SwapLong(t) * PowDoubleR(16);
 		}
 		break;
 	case ASIOSTInt32MSB18:		// 32 bit data with 18 bit alignment
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
 			const DWORD t = *in.l++;
-			*pOutData = (double)SwapLong(t) / PowDouble(18);
+			*pOutData = (double)SwapLong(t) * PowDoubleR(18);
 		}
 		break;
 	case ASIOSTInt32MSB20:		// 32 bit data with 20 bit alignment
 		for (i = 0; i < nSize; i++, pOutData += nAlign) {
 			const DWORD t = *in.l++;
-			*pOutData = (double)SwapLong(t) / PowDouble(20);
+			*pOutData = (double)SwapLong(t) * PowDoubleR(20);
 		}
 		break;
 	case ASIOSTInt32MSB24:		// 32 bit data with 24 bit alignment
 		for(i = 0; i < nSize; i++, pOutData += nAlign) {
 			const DWORD t = *in.l++;
-			*pOutData = (double)SwapLong(t) / PowDouble(24);
+			*pOutData = (double)SwapLong(t) * PowDoubleR(24);
 		}
 		break;
 	case ASIOSTFloat32MSB:		// IEEE 754 32 bit float, as found on Intel x86 architecture

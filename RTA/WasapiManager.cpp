@@ -719,15 +719,13 @@ void CWasapiManager::ConvertWaveToDouble(LPVOID pWaveData, int nSize)
 	double *pSamplesData = m_pSamplesBufferIn;
 	const int nDataNum = nSize * m_nChannelsIn;
 	int i;
-	double div;
 
 	switch (m_oWaveFormatIn.Format.wBitsPerSample) {
 	case 16:
 		{
-			div = PowDouble(16);
 			short *sp = (short *)pWaveData;
 			for (i = 0; i < nDataNum; i++) {
-				*pSamplesData++ = *sp++ / div;
+				*pSamplesData++ = *sp++ * PowDoubleR(16);
 				if (m_nChannelsIn == 1)
 					sp++;
 			}
@@ -735,7 +733,6 @@ void CWasapiManager::ConvertWaveToDouble(LPVOID pWaveData, int nSize)
 		break;
 	case 24:
 		{
-			div = PowDouble(32);
 			BYTE *bp = (BYTE *)pWaveData;
 			union {
 				int i;
@@ -745,7 +742,7 @@ void CWasapiManager::ConvertWaveToDouble(LPVOID pWaveData, int nSize)
 				ib.b[1] = *bp++;
 				ib.b[2] = *bp++;
 				ib.b[3] = *bp++;
-				*pSamplesData++ = ib.i / div;
+				*pSamplesData++ = ib.i * PowDoubleR(32);
 				if (m_nChannelsIn == 1)
 					bp += 3;
 			}
@@ -753,11 +750,10 @@ void CWasapiManager::ConvertWaveToDouble(LPVOID pWaveData, int nSize)
 		break;
 	case 32:
 		{
-			div = PowDouble(32);
 			long *lp = (long *)pWaveData;
 			long mask = 0xffffffff << (32 - m_oWaveFormatIn.Samples.wValidBitsPerSample);
 			for (i = 0; i < nDataNum; i++) {
-				*pSamplesData++ = (*lp++ & mask) / div;
+				*pSamplesData++ = (*lp++ & mask) * PowDoubleR(32);
 				if (m_nChannelsIn == 1)
 					lp++;
 			}

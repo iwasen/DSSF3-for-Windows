@@ -140,7 +140,7 @@ void CheckSamplingRateIn(INT_PTR nDevice)
 			tSamplingRate[i].dwAvail |= dwAvail;
 		}
 #ifdef USE_WASAPI
-	} if (nDevice <= -100) {
+	} else if (nDevice <= -100) {
 		// WASAPI
 		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			if (g_cWasapiManager.CanSamplingRateIn(-(nDevice + 100), tSamplingRate[i].dwSamplingRate))
@@ -196,7 +196,7 @@ void CheckSamplingRateOut(INT_PTR nDevice)
 			tSamplingRate[i].dwAvail |= dwAvail;
 		}
 #ifdef USE_WASAPI
-	} if (nDevice <= -100) {
+	} else if (nDevice <= -100) {
 		// WASAPI
 		for (i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
 			if (g_cWasapiManager.CanSamplingRateOut(-(nDevice + 100), tSamplingRate[i].dwSamplingRate))
@@ -829,34 +829,33 @@ void CopyWaveFromDouble(void *pWaveData, const double *pLeftData, const double *
 void CopyWaveToDouble(const void *pWaveData, double *pLeftData, double *pRightData, int nDataNum, int nBits)
 {
 	int i;
-	double div;
 
 	switch (nBits) {
 	case 8:
 		{
-			div = PowDouble(8);
+			constexpr double fMul = PowDoubleR(8);
 			BYTE *bp = (BYTE *)pWaveData;
 			for (i = 0; i < nDataNum; i++) {
-				*pLeftData++ = (char)(*bp++ - 128) / div;
+				*pLeftData++ = (char)(*bp++ - 128) * fMul;
 				if (pRightData != NULL)
-					*pRightData++ = (char)(*bp++ - 128) / div;
+					*pRightData++ = (char)(*bp++ - 128) * fMul;
 			}
 		}
 		break;
 	case 16:
 		{
-			div = PowDouble(16);
+			constexpr double fMul = PowDoubleR(16);
 			short *sp = (short *)pWaveData;
 			for (i = 0; i < nDataNum; i++) {
-				*pLeftData++ = *sp++ / div;
+				*pLeftData++ = *sp++ * fMul;
 				if (pRightData != NULL)
-					*pRightData++ = *sp++ / div;
+					*pRightData++ = *sp++ * fMul;
 			}
 		}
 		break;
 	case 24:
 		{
-			div = PowDouble(32);
+			constexpr double fMul = PowDoubleR(32);
 			BYTE *bp = (BYTE *)pWaveData;
 			union {
 				int i;
@@ -866,25 +865,25 @@ void CopyWaveToDouble(const void *pWaveData, double *pLeftData, double *pRightDa
 				ib.b[1] = *bp++;
 				ib.b[2] = *bp++;
 				ib.b[3] = *bp++;
-				*pLeftData++ = ib.i / div;
+				*pLeftData++ = ib.i * fMul;
 
 				if (pRightData != NULL) {
 					ib.b[1] = *bp++;
 					ib.b[2] = *bp++;
 					ib.b[3] = *bp++;
-					*pRightData++ = ib.i / div;
+					*pRightData++ = ib.i * fMul;
 				}
 			}
 		}
 		break;
 	case 32:
 		{
-			div = PowDouble(16);
+			constexpr double fMul = PowDoubleR(16);
 			float *fp = (float *)pWaveData;
 			double fAdj = 1;
 			for (i = 0; i < nDataNum; i++) {
 				if (fp[i] > 1.0) {
-					fAdj = 1.0 / div;
+					fAdj = fMul;
 					break;
 				}
 			}
