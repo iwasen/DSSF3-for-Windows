@@ -1,7 +1,5 @@
 #pragma once
 
-#include <afxtempl.h>
-
 #define VC_NUM		0x01
 #define VC_MINUS	0x02
 #define VC_POINT	0x04

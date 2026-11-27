@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mmsystem.h>
-
 #define WAVEOUT_OPEN	0
 #define WAVEOUT_CLOSE	1
 #define WAVEOUT_DATA	2

@@ -49,7 +49,7 @@ BOOL CScreenCopyBtn::OnClicked()
 			CWnd *pParentWnd = GetParent();
 			pParentWnd->UpdateWindow();
 			HDIB hDIB = CreateDIB(pParentWnd);
-			MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
+			MMPictureWriteFile(hDIB, dlg.GetPathName());
 			::GlobalFree(hDIB);
 		}
 
@@ -72,7 +72,7 @@ void CScreenCopyBtn::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 	GetLocalTime(&st);
 	m_TempFile.Format("%s%02d%02d%02d%02d%02d%02d.png", tempPath, st.wYear % 100, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 	HDIB hDIB = CreateDIB(GetParent());
-	MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)m_TempFile);
+	MMPictureWriteFile(hDIB, m_TempFile);
 	::GlobalFree(hDIB);
 
 	const int nLength = m_TempFile.GetLength();

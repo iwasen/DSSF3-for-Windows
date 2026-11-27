@@ -831,7 +831,7 @@ void COsDlg::AutoLevelAdjust(const double *pInData)
 	}
 
 	if (bRendou)
-		fPeakLeft = max(fPeakLeft, fPeakRight);
+		fPeakLeft = std::max(fPeakLeft, fPeakRight);
 
 	if (m_bLch) {
 		if (fPeakLeft > m_fLevelL * (m_cOsScreen.m_nVDiv - 2) / 2) {
@@ -1287,7 +1287,7 @@ BOOL COsDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

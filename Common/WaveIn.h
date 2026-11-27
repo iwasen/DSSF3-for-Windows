@@ -1,10 +1,5 @@
 #pragma once
 
-#include <mmsystem.h>
-#pragma warning(disable : 4819)
-#include <Mmreg.h>
-#include <ks.h>
-#include <ksmedia.h>
 #include "WaveOut.h"
 
 class CWaveIn : public CWnd

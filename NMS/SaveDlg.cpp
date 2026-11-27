@@ -191,7 +191,7 @@ BOOL CSaveDlg::SaveData(long nFolderID)
 			return FALSE;
 
 		tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, pNmsItem->m_nIndex);
-		if (MMWaveReadFile(&hWaveData, (LPSTR)(LPCSTR)tempFileName) != 0)
+		if (MMWaveReadFile(&hWaveData, tempFileName) != 0)
 			return FALSE;
 
 		PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);
@@ -247,7 +247,7 @@ BOOL CSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

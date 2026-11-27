@@ -291,7 +291,7 @@ BOOL CPresetDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -337,7 +337,7 @@ BOOL CPresetSaveDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

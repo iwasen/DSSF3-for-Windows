@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SetData.h"
-#include <mmsystem.h>
 #include "WaveFile.h"
 
 struct AutoRecInfo {

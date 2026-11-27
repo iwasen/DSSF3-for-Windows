@@ -4,7 +4,6 @@
 #include "RecWnd.h"
 #include "MyCtrl.h"
 #include "WaveNotify.h"
-#include <mmsystem.h>
 
 class CRecDlg : public CBaseDlg, public IWaveNotify
 {

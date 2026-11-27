@@ -8,10 +8,6 @@
 #include "WasapiManager.h"
 #endif
 #include "DssData.h"
-#include <shlobj.h>
-#include <shlwapi.h>
-#include <atlbase.h>
-#include <mmsystem.h>
 
 constexpr char g_sSystemName[] = "Diagnostic System for Sound Fields";
 constexpr char g_sRegistryName[] = "Analyzing System for Sound Fields Ver5";
@@ -82,12 +78,12 @@ void SetSamplingRateList(CComboBox &combo, int nInOut, INT_PTR nDeviceIn, INT_PT
 	int nIndex = -1;
 	CString strBuf;
 	for (int i = 0; i < ARRAY_SIZE(tSamplingRate); i++) {
-		if ((tSamplingRate[i].dwAvail & nInOut) == (DWORD)nInOut) {
-			strBuf.Format("%.3f kHz", (double)tSamplingRate[i].dwSamplingRate / 1000);
+		if ((tSamplingRate[i].dwAvail & nInOut) == static_cast<DWORD>(nInOut)) {
+			strBuf.Format("%.3f kHz", static_cast<double>(tSamplingRate[i].dwSamplingRate) / 1000);
 			nIndex = combo.AddString(strBuf);
 			combo.SetItemData(nIndex, tSamplingRate[i].dwSamplingRate);
 
-			if (tSamplingRate[i].dwSamplingRate == (DWORD)nDefault)
+			if (tSamplingRate[i].dwSamplingRate == static_cast<DWORD>(nDefault))
 				nSelect = nIndex;
 		}
 	}
@@ -95,7 +91,7 @@ void SetSamplingRateList(CComboBox &combo, int nInOut, INT_PTR nDeviceIn, INT_PT
 	if (nIndex != -1) {
 		if (nSelect == -1) {
 			nSelect = nIndex;
-			nDefault = (int)combo.GetItemData(nIndex);
+			nDefault = static_cast<int>(combo.GetItemData(nIndex));
 		}
 
 		combo.SetCurSel(nSelect);
@@ -703,7 +699,7 @@ void ScreenShot(HWND hWnd)
 	title.LoadString(IDS_SAVE_IMAGE_FILE);
 	dlg.m_ofn.lpstrTitle = title;
 	if (dlg.DoModal() == IDOK)
-		MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
+		MMPictureWriteFile(hDIB, dlg.GetPathName());
 
 	::GlobalFree(hDIB);
 }

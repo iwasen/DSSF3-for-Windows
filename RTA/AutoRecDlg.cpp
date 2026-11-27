@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "RTA.h"
 #include "AutoRecDlg.h"
-#include <shlobj.h>
 
 // CAutoRecDlg ダイアログ
 

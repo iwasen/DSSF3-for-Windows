@@ -127,8 +127,8 @@ void CFreWnd::DrawScale(int nLeft, int nTop, int nRight, int nBottom, int nFreqS
 
 	m_dcMem.SelectObject(&m_Font);
 
-	const int nFreqMin = min(nFreqStart, nFreqEnd);
-	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const int nFreqMin = std::min(nFreqStart, nFreqEnd);
+	const int nFreqMax = std::max(nFreqStart, nFreqEnd);
 	const double fLogFreqMin = log((double)nFreqMin);
 	const double fLogFreqMax = log((double)nFreqMax);
 
@@ -261,8 +261,8 @@ void CFreWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCount,
 	else
 		nDotSize = 0;
 
-	const int nFreqMin = min(nFreqStart, nFreqEnd);
-	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const int nFreqMin = std::min(nFreqStart, nFreqEnd);
+	const int nFreqMax = std::max(nFreqStart, nFreqEnd);
 	const double fLogFreqMin = log((double)nFreqMin);
 	const double fLogFreqMax = log((double)nFreqMax);
 	const double yStep = (double)m_nScaleHeight / (g_oSetData.Fre.nMinLevel - g_oSetData.Fre.nMaxLevel);
@@ -294,8 +294,8 @@ void CFreWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCount,
 
 void CFreWnd::DrawLine2(const double *pData, const double *pFreq, int nFreqCount, int nFreqStart, int nFreqEnd)
 {
-	const int nFreqMin = min(nFreqStart, nFreqEnd);
-	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const int nFreqMin = std::min(nFreqStart, nFreqEnd);
+	const int nFreqMax = std::max(nFreqStart, nFreqEnd);
 	const double fLogFreqMin = log((double)nFreqMin);
 	const double fLogFreqMax = log((double)nFreqMax);
 	const double yStep = (double)m_nScaleHeight / (g_oSetData.Fre.nMinLevel - g_oSetData.Fre.nMaxLevel);

@@ -43,7 +43,7 @@ BOOL CWaveIn::Open(INT_PTR nWaveDevice,
 {
 	UINT err;
 	char errMsg[MAXERRORLENGTH];
-	int nBitsPerSample = 24;
+	WORD nBitsPerSample = 24;
 	int nBufferSize = nSamplesPerBuffer * nChannels * (nBitsPerSample / 8);
 
 	CWaveIn::Close();
@@ -56,10 +56,10 @@ BOOL CWaveIn::Open(INT_PTR nWaveDevice,
 	m_oWaveFormat.Format.nChannels = (WORD)nChannels;
 	m_oWaveFormat.Format.nSamplesPerSec = nSamplesPerSec;
 	m_oWaveFormat.Format.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8);
-	m_oWaveFormat.Format.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8));
-	m_oWaveFormat.Format.wBitsPerSample = (WORD)nBitsPerSample;
+	m_oWaveFormat.Format.nBlockAlign = (WORD)nChannels * (nBitsPerSample / 8);
+	m_oWaveFormat.Format.wBitsPerSample = nBitsPerSample;
 	m_oWaveFormat.Format.cbSize = sizeof(WAVEFORMATEXTENSIBLE);
-	m_oWaveFormat.Samples.wValidBitsPerSample = (WORD)nBitsPerSample;
+	m_oWaveFormat.Samples.wValidBitsPerSample = nBitsPerSample;
 	m_oWaveFormat.dwChannelMask = 0;
 	m_oWaveFormat.SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
 
@@ -71,8 +71,8 @@ BOOL CWaveIn::Open(INT_PTR nWaveDevice,
 		m_oWaveFormat.Format.nChannels = (WORD)nChannels;
 		m_oWaveFormat.Format.nSamplesPerSec = nSamplesPerSec;
 		m_oWaveFormat.Format.nAvgBytesPerSec = nSamplesPerSec * nChannels * (nBitsPerSample / 8);
-		m_oWaveFormat.Format.nBlockAlign = (WORD)(nChannels * (nBitsPerSample / 8));
-		m_oWaveFormat.Format.wBitsPerSample = (WORD)nBitsPerSample;
+		m_oWaveFormat.Format.nBlockAlign = (WORD)nChannels * (nBitsPerSample / 8);
+		m_oWaveFormat.Format.wBitsPerSample = nBitsPerSample;
 		m_oWaveFormat.Format.cbSize = sizeof(WAVEFORMATEX);
 
 		if ((err = waveInOpen(&m_hWave, (UINT)m_nWaveDevice, &m_oWaveFormat.Format, (DWORD_PTR)m_hWnd, 0, CALLBACK_WINDOW)) != 0) {

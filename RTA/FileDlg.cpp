@@ -172,7 +172,7 @@ BOOL CFolderDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -317,7 +317,7 @@ BOOL CSaveIR::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -480,7 +480,7 @@ BOOL CLoadIR::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -643,7 +643,7 @@ BOOL CLoadACF::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }
@@ -756,7 +756,7 @@ void CSaveACF::OnWaveFile()
 {
 	CFileDialog fileDlg(FALSE, "wav", "", OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR, "Wave File (*.wav)|*.wav|All Files (*.*)|*.*||", this, 0);
 	if (fileDlg.DoModal() == IDOK) {
-		if (MMWaveWriteFile(m_hWaveData, (LPSTR)(LPCSTR)fileDlg.GetPathName()) != 0)
+		if (MMWaveWriteFile(m_hWaveData, fileDlg.GetPathName()) != 0)
 			::AfxMessageBox(IDS_ERR_WRITEWAVEFILE, MB_OK | MB_ICONEXCLAMATION);
 	}
 }
@@ -787,7 +787,7 @@ BOOL CSaveACF::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

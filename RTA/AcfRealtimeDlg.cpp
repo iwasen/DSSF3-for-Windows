@@ -129,7 +129,7 @@ void CAcfRealtimeDlg::SetCalcParams()
 	m_nSamplingRate = g_oSetData.Acf.nSamplingRate;
 	m_nChannel = g_oSetData.Acf.nChannel + 1;
 	m_nMeasureTime = g_oSetData.Acf.nMeasureTime;
-	m_nTimeDataNum = max((int)((m_nMeasureTime - g_oSetData.Acf.fRealtimeIntegrationTime) / g_oSetData.Acf.fRealtimeRunningStep) + 1, 0);
+	m_nTimeDataNum = std::max((int)((m_nMeasureTime - g_oSetData.Acf.fRealtimeIntegrationTime) / g_oSetData.Acf.fRealtimeRunningStep) + 1, 0);
 	m_nWaveBufSize = (int)(m_nSamplingRate * g_oSetData.Acf.fRealtimeRunningStep);
 	m_nFactorCount = 0;
 	m_fStartTime = 0;
@@ -609,7 +609,7 @@ BOOL CAcfRealtimeDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

@@ -30,7 +30,7 @@ void CAsioDriver::Initialize(void)
 
 	cr = RegOpenKey(HKEY_LOCAL_MACHINE,ASIO_PATH,&hkEnum);
 	while (cr == ERROR_SUCCESS) {
-		if ((cr = RegEnumKey(hkEnum,index++,(LPSTR)keyname,MAXDRVNAMELEN))== ERROR_SUCCESS) {
+		if ((cr = RegEnumKey(hkEnum,index++,keyname,MAXDRVNAMELEN))== ERROR_SUCCESS) {
 			m_pDrvList = newDrvStruct (hkEnum,keyname,0,m_pDrvList);
 		}
 		else fin = TRUE;
@@ -69,7 +69,7 @@ LONG CAsioDriver::findDrvPath (LPSTR clsidstr, LPCSTR dllpath, int dllpathsize)
 	if ((cr = RegOpenKey(HKEY_CLASSES_ROOT,COM_CLSID,&hkEnum)) == ERROR_SUCCESS) {
 		index = 0;
 		while (cr == ERROR_SUCCESS && !found) {
-			cr = RegEnumKey(hkEnum,index++,(LPSTR)databuf,512);
+			cr = RegEnumKey(hkEnum,index++,databuf,512);
 			if (cr == ERROR_SUCCESS) {
 				CharLowerBuff(databuf, (DWORD)strlen(databuf));
 				if (!(strcmp(databuf,clsidstr))) {
@@ -107,7 +107,7 @@ LPASIODRVSTRUCT CAsioDriver::newDrvStruct (HKEY hkey, LPCSTR keyname,int drvID, 
 	LONG	cr,rc;
 
 	if (!lpdrv) {
-		if ((cr = RegOpenKeyEx(hkey,(LPCSTR)keyname,0,KEY_READ,&hksub)) == ERROR_SUCCESS) {
+		if ((cr = RegOpenKeyEx(hkey,keyname,0,KEY_READ,&hksub)) == ERROR_SUCCESS) {
 			datatype = REG_SZ; datasize = 256;
 			cr = RegQueryValueEx(hksub,COM_CLSID,0,&datatype,(LPBYTE)databuf,&datasize);
 			if (cr == ERROR_SUCCESS) {
@@ -117,7 +117,7 @@ LPASIODRVSTRUCT CAsioDriver::newDrvStruct (HKEY hkey, LPCSTR keyname,int drvID, 
 					if (lpdrv) {
 						memset(lpdrv,0,sizeof(ASIODRVSTRUCT));
 						lpdrv->drvID = drvID;
-						MultiByteToWideChar(CP_ACP,0,(LPCSTR)databuf,-1,(LPWSTR)wData,100);
+						MultiByteToWideChar(CP_ACP,0,databuf,-1,(LPWSTR)wData,100);
 						if ((cr = CLSIDFromString((LPOLESTR)wData,(LPCLSID)&clsid)) == S_OK) {
 							memcpy(&lpdrv->clsid,&clsid,sizeof(CLSID));
 						}

@@ -15,22 +15,22 @@
 #include "DigitalFilter.h"
 
 // ベッセルフィルタ用定数
-constexpr complex<double> CDigitalFilter::m_aBesselTable[]{
-	complex<double>(-1.00000000000e+00, 0.00000000000e+00), complex<double>(-1.10160133059e+00, 6.36009824757e-01),
-	complex<double>(-1.32267579991e+00, 0.00000000000e+00), complex<double>(-1.04740916101e+00, 9.99264436281e-01),
-	complex<double>(-1.37006783055e+00, 4.10249717494e-01), complex<double>(-9.95208764350e-01, 1.25710573945e+00),
-	complex<double>(-1.50231627145e+00, 0.00000000000e+00), complex<double>(-1.38087732586e+00, 7.17909587627e-01),
-	complex<double>(-9.57676548563e-01, 1.47112432073e+00), complex<double>(-1.57149040362e+00, 3.20896374221e-01),
-	complex<double>(-1.38185809760e+00, 9.71471890712e-01), complex<double>(-9.30656522947e-01, 1.66186326894e+00),
-	complex<double>(-1.68436817927e+00, 0.00000000000e+00), complex<double>(-1.61203876622e+00, 5.89244506931e-01),
-	complex<double>(-1.37890321680e+00, 1.19156677780e+00), complex<double>(-9.09867780623e-01, 1.83645135304e+00),
-	complex<double>(-1.75740840040e+00, 2.72867575103e-01), complex<double>(-1.63693941813e+00, 8.22795625139e-01),
-	complex<double>(-1.37384121764e+00, 1.38835657588e+00), complex<double>(-8.92869718847e-01, 1.99832584364e+00),
-	complex<double>(-1.85660050123e+00, 0.00000000000e+00), complex<double>(-1.80717053496e+00, 5.12383730575e-01),
-	complex<double>(-1.65239648458e+00, 1.03138956698e+00), complex<double>(-1.36758830979e+00, 1.56773371224e+00),
-	complex<double>(-8.78399276161e-01, 2.14980052431e+00), complex<double>(-1.92761969145e+00, 2.41623471082e-01),
-	complex<double>(-1.84219624443e+00, 7.27257597722e-01), complex<double>(-1.66181024140e+00, 1.22110021857e+00),
-	complex<double>(-1.36069227838e+00, 1.73350574267e+00), complex<double>(-8.65756901707e-01, 2.29260483098e+00),
+constexpr std::complex<double> CDigitalFilter::m_aBesselTable[]{
+	std::complex<double>(-1.00000000000e+00, 0.00000000000e+00), std::complex<double>(-1.10160133059e+00, 6.36009824757e-01),
+	std::complex<double>(-1.32267579991e+00, 0.00000000000e+00), std::complex<double>(-1.04740916101e+00, 9.99264436281e-01),
+	std::complex<double>(-1.37006783055e+00, 4.10249717494e-01), std::complex<double>(-9.95208764350e-01, 1.25710573945e+00),
+	std::complex<double>(-1.50231627145e+00, 0.00000000000e+00), std::complex<double>(-1.38087732586e+00, 7.17909587627e-01),
+	std::complex<double>(-9.57676548563e-01, 1.47112432073e+00), std::complex<double>(-1.57149040362e+00, 3.20896374221e-01),
+	std::complex<double>(-1.38185809760e+00, 9.71471890712e-01), std::complex<double>(-9.30656522947e-01, 1.66186326894e+00),
+	std::complex<double>(-1.68436817927e+00, 0.00000000000e+00), std::complex<double>(-1.61203876622e+00, 5.89244506931e-01),
+	std::complex<double>(-1.37890321680e+00, 1.19156677780e+00), std::complex<double>(-9.09867780623e-01, 1.83645135304e+00),
+	std::complex<double>(-1.75740840040e+00, 2.72867575103e-01), std::complex<double>(-1.63693941813e+00, 8.22795625139e-01),
+	std::complex<double>(-1.37384121764e+00, 1.38835657588e+00), std::complex<double>(-8.92869718847e-01, 1.99832584364e+00),
+	std::complex<double>(-1.85660050123e+00, 0.00000000000e+00), std::complex<double>(-1.80717053496e+00, 5.12383730575e-01),
+	std::complex<double>(-1.65239648458e+00, 1.03138956698e+00), std::complex<double>(-1.36758830979e+00, 1.56773371224e+00),
+	std::complex<double>(-8.78399276161e-01, 2.14980052431e+00), std::complex<double>(-1.92761969145e+00, 2.41623471082e-01),
+	std::complex<double>(-1.84219624443e+00, 7.27257597722e-01), std::complex<double>(-1.66181024140e+00, 1.22110021857e+00),
+	std::complex<double>(-1.36069227838e+00, 1.73350574267e+00), std::complex<double>(-8.65756901707e-01, 2.29260483098e+00),
 };
 
 //*****************************************************************************************************
@@ -66,7 +66,7 @@ void CDigitalFilter::InitIIR(EDFShape eShape, EDFBand eBand, int nOrder, double 
 	case EDF_BPF:
 	case EDF_BSF:
 		if (fFreq1 < fFreq2)
-			swap(fFreq1, fFreq2);
+			std::swap(fFreq1, fFreq2);
 		break;
 	}
 
@@ -147,12 +147,12 @@ double CDigitalFilter::ExecIIR(double fData)
 
 double CDigitalFilter::GetLevel(double fFreq) const
 {
-	complex<double> cH = 1.0;
+	std::complex<double> cH = 1.0;
 	fFreq = fFreq / m_fSamplingFreq;
 
 	for (int i = 0; i < (m_nZOrder + 1) / 2; i++) {
-		complex<double> cZ1 = exp(complex<double>(0, -2 * std::numbers::pi * fFreq));
-		complex<double> cZ2 = exp(complex<double>(0, -4 * std::numbers::pi * fFreq));
+		std::complex<double> cZ1 = exp(std::complex<double>(0, -2 * std::numbers::pi * fFreq));
+		std::complex<double> cZ2 = exp(std::complex<double>(0, -4 * std::numbers::pi * fFreq));
 		cH *= (bkm[0][i] + bkm[1][i] * cZ1 + bkm[2][i] * cZ2) / (1.0 - akm[0][i] * cZ1 - akm[1][i] * cZ2);
 	}
 
@@ -164,7 +164,7 @@ void CDigitalFilter::ButChe(int order, int np, double a, double b)
 {
 	double theta = (order & 1) ? 0.0 : std::numbers::pi / (2.0 * order);
 	for (int j = 0; j < np; j++) {
-		s_pz[j] = complex<double>(-a * cos(theta), b * sin(theta));
+		s_pz[j] = std::complex<double>(-a * cos(theta), b * sin(theta));
 		theta = theta + std::numbers::pi / order;
 	}
 }
@@ -233,7 +233,7 @@ void CDigitalFilter::Plane(int order, double delta, int &np, int &nz)
 // 双一次ｚ変換
 int CDigitalFilter::Bilinear(int np, int nz, double cgam, double c, double cbp, double wc)
 {
-	complex<double> r, root, cx, ca, cb, b4ac;
+	std::complex<double> r, root, cx, ca, cb, b4ac;
 
 	double xc = wc;
 	for (int i = 0; i < A_SIZE; i++)
@@ -296,11 +296,9 @@ void CDigitalFilter::AddZero(int jt)
 // 縦続形の係数に変換
 void CDigitalFilter::ToCascade(double cgam, double fScale)
 {
-	double tmp_a0 = 0, tmp_a1 = 0, tmp_b0 = 0, tmp_b1 = 0, tmp_b2 = 0;
-
 	int m = 0;
 	for (int j = 0; j < m_nZOrder; j++) {
-		int jz = j + m_nZOrder;
+		const int jz = j + m_nZOrder;
 		if (fabs(imag(z_pz[j])) > 1.0E-16) {
 			akm[0][m] = real(2.0 * z_pz[j]);
 			akm[1][m] = -norm(z_pz[j]);
@@ -328,6 +326,7 @@ void CDigitalFilter::ToCascade(double cgam, double fScale)
 		m++;
 	}
 
+	double tmp_a0 = 0, tmp_a1 = 0, tmp_b0 = 0, tmp_b1 = 0, tmp_b2 = 0;
 	for (int i = 0; i < (m_nZOrder + 1) / 2 - 1; i++) {
 		int pos = i;
 		double min = fabs(akm[1][i]);
@@ -357,10 +356,10 @@ void CDigitalFilter::ToCascade(double cgam, double fScale)
 	for (int j = 0; j < (m_nZOrder + 1) / 2; j++) {
 		double gain;
 		if (m_eBand == EDF_BPF) {
-			complex<double> z = exp(complex<double>(0, -acos(cgam)));
-			complex<double> z2 = z * z;
-			complex<double> an = 1.0 + -akm[0][j] * z + -akm[1][j] * z2;
-			complex<double> bn = 1.0 + bkm[1][j] * z + bkm[2][j] * z2;
+			const std::complex<double> z = exp(std::complex<double>(0, -acos(cgam)));
+			const std::complex<double> z2 = z * z;
+			const std::complex<double> an = 1.0 + -akm[0][j] * z + -akm[1][j] * z2;
+			const std::complex<double> bn = 1.0 + bkm[1][j] * z + bkm[2][j] * z2;
 			gain = abs(an / bn);
 		} else {
 			double a;

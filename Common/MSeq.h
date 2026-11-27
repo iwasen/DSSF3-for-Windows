@@ -3,7 +3,6 @@
 #include "IRMethod.h"
 
 #define TOPMSEQPARAM	10
-#define N_MSEQDATA		(sizeof(tMSeqParam) / sizeof(MSeqParam))
 
 struct MSeqParam {
 	int nBit;

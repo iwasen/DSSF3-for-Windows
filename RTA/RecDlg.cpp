@@ -289,8 +289,8 @@ void CRecDlg::InitPlayMode(int nPlayMode)
 			m_nPlayChannel = pWaveIn->GetChannels();
 
 			m_fPlayTime = m_fSelectStart;
-			m_dwPlayCount = min((DWORD)(m_fSelectStart * m_nSamplingRate * m_nRecChannel) / m_nRecChannel * m_nRecChannel, m_dwRecCount);
-			m_dwPlayEndCount = min((DWORD)(m_fSelectEnd * m_nSamplingRate * m_nRecChannel) / m_nRecChannel * m_nRecChannel, m_dwRecCount);
+			m_dwPlayCount = std::min((DWORD)(m_fSelectStart * m_nSamplingRate * m_nRecChannel) / m_nRecChannel * m_nRecChannel, m_dwRecCount);
+			m_dwPlayEndCount = std::min((DWORD)(m_fSelectEnd * m_nSamplingRate * m_nRecChannel) / m_nRecChannel * m_nRecChannel, m_dwRecCount);
 
 		}
 	}
@@ -432,7 +432,7 @@ void CRecDlg::AllocBuf()
 	DWORDLONG dwMem = msex.ullAvailPhys;
 	dwMem /= sizeof(double) * 2;
 	dwMem *= 2;
-	dwMem = min(dwMem, (DWORDLONG)0x80000000);
+	dwMem = std::min(dwMem, (DWORDLONG)0x80000000);
 
 	m_dwAllocSize = (DWORD)dwMem;
 	while (true) {
@@ -634,7 +634,7 @@ void CRecDlg::LoadWavFile(LPCSTR pPathName)
 
 	CWaveInEx::CloseRecWave();
 
-	m_dwRecCount = min(dwDataSize / (waveFormat.wBitsPerSample / 8), m_dwAllocSize);
+	m_dwRecCount = std::min(dwDataSize / (waveFormat.wBitsPerSample / 8), m_dwAllocSize);
 	while (m_dwRecCount != 0) {
 		if (VirtualAlloc(m_pWaveBuf, (SIZE_T)m_dwRecCount * sizeof(double), MEM_COMMIT, PAGE_READWRITE) != NULL) {
 			BYTE *pDummy = NULL;
@@ -800,8 +800,8 @@ void CRecDlg::OnBnClickedCut()
 	if (m_pWaveBuf == NULL)
 		return;
 
-	const int nSelectStart = min((DWORD)(m_fSelectStart * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
-	const int nSelectEnd = min((DWORD)(m_fSelectEnd * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
+	const int nSelectStart = std::min((DWORD)(m_fSelectStart * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
+	const int nSelectEnd = std::min((DWORD)(m_fSelectEnd * m_nSamplingRate), m_dwRecCount / m_nRecChannel);
 	const int nSample = (nSelectEnd - nSelectStart) * m_nRecChannel;
 
 	if (nSample <= 0)
@@ -934,7 +934,7 @@ BOOL CRecDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

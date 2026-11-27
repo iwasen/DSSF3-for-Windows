@@ -300,7 +300,7 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 	const double fFreqStep = (double)nSampleRate / nFreqData / 2;
 	const int nTimeStep = (int)ceil((double)nScaleWidth / nTimeData);
 
-	memset(m_pSpgLevel, 0, sizeof(double) * nScaleHeight);
+	MEMCLEAR(m_pSpgLevel, nScaleHeight);
 
 	int nCount = 0;
 	int y2 = 0;
@@ -340,8 +340,8 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 		nCount++;
 	}
 
-	int t1, t2, t3;
 	for (i = 0; i < nScaleHeight; i++) {
+		int t1, t2, t3;
 		if (m_pSpgLevel[i] == 0) {
 			for (t1 = i; t1 >= 0 && m_pSpgLevel[t1] == 0; t1--)
 				;
@@ -365,8 +365,8 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 		if (nTimeCount < nTimeData)
 			x = nTimeCount * nScaleWidth / nTimeData;
 		else {
-			CRect rect(0, 0, nScaleWidth, nScaleHeight);
-			m_dcGraph2.ScrollDC(-nTimeStep, 0, rect, rect, NULL, NULL);
+			RECT rect(0, 0, nScaleWidth, nScaleHeight);
+			m_dcGraph2.ScrollDC(-nTimeStep, 0, &rect, &rect, NULL, NULL);
 			x = nScaleWidth - nTimeStep;
 		}
 
@@ -375,8 +375,8 @@ void CAcfSpgWnd::DrawData(CDC &dc, const double *pData, int nFreqData, int nTime
 			m_dcGraph2.FillSolidRect(x, y, nTimeStep, 1, color);
 		}
 	} else {
-		CRect rect(0, 0, nScaleWidth, nScaleHeight);
-		m_dcGraph2.FillSolidRect(rect, COLOR_BLACK);
+		RECT rect(0, 0, nScaleWidth, nScaleHeight);
+		m_dcGraph2.FillSolidRect(&rect, COLOR_BLACK);
 	}
 
 	dc.BitBlt(m_rectScale.left, m_rectScale.top, nScaleWidth, nScaleHeight, &m_dcGraph2, 0, 0, SRCCOPY);

@@ -6,7 +6,6 @@
 #include "WaveNotify.h"
 #include "AcfSpgWnd.h"
 #include "fft.h"
-#include <afxmt.h>
 
 // CAcfRealtimeDlg ダイアログ
 

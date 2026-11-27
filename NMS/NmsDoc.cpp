@@ -324,7 +324,7 @@ BOOL CNmsDoc::CalcFactor(int nCalcCounter)
 	HWAVEDATA hWaveData;
 	CString tempFileName;
 	tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, nCalcCounter);
-	if (MMWaveReadFile(&hWaveData, (LPSTR)(LPCSTR)tempFileName) != 0)
+	if (MMWaveReadFile(&hWaveData, tempFileName) != 0)
 		return FALSE;
 
 	PWAVEDATA pWaveData = (PWAVEDATA)::GlobalLock(hWaveData);

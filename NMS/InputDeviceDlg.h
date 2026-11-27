@@ -5,7 +5,6 @@
 #include "MyCtrl.h"
 #include "FileIO.h"
 #include "WaveNotify.h"
-#include <mmsystem.h>
 
 #define MAX_CONTROL_ID	20
 #define N_MEAN	5

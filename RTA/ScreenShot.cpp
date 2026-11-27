@@ -60,7 +60,7 @@ void CScreenShot::OutputImageFile(CWnd *pWnd, CBitmap &bitmap)
 	if (dlg.DoModal() == IDOK) {
 		HANDLE hDIB;
 		MMPictureGetBitmap(&hDIB, (HBITMAP)bitmap.m_hObject);
-		MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
+		MMPictureWriteFile(hDIB, dlg.GetPathName());
 	}
 }
 

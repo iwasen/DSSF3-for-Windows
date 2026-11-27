@@ -104,7 +104,7 @@ void CAcf3dd::SetBitmap()
 	m_nScaleHeight = m_nScaleBottom2 - m_nScaleTop;
 
 	m_nTimeDataNum = g_oSetData.Acf.nTimeDataNum;
-	m_dx = (m_nScaleWidth / 4.5) / max(m_nTimeDataNum, 1);
+	m_dx = (m_nScaleWidth / 4.5) / std::max(m_nTimeDataNum, 1);
 	if (m_dx >= 1) {
 		m_dx = (int)m_dx;
 		m_dy = (int)(m_dx * 5 / 3);

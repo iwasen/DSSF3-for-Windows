@@ -110,8 +110,8 @@ void CDstLevelWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, in
 
 	m_dcMem.SelectObject(&m_Font);
 
-	const int nLevelMin = min(nLevelStart, nLevelEnd);
-	const int nLevelMax = max(nLevelStart, nLevelEnd);
+	const int nLevelMin = std::min(nLevelStart, nLevelEnd);
+	const int nLevelMax = std::max(nLevelStart, nLevelEnd);
 
 	if (nLevelMin != nLevelMax) {
 		const int nStep = GetLinearScaleStep(nLevelMax, nLevelMin, (int)(m_nScaleWidth * 0.6));
@@ -256,8 +256,8 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 {
 	int i;
 	int x, y;
-	const int nLevelMin = min(nLevelStart, nLevelEnd);
-	const int nLevelMax = max(nLevelStart, nLevelEnd);
+	const int nLevelMin = std::min(nLevelStart, nLevelEnd);
+	const int nLevelMax = std::max(nLevelStart, nLevelEnd);
 	const double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
 	const int nDotSize = (m_nScaleWidth / nLevelPoint < 10) ? 2 : 3;
 	POINT *pPoint = new POINT[nLevelCount];
@@ -299,8 +299,8 @@ void CDstLevelWnd::DrawLine(const double *pData, const double *pLevel, int nLeve
 		delete[] yp;
 		delete[] xp;
 
-		const int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
-		const int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int x1 = std::min(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int x2 = std::max(pPoint[0].x, pPoint[nPointCnt - 1].x);
 		const int nSpline = x2 - x1;
 
 		POINT *pSpline = new POINT[nSpline];

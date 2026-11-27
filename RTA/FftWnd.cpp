@@ -494,7 +494,7 @@ void CFftWnd::SetMinMax(const FFTWINDOW *pFftWindow)
 {
 	if (g_oSetData.Fft.bFftAutoFreq || pFftWindow->m_nMode == FFT_MODE_OCT) {
 		m_nMaxFreq = g_oSetData.Fft.nSamplingRate / 2;
-		m_nMinFreq = max(20, g_oSetData.Fft.nSamplingRate / g_oSetData.Fft.nFftSize);
+		m_nMinFreq = std::max(20, g_oSetData.Fft.nSamplingRate / g_oSetData.Fft.nFftSize);
 	} else {
 		m_nMaxFreq = g_oSetData.Fft.nFftMaxFreq;
 		if (g_oSetData.Fft.nFftScale == 0 && g_oSetData.Fft.nFftMinFreq == 0)

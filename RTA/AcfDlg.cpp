@@ -453,7 +453,7 @@ BOOL CAcfDlg::WaveInData(LPWAVENOTIFY pWaveNotify)
 	if (m_pWaveBuf == NULL)
 		return FALSE;
 
-	const int len = min(pWaveNotify->nSamplesRecorded * m_nChannel, m_nWaveBufSize - m_nWaveBufCount);
+	const int len = std::min(pWaveNotify->nSamplesRecorded * m_nChannel, m_nWaveBufSize - m_nWaveBufCount);
 	memcpy(&m_pWaveBuf[m_nWaveBufCount], pWaveNotify->pSamplesData, len * sizeof(double));
 	m_cGraphWave.DispGraph2(m_pWaveBuf, m_nWaveBufSize, m_nChannel, m_nDispChannel, m_nWaveBufCount, len);
 	m_nWaveBufCount += len;
@@ -476,7 +476,7 @@ int CAcfDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 		m_cGraphWave.SetReplayPosition(fReplayTime);
 	}
 
-	const int len = min(WAVEOUT_SAMPLESPERBUFFER, m_nWaveOutEndCount - m_nWaveOutCount);
+	const int len = std::min(WAVEOUT_SAMPLESPERBUFFER, m_nWaveOutEndCount - m_nWaveOutCount);
 	memcpy(pWaveNotify->pSamplesData, &m_pWaveBuf[m_nWaveOutCount], len * sizeof(double));
 	m_nWaveOutCount += len;
 
@@ -486,7 +486,7 @@ int CAcfDlg::WaveOutData(LPWAVENOTIFY pWaveNotify)
 void CAcfDlg::SetRingBuf(const double *pData, int nData)
 {
 	while (nData > 0) {
-		int len = min(nData, m_nRingBufSize - m_nRingBufPtr);
+		int len = std::min(nData, m_nRingBufSize - m_nRingBufPtr);
 		for (int i = 0; i < len; i++) {
 			m_pRingBuf[m_nRingBufPtr++] = pData[m_nDispChannel];
 			nData--;
@@ -588,7 +588,7 @@ void CAcfDlg::OnChangeCalcCycle()
 void CAcfDlg::OnChangeTimeDataNum()
 {
 	if (m_cTimeDataNum.m_hWnd != NULL)
-		g_oSetData.Acf.nTimeDataNum = max((int)m_cTimeDataNum, 1);
+		g_oSetData.Acf.nTimeDataNum = std::max((int)m_cTimeDataNum, 1);
 	EnableRedraw();
 }
 
@@ -997,8 +997,8 @@ void CAcfDlg::OnReplay()
 {
 	if (m_cReplay.GetCheck() == 0) {
 		m_pWaveIn->Close();
-		m_nWaveOutCount = min((int)(m_fSelectStart * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
-		m_nWaveOutEndCount = min((int)(m_fSelectEnd * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
+		m_nWaveOutCount = std::min((int)(m_fSelectStart * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
+		m_nWaveOutEndCount = std::min((int)(m_fSelectEnd * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
 		m_nReplayPos = m_nWaveOutCount;
 		if (m_pWaveOut->Open(g_nWaveOutDevice, this, m_nChannel, m_nSamplingRate, WAVEOUT_SAMPLESPERBUFFER, WAVEOUT_BUFNUM, TRUE, FALSE))
 			m_pWaveOut->Start();
@@ -1011,8 +1011,8 @@ void CAcfDlg::OnCut()
 	if (m_pWaveBuf == NULL)
 		return;
 
-	const int nSelectStart = min((int)(m_fSelectStart * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
-	const int nSelectEnd = min((int)(m_fSelectEnd * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
+	const int nSelectStart = std::min((int)(m_fSelectStart * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
+	const int nSelectEnd = std::min((int)(m_fSelectEnd * m_nSamplingRate * m_nChannel), m_nWaveBufSize);
 	const int nSample = nSelectEnd - nSelectStart;
 
 	if (nSample <= 0)
@@ -1063,7 +1063,7 @@ void CAcfDlg::DispSelectArea(double fSelectStart, double fSelectEnd)
 
 void CAcfDlg::SetTimeDataNum(double fTime)
 {
-	m_cTimeDataNum = max((int)((fTime - g_oSetData.Acf.fIntegrationTime) / g_oSetData.Acf.fCalcCycle) + 1, 0);
+	m_cTimeDataNum = std::max((int)((fTime - g_oSetData.Acf.fIntegrationTime) / g_oSetData.Acf.fCalcCycle) + 1, 0);
 }
 
 void CAcfDlg::OnChangeSelectStart()
@@ -1232,7 +1232,7 @@ BOOL CAcfDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

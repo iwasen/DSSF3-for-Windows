@@ -255,7 +255,7 @@ void CImpulseDlg::StartMeasuring()
 		return;
 	}
 
-	m_nWaveBufNum = min(1024, m_nData);
+	m_nWaveBufNum = std::min(1024, m_nData);
 
 	m_pCheckBuf = new double[m_nData];
 	m_nCheckCount = 0;
@@ -509,7 +509,7 @@ void CImpulseDlg::EndProcess()
 	}
 
 	if (g_oSetData.Imp.bAutoRetry) {
-		const int nCheckDataNum = min(m_nData, CHECK_DATA_NUM);
+		const int nCheckDataNum = std::min(m_nData, CHECK_DATA_NUM);
 		const double *pCheck1 = m_pLeftInputData + (m_nData - nCheckDataNum);
 		const double *pCheck2 = m_pCheckBuf + (m_nData - nCheckDataNum);
 
@@ -939,7 +939,7 @@ void CImpulseDlg::LoadWaveFile(LPCSTR pFileName)
 					st.m_mtime.GetHour(), st.m_mtime.GetMinute(), st.m_mtime.GetSecond());
 
 	HWAVEDATA hWaveData;
-	if (MMWaveReadFile(&hWaveData, (LPSTR)pFileName) != 0) {
+	if (MMWaveReadFile(&hWaveData, pFileName) != 0) {
 		::AfxMessageBox(IDS_ERR_READWAVEFILE, MB_OK | MB_ICONEXCLAMATION);
 		return;
 	}
@@ -1057,7 +1057,7 @@ void CImpulseDlg::WaveFileOut()
 		return;
 	}
 
-	if (MMWaveWriteFile(hWaveData, (LPSTR)(LPCSTR)fileDlg.GetPathName()) != 0)
+	if (MMWaveWriteFile(hWaveData, fileDlg.GetPathName()) != 0)
 		::AfxMessageBox(IDS_ERR_WRITEWAVEFILE, MB_OK | MB_ICONEXCLAMATION);
 
 	::GlobalFree(hWaveData);
@@ -1116,7 +1116,7 @@ void CImpulseDlg::InverseConvolution(double *pWaveData, int nWaveData, const dou
 	int i, j;
 	double t;
 	double xt1, yt1, xt2, yt2;
-	const int nData = min(nWaveData, nImpulseData);
+	const int nData = std::min(nWaveData, nImpulseData);
 	const int nLoop = nWaveData / 2;
 
 	double *pFilterData = new double[nWaveData];
@@ -1406,7 +1406,7 @@ BOOL CImpulseDlg::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

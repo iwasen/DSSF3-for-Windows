@@ -1053,7 +1053,7 @@ BOOL CDbNsTmp::StoreRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 	}
 
 	if (pNsTmpData != NULL) {
-		if ((err = DBWriteBinary("NSTMPDATA", (LPCVOID)pNsTmpData, sizeof(NsTmpData))) != 0) {
+		if ((err = DBWriteBinary("NSTMPDATA", pNsTmpData, sizeof(NsTmpData))) != 0) {
 			ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
 			return FALSE;
 		}
@@ -1075,7 +1075,7 @@ BOOL CDbNsTmp::UpdateRec(const DbNsTmpRec *pDbRec, const NsTmpData *pNsTmpData)
 	}
 
 	if (pNsTmpData != NULL) {
-		if ((err = DBWriteBinary("NSTMPDATA", (LPCVOID)pNsTmpData, sizeof(NsTmpData))) != 0) {
+		if ((err = DBWriteBinary("NSTMPDATA", pNsTmpData, sizeof(NsTmpData))) != 0) {
 			ErrorMessage(IDS_ERR_WRITENSTMPFILE, err);
 			return FALSE;
 		}
@@ -1224,17 +1224,17 @@ BOOL CDbAcParam::StoreRec(DbAcParamRec *pDbRec)
 		return FALSE;
 	}
 
-	if ((err = DBWriteBinary("CONDITION", (LPCVOID)&pDbRec->dbAcParamCond, sizeof(DbAcParamCond))) != 0) {
+	if ((err = DBWriteBinary("CONDITION", &pDbRec->dbAcParamCond, sizeof(DbAcParamCond))) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
 		return FALSE;
 	}
 
-	if ((err = DBWriteBinary("RESULT", (LPCVOID)&pDbRec->dbAcParamResult, sizeof(DbAcParamResult))) != 0) {
+	if ((err = DBWriteBinary("RESULT", &pDbRec->dbAcParamResult, sizeof(DbAcParamResult))) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
 		return FALSE;
 	}
 
-	if ((err = DBWriteBinary("DATA", (LPCVOID)&pDbRec->dbAcParamData, sizeof(DbAcParamData) * pDbRec->nDataNum)) != 0) {
+	if ((err = DBWriteBinary("DATA", &pDbRec->dbAcParamData, sizeof(DbAcParamData) * pDbRec->nDataNum)) != 0) {
 		ErrorMessage(IDS_ERR_WRITECALCFILE, err);
 		return FALSE;
 	}

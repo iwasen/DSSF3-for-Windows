@@ -1078,7 +1078,7 @@ void CAcfFactor::OnScreenCopy()
 			if (dlg.DoModal() == IDOK) {
 				HDIB hDIB = ScreenCopy();
 				if (hDIB != NULL) {
-					MMPictureWriteFile(hDIB, (LPSTR)(LPCSTR)dlg.GetPathName());
+					MMPictureWriteFile(hDIB, dlg.GetPathName());
 					::GlobalFree(hDIB);
 				}
 			}
@@ -1390,7 +1390,7 @@ BOOL CAcfFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

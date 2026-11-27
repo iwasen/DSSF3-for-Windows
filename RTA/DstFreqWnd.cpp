@@ -110,8 +110,8 @@ void CDstFreqWnd::DrawScaleDst(int nLeft, int nTop, int nRight, int nBottom, int
 
 	m_dcMem.SelectObject(&m_Font);
 
-	const int nFreqMin = min(nFreqStart, nFreqEnd);
-	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const int nFreqMin = std::min(nFreqStart, nFreqEnd);
+	const int nFreqMax = std::max(nFreqStart, nFreqEnd);
 	const double fLogFreqMin = log((double)nFreqMin);
 	const double fLogFreqMax = log((double)nFreqMax);
 
@@ -263,8 +263,8 @@ void CDstFreqWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCo
 {
 	int i;
 	int x, y;
-	const int nFreqMin = min(nFreqStart, nFreqEnd);
-	const int nFreqMax = max(nFreqStart, nFreqEnd);
+	const int nFreqMin = std::min(nFreqStart, nFreqEnd);
+	const int nFreqMax = std::max(nFreqStart, nFreqEnd);
 	const double fLogFreqMin = log((double)nFreqMin);
 	const double fLogFreqMax = log((double)nFreqMax);
 	const double yStep = (double)m_nScaleHeight / (g_oSetData.Dst.nScaleMin - g_oSetData.Dst.nScaleMax);
@@ -314,8 +314,8 @@ void CDstFreqWnd::DrawLine(const double *pData, const double *pFreq, int nFreqCo
 		delete[] yp;
 		delete[] xp;
 
-		const int x1 = min(pPoint[0].x, pPoint[nPointCnt - 1].x);
-		const int x2 = max(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int x1 = std::min(pPoint[0].x, pPoint[nPointCnt - 1].x);
+		const int x2 = std::max(pPoint[0].x, pPoint[nPointCnt - 1].x);
 		const int nSpline = x2 - x1;
 
 		POINT *pSpline = new POINT[nSpline];

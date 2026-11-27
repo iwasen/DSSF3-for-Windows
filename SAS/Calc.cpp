@@ -7,7 +7,6 @@
 #include "Regress.h"
 #include "MakeFilter.h"
 #include "SetData.h"
-#include <numbers>
 
 #define BANDWIDTH 1.1224620483094	// pow(2.0, 1.0 / 6)
 

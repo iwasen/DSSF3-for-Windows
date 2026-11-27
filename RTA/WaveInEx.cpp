@@ -3,7 +3,6 @@
 #include "WaveInEx.h"
 #include "AsioManager.h"
 #include "WasapiManager.h"
-#include <shlobj.h>
 
 CObList CWaveInEx::s_WaveInList;
 IWaveNotify *CWaveInEx::s_pMonitorWnd;

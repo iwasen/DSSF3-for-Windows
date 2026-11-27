@@ -369,7 +369,7 @@ BOOL CMeasurement::SaveSampleData()
 
 	CString tempFileName;
 	tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, m_nSaveCounter);
-	if (MMWaveWriteFile(hWaveData, (LPCSTR)tempFileName) != 0) {
+	if (MMWaveWriteFile(hWaveData, tempFileName) != 0) {
 		::GlobalFree(hWaveData);
 		return FALSE;
 	}

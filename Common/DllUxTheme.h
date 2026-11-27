@@ -1,7 +1,6 @@
 #pragma once
 
 #include "dllcall.h"
-#include <uxtheme.h>
 
 class CDllUxTheme : public CDllCall
 {

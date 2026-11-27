@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Directory.h"
-#include <shlobj.h>
 #include <shlwapi.h>
 
 #if defined(_LANG_JPN)

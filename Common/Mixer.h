@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mmsystem.h>
-
 extern DWORD_PTR dwMixerInDevice;
 extern DWORD_PTR dwMixerOutDevice;
 extern DWORD dwMixerOutMasterLineID;

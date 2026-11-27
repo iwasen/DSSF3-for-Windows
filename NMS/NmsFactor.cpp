@@ -409,7 +409,7 @@ void CNmsFactor::OnPlayBack()
 
 	CString tempFileName;
 	tempFileName.Format("%s\\%d.WAV", (LPCSTR)g_sTempDir, m_nIndex);
-	if (MMWaveReadFile(&m_hWaveData, (LPSTR)(LPCSTR)tempFileName) == 0)
+	if (MMWaveReadFile(&m_hWaveData, tempFileName) == 0)
 		m_cPlayBackBtn.Play(m_hWaveData);
 }
 
@@ -435,7 +435,7 @@ BOOL CNmsFactor::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

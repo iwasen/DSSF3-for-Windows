@@ -27,9 +27,9 @@ void CFilterWnd::DispGraph(const CDigitalFilter &cDigitalFilter, int minFreq, in
 	const double fMaxFreqLog = log((double)maxFreq);
 	const double fMinFreqLog = log((double)minFreq);
 	for (int i = 0; i < m_nScaleWidth; i++) {
-		int x = m_nScaleLeft + i;
-		double fLevel = cDigitalFilter.GetLevel(exp(fMinFreqLog + (fMaxFreqLog - fMinFreqLog) * i / m_nScaleWidth));
-		int y = m_nScaleTop + (int)((dB20(fLevel) - maxLevel) * fStepY + 0.5);
+		const int x = m_nScaleLeft + i;
+		const double fLevel = cDigitalFilter.GetLevel(exp(fMinFreqLog + (fMaxFreqLog - fMinFreqLog) * i / m_nScaleWidth));
+		const int y = m_nScaleTop + (int)((dB20(fLevel) - maxLevel) * fStepY + 0.5);
 		if (i == 0)
 			m_dcMem.MoveTo(x, y);
 		else

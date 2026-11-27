@@ -257,7 +257,7 @@ void CGraphParam::DispParamWindow()
 		pTitle = str;
 		nRemark = 1;
 		str2 = str + " [ms]";
-		vAxis = (LPSTR)(LPCSTR)str2;
+		vAxis = str2;
 		break;
 	case ITEM_WIACC:
 		if (m_pDbImpulseRec->nChannel == 2) {
@@ -501,7 +501,7 @@ BOOL CGraphParam::OnHelpInfo(HELPINFO* pHelpInfo)
 		0
 	};
 
-	::DispContextHelp(pHelpInfo, aIDs);
+	DispContextHelp(pHelpInfo, aIDs);
 
 	return TRUE;
 }

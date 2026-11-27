@@ -520,10 +520,10 @@ void COsWin::DispXY(const double *pData, int nData, double fLevelL, double fLeve
 	yMax++;
 
 	RECT rect{
-		.left = min(xMin, xMin),
-		.top = min(yMin, yMin),
-		.right = max(xMax, xMax),
-		.bottom = max(yMax, yMax)
+		.left = std::min(xMin, xMin),
+		.top = std::min(yMin, yMin),
+		.right = std::max(xMax, xMax),
+		.bottom = std::max(yMax, yMax)
 	};
 	InvalidateRect(&rect, FALSE);
 }
@@ -637,7 +637,7 @@ void COsWin::AllocOverlayWave()
 	FreeOverlayBuf();
 
 	m_nOverlaySize = m_nScaleWidth * 2 + 2;
-	m_nOverlayNum = max(g_oSetData.Os.nOverlay, 1);
+	m_nOverlayNum = std::max(g_oSetData.Os.nOverlay, 1);
 
 	double t;
 	int r, g, b;
@@ -675,7 +675,7 @@ void COsWin::AllocOverlayXY(int nData)
 	FreeOverlayBuf();
 
 	m_nOverlaySize = nData;
-	m_nOverlayNum = max(g_oSetData.Os.nOverlay, 1);
+	m_nOverlayNum = std::max(g_oSetData.Os.nOverlay, 1);
 
 	m_pOverlayBufXY = new POINT [m_nOverlaySize * m_nOverlayNum];
 	m_pOverlayCntXY = new int[m_nOverlayNum];

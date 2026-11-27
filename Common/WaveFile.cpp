@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <mmsystem.h>
-#include <mmreg.h>
 #include "wavefile.h"
 #include "common.h"
 
@@ -151,7 +149,7 @@ BOOL CWaveFile::SearchChunk(DWORD ckID, DWORD *ckSize)
 			break;
 		}
 
-		DWORD size = (chunk.ckSize + 1) & ~0x01L;
+		const DWORD size = (chunk.ckSize + 1) & ~0x01L;
 		m_oWaveFile.Seek(size, CFile::current);
 	}
 

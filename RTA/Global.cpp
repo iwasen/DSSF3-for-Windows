@@ -4,7 +4,6 @@
 #include "WaveOutEx.h"
 #include "Mrnd.h"
 #include "DssData.h"
-#include <shlobj.h>
 
 CSetData g_oSetData;
 CSetData2 g_oSetData2;

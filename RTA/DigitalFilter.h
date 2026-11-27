@@ -12,12 +12,9 @@
 //		2007.12.17 S.Aizawa 新規作成
 //*****************************************************************************************************
 
-#include <complex>
-using namespace std;
-
-const int MAX_ORDER = 20;				// 次数の最大値
-const int MAX_COEF = MAX_ORDER + 1;		// 係数の最大数
-const int A_SIZE = MAX_ORDER * 2 + 2;	// 極と零点の最大数
+constexpr int MAX_ORDER = 20;				// 次数の最大値
+constexpr int MAX_COEF = MAX_ORDER + 1;		// 係数の最大数
+constexpr int A_SIZE = MAX_ORDER * 2 + 2;	// 極と零点の最大数
 
 // フィルタ特性
 enum EDFShape {
@@ -42,9 +39,9 @@ public:
 	double GetLevel(double fFreq) const;
 
 protected:
-	static const complex<double> m_aBesselTable[];
-	complex<double> s_pz[A_SIZE];
-	complex<double> z_pz[A_SIZE];
+	static const std::complex<double> m_aBesselTable[];
+	std::complex<double> s_pz[A_SIZE];
+	std::complex<double> z_pz[A_SIZE];
 	double ak[MAX_COEF];
 	double bk[MAX_COEF];
 	double akm[2][MAX_COEF / 2];

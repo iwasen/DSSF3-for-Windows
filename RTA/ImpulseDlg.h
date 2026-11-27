@@ -7,7 +7,6 @@
 #include "fft.h"
 #include "PlaybackBtn.h"
 #include "MyCtrl.h"
-#include "afxwin.h"
 
 class CImpulseDlg : public CBaseDlg, public IWaveNotify
 {

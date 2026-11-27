@@ -3,7 +3,6 @@
 #include "pcscl.h"
 #include "mmdb.h"
 #include "DllUxTheme.h"
-#include <ddeml.h>
 
 // ビルドバージョン
 //#define BUILD_DEV

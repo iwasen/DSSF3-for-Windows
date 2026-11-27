@@ -178,7 +178,7 @@ AllFactorData *CalcAcfFactor2(HWAVEDATA hWaveData, int nWaveData,
 			}
 		}
 
-		const int nOffset = (int)(i * fStepSize);
+		const int nOffset = static_cast<int>(i * fStepSize);
 
 		// ACF計算
 		double *pFft = CalcAcf1(pWaveBuf1 + nOffset, nIntegrationSize1, nIntegrationSize2, nFftSize, pFilterTbl);
@@ -259,8 +259,6 @@ double *CalcAcf1(const double *pWaveBuf, int nDataNum1, int nDataNum2, int nFftS
 
 double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, int nFftSize, const double *pFilterTbl)
 {
-	int i;
-
 	// FFT ワークバッファ確保
 	double *pAcfBuf1 = new double[nFftSize];
 	double *pAcfBuf2 = new double[nFftSize];
@@ -279,7 +277,7 @@ double CalcSPL(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, i
 	pAcfBuf1[0] = 0;
 	pAcfBuf1[1] = 0;
 	double fSPL = 0;
-	for (i = 1; i < nFftSize / 2; i++) {
+	for (int i = 1; i < nFftSize / 2; i++) {
 		int j = i * 2;
 
 		double m = pFilterTbl[i] / nDataNum;
@@ -316,7 +314,7 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 		pData[i] /= fPhi0;
 
 	// Φ(0)取得
-	pAcfFactor->fPhi0 = (float)dB10(fPhi0);
+	pAcfFactor->fPhi0 = static_cast<float>dB10(fPhi0);
 
 	// τn φn 取得
 	memset(pTaunPhinData, 0, sizeof(TaunPhinData));
@@ -332,8 +330,8 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 				nPeakPos = i;
 		}
 		if (nPeakPos != 0) {
-			pTaunPhinData->fTaun[n] = (float)(nPeakPos / fSamplingRate);
-			pTaunPhinData->fPhin[n] = (float)pData[nPeakPos];
+			pTaunPhinData->fTaun[n] = static_cast<float>(nPeakPos / fSamplingRate);
+			pTaunPhinData->fPhin[n] = static_cast<float>(pData[nPeakPos]);
 			n++;
 		}
 	}
@@ -384,8 +382,8 @@ void GetAcfFactor(const AcfCondition *pAcfCondition, AcfFactor *pAcfFactor, Taun
 	}
 	double reg0, reg1;
 	Regress2x(peakTime, peakData, n, &reg0, &reg1);
-	pAcfFactor->fTauE = (float)((-10 - reg0) / reg1);
-	pAcfFactor->fTauE0 = (float)reg0;
+	pAcfFactor->fTauE = static_cast<float>((-10 - reg0) / reg1);
+	pAcfFactor->fTauE0 = static_cast<float>(reg0);
 }
 
 double *CalcIAcf(const double *pWaveBuf1, const double *pWaveBuf2, int nDataNum, int nFftSize, const double *pFilterTbl)
@@ -448,13 +446,13 @@ void GetIAcfFactor(const IAcfCondition *pIAcfCondition, IAcfFactor *pIAcfFactor,
 		}
 	}
 
-	pIAcfFactor->fSPL = (float)dB10(fSPL);
+	pIAcfFactor->fSPL = static_cast<float>dB10(fSPL);
 
-	pIAcfFactor->fIACC = (float)(fIACC / fSPL);
+	pIAcfFactor->fIACC = static_cast<float>(fIACC / fSPL);
 	if (pIAcfFactor->fIACC > 1.0)
 		pIAcfFactor->fIACC = 1.0;
 
-	pIAcfFactor->fTauIACC = (float)((nIACCPos - nData / 2) / fSamplingRate);
+	pIAcfFactor->fTauIACC = static_cast<float>((nIACCPos - nData / 2) / fSamplingRate);
 
 	const double wLevel = (1 - pIAcfCondition->fIACCWLevel) * fIACC;
 	int wPos1 = 0;
@@ -475,8 +473,8 @@ void GetIAcfFactor(const IAcfCondition *pIAcfCondition, IAcfFactor *pIAcfFactor,
 	}
 	const double wt2 = (wPos2 - nIACCPos - (wLevel - pData[wPos2]) / (pData[wPos2 - 1] - pData[wPos2])) / fSamplingRate;
 
-	pIAcfFactor->fWIACC = (float)(wt1 + wt2);
-	pIAcfFactor->fWIACC1 = (float)wt1;
+	pIAcfFactor->fWIACC = static_cast<float>(wt1 + wt2);
+	pIAcfFactor->fWIACC1 = static_cast<float>(wt1);
 }
 
 double GetAdjustPhi0(long folderID, long nPhi0RefData, double fPhi0RefLevel)
@@ -587,13 +585,13 @@ long CalcNoiseSource(const NmsFactorData *pNmsFactorData, int nNmsFactorData, No
 			double fdTotal = fdPhi0 + fdTaue + fdTau1 + fdPhi1 + fdIACC + fdTIACC + fdWIACC;
 			if (fdTotal < fdMin) {
 				fdMin = fdTotal;
-				pNoiseSrcData->fdPhi0 = (float)fdPhi0;
-				pNoiseSrcData->fdTauE = (float)fdTaue;
-				pNoiseSrcData->fdTau1 = (float)fdTau1;
-				pNoiseSrcData->fdPhi1 = (float)fdPhi1;
-				pNoiseSrcData->fdIACC = (float)fdIACC;
-				pNoiseSrcData->fdTIACC = (float)fdTIACC;
-				pNoiseSrcData->fdWIACC = (float)fdWIACC;
+				pNoiseSrcData->fdPhi0 = static_cast<float>(fdPhi0);
+				pNoiseSrcData->fdTauE = static_cast<float>(fdTaue);
+				pNoiseSrcData->fdTau1 = static_cast<float>(fdTau1);
+				pNoiseSrcData->fdPhi1 = static_cast<float>(fdPhi1);
+				pNoiseSrcData->fdIACC = static_cast<float>(fdIACC);
+				pNoiseSrcData->fdTIACC = static_cast<float>(fdTIACC);
+				pNoiseSrcData->fdWIACC = static_cast<float>(fdWIACC);
 				strcpy_s(pNoiseSrcData->aName, dbNsTmpRec.sName);
 				nNoiseTmpID = dbNsTmpRec.nNsTmpID;
 			}

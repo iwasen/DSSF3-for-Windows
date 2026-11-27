@@ -1,5 +1,4 @@
 #pragma once
-#include "afxcmn.h"
 
 // CDataRestoreDlg ダイアログ
 
